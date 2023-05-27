@@ -1,2 +1,5 @@
-// eslint-disable-next-line no-console
-console.log('test');
+import React from 'react';
+import { render } from 'react-dom';
+import { Root } from './components/root/root';
+
+render(<Root />, document.getElementById('app'));
