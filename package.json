@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "description": "An application using React and Material UI designed to be used as a starting point for the 2023 Code The Way program.",
   "main": "src/index.js",
+  "scripts": {
+    "eslint": "eslint ./",
+    "eslint:fix": "eslint ./ --fix"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/joeyschroeder/code-the-way-2023.git"
@@ -12,11 +16,18 @@
   "bugs": {
     "url": "https://github.com/joeyschroeder/code-the-way-2023/issues"
   },
-  "homepage": "https://github.com/joeyschroeder/code-the-way-2023#readme"
+  "homepage": "https://github.com/joeyschroeder/code-the-way-2023#readme",
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/preset-env": "^7.22.2",
     "@babel/preset-react": "^7.22.3",
+    "eslint": "^8.41.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "prettier": "^2.8.8"
   }
 }
