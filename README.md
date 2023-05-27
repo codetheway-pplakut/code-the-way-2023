@@ -3,9 +3,6 @@
 [![GitHub stars](https://img.shields.io/github/stars/joeyschroeder/code-the-way-2023.svg)](https://github.com/joeyschroeder/code-the-way-2023/stargazers)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-# 🌈 code-the-way-2023
-An application using [React](https://reactjs.org/) and [Material UI](https://mui.com/) designed to be used as a starting point for the 2023 [Code The Way](https://www.codetheway.org/) program.
-
 - [🌈 code-the-way-2023](#-code-the-way-2023)
   - [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
@@ -27,6 +24,9 @@ An application using [React](https://reactjs.org/) and [Material UI](https://mui
     - [`stylelint:fix`](#stylelintfix)
   - [Authors](#authors)
   - [Acknowledgments](#acknowledgments)
+
+# 🌈 code-the-way-2023
+An application using [React](https://reactjs.org/) and [Material UI](https://mui.com/) designed to be used as a starting point for the 2023 [Code The Way](https://www.codetheway.org/) program.
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development. See deployment for notes on how to deploy the project on a production environment.
