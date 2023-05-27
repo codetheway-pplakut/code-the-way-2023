@@ -3,30 +3,30 @@
 [![GitHub stars](https://img.shields.io/github/stars/joeyschroeder/code-the-way-2023.svg)](https://github.com/joeyschroeder/code-the-way-2023/stargazers)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-- [🌈 code-the-way-2023](#-code-the-way-2023)
-  - [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-      - [Node.js \& Node Package Manager (npm)](#nodejs--node-package-manager-npm)
-    - [Installation](#installation)
-  - [Development](#development)
-    - [Webpack Dev Server](#webpack-dev-server)
-      - [Hot Reloading](#hot-reloading)
-    - [ESLint and Prettier.io](#eslint-and-prettierio)
-      - [Fix ESLint and Prettier errors/warnings on Save](#fix-eslint-and-prettier-errorswarnings-on-save)
-    - [Committing](#committing)
-  - [Scripts](#scripts)
-    - [`build`](#build)
-    - [`clean`](#clean)
-    - [`eslint`](#eslint)
-    - [`eslint:fix`](#eslintfix)
-      - [`start`](#start)
-    - [`stylelint`](#stylelint)
-    - [`stylelint:fix`](#stylelintfix)
-  - [Authors](#authors)
-  - [Acknowledgments](#acknowledgments)
-
 # 🌈 code-the-way-2023
 An application using [React](https://reactjs.org/) and [Material UI](https://mui.com/) designed to be used as a starting point for the 2023 [Code The Way](https://www.codetheway.org/) program.
+
+## Table of Contents
+1. [Getting Started](#getting-started)
+  1. [Prerequisites](#prerequisites)
+      1. [Node.js \& Node Package Manager (npm)](#nodejs--node-package-manager-npm)
+  2. [Installation](#installation)
+2. [Development](#development)
+  1. [Webpack Dev Server](#webpack-dev-server)
+      1. [Hot Reloading](#hot-reloading)
+  2. [ESLint and Prettier.io](#eslint-and-prettierio)
+      1. [Fix ESLint and Prettier errors/warnings on Save](#fix-eslint-and-prettier-errorswarnings-on-save)
+  3. [Committing](#committing)
+3. [Scripts](#scripts)
+  1. [`build`](#build)
+  2. [`clean`](#clean)
+  3. [`eslint`](#eslint)
+  4. [`eslint:fix`](#eslintfix)
+  5. [`start`](#start)
+  6. [`stylelint`](#stylelint)
+  7. [`stylelint:fix`](#stylelintfix)
+4. [Authors](#authors)
+5. [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development. See deployment for notes on how to deploy the project on a production environment.
@@ -162,7 +162,7 @@ This command runs `eslint src/`. It prints eslint warnings and errors in the com
 ### `eslint:fix`
 This command runs `eslint --fix src/`. It attempts to fix any eslint warnings/errors then prints the remaining warnings and errors in the command line.
 
-#### `start`
+### `start`
 This command runs `webpack-dev-server` in "development" mode on the documentation. Hot reloading is enabled. Once running, you can access the documentation running locally at [localhost:9090/](http://localhost:9090/).
 
 ### `stylelint`
