@@ -1,0 +1,16 @@
+{
+  "name": "code-the-way-2023",
+  "version": "0.0.1",
+  "description": "An application using React and Material UI designed to be used as a starting point for the 2023 Code The Way program.",
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joeyschroeder/code-the-way-2023.git"
+  },
+  "author": "Joey Schroeder <schrjos@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joeyschroeder/code-the-way-2023/issues"
+  },
+  "homepage": "https://github.com/joeyschroeder/code-the-way-2023#readme"
+}
