@@ -16,10 +16,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": [
-          "./webpack.config.babel.js",
-          "./webpack/**/*.js"
-        ]
+        "devDependencies": ["./webpack.config.js", "./webpack/**/*.js"]
       }
     ],
     "import/no-import-module-exports": [0],

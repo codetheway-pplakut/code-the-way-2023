@@ -4,8 +4,10 @@
   "description": "An application using React and Material UI designed to be used as a starting point for the 2023 Code The Way program.",
   "main": "src/index.js",
   "scripts": {
+    "build": "webpack --env production",
     "eslint": "eslint ./",
-    "eslint:fix": "eslint ./ --fix"
+    "eslint:fix": "eslint ./ --fix",
+    "start": "webpack serve --env development"
   },
   "repository": {
     "type": "git",
@@ -22,12 +24,31 @@
     "@babel/eslint-parser": "^7.21.8",
     "@babel/preset-env": "^7.22.2",
     "@babel/preset-react": "^7.22.3",
+    "autoprefixer": "^10.4.14",
+    "babel-loader": "^9.1.2",
+    "buffer": "^6.0.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.7.4",
+    "css-minimizer-webpack-plugin": "^5.0.0",
     "eslint": "^8.41.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^2.8.8"
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "path": "^0.12.7",
+    "postcss": "^8.4.23",
+    "postcss-loader": "^7.3.1",
+    "postcss-scss": "^4.0.6",
+    "prettier": "^2.8.8",
+    "sass": "^1.62.1",
+    "sass-loader": "^13.3.0",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1",
+    "webpack-dev-server": "^4.15.0",
+    "webpack-merge": "^5.9.0"
   }
 }
