@@ -13,4 +13,10 @@
     "url": "https://github.com/joeyschroeder/code-the-way-2023/issues"
   },
   "homepage": "https://github.com/joeyschroeder/code-the-way-2023#readme"
+  "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/eslint-parser": "^7.21.8",
+    "@babel/preset-env": "^7.22.2",
+    "@babel/preset-react": "^7.22.3",
+  }
 }
