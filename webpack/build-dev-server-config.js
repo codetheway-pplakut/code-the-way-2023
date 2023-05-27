@@ -1,3 +1,5 @@
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
 module.exports = {
   buildDevServerConfig: ({ proxy } = {}) => {
     return {
@@ -8,6 +10,11 @@ module.exports = {
         open: false,
         proxy,
       },
+      plugins: [
+        new ReactRefreshWebpackPlugin({
+          overlay: false,
+        }),
+      ],
     };
   },
 };
