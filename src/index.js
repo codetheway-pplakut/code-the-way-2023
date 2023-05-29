@@ -1,7 +1,9 @@
 import '@fontsource/public-sans';
 
 import React from 'react';
-import { render } from 'react-dom';
-import { Root } from './components/root/root';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
+import { ROUTER } from './constants/router';
 
-render(<Root />, document.getElementById('app'));
+const root = createRoot(document.getElementById('app'));
+root.render(<RouterProvider router={ROUTER} />);
