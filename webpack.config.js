@@ -42,13 +42,6 @@ const COMMON_CONFIG = merge([
       ],
     },
   },
-  {
-    resolve: {
-      alias: {
-        '@mui/material': '@mui/joy',
-      },
-    },
-  },
   buildHtmlConfig({
     faviconPath: path.join(__dirname, BASE_DIR, 'src/images/favicon.png'),
     templatePath: path.join(__dirname, BASE_DIR, 'src/templates/main.ejs'),

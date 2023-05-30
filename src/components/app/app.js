@@ -1,15 +1,12 @@
 import React from 'react';
-import { CssVarsProvider } from '@mui/joy/styles';
-import GlobalStyles from '@mui/joy/GlobalStyles';
-import CssBaseline from '@mui/joy/CssBaseline';
-import Box from '@mui/joy/Box';
+import GlobalStyles from '@mui/material/GlobalStyles';
+import CssBaseline from '@mui/material/CssBaseline';
 
 export function App() {
   return (
-    <CssVarsProvider>
+    <React.Fragment>
       <GlobalStyles />
       <CssBaseline />
-      <Box>Test</Box>
-    </CssVarsProvider>
+    </React.Fragment>
   );
 }
