@@ -11,22 +11,24 @@ export function Layout(props) {
   const primaryGridSize = hasSecondary ? 8 : 12;
 
   return (
-    <Container maxWidth={maxWidth}>
+    <Container maxWidth={maxWidth} sx={{ flex: 1, overflowY: 'auto' }}>
       <Box sx={{ pt: 2, pb: 8 }}>
         <LayoutToolbar actions={actions} />
         <LayoutTitle title={title} subTitle={subTitle} />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={primaryGridSize}>
-            {children}
-          </Grid>
-          {hasSecondary && (
+        {!hasSecondary ? (
+          children
+        ) : (
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={primaryGridSize}>
+              {children}
+            </Grid>
             <Grid item xs={12} md={4}>
               <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
                 {secondary}
               </Paper>
             </Grid>
-          )}
-        </Grid>
+          </Grid>
+        )}
       </Box>
     </Container>
   );

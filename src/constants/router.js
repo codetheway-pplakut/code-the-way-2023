@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { App } from '../components/app/app';
 import { Error } from '../components/error/error';
 import { Splash } from '../components/splash/splash';
+import { TabularDemo } from '../components/tabular-demo/tabular-demo';
 
 export const ROUTER = createBrowserRouter(
   [
@@ -12,7 +13,12 @@ export const ROUTER = createBrowserRouter(
       errorElement: <Error />,
       children: [
         {
-          path: '/splash',
+          path: '/tabular-demo',
+          handle: { breadcrumb: 'Tabular Demo' },
+          element: <TabularDemo />,
+        },
+        {
+          path: '/',
           handle: { breadcrumb: 'Splash' },
           element: <Splash />,
         },
