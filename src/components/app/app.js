@@ -11,10 +11,17 @@ export function App() {
   const toggleNavigation = () => setNavigationActive(!navigationActive);
 
   return (
-    <Box sx={{ display: 'flex', height: '100%', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        backgroundColor: 'grey.100',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+      }}
+    >
       <AppBar title="Code The Way" onNavigationClick={toggleNavigation} />
       <Navigation active={navigationActive} onToggle={toggleNavigation} />
-      <Box sx={{ flex: 1 }}>
+      <Box sx={{ flex: 1, display: 'flex', height: '100%', overflowY: 'auto' }}>
         <Outlet />
       </Box>
       <Footer />
