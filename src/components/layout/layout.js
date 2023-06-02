@@ -3,9 +3,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { LayoutToolbar } from './layout-toolbar/layout-toolbar';
 import { LayoutTitle } from './layout-title/layout-title';
+import { LayoutPreloader } from './layout-preloader/layout-preloader';
 
 export function Layout(props) {
-  const { children, subTitle, title, maxWidth, actions, secondary } = props;
+  const { actions, children, isLoading, maxWidth, secondary, subTitle, title } =
+    props;
+
+  if (isLoading) return <LayoutPreloader label="Loading tabular data..." />;
 
   const hasSecondary = Boolean(secondary);
   const primaryGridSize = hasSecondary ? 8 : 12;
@@ -37,6 +41,7 @@ export function Layout(props) {
 Layout.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.node),
   children: PropTypes.node,
+  isLoading: PropTypes.bool,
   maxWidth: PropTypes.string,
   secondary: PropTypes.node,
   subTitle: PropTypes.string,
@@ -46,6 +51,7 @@ Layout.propTypes = {
 Layout.defaultProps = {
   actions: undefined,
   children: null,
+  isLoading: false,
   maxWidth: 'lg',
   secondary: undefined,
   subTitle: undefined,
