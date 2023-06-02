@@ -22,7 +22,7 @@ export function Navigation(props) {
         },
       }}
     >
-      <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'flex-start' }}>
         <IconButton onClick={onToggle}>
           <ChevronLeftIcon />
         </IconButton>
