@@ -7,7 +7,9 @@
     "build": "webpack --env production",
     "eslint": "eslint ./",
     "eslint:fix": "eslint ./ --fix",
-    "start": "webpack serve --env development"
+    "start": "webpack serve --env development",
+    "stylelint": "stylelint '**/*.scss'",
+    "stylelint:fix": "stylelint '**/*.scss --fix'"
   },
   "repository": {
     "type": "git",
@@ -48,6 +50,9 @@
     "sass": "^1.62.1",
     "sass-loader": "^13.3.0",
     "style-loader": "^3.3.3",
+    "stylelint": "^15.6.2",
+    "stylelint-config-standard": "^33.0.0",
+    "stylelint-config-standard-scss": "^9.0.0",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.84.1",
     "webpack-cli": "^5.1.1",
@@ -60,6 +65,7 @@
     "@fontsource/roboto": "^5.0.2",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.2",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2"
