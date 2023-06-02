@@ -1,4 +1,4 @@
-import { Container, Grid, Paper } from '@mui/material';
+import { Box, Container, Grid, Paper } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LayoutToolbar } from './layout-toolbar/layout-toolbar';
@@ -11,21 +11,23 @@ export function Layout(props) {
   const primaryGridSize = hasSecondary ? 8 : 12;
 
   return (
-    <Container maxWidth={maxWidth} sx={{ my: 2 }}>
-      <LayoutToolbar actions={actions} />
-      <LayoutTitle title={title} subTitle={subTitle} />
-      <Grid container spacing={2}>
-        <Grid item xs={12} md={primaryGridSize}>
-          {children}
-        </Grid>
-        {hasSecondary && (
-          <Grid item xs={12} md={4}>
-            <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
-              {secondary}
-            </Paper>
+    <Container maxWidth={maxWidth}>
+      <Box sx={{ pt: 2, pb: 8 }}>
+        <LayoutToolbar actions={actions} />
+        <LayoutTitle title={title} subTitle={subTitle} />
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={primaryGridSize}>
+            {children}
           </Grid>
-        )}
-      </Grid>
+          {hasSecondary && (
+            <Grid item xs={12} md={4}>
+              <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
+                {secondary}
+              </Paper>
+            </Grid>
+          )}
+        </Grid>
+      </Box>
     </Container>
   );
 }
