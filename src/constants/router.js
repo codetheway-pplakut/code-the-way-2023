@@ -1,19 +1,20 @@
 import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { App } from '../components/app/app';
-import { PageNotFound } from '../components/page-not-found/page-not-found';
-import { Layout } from '../components/layout/layout';
+import { Error } from '../components/error/error';
+import { Splash } from '../components/splash/splash';
 
 export const ROUTER = createBrowserRouter(
   [
     {
       path: '/',
       element: <App />,
-      errorElement: <PageNotFound />,
+      errorElement: <Error />,
       children: [
         {
-          path: '/test',
-          element: <Layout />,
+          path: '/splash',
+          handle: { breadcrumb: 'Splash' },
+          element: <Splash />,
         },
       ],
     },

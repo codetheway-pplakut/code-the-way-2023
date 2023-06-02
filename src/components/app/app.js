@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { Navigation } from '../navigation/navigation';
 import { AppBar } from '../app-bar/app-bar';
+import { Footer } from '../footer/footer';
 
 export function App() {
   const [navigationActive, setNavigationActive] = useState(false);
@@ -16,6 +17,7 @@ export function App() {
       <Box sx={{ flex: 1 }}>
         <Outlet />
       </Box>
+      <Footer />
     </Box>
   );
 }

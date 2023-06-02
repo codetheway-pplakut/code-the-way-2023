@@ -12,7 +12,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { ROUTER } from './constants/router';
 
 const theme = createTheme();
-
 const root = createRoot(document.getElementById('app'));
 
 root.render(

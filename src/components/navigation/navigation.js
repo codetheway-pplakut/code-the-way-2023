@@ -1,23 +1,27 @@
-import {
-  Divider,
-  Drawer,
-  IconButton,
-  ListItemButton,
-  ListItemIcon,
-  Toolbar,
-  List,
-  ListItemText,
-} from '@mui/material';
+import { Divider, Drawer, IconButton, Toolbar, List } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import { NavigationItem } from './navigation-item/navigation-item';
+
+const DRAWER_WIDTH = '320px';
 
 export function Navigation(props) {
   const { active, onToggle } = props;
 
   return (
-    <Drawer open={active} anchor="left" onClose={onToggle}>
+    <Drawer
+      open={active}
+      anchor="left"
+      onClose={onToggle}
+      sx={{
+        width: DRAWER_WIDTH,
+        '& .MuiDrawer-paper': {
+          width: DRAWER_WIDTH,
+        },
+      }}
+    >
       <Toolbar sx={{ display: 'flex', justifyContent: 'flex-end' }}>
         <IconButton onClick={onToggle}>
           <ChevronLeftIcon />
@@ -25,20 +29,12 @@ export function Navigation(props) {
       </Toolbar>
       <Divider />
       <List>
-        <ListItemButton>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Detail View" />
-        </ListItemButton>
-        <ListItemButton>
-          <ListItemIcon>
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Tabular View" />
-        </ListItemButton>
-        <Divider sx={{ my: 1 }} />
-        {/* {secondaryListItems} */}
+        <NavigationItem
+          icon={<DashboardIcon />}
+          label="Splash"
+          onClick={onToggle}
+          to="/splash"
+        />
       </List>
     </Drawer>
   );

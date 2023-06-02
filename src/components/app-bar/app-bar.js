@@ -14,7 +14,7 @@ export function AppBar(props) {
   return (
     <MaterialAppBar position="relative">
       <Toolbar>
-        <IconButton color="inherit" onClick={onNavigationClick}>
+        <IconButton color="inherit" onClick={onNavigationClick} sx={{ mr: 2 }}>
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
