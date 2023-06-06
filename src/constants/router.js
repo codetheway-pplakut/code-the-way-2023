@@ -1,31 +1,27 @@
 import React from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+} from 'react-router-dom';
 import { App } from '../components/app/app';
 import { Error } from '../components/error/error';
-import { Splash } from '../components/splash/splash';
-import { TabularDemo } from '../components/tabular-demo/tabular-demo';
+import { Login } from '../components/login/login';
+import { Public } from '../components/public/public';
+import { SampleLayouts } from '../components/sample-layouts/sample-layouts';
+import { StandardLayout } from '../components/sample-layouts/standard-layout/standard-layout';
+import { TabularLayout } from '../components/sample-layouts/tabular-layout/tabular-layout';
 
 export const ROUTER = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <App />,
-      errorElement: <Error />,
-      children: [
-        {
-          path: '/tabular-demo',
-          handle: { breadcrumb: 'Tabular Demo' },
-          element: <TabularDemo />,
-        },
-        {
-          path: '/',
-          handle: { breadcrumb: 'Splash' },
-          element: <Splash />,
-        },
-      ],
-    },
-  ],
-  {
-    baseName: '',
-  }
+  createRoutesFromElements(
+    <Route path="/" element={<App />}>
+      <Route path="/" element={<Public />} />
+      <Route path="login" element={<Login />} />
+      <Route path="sample-layouts" element={<SampleLayouts />} />
+      <Route path="sample-layouts/standard" element={<StandardLayout />} />
+      <Route path="sample-layouts/tabular" element={<TabularLayout />} />
+      <Route path="*" element={<Error />} />
+    </Route>
+  ),
+  { basename: '' }
 );

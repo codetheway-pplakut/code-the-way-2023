@@ -29,19 +29,29 @@ export function Navigation(props) {
         </IconButton>
       </Toolbar>
       <Divider />
-      <List>
+      <List sx={{ p: 0 }}>
+        <NavigationItem label="Welcome" onClick={onToggle} to="/" />
+        <NavigationItem
+          label="Sample Layouts"
+          onClick={onToggle}
+          to="/sample-layouts"
+        />
         <NavigationItem
           icon={<DashboardIcon />}
-          label="Splash"
+          label="Standard"
           onClick={onToggle}
-          to="/"
+          sx={{ pl: 3 }}
+          to="/sample-layouts/standard"
         />
         <NavigationItem
           icon={<BackupTableIcon />}
-          label="Tabular Demo"
+          label="Tabular"
           onClick={onToggle}
-          to="/tabular-demo"
+          sx={{ pl: 3 }}
+          to="/sample-layouts/tabular"
         />
+        <Divider />
+        <NavigationItem label="Login" onClick={onToggle} to="/login" />
       </List>
     </Drawer>
   );

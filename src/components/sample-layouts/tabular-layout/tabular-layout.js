@@ -4,7 +4,7 @@ import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
 import LayersIcon from '@mui/icons-material/Layers';
 import { DataGrid } from '@mui/x-data-grid';
-import { Layout } from '../layout/layout';
+import { Layout } from '../../layout/layout';
 
 const columns = [
   { field: 'id', headerName: 'ID', width: 90 },
@@ -50,7 +50,7 @@ const rows = [
   { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
 ];
 
-export function TabularDemo() {
+export function TabularLayout() {
   return (
     <Layout
       title="Tabular Demo"
