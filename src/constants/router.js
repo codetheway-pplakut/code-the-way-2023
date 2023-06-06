@@ -11,7 +11,7 @@ import { isProduction } from '../utils/is-production/is-production';
 import packageJson from '../../package.json';
 import { Protected } from '../components/sample/protected/protected';
 
-const basename = isProduction() === 'production' ? `${packageJson.name}` : '';
+const basename = isProduction() === 'production' ? `/${packageJson.name}` : '';
 
 export const ROUTER = createBrowserRouter(
   [
