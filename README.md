@@ -190,13 +190,13 @@ It's recommended developers run `npm run eslint:fix` often during development to
 
 ## Deployment
 
-This application is currently setup to run on [GitHub Pages](https://joeyschroeder.github.io/code-the-way-2023/). To deploy the application, you'll need to build the application and commit the build to the `docs/` directory to the `master` branch.
+This application is currently setup to run on [GitHub Pages](https://joeyschroeder.github.io/code-the-way-2023/). To deploy the application, you'll need to build the application and commit the build to the `docs/` directory to the `develop` branch.
 
 ## Scripts
 
 ### `build`
 
-This command runs `webpack` in "production" mode. It uses the `src/index.js` file as its entry point, and generates your application in a the `docs/` directory. This bundled application can then be committed and will appear on [GitHub Pages](https://joeyschroeder.github.io/code-the-way-2023/).
+This command runs `webpack` in "production" mode. It uses the `src/index.js` file as its entry point, and generates your application in a the `docs/` directory. This bundled application can then be committed to the `develop` branch and will appear on [GitHub Pages](https://joeyschroeder.github.io/code-the-way-2023/).
 
 ### `eslint`
 
