@@ -18,6 +18,7 @@ An application using [React](https://reactjs.org/) and [Material UI](https://mui
   2. [ESLint and Prettier.io](#eslint-and-prettierio)
       1. [Fix ESLint and Prettier errors/warnings on Save](#fix-eslint-and-prettier-errorswarnings-on-save)
   3. [Committing](#committing)
+3. [Deployment](#deployment)
 3. [Scripts](#scripts)
   1. [`build`](#build)
   2. [`eslint`](#eslint)
@@ -163,6 +164,10 @@ git config --global commit.template commit.template.txt
 ```
 
 It's recommended developers run `npm run eslint:fix` often during development to prevent any failures from code-style or JavaScript syntactical errors.
+
+## Deployment
+
+This application is currently setup to run on [GitHub Pages](https://joeyschroeder.github.io/code-the-way-2023/). To deploy the application, you'll need to build the application and commit the build to the `docs/` directory to the `master` branch.
 
 ## Scripts
 
