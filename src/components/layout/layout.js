@@ -6,7 +6,9 @@ import { LayoutTitle } from './layout-title/layout-title';
 import { LayoutPreloader } from './layout-preloader/layout-preloader';
 
 const BASE_BOX_STYLES = {
+  boxSizing: 'border-box',
   flex: 1,
+  p: 2,
 };
 
 export function Layout(props) {
@@ -46,11 +48,10 @@ export function Layout(props) {
         flexDirection: 'column',
         height: '100%',
         overflowY: 'auto',
-        pt: 2,
       }}
     >
-      <LayoutToolbar actions={actions} showBackButton={showBackButton} />
       <Box sx={boxSx}>
+        <LayoutToolbar actions={actions} showBackButton={showBackButton} />
         <LayoutTitle title={title} subTitle={subTitle} />
         {!hasSecondary ? (
           children
@@ -60,7 +61,7 @@ export function Layout(props) {
               {children}
             </Grid>
             <Grid item xs={12} md={4}>
-              <Paper elevation={3} sx={{ p: 2, mb: 2 }}>
+              <Paper variant="outlined" elevation={0} sx={{ p: 2, mb: 2 }}>
                 {secondary}
               </Paper>
             </Grid>
@@ -87,7 +88,7 @@ Layout.defaultProps = {
   actions: undefined,
   children: null,
   isLoading: false,
-  maxWidth: 'lg',
+  maxWidth: 'xl',
   scrollable: true,
   secondary: undefined,
   showBackButton: undefined,
