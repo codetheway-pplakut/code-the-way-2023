@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
+import ApiIcon from '@mui/icons-material/Api';
+import LockIcon from '@mui/icons-material/Lock';
 import { NavigationItem } from './navigation-item/navigation-item';
 
 const DRAWER_WIDTH = '320px';
@@ -32,23 +34,38 @@ export function Navigation(props) {
       <List sx={{ p: 0 }}>
         <NavigationItem label="Welcome" onClick={onToggle} to="/" />
         <NavigationItem
-          label="Sample Layouts"
+          label="Sample Screens"
           onClick={onToggle}
           to="/sample-layouts"
         />
         <NavigationItem
           icon={<DashboardIcon />}
-          label="Standard"
+          label="Standard Layout"
           onClick={onToggle}
           sx={{ pl: 3 }}
           to="/sample-layouts/standard"
         />
         <NavigationItem
           icon={<BackupTableIcon />}
-          label="Tabular"
+          label="Tabular Layout"
           onClick={onToggle}
           sx={{ pl: 3 }}
           to="/sample-layouts/tabular"
+        />
+        <NavigationItem
+          icon={<LockIcon />}
+          label="Protected Layout"
+          onClick={onToggle}
+          sx={{ pl: 3 }}
+          to="/sample-layouts/protected"
+        />
+        <NavigationItem
+          LinkComponent="a"
+          href="https://api-dev-lead2change-ctw.azurewebsites.net/swagger/index.html"
+          icon={<ApiIcon />}
+          label="Swagger"
+          onClick={onToggle}
+          sx={{ pl: 3 }}
         />
         <Divider />
         <NavigationItem label="Login" onClick={onToggle} to="/login" />

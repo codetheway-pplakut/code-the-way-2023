@@ -4,15 +4,16 @@ import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export function NavigationItem(props) {
-  const { icon, label, onClick, sx, to } = props;
+  const { href, icon, label, onClick, sx, to, LinkComponent } = props;
   const hasIcon = Boolean(icon);
 
   return (
     <ListItemButton
-      LinkComponent={RouterLink}
+      LinkComponent={LinkComponent}
+      href={href}
       onClick={onClick}
-      to={to}
       sx={sx}
+      to={to}
     >
       {hasIcon && <ListItemIcon>{icon}</ListItemIcon>}
       <ListItemText primary={label} />
@@ -21,6 +22,8 @@ export function NavigationItem(props) {
 }
 
 NavigationItem.propTypes = {
+  LinkComponent: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  href: PropTypes.string,
   icon: PropTypes.node,
   label: PropTypes.string,
   onClick: PropTypes.func,
@@ -29,6 +32,8 @@ NavigationItem.propTypes = {
 };
 
 NavigationItem.defaultProps = {
+  LinkComponent: RouterLink,
+  href: undefined,
   icon: undefined,
   label: undefined,
   onClick: undefined,

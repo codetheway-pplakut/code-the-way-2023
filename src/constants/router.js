@@ -9,6 +9,7 @@ import { StandardLayout } from '../components/sample/standard-layout/standard-la
 import { TabularLayout } from '../components/sample/tabular-layout/tabular-layout';
 import { isProduction } from '../utils/is-production/is-production';
 import packageJson from '../../package.json';
+import { Protected } from '../components/sample/protected/protected';
 
 const basename = isProduction() === 'production' ? `${packageJson.name}` : '';
 
@@ -21,6 +22,7 @@ export const ROUTER = createBrowserRouter(
         { path: '/', element: <Welcome /> },
         { path: 'login', element: <Login /> },
         { path: 'sample-layouts', element: <SampleLayouts /> },
+        { path: 'sample-layouts/protected', element: <Protected /> },
         { path: 'sample-layouts/standard', element: <StandardLayout /> },
         { path: 'sample-layouts/tabular', element: <TabularLayout /> },
         { path: '*', element: <Error /> },

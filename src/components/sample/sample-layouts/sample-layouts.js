@@ -15,9 +15,9 @@ import { Layout } from '../../layout/layout';
 
 export function SampleLayouts() {
   return (
-    <Layout title="Sample Layouts">
+    <Layout title="Sample Screens">
       <Typography paragraph>
-        The following are a few sample layouts to help you get started with your
+        The following are a few sample screens to help you get started with your
         application:
       </Typography>
       <List>
