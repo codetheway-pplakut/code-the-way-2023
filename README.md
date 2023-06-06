@@ -11,6 +11,7 @@ An application using [React](https://reactjs.org/) and [Material UI](https://mui
 1. [Getting Started](#getting-started)
   1. [Prerequisites](#prerequisites)
       1. [Node.js \& Node Package Manager (npm)](#nodejs--node-package-manager-npm)
+      2. [Recommended Tools](#recommended-tools)
   2. [Installation](#installation)
 2. [Development](#development)
   1. [Webpack Dev Server](#webpack-dev-server)
@@ -19,15 +20,15 @@ An application using [React](https://reactjs.org/) and [Material UI](https://mui
       1. [Fix ESLint and Prettier errors/warnings on Save](#fix-eslint-and-prettier-errorswarnings-on-save)
   3. [Committing](#committing)
 3. [Deployment](#deployment)
-3. [Scripts](#scripts)
+4. [Scripts](#scripts)
   1. [`build`](#build)
   2. [`eslint`](#eslint)
   3. [`eslint:fix`](#eslintfix)
   4. [`start`](#start)
   5. [`stylelint`](#stylelint)
   6. [`stylelint:fix`](#stylelintfix)
-4. [Authors](#authors)
-5. [Acknowledgments](#acknowledgments)
+5. [Authors](#authors)
+6. [Acknowledgments](#acknowledgments)
 
 ## Getting Started
 
@@ -38,6 +39,15 @@ These instructions will get you a copy of the project up and running on your loc
 #### Node.js & Node Package Manager (npm)
 
 You'll need to download and install [Node.js](https://nodejs.org) to install dependencies and run the scripts in this project to develop, test, and deploy this project. This project requires **Node.js** version 16 or higher along with **Node Package Manager (npm)**. npm is installed automatically when Node.js is installed. Download the latest version of Node.js [here](https://nodejs.org/en/download/) and install it to your development machine.
+
+#### Recommended Tools
+
+There's some additional tools that are recommended to help speed development.
+* [Git](https://git-scm.com/) - A free and open source distributed version control system.
+* [SourceTree](https://www.sourcetreeapp.com/) - A free Git GUI client for Windows and macOS.
+* [Visual Studio Code](https://code.visualstudio.com/) - A lightweight code editor with built-in support for JavaScript, TypeScript, and Node.js.
+* [Google Chrome](https://www.google.com/chrome/) - A fast, free, and open-source web browser developed by Google.
+* [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) - A Chrome DevTools extension for the open-source React JavaScript library.
 
 ### Installation
 
@@ -116,7 +126,19 @@ During development, you can run `npm run eslint:fix` in the root of the project 
 
 #### Fix ESLint and Prettier errors/warnings on Save
 
-⚠️ This documentation is under construction. ⚠️
+If you're using [Visual Studio Code](https://code.visualstudio.com/) as your code editor, you can configure ESLint and Prettier to automatically fix errors and warnings on save.  To do this, you'll first need to install the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for Visual Studio Code.  Then you'll need to configure your Visual Studio Code [settings.json](https://code.visualstudio.com/docs/getstarted/settings) file.
+
+First, install the [ESLint extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) for Visual Studio Code.
+
+Then, open your Visual Studio Code [settings.json](https://code.visualstudio.com/docs/getstarted/settings) file.  You can do this by opening the command palette (`CMD + SHIFT + P` on Mac, `CTRL + SHIFT + P` on Windows), and searching for "settings.json".  Select "Preferences: Open Settings (JSON)" from the command palette.
+
+Finally, add the following to your Visual Studio Code [settings.json](https://code.visualstudio.com/docs/getstarted/settings) file:
+
+```
+"editor.codeActionsOnSave": {
+  "source.fixAll": true,
+},
+```
 
 ### Committing
 
