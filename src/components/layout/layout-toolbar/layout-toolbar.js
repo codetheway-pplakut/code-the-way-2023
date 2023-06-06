@@ -2,16 +2,23 @@ import { Box } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LayoutBackButton } from '../layout-back-button/layout-back-button';
-import { LayoutBreadcrumbs } from '../layout-breadcrumbs/layout-breadcrumbs';
+// import { LayoutBreadcrumbs } from '../layout-breadcrumbs/layout-breadcrumbs';
 
 export function LayoutToolbar(props) {
   const { actions, showBackButton } = props;
   const hasActions = Boolean(actions.length);
 
   return (
-    <Box sx={{ display: 'flex', mb: 2, alignItems: 'center' }}>
+    <Box
+      sx={{
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'space-between',
+        mb: 2,
+      }}
+    >
       {showBackButton && <LayoutBackButton />}
-      <LayoutBreadcrumbs />
+      {/* <LayoutBreadcrumbs /> */}
       {hasActions && <Box>{actions}</Box>}
     </Box>
   );
