@@ -7,6 +7,7 @@ import {
 import React from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from 'prop-types';
+import { AppBarProfile } from './app-bar-profile/app-bar-profile';
 
 export function AppBar(props) {
   const { onNavigationClick, title } = props;
@@ -20,6 +21,7 @@ export function AppBar(props) {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           {title}
         </Typography>
+        <AppBarProfile />
       </Toolbar>
     </MaterialAppBar>
   );

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { useNavigate } from 'react-router-dom';
 import { authenticate } from '../../services/users/users';
 import { AUTHENTICATION_LOCAL_STORAGE_KEY } from '../../constants/authentication-local-storage-key';
 import {
@@ -17,6 +18,7 @@ export function AuthenticationProvider(props) {
   const { children } = props;
 
   const lsAuth = getLocalStorageItem(AUTHENTICATION_LOCAL_STORAGE_KEY);
+  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -75,6 +77,11 @@ export function AuthenticationProvider(props) {
       setIsLoading(false);
     };
 
+    const signOut = () => {
+      resetAuthentication();
+      navigate('/');
+    };
+
     return {
       expirationDateUtc,
       id,
@@ -82,10 +89,11 @@ export function AuthenticationProvider(props) {
       isLoading,
       roles,
       signIn,
+      signOut,
       token,
       username,
     };
-  }, [expirationDateUtc, id, isLoading, roles, token, username]);
+  }, [expirationDateUtc, id, isLoading, roles, token, username, navigate]);
 
   return (
     <AuthenticationContext.Provider value={value}>
