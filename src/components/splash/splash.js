@@ -2,9 +2,9 @@ import { Typography, Box, Avatar, Button, Container } from '@mui/material';
 import React from 'react';
 import ComputerIcon from '@mui/icons-material/Computer';
 import { useNavigate } from 'react-router-dom';
-import { Layout } from '../../layout/layout';
+import { Layout } from '../layout/layout';
 
-export function Welcome() {
+export function Splash() {
   const navigate = useNavigate();
   const onLoginClick = () => navigate('/login');
 
