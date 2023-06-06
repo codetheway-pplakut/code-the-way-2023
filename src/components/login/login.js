@@ -7,22 +7,39 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
+import { useNavigate } from 'react-router-dom';
+import { pink } from '@mui/material/colors';
 import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
 import { Layout } from '../layout/layout';
+import { useAuthentication } from '../../contexts/authentication-context/authentication-context';
 
 export function Login() {
+  const navigate = useNavigate();
+
+  const authentication = useAuthentication();
+  const { signIn, isLoading } = authentication;
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const submitDisabled = !username || !password;
+  const showErrorMessage = Boolean(errorMessage);
 
-  const onSubmit = async () => {
-    setIsLoading(true);
-    // eslint-disable-next-line no-promise-executor-return
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+  const onSuccessCallback = () => navigate('/');
+  const onFailureCallback = (error) => {
+    const message =
+      error?.response?.data?.message || error?.message || 'An error occurred.';
+    setErrorMessage(message);
+  };
 
-    setIsLoading(false);
+  const onSubmit = () => {
+    signIn({
+      onFailureCallback,
+      onSuccessCallback,
+      password,
+      username,
+    });
   };
 
   return (
@@ -45,12 +62,16 @@ export function Login() {
           <Typography variant="h4" sx={{ mb: 2 }}>
             Login
           </Typography>
+          {showErrorMessage && (
+            <Typography sx={{ color: pink[500] }}>{errorMessage}</Typography>
+          )}
           <TextField
             fullWidth
-            label="Username"
+            label="Email"
             onChange={(event) => setUsername(event.target.value)}
             required
             sx={{ my: 1 }}
+            type="email"
             value={username}
             variant="outlined"
           />
