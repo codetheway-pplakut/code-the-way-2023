@@ -10,6 +10,7 @@ const {
   buildStyleLoaderConfig,
 } = require('./webpack/build-style-loader-config');
 const { POLYFILLS_CONFIG } = require('./webpack/polyfills-config');
+const { buildCopyFilesConfig } = require('./webpack/build-copy-files-config');
 
 const BASE_DIR = '';
 const OUTPUT_DIR = 'docs';
@@ -74,6 +75,13 @@ const PRODUCTION_CONFIG = merge([
     },
   },
   buildCleanConfig(path.resolve(__dirname, OUTPUT_DIR)),
+  buildCopyFilesConfig([
+    {
+      from: path.join(__dirname, BASE_DIR, 'src/templates/404.html'),
+      to: path.join(__dirname, OUTPUT_DIR, '404.html'),
+      toType: 'file',
+    },
+  ]),
   buildFileLoaderConfig({ filename: 'images/[name][ext]' }),
   buildStyleLoaderConfig(true),
 ]);
