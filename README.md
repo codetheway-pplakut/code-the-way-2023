@@ -20,12 +20,11 @@ An application using [React](https://reactjs.org/) and [Material UI](https://mui
   3. [Committing](#committing)
 3. [Scripts](#scripts)
   1. [`build`](#build)
-  2. [`clean`](#clean)
-  3. [`eslint`](#eslint)
-  4. [`eslint:fix`](#eslintfix)
-  5. [`start`](#start)
-  6. [`stylelint`](#stylelint)
-  7. [`stylelint:fix`](#stylelintfix)
+  2. [`eslint`](#eslint)
+  3. [`eslint:fix`](#eslintfix)
+  4. [`start`](#start)
+  5. [`stylelint`](#stylelint)
+  6. [`stylelint:fix`](#stylelintfix)
 4. [Authors](#authors)
 5. [Acknowledgments](#acknowledgments)
 
@@ -95,12 +94,12 @@ After Webpack Dev Server has compiled the development bundle, it will print out 
 
 ```
 [webpack-dev-server] Project is running at:
-[webpack-dev-server] Loopback: http://localhost:9090/, http://127.0.0.1:9090/
+[webpack-dev-server] Loopback: http://localhost:8080/, http://127.0.0.1:8080/
 [webpack-dev-server] Content not from webpack is served from '/path/to/your/working/directory/code-the-way-2023/public' directory
 [webpack-dev-server] 404s will fallback to '/index.html'
 ```
 
-Open the URL [http://localhost:9090/](http://localhost:9090/) in your web browser. You will see the application running.
+Open the URL [http://localhost:8080/](http://localhost:8080/) in your web browser. You will see the application running.
 
 #### Hot Reloading
 
@@ -169,31 +168,27 @@ It's recommended developers run `npm run eslint:fix` often during development to
 
 ### `build`
 
-This command runs `webpack` in "production" mode. It uses the `src/index.js` file as its entry point, and generates a JavaScript `main.js` and `vendor.js` file in `dist/`.
-
-### `clean`
-
-This command deletes the `dist/` directory.
+This command runs `webpack` in "production" mode. It uses the `src/index.js` file as its entry point, and generates your application in a  the `docs/` directory.  This bundled application can then be committed and will appear on [GitHub Pages](https://joeyschroeder.github.io/code-the-way-2023/).
 
 ### `eslint`
 
-This command runs `eslint src/`. It prints eslint warnings and errors in the command line.
+This command runs `eslint ./`. It prints eslint warnings and errors in the command line.
 
 ### `eslint:fix`
 
-This command runs `eslint --fix src/`. It attempts to fix any eslint warnings/errors then prints the remaining warnings and errors in the command line.
+This command runs `eslint ./ --fix`. It attempts to fix any eslint warnings/errors then prints the remaining warnings and errors in the command line.
 
 ### `start`
 
-This command runs `webpack-dev-server` in "development" mode on the documentation. Hot reloading is enabled. Once running, you can access the documentation running locally at [localhost:9090/](http://localhost:9090/).
+This command runs `webpack-dev-server` in "development" mode on the documentation. Hot reloading is enabled. Once running, you can access the application running locally at [localhost:8080/](http://localhost:8080/).
 
 ### `stylelint`
 
-This command runs `stylelint 'src/**/*/*.scss`. It prints stylelint warnings and errors in the command line.
+This command runs `stylelint '**/*.scss'`. It prints stylelint warnings and errors in the command line.
 
 ### `stylelint:fix`
 
-This command runs `stylelint --fix 'src/**/*/*.scss`. It attempts to fix any stylelint warnings/errors, then prints the remaining warnings and errors in the command line.
+This command runs `stylelint '**/*.scss' --fix`. It attempts to fix any stylelint warnings/errors, then prints the remaining warnings and errors in the command line.
 
 ## Authors
 

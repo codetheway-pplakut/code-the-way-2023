@@ -53,8 +53,8 @@ const rows = [
 export function TabularLayout() {
   return (
     <Layout
-      title="Tabular Demo"
-      subTitle="A Sample Tabular Layout"
+      title="Tabular Layout"
+      subTitle="This layout can be used for data-driven screens."
       actions={[
         <Button
           key={1}
