@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { authenticate } from '../../services/users/users';
+import { AUTHENTICATION_LOCAL_STORAGE_KEY } from '../../constants/authentication-local-storage-key';
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+  setLocalStorageItem,
+} from '../../services/local-storage/local-storage';
 
 export const AuthenticationContext = createContext();
 
@@ -9,20 +16,36 @@ export const useAuthentication = () => useContext(AuthenticationContext);
 export function AuthenticationProvider(props) {
   const { children } = props;
 
+  const lsAuth = getLocalStorageItem(AUTHENTICATION_LOCAL_STORAGE_KEY);
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const [expirationDateUtc, setExpirationDateUtc] = useState('');
-  const [id, setId] = useState('');
-  const [roles, setRoles] = useState([]);
-  const [token, setToken] = useState('');
-  const [username, setUsername] = useState('');
+  const [expirationDateUtc, setExpirationDateUtc] = useState(
+    lsAuth?.expirationDateUtc || ''
+  );
+  const [id, setId] = useState(lsAuth?.id || '');
+  const [roles, setRoles] = useState(lsAuth?.roles || []);
+  const [token, setToken] = useState(lsAuth?.token || '');
+  const [username, setUsername] = useState(lsAuth?.username || '');
 
-  const resetUser = () => {
+  const resetAuthentication = () => {
     setExpirationDateUtc('');
     setId('');
     setRoles([]);
     setToken('');
     setUsername('');
+
+    removeLocalStorageItem(AUTHENTICATION_LOCAL_STORAGE_KEY);
+  };
+
+  const updateAuthentication = (auth) => {
+    setExpirationDateUtc(auth.expirationDateUtc);
+    setId(auth.id);
+    setRoles(auth.roles);
+    setToken(auth.token);
+    setUsername(auth.username);
+
+    setLocalStorageItem(AUTHENTICATION_LOCAL_STORAGE_KEY, auth);
   };
 
   const value = useMemo(() => {
@@ -40,15 +63,10 @@ export function AuthenticationProvider(props) {
           password,
         });
 
-        setId(response.data.id);
-        setUsername(response.data.username);
-        setToken(response.data.token);
-        setRoles(response.data.roles);
-        setExpirationDateUtc(response.data.expirationDateUtc);
-
+        updateAuthentication(response.data);
         if (onSuccessCallback) onSuccessCallback(response);
       } catch (error) {
-        resetUser();
+        resetAuthentication();
         if (onFailureCallback) onFailureCallback(error);
         // eslint-disable-next-line no-console
         console.error(error);
@@ -60,6 +78,7 @@ export function AuthenticationProvider(props) {
     return {
       expirationDateUtc,
       id,
+      isAuthenticated: !!token && moment.utc() < moment.utc(expirationDateUtc),
       isLoading,
       roles,
       signIn,
