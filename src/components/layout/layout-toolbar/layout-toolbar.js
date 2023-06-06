@@ -5,12 +5,12 @@ import { LayoutBackButton } from '../layout-back-button/layout-back-button';
 import { LayoutBreadcrumbs } from '../layout-breadcrumbs/layout-breadcrumbs';
 
 export function LayoutToolbar(props) {
-  const { actions } = props;
+  const { actions, showBackButton } = props;
   const hasActions = Boolean(actions.length);
 
   return (
     <Box sx={{ display: 'flex', mb: 2, alignItems: 'center' }}>
-      <LayoutBackButton />
+      {showBackButton && <LayoutBackButton />}
       <LayoutBreadcrumbs />
       {hasActions && <Box>{actions}</Box>}
     </Box>
@@ -19,8 +19,10 @@ export function LayoutToolbar(props) {
 
 LayoutToolbar.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.node),
+  showBackButton: PropTypes.bool,
 };
 
 LayoutToolbar.defaultProps = {
   actions: [],
+  showBackButton: true,
 };
