@@ -11,7 +11,7 @@ import {
 import { Link as RouterLink } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import BackupTableIcon from '@mui/icons-material/BackupTable';
-import { Layout } from '../layout/layout';
+import { Layout } from '../../layout/layout';
 
 export function SampleLayouts() {
   return (

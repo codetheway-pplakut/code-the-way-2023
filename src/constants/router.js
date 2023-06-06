@@ -3,10 +3,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import { App } from '../components/app/app';
 import { Error } from '../components/error/error';
 import { Login } from '../components/login/login';
-import { Public } from '../components/public/public';
-import { SampleLayouts } from '../components/sample-layouts/sample-layouts';
-import { StandardLayout } from '../components/sample-layouts/standard-layout/standard-layout';
-import { TabularLayout } from '../components/sample-layouts/tabular-layout/tabular-layout';
+import { Welcome } from '../components/sample/welcome/welcome';
+import { SampleLayouts } from '../components/sample/sample-layouts/sample-layouts';
+import { StandardLayout } from '../components/sample/standard-layout/standard-layout';
+import { TabularLayout } from '../components/sample/tabular-layout/tabular-layout';
 
 export const ROUTER = createBrowserRouter(
   [
@@ -14,7 +14,7 @@ export const ROUTER = createBrowserRouter(
       path: '/',
       element: <App />,
       children: [
-        { path: '/', element: <Public /> },
+        { path: '/', element: <Welcome /> },
         { path: 'login', element: <Login /> },
         { path: 'sample-layouts', element: <SampleLayouts /> },
         { path: 'sample-layouts/standard', element: <StandardLayout /> },
