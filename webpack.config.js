@@ -57,6 +57,7 @@ const COMMON_CONFIG = merge([
 const DEVELOPMENT_CONFIG = merge([
   COMMON_CONFIG,
   { devtool: 'eval-cheap-module-source-map' },
+  { output: { publicPath: '/' } },
   buildDevServerConfig(),
   buildFileLoaderConfig(),
   buildStyleLoaderConfig(),
