@@ -7,6 +7,10 @@ import { Welcome } from '../components/sample/welcome/welcome';
 import { SampleLayouts } from '../components/sample/sample-layouts/sample-layouts';
 import { StandardLayout } from '../components/sample/standard-layout/standard-layout';
 import { TabularLayout } from '../components/sample/tabular-layout/tabular-layout';
+import { isProduction } from '../utils/is-production/is-production';
+import packageJson from '../../package.json';
+
+const basename = isProduction() === 'production' ? `${packageJson.name}` : '';
 
 export const ROUTER = createBrowserRouter(
   [
@@ -23,5 +27,5 @@ export const ROUTER = createBrowserRouter(
       ],
     },
   ],
-  { basename: '' }
+  { basename }
 );

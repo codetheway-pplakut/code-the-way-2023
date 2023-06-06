@@ -13,7 +13,7 @@ const { POLYFILLS_CONFIG } = require('./webpack/polyfills-config');
 
 const BASE_DIR = '';
 const OUTPUT_DIR = 'docs';
-const OUTPUT_PUBLIC_PATH = '';
+const OUTPUT_PUBLIC_PATH = './';
 const TITLE = 'UI Project Starter | Code The Way';
 const SITE_NAME = 'UI Project Starter';
 const URL = 'https://github.com/joeyschroeder/code-the-way-2023';
