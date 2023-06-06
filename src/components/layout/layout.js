@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { LayoutToolbar } from './layout-toolbar/layout-toolbar';
 import { LayoutTitle } from './layout-title/layout-title';
 import { LayoutPreloader } from './layout-preloader/layout-preloader';
+import { LayoutError } from './layout-error/layout-error';
 
 const BASE_BOX_STYLES = {
   boxSizing: 'border-box',
@@ -15,6 +16,10 @@ export function Layout(props) {
   const {
     actions,
     children,
+    errorLabel,
+    errorOnRetryClick,
+    errorTitle,
+    hasError,
     isLoading,
     maxWidth,
     scrollable,
@@ -25,6 +30,15 @@ export function Layout(props) {
   } = props;
 
   if (isLoading) return <LayoutPreloader />;
+
+  if (hasError)
+    return (
+      <LayoutError
+        label={errorLabel}
+        onRetryClick={errorOnRetryClick}
+        title={errorTitle}
+      />
+    );
 
   const hasSecondary = Boolean(secondary);
   const primaryGridSize = hasSecondary ? 8 : 12;
@@ -75,6 +89,10 @@ export function Layout(props) {
 Layout.propTypes = {
   actions: PropTypes.arrayOf(PropTypes.node),
   children: PropTypes.node,
+  errorLabel: PropTypes.string,
+  errorOnRetryClick: PropTypes.func,
+  errorTitle: PropTypes.string,
+  hasError: PropTypes.bool,
   isLoading: PropTypes.bool,
   maxWidth: PropTypes.string,
   scrollable: PropTypes.bool,
@@ -87,6 +105,10 @@ Layout.propTypes = {
 Layout.defaultProps = {
   actions: undefined,
   children: null,
+  errorLabel: undefined,
+  errorOnRetryClick: undefined,
+  errorTitle: undefined,
+  hasError: false,
   isLoading: false,
   maxWidth: 'xl',
   scrollable: true,
