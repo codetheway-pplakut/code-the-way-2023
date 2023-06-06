@@ -1,6 +1,8 @@
 /* stylelint-disable-next-line selector-pseudo-class-no-unknown */
 :global {
-  body, html, #app {
+  body,
+  html,
+  #app {
     height: 100%;
     overflow: hidden;
   }
