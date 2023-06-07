@@ -7,6 +7,8 @@ import { isProduction } from '../utils/is-production/is-production';
 import packageJson from '../../package.json';
 import { Splash } from '../components/splash/splash';
 import { Students } from '../components/students/students';
+import { Coaches } from '../components/coaches/coaches';
+import { Goals } from '../components/goals/goals';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
@@ -17,7 +19,9 @@ export const ROUTER = createBrowserRouter(
       element: <App />,
       children: [
         { path: '/', element: <Splash /> },
+        { path: 'coaches', element: <Coaches /> },
         { path: 'login', element: <Login /> },
+        { path: 'goals', element: <Goals /> },
         { path: 'students', element: <Students /> },
         { path: '*', element: <Error /> },
       ],

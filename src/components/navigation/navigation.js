@@ -30,6 +30,8 @@ export function Navigation(props) {
       <Divider />
       <List sx={{ p: 0 }}>
         <NavigationItem label="Welcome" onClick={onToggle} to="/" />
+        <NavigationItem label="Coaches" onClick={onToggle} to="/coaches" />
+        <NavigationItem label="Goals" onClick={onToggle} to="/goals" />
         <NavigationItem label="Students" onClick={onToggle} to="/students" />
         <NavigationItem
           LinkComponent="a"
