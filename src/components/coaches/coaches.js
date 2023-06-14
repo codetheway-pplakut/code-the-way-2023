@@ -1,38 +1,20 @@
 import React from 'react';
-import { getCoaches } from '../../services/coaches/coaches';
-import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
-
-const COLUMNS = [
-  {
-    headerName: 'ID',
-    field: 'id',
-    width: 300,
-  },
-  {
-    headerName: 'First Name',
-    field: 'coachFirstName',
-    width: 100,
-  },
-  {
-    headerName: 'Last Name',
-    field: 'coachLastName',
-    width: 100,
-  },
-  {
-    headerName: 'Email',
-    field: 'coachEmail',
-    width: 300,
-  },
-];
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+import Grid from '@mui/material/Grid';
+import { createTheme } from '@mui/material/styles';
+import { Stack } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
+import PropTypes from 'prop-types';
+import ModalComponent from './modalComponent';
 
 export function Coaches() {
   return (
-    <TableLayoutWithRequest
-      columns={COLUMNS}
-      requestFunc={getCoaches}
-      requestLabel="Request Coaches"
-      subTitle="View all coaches"
-      title="Coaches"
-    />
+    <div>
+      <ModalComponent />
+    </div>
   );
 }
