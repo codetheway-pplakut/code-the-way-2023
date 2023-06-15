@@ -39,7 +39,7 @@ const headingText = {
 
 // Footer styling
 const footerStyle = {
-  bgcolor: '#F4F4F4',
+  bgcolor: '#F2F2F2',
   color: 'white',
   borderBottomLeftRadius: 10,
   borderBottomRightRadius: 10,

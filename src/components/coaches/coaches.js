@@ -1,30 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, MenuItem, TextField, Typography } from '@mui/material';
 import GenericModal from './modal-component';
 
 export function Coaches() {
-  // a sample function to represent code for clicking the action button (archiving, adding, etc.)
+  const [selectedCoach, setSelectedCoach] = useState('');
+
   const actionButtonFunction = () => {
-    console.log('clicked!');
+    console.log('Selected Coach:', selectedCoach);
+    // Do other actions with the selected coach in this function
   };
-  const test = [
-    {
-      value: 'hi',
-      label: 'hello',
-    },
-    {
-      value: 'test',
-      label: 'testing',
-    },
-    {
-      value: 'ok',
-      label: 'then',
-    },
-    {
-      value: 'here',
-      label: 'testing',
-    },
-  ];
+
+  const coachNames = ['Bob the coach', 'Mr. O', 'Jeff'];
+
+  const transformedArray = coachNames.map((name, index) => ({
+    value: (index + 1).toString(),
+    label: name,
+  }));
+
+  const handleCoachChange = (event) => {
+    setSelectedCoach(event.target.value);
+  };
+
   const content = (
     <Grid container spacing={2} justifyContent="center">
       <div>
@@ -32,10 +28,11 @@ export function Coaches() {
           id="test"
           select
           label="Select"
-          defaultValue="ok"
-          helperText="This is a test!"
+          value={selectedCoach}
+          onChange={handleCoachChange}
+          defaultValue="0"
         >
-          {test.map((option) => (
+          {transformedArray.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
@@ -44,6 +41,7 @@ export function Coaches() {
       </div>
     </Grid>
   );
+
   return (
     <div>
       <GenericModal
