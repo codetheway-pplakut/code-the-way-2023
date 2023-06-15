@@ -6,6 +6,8 @@ import { Login } from '../components/login/login';
 import { isProduction } from '../utils/is-production/is-production';
 import packageJson from '../../package.json';
 import { Splash } from '../components/splash/splash';
+// eslint-disable-next-line import/named
+import { Test } from '../components/test/test';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
@@ -17,6 +19,7 @@ export const ROUTER = createBrowserRouter(
       children: [
         { path: '/', element: <Splash /> },
         { path: 'login', element: <Login /> },
+        { path: 'test', element: <Test /> },
         { path: '*', element: <Error /> },
       ],
     },
