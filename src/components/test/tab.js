@@ -9,27 +9,9 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid';
-// import { useNavigate } from 'react-router-dom';
-
-// function LinkTab(props) {
-//   return (
-//     <Tab
-//       component="a"
-//       onClick={(event) => {
-//         event.preventDefault();
-//       }}
-//       // eslint-disable-next-line react/jsx-props-no-spreading
-//       {...props}
-//     />
-//   );
-// }
-
 
 export function Tab1() {
-  // const navigate = useNavigate();
-  // const onGoHomeClick = () => navigate('/');
-  // onClick={onGoHomeClick}
-
+  
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {

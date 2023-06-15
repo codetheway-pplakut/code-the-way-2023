@@ -9,7 +9,6 @@ export function Test() {
 
   return (
     <Layout title="STUDENTS" errorTitle="Whoops!">
-      <Tab1 />
       <Table1 />
     </Layout>
   );
