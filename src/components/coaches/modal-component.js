@@ -4,14 +4,12 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
-import { createTheme } from '@mui/material/styles';
-import { Stack } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import PropTypes from 'prop-types';
+import TwoButtonComponent from './two-button-component';
 
 // Background of modal styling:
-
 const backgroundStyle = {
   position: 'absolute',
   top: '50%',
@@ -44,30 +42,6 @@ const closeIconStyle = {
   top: 8,
 };
 
-// Button styling:
-const buttonTheme = createTheme({
-  palette: {
-    archive: {
-      main: '#EC6E6E',
-      contrastText: '#fff',
-    },
-    cancel: {
-      main: '#D6D6D6',
-      contrastText: '#868686',
-    },
-  },
-});
-
-const buttonText = {
-  fontSize: '20px',
-  fontFamily: 'roboto',
-};
-
-const buttonBackground = {
-  minWidth: '130px',
-  minHeight: '50px',
-};
-
 export function ModalComponent(props) {
   const { modalHeadingTitle, modalMessage, actionName } = props;
   const [open, setOpen] = React.useState(false);
@@ -90,33 +64,7 @@ export function ModalComponent(props) {
           <Typography sx={{ mt: 2 }} padding={1} align="center" fontSize={20}>
             {modalMessage}
           </Typography>
-          <Stack
-            direction="row"
-            spacing={5}
-            justifyContent="center"
-            padding={3}
-          >
-            <Button
-              variant="contained"
-              onClick={handleClose}
-              sx={buttonBackground}
-              theme={buttonTheme}
-              color="archive"
-            >
-              <Typography style={buttonText}>{actionName}</Typography>
-            </Button>
-
-            <Button
-              variant="contained"
-              onClick={handleClose}
-              spacing={2}
-              sx={buttonBackground}
-              theme={buttonTheme}
-              color="cancel"
-            >
-              <Typography style={buttonText}>Cancel</Typography>
-            </Button>
-          </Stack>
+          <TwoButtonComponent actionName={props.actionName} />
         </Box>
       </Modal>
     </div>
