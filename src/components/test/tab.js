@@ -8,7 +8,8 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import AddIcon from '@mui/icons-material/Add';
-import { useNavigate } from 'react-router-dom';
+import Grid from '@mui/material/Grid';
+// import { useNavigate } from 'react-router-dom';
 
 // function LinkTab(props) {
 //   return (
@@ -23,10 +24,11 @@ import { useNavigate } from 'react-router-dom';
 //   );
 // }
 
+
 export function Tab1() {
-  const navigate = useNavigate();
-  const onGoHomeClick = () => navigate('/');
-  // onClick={onGoHomeClick} 
+  // const navigate = useNavigate();
+  // const onGoHomeClick = () => navigate('/');
+  // onClick={onGoHomeClick}
 
   const [value, setValue] = React.useState(0);
 
@@ -76,33 +78,50 @@ export function Tab1() {
 
   return (
     <Box sx={{ width: '100%' }} marginInline={{}}>
-      <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-        <Tab value="one" label="Archive" />
-        <Tab value="two" label="APPLICANTS" />
-      </Tabs>
-      <Toolbar>
-        <Search>
-          <SearchIconWrapper>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ 'aria-label': 'search' }}
-          />
-        </Search>
-        <Box sx={{ flexGrow: 1 }} />
-        <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-          <IconButton
-            size="large"
-            edge="end"
-            aria-label="account of current user"
-            aria-haspopup="true"
-            color="inherit"
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Grid item>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="nav tabs example"
           >
-            <AddIcon />
-          </IconButton>
-        </Box>
-      </Toolbar>
+            <Tab value="one" label="active" sx={{ borderBottom: 1.5 }} />
+            <Tab value="two" label="applicants" sx={{ borderBottom: 1.5 }} />
+          </Tabs>
+        </Grid>
+
+        <Toolbar>
+          <Grid item>
+            <Search sx={{ border: 1.5 }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+          </Grid>
+          <Grid item>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AddIcon />
+              </IconButton>
+            </Box>
+          </Grid>
+        </Toolbar>
+      </Grid>
     </Box>
   );
 }

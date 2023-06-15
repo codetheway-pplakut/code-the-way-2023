@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
-import Grid from '@mui/material/Grid';
+// import Grid from '@mui/material/Grid';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
@@ -9,11 +10,10 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import BasicModal from './modal-layouyt';
-
-import { Todal } from './modal';
-
+// import MenuItem from '@mui/material/MenuItem';
+// import BasicModal from './modal-layouyt';
+// import { Todal } from './modal';
+// import SearchBar from './search';
 const columns = [
   { id: 'name', label: 'NAME', minWidth: 170 },
   {
@@ -84,12 +84,10 @@ function createData(name, age, email, phone, coach) {
   //     modalContent={content}
   //   />
   // );
-  const trash = <Todal />;
-
-  return { name, age, email, phone, coach, trash };
+  //   const trash = <Todal />;
+  return { name, age, email, phone, coach };
 }
-
-const rows = [
+const originalRows = [
   createData('j', '-1', 'jihongbae@gmail.com', '262-282-4209', 'mrosterburg'),
   createData('ji', '2', 'jihongbae@gmail.com', '262-282-4209', 'mrosterburg'),
   createData('jih', '1', 'jihongbae@gmail.com', '262-282-4209', 'mrosterburg'),
@@ -150,23 +148,31 @@ const rows = [
     'mrosterburg'
   ),
 ];
-
 export function Table1() {
   // const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const [rows, setRows] = useState(originalRows);
+  const requestSearch = (searchedVal) => {
+    const filteredRows = originalRows.filter((row) => {
+      return row.name.toLowerCase().includes(searchedVal);
+    });
+    setRows(filteredRows);
+  };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      <TextField
+        onChange={(event) => {
+          requestSearch(event.target.value);
+        }}
+      />
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -183,7 +189,7 @@ export function Table1() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {originalRows
+            {rows
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
