@@ -1,9 +1,6 @@
 import React from 'react';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Button, Typography, Stack } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { Stack } from '@mui/material';
-import PropTypes from 'prop-types';
 
 const buttonTheme = createTheme({
   palette: {
@@ -29,16 +26,13 @@ const buttonBackground = {
 };
 
 export function TwoButtonComponent(props) {
-  const { actionName } = props;
-  const { open, setOpen } = props;
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const { actionName, handleClose, actionButtonFunction } = props;
 
   return (
     <Stack direction="row" spacing={0} justifyContent="right" padding={3}>
       <Button
         variant="text"
-        onClick={props.handleClose}
+        onClick={handleClose}
         spacing={2}
         sx={buttonBackground}
         theme={buttonTheme}
@@ -48,7 +42,10 @@ export function TwoButtonComponent(props) {
       </Button>
       <Button
         variant="contained"
-        onClick={props.handleClose}
+        onClick={() => {
+          actionButtonFunction();
+          handleClose();
+        }}
         sx={buttonBackground}
         theme={buttonTheme}
         color="archive"
@@ -60,7 +57,3 @@ export function TwoButtonComponent(props) {
 }
 
 export default TwoButtonComponent;
-
-TwoButtonComponent.propTypes = {
-  actionName: PropTypes.object.isRequired,
-};

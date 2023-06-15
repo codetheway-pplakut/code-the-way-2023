@@ -1,12 +1,13 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Grid from '@mui/material/Grid';
+import {
+  Box,
+  Button,
+  Typography,
+  Modal,
+  Grid,
+  IconButton,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import IconButton from '@mui/material/IconButton';
-import PropTypes from 'prop-types';
 import TwoButtonComponent from './two-button-component';
 
 // Background of modal styling:
@@ -51,7 +52,13 @@ const closeIconStyle = {
 };
 
 export function ModalComponent(props) {
-  const { modalHeadingTitle, modalMessage, actionName } = props;
+  const {
+    modalHeadingTitle,
+    modalMessage,
+    actionButtonFunction,
+    actionName,
+    usingTwoButtonFormat,
+  } = props;
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -72,19 +79,19 @@ export function ModalComponent(props) {
           <Typography padding={5} align="center" fontSize={20}>
             {modalMessage}
           </Typography>
-          <Grid item sx={footerStyle} xs={12}>
-            <TwoButtonComponent actionName={props.actionName} />
-          </Grid>
+          {usingTwoButtonFormat && (
+            <Grid item sx={footerStyle} xs={12}>
+              <TwoButtonComponent
+                actionName={actionName}
+                handleClose={handleClose}
+                actionButtonFunction={actionButtonFunction}
+              />
+            </Grid>
+          )}
         </Box>
       </Modal>
     </div>
   );
 }
-
-ModalComponent.propTypes = {
-  modalHeadingTitle: PropTypes.object.isRequired,
-  modalMessage: PropTypes.object.isRequired,
-  actionName: PropTypes.object.isRequired,
-};
 
 export default ModalComponent;
