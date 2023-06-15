@@ -6,9 +6,11 @@ import {
   Modal,
   Grid,
   IconButton,
+  createTheme,
+  Stack,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import TwoButtonComponent from './two-button-component';
+import PropTypes from 'prop-types';
 
 // Background of modal styling:
 const backgroundStyle = {
@@ -51,24 +53,51 @@ const closeIconStyle = {
   top: 8,
 };
 
-export function ModalComponent(props) {
+// Button styling
+const buttonTheme = createTheme({
+  palette: {
+    archive: {
+      main: '#EC6E6E',
+      contrastText: '#fff',
+    },
+    cancel: {
+      main: '#6C6C6C',
+      contrastText: '#868686',
+    },
+  },
+});
+
+const buttonText = {
+  fontSize: '20px',
+  fontFamily: 'roboto',
+};
+
+const buttonBackground = {
+  minWidth: '130px',
+  minHeight: '50px',
+};
+
+export function GenericModal(props) {
   const {
+    openModal,
     modalHeadingTitle,
     modalMessage,
     actionButtonFunction,
     actionName,
+    cancelButton,
     usingTwoButtonFormat,
   } = props;
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   return (
     <div>
-      <Button onClick={handleOpen}>Archive Coach</Button>
+      <Button onClick={handleOpen}>{openModal}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={backgroundStyle}>
-          <Grid item sx={headingStyle} xs={12}>
+          <Grid item sx={headingStyle}>
             <Typography padding={2} align="center" sx={headingText}>
               {modalHeadingTitle}
             </Typography>
@@ -81,11 +110,35 @@ export function ModalComponent(props) {
           </Typography>
           {usingTwoButtonFormat && (
             <Grid item sx={footerStyle} xs={12}>
-              <TwoButtonComponent
-                actionName={actionName}
-                handleClose={handleClose}
-                actionButtonFunction={actionButtonFunction}
-              />
+              <Stack
+                direction="row"
+                spacing={0}
+                justifyContent="right"
+                padding={3}
+              >
+                <Button
+                  variant="text"
+                  onClick={handleClose}
+                  spacing={2}
+                  sx={buttonBackground}
+                  theme={buttonTheme}
+                  color="cancel"
+                >
+                  <Typography style={buttonText}>{cancelButton}</Typography>
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    actionButtonFunction();
+                    handleClose();
+                  }}
+                  sx={buttonBackground}
+                  theme={buttonTheme}
+                  color="archive"
+                >
+                  <Typography style={buttonText}>{actionName}</Typography>
+                </Button>
+              </Stack>
             </Grid>
           )}
         </Box>
@@ -94,4 +147,14 @@ export function ModalComponent(props) {
   );
 }
 
-export default ModalComponent;
+GenericModal.propTypes = {
+  openModal: PropTypes.string.isRequired,
+  modalHeadingTitle: PropTypes.string.isRequired,
+  modalMessage: PropTypes.string.isRequired,
+  actionButtonFunction: PropTypes.element.isRequired,
+  actionName: PropTypes.string.isRequired,
+  cancelButton: PropTypes.string.isRequired,
+  usingTwoButtonFormat: PropTypes.bool.isRequired,
+};
+
+export default GenericModal;
