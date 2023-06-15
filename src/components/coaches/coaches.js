@@ -6,7 +6,7 @@ export function Coaches() {
     <div>
       <ModalComponent
         modalHeadingTitle="Archive Coach"
-        modalMessage="Are you sure you want to archive this coach?"
+        modalMessage="Are you sure you want to archive [coachname here]?"
         actionName="Archive"
         twoButtonModel={false}
       />

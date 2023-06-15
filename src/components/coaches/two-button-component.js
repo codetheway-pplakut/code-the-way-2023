@@ -12,7 +12,7 @@ const buttonTheme = createTheme({
       contrastText: '#fff',
     },
     cancel: {
-      main: '#D6D6D6',
+      main: '#6C6C6C',
       contrastText: '#868686',
     },
   },
@@ -35,7 +35,17 @@ export function TwoButtonComponent(props) {
   const handleClose = () => setOpen(false);
 
   return (
-    <Stack direction="row" spacing={5} justifyContent="center" padding={3}>
+    <Stack direction="row" spacing={0} justifyContent="right" padding={3}>
+      <Button
+        variant="text"
+        onClick={props.handleClose}
+        spacing={2}
+        sx={buttonBackground}
+        theme={buttonTheme}
+        color="cancel"
+      >
+        <Typography style={buttonText}>Cancel</Typography>
+      </Button>
       <Button
         variant="contained"
         onClick={props.handleClose}
@@ -44,17 +54,6 @@ export function TwoButtonComponent(props) {
         color="archive"
       >
         <Typography style={buttonText}>{actionName}</Typography>
-      </Button>
-
-      <Button
-        variant="contained"
-        onClick={props.handleClose}
-        spacing={2}
-        sx={buttonBackground}
-        theme={buttonTheme}
-        color="cancel"
-      >
-        <Typography style={buttonText}>Cancel</Typography>
       </Button>
     </Stack>
   );
