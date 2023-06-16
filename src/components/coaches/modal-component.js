@@ -6,11 +6,12 @@ import {
   Modal,
   Grid,
   IconButton,
-  createTheme,
-  Stack,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
+import ModalMessageComponent from './message-only-component';
+import TwoButtonComponent from './two-button-component';
+import FieldComponent from './field-component';
 
 // Background of modal styling:
 const backgroundStyle = {
@@ -37,44 +38,12 @@ const headingText = {
   fontSize: 29,
 };
 
-// Footer styling
-const footerStyle = {
-  bgcolor: '#F2F2F2',
-  color: 'white',
-  borderBottomLeftRadius: 10,
-  borderBottomRightRadius: 10,
-};
-
 // "X" icon styling:
 const closeIconStyle = {
   color: '#C5C5C5',
   position: 'absolute',
   right: 8,
   top: 8,
-};
-
-// Button styling
-const buttonTheme = createTheme({
-  palette: {
-    archive: {
-      main: '#EC6E6E',
-      contrastText: '#fff',
-    },
-    cancel: {
-      main: '#6C6C6C',
-      contrastText: '#868686',
-    },
-  },
-});
-
-const buttonText = {
-  fontSize: '20px',
-  fontFamily: 'roboto',
-};
-
-const buttonBackground = {
-  minWidth: '130px',
-  minHeight: '50px',
 };
 
 export function GenericModal(props) {
@@ -86,6 +55,7 @@ export function GenericModal(props) {
     actionName,
     cancelButton,
     usingTwoButtonFormat,
+    usingFields,
   } = props;
 
   const [open, setOpen] = React.useState(false);
@@ -105,41 +75,24 @@ export function GenericModal(props) {
               <CloseIcon fontSize="large" sx={closeIconStyle} />
             </IconButton>
           </Grid>
-          <Typography padding={5} align="center" fontSize={20}>
-            {modalMessage}
-          </Typography>
+          <ModalMessageComponent modalMessage={modalMessage} />
+          {usingFields && (
+            <FieldComponent
+              handleClose={handleClose}
+              actionButtonFunction={actionButtonFunction}
+              actionName={actionName}
+              cancelButton={cancelButton}
+              usingTwoButtonFormat
+            />
+          )}
           {usingTwoButtonFormat && (
-            <Grid item sx={footerStyle} xs={12}>
-              <Stack
-                direction="row"
-                spacing={0}
-                justifyContent="right"
-                padding={3}
-              >
-                <Button
-                  variant="text"
-                  onClick={handleClose}
-                  spacing={2}
-                  sx={buttonBackground}
-                  theme={buttonTheme}
-                  color="cancel"
-                >
-                  <Typography style={buttonText}>{cancelButton}</Typography>
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    actionButtonFunction();
-                    handleClose();
-                  }}
-                  sx={buttonBackground}
-                  theme={buttonTheme}
-                  color="archive"
-                >
-                  <Typography style={buttonText}>{actionName}</Typography>
-                </Button>
-              </Stack>
-            </Grid>
+            <TwoButtonComponent
+              handleClose={handleClose}
+              actionButtonFunction={actionButtonFunction}
+              actionName={actionName}
+              cancelButton={cancelButton}
+              usingTwoButtonFormat
+            />
           )}
         </Box>
       </Modal>
