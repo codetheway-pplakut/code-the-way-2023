@@ -133,7 +133,7 @@ export function Test() {
                 error={error}
                 size="small"
                 id="filled-basic"
-                color="success"
+                // color="success"
                 variant="outlined"
                 label="Username"
                 sx={{ color: 'white' }}
@@ -147,7 +147,7 @@ export function Test() {
                 error={error1}
                 size="small"
                 id="filled-basic"
-                color="success"
+                // color="success"
                 variant="outlined"
                 label="Password"
                 sx={{ color: 'white' }}
