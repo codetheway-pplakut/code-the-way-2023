@@ -32,6 +32,7 @@ export function Test() {
     'Password Must Have a Number',
     'Password Must Have a Special Character',
   ];
+
   // const showErrorMessage = Boolean(errorMessage);
   // const textBool =
   //   text1.length < 6 ||
@@ -51,7 +52,7 @@ export function Test() {
   };
 
   const submitHandler = () => {
-    // eslint-disable-next-line prefer-destructuring
+    console.log('submit'); // eslint-disable-next-line prefer-destructuring
     setErrorMessage(errorArray[1]);
     setErrorMessage1(errorArray1[1]);
 
@@ -82,6 +83,7 @@ export function Test() {
   };
 
   const handleClose = () => {
+    console.log('close');
     setOpen(false);
     setErrorMessage('');
     setErrorMessage1('');
@@ -92,6 +94,11 @@ export function Test() {
   const handleOpen = () => {
     setOpen(true);
   };
+  const buttonArray = [
+    // [title, functionality, color, key]
+    ['Submit', submitHandler, 'success', 'key1'],
+    ['Cancel', handleClose, 'warning', 'key2'],
+  ];
   return (
     <Layout
       actions={[
@@ -163,21 +170,19 @@ export function Test() {
               <ErrorMessage message={errorMessage1} show={errorArray1[0]} />
             </Grid>
             <Grid item align="center" sx={{ pt: 4 }}>
-              <Grid container direction="row" spacing={2} alignItems="center">
-                <Grid item xs={7}>
-                  <Button variant="contained" onClick={submitHandler}>
-                    Submit
-                  </Button>
-                </Grid>
-                <Grid item>
-                  <Button
-                    variant="contained"
-                    color="warning"
-                    onClick={handleClose}
-                  >
-                    Cancel
-                  </Button>
-                </Grid>
+              <Grid container direction="row" spacing={2}>
+                {buttonArray.map((button) => (
+                  <Grid item key={button[3]} xs={6}>
+                    <Button
+                      onClick={button[1]}
+                      color={button[2]}
+                      key={button[3]}
+                      variant="contained"
+                    >
+                      {button[0]}
+                    </Button>
+                  </Grid>
+                ))}
               </Grid>
             </Grid>
           </Grid>

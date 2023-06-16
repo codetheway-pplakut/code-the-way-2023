@@ -8,6 +8,7 @@ import packageJson from '../../package.json';
 import { Splash } from '../components/splash/splash';
 // eslint-disable-next-line import/named
 import { Test } from '../components/test/test';
+import { Coaches } from '../components/coaches/coaches';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
@@ -19,6 +20,7 @@ export const ROUTER = createBrowserRouter(
       children: [
         { path: '/', element: <Splash /> },
         { path: 'login', element: <Login /> },
+        { path: 'coaches', element: <Coaches /> },
         { path: 'test', element: <Test /> },
         { path: '*', element: <Error /> },
       ],

@@ -14,5 +14,5 @@ export function ErrorMessage(props) {
     return '';
   };
 
-  return <Typography sx={{ color: pink[500] }}>{message}</Typography>;
+  return <Typography sx={{ color: pink[500] }}>{errorMessage()}</Typography>;
 }
