@@ -6,6 +6,7 @@ import {
   Modal,
   Grid,
   IconButton,
+  Icon,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
@@ -47,7 +48,7 @@ const closeIconStyle = {
 };
 
 export function GenericModal(props) {
-  const { openModal, modalHeadingTitle, modalMessage } = props;
+  const { buttonIcon, openModal, modalHeadingTitle, modalMessage } = props;
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -55,7 +56,9 @@ export function GenericModal(props) {
 
   return (
     <div>
-      <Button onClick={handleOpen}>{openModal}</Button>
+      <Button onClick={handleOpen} startIcon={buttonIcon}>
+        {openModal}
+      </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={backgroundStyle}>
           <Grid item sx={headingStyle}>
@@ -74,9 +77,13 @@ export function GenericModal(props) {
     </div>
   );
 }
-
+GenericModal.defaultProps = {
+  buttonIcon: null,
+  openModal: null,
+};
 GenericModal.propTypes = {
-  openModal: PropTypes.string.isRequired,
+  buttonIcon: PropTypes.instanceOf(Icon),
+  openModal: PropTypes.string,
   modalHeadingTitle: PropTypes.string.isRequired,
   modalMessage: PropTypes.string.isRequired,
 };
