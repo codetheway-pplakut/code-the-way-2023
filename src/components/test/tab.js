@@ -11,7 +11,6 @@ import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid';
 
 export function Tab1() {
-  
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
