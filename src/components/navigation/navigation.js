@@ -33,6 +33,11 @@ export function Navigation(props) {
         <NavigationItem label="Test" onClick={onToggle} to="/test" />
         <NavigationItem label="Coaches" onClick={onToggle} to="/coaches" />
         <NavigationItem
+          label="StudentInfo"
+          onClick={onToggle}
+          to="/student-info"
+        />
+        <NavigationItem
           LinkComponent="a"
           href="https://api-dev-lead2change-ctw.azurewebsites.net/swagger/index.html"
           icon={<ApiIcon />}

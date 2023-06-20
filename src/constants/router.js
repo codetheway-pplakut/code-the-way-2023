@@ -9,6 +9,7 @@ import { Splash } from '../components/splash/splash';
 // eslint-disable-next-line import/named
 import { Test } from '../components/test/test';
 import { Coaches } from '../components/coaches/coaches';
+import { StudentInfo } from '../components/student-info/student-info';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
@@ -23,6 +24,7 @@ export const ROUTER = createBrowserRouter(
         { path: 'coaches', element: <Coaches /> },
         { path: 'test', element: <Test /> },
         { path: '*', element: <Error /> },
+        { path: 'student-info', element: <StudentInfo /> },
       ],
     },
   ],
