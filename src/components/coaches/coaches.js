@@ -1,61 +1,49 @@
-import React, { useState } from 'react';
-import { Grid, MenuItem, TextField, Typography } from '@mui/material';
+import React from 'react';
+import { Grid } from '@mui/material';
 import GenericModal from './modal-component';
-import FieldComponent from './field-component';
+import Table2 from './table';
 
 export function Coaches() {
-  const [selectedCoach, setSelectedCoach] = useState('');
-
   const actionButtonFunction = () => {
-    console.log('Selected Coach:', selectedCoach);
+    console.log('Function completed');
     // Do other actions with the selected coach in this function
   };
 
-  const coachNames = ['Bob the coach', 'Mr. O', 'Jeff'];
-
-  const transformedArray = coachNames.map((name, index) => ({
-    value: (index + 1).toString(),
-    label: name,
-  }));
-
-  const handleCoachChange = (event) => {
-    setSelectedCoach(event.target.value);
-  };
-
-  const content = (
-    // <Grid container spacing={2} justifyContent="center">
-    //  <div>
-    //    <TextField
-    //      id="test"
-    //      select
-    //      label="Select"
-    //      value={selectedCoach}
-    //      onChange={handleCoachChange}
-    //      defaultValue="0"
-    //    >
-    //      {transformedArray.map((option) => (
-    //        <MenuItem key={option.value} value={option.value}>
-    //          {option.label}
-    //        </MenuItem>
-    //      ))}
-    //    </TextField>
-    //  </div>
-    // </Grid>
-    <FieldComponent />
-  );
-
   return (
     <div>
-      <GenericModal
-        openModal="test"
-        modalHeadingTitle="Archive Coach"
-        modalMessage="Create a username and password"
-        actionName="Archive"
-        cancelButton="cancel"
-        usingFields
-        // usingTwoButtonFormat
+      <Grid container justifyContent="center">
+        <Grid item xs={10}>
+          <Table2 />
+        </Grid>
+      </Grid>
 
-        // reason that buttons aren't on bottom of modal is because modal has padding
+      <GenericModal
+        usingFields
+        openModal="Register a Coach"
+        modalHeadingTitle="Create a Coach"
+        modalMessage="Create a username and password"
+        actionButtonColor="submit"
+        actionButtonTitle="Register"
+        cancelButtonTitle="Cancel"
+      />
+      <GenericModal
+        usingDropDown
+        openModal="Select a Coach"
+        modalHeadingTitle="Select a Coach"
+        modalMessage="Select a coach to assign this student to."
+        actionButtonTitle="Select"
+        actionButtonColor="submit"
+        cancelButtonTitle="cancel"
+      />
+      <GenericModal
+        usingTwoButtonFormat
+        openModal="Archive"
+        modalHeadingTitle="Archive a Coach"
+        modalMessage="Are you sure you want to archive this coach?"
+        actionButtonTitle="Archive"
+        cancelButtonTitle="cancel"
+        actionButtonFunction={actionButtonFunction}
+        actionButtonColor="archive"
       />
     </div>
   );

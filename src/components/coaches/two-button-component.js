@@ -21,6 +21,10 @@ const buttonTheme = createTheme({
       main: '#6C6C6C',
       contrastText: '#868686',
     },
+    submit: {
+      main: '#6DBB7A',
+      contrastText: '#fff',
+    },
   },
 });
 
@@ -37,52 +41,51 @@ const buttonBackground = {
 export function TwoButtonComponent(props) {
   const {
     actionButtonFunction,
-    actionName,
-    cancelButton,
-    usingTwoButtonFormat,
+    actionButtonTitle,
+    cancelButtonTitle,
     handleClose,
+    actionButtonColor,
   } = props;
 
   return (
     <div>
-      {usingTwoButtonFormat && (
-        <Grid item sx={footerStyle} xs={12}>
-          <Stack direction="row" spacing={0} justifyContent="right" padding={3}>
-            <Button
-              variant="text"
-              onClick={handleClose}
-              spacing={2}
-              sx={buttonBackground}
-              theme={buttonTheme}
-              color="cancel"
-            >
-              <Typography style={buttonText}>{cancelButton}</Typography>
-            </Button>
-            <Button
-              variant="contained"
-              onClick={() => {
-                actionButtonFunction();
-                handleClose();
-              }}
-              sx={buttonBackground}
-              theme={buttonTheme}
-              color="archive"
-            >
-              <Typography style={buttonText}>{actionName}</Typography>
-            </Button>
-          </Stack>
-        </Grid>
-      )}
+      <Grid item sx={footerStyle} xs={12}>
+        <Stack direction="row" spacing={0} justifyContent="right" padding={3}>
+          <Button
+            variant="text"
+            onClick={handleClose}
+            spacing={2}
+            sx={buttonBackground}
+            theme={buttonTheme}
+            color="cancel"
+          >
+            <Typography style={buttonText}>{cancelButtonTitle}</Typography>
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              actionButtonFunction();
+              handleClose();
+            }}
+            sx={buttonBackground}
+            theme={buttonTheme}
+            color={actionButtonColor}
+          >
+            <Typography style={buttonText}>{actionButtonTitle}</Typography>
+          </Button>
+        </Stack>
+      </Grid>
     </div>
   );
 }
 
 TwoButtonComponent.propTypes = {
   actionButtonFunction: PropTypes.element.isRequired,
-  actionName: PropTypes.string.isRequired,
-  cancelButton: PropTypes.string.isRequired,
+  actionButtonTitle: PropTypes.string.isRequired,
+  cancelButtonTitle: PropTypes.string.isRequired,
   usingTwoButtonFormat: PropTypes.bool.isRequired,
   handleClose: PropTypes.element.isRequired,
+  actionButtonColor: PropTypes.string.isRequired,
 };
 
 export default TwoButtonComponent;

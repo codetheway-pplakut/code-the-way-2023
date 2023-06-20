@@ -22,6 +22,10 @@ const buttonTheme = createTheme({
       main: '#6C6C6C',
       contrastText: '#868686',
     },
+    submit: {
+      main: '#6DBB7A',
+      contrastText: '#fff',
+    },
   },
 });
 
@@ -45,7 +49,12 @@ const footerStyle = {
 
 export function FieldComponent(props) {
   // const navigate = useNavigate();
-  const { handleClose } = props;
+  const {
+    handleClose,
+    actionButtonColor,
+    actionButtonTitle,
+    cancelButtonTitle,
+  } = props;
   const [text, setText] = React.useState('');
   const [text1, setText1] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState('');
@@ -54,29 +63,19 @@ export function FieldComponent(props) {
   const [error1, setError1] = React.useState(false);
   const conditions = ['fill', 'short', 'space', 'email'];
   const messages = [
-    'Username Must be Filled',
-    'Username must be More than 6 Characters',
-    'Username Must not Have Spaces',
-    'Username Must be an Email',
+    'Username must be filled',
+    'Username must have more than 6 characters',
+    'Username cannot have a space',
+    'Username must be a valid email',
   ];
   const conditions1 = ['fill', 'short', 'space', 'num', 'spec'];
   const messages1 = [
-    'Password Must be Filled',
-    'Password Must be More than 6 Characters',
-    'Password Must not Have Spaces ',
-    'Password Must Have a Number',
-    'Password Must Have a Special Character',
+    'Password must be filled',
+    'Password must have more than 6 characters',
+    'Password cannot have a space ',
+    'Password must include a number',
+    'Password must include a special character',
   ];
-  // const showErrorMessage = Boolean(errorMessage);
-  // const textBool =
-  //   text1.length < 6 ||
-  //   text.length < 6 ||
-  //   text.includes(' ') ||
-  //   text1.includes(' ') ||
-  //   !text.includes('@') ||
-  //   !text.includes('.') ||
-  //   !specialChars.test(text1) ||
-  //   !num.test(text1);
   const errorArray = ErrorLogic(conditions, messages, text);
   const errorArray1 = ErrorLogic(conditions1, messages1, text1);
   const clearText = () => {
@@ -124,6 +123,7 @@ export function FieldComponent(props) {
           }}
         />
       </Grid>
+
       <Grid item align="center" sx={{ pt: 4 }}>
         <TextField
           error={error1}
@@ -137,10 +137,10 @@ export function FieldComponent(props) {
           }}
         />
       </Grid>
-
       <Grid item align="center" sx={{ pt: 2 }}>
         <ErrorMessage message={errorMessage} show={errorArray[0]} />
       </Grid>
+
       <Grid item align="center" sx={{ pt: 1 }}>
         <ErrorMessage message={errorMessage1} show={errorArray1[0]} />
       </Grid>
@@ -155,16 +155,16 @@ export function FieldComponent(props) {
             theme={buttonTheme}
             color="cancel"
           >
-            <Typography style={buttonText}>Cancel</Typography>
+            <Typography style={buttonText}>{cancelButtonTitle}</Typography>
           </Button>
           <Button
             variant="contained"
             onClick={submitHandler}
             sx={buttonBackground}
             theme={buttonTheme}
-            color="archive"
+            color={actionButtonColor}
           >
-            <Typography style={buttonText}>Submit</Typography>
+            <Typography style={buttonText}>{actionButtonTitle}</Typography>
           </Button>
         </Stack>
       </Grid>
@@ -174,6 +174,9 @@ export function FieldComponent(props) {
 
 FieldComponent.propTypes = {
   handleClose: PropTypes.element.isRequired,
+  actionButtonColor: PropTypes.string.isRequired,
+  cancelButtonTitle: PropTypes.string.isRequired,
+  actionButtonTitle: PropTypes.string.isRequired,
 };
 
 export default FieldComponent;

@@ -9,11 +9,13 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
-import ModalMessageComponent from './message-only-component';
+import ModalMessageComponent from './modal-message';
 import TwoButtonComponent from './two-button-component';
 import FieldComponent from './field-component';
+import { DropDownComponent } from './drop-down-component';
 
 // Background of modal styling:
+
 const backgroundStyle = {
   position: 'absolute',
   top: '50%',
@@ -52,10 +54,12 @@ export function GenericModal(props) {
     modalHeadingTitle,
     modalMessage,
     actionButtonFunction,
-    actionName,
-    cancelButton,
+    actionButtonTitle,
+    cancelButtonTitle,
     usingTwoButtonFormat,
     usingFields,
+    actionButtonColor,
+    usingDropDown,
   } = props;
 
   const [open, setOpen] = React.useState(false);
@@ -80,18 +84,27 @@ export function GenericModal(props) {
             <FieldComponent
               handleClose={handleClose}
               actionButtonFunction={actionButtonFunction}
-              actionName={actionName}
-              cancelButton={cancelButton}
-              usingTwoButtonFormat
+              actionButtonTitle={actionButtonTitle}
+              cancelButtonTitle={cancelButtonTitle}
+              actionButtonColor={actionButtonColor}
             />
           )}
           {usingTwoButtonFormat && (
             <TwoButtonComponent
               handleClose={handleClose}
               actionButtonFunction={actionButtonFunction}
-              actionName={actionName}
-              cancelButton={cancelButton}
-              usingTwoButtonFormat
+              actionButtonTitle={actionButtonTitle}
+              cancelButtonTitle={cancelButtonTitle}
+              actionButtonColor={actionButtonColor}
+            />
+          )}
+          {usingDropDown && (
+            <DropDownComponent
+              handleClose={handleClose}
+              actionButtonFunction={actionButtonFunction}
+              actionButtonTitle={actionButtonTitle}
+              cancelButtonTitle={cancelButtonTitle}
+              actionButtonColor={actionButtonColor}
             />
           )}
         </Box>
@@ -105,9 +118,11 @@ GenericModal.propTypes = {
   modalHeadingTitle: PropTypes.string.isRequired,
   modalMessage: PropTypes.string.isRequired,
   actionButtonFunction: PropTypes.element.isRequired,
-  actionName: PropTypes.string.isRequired,
-  cancelButton: PropTypes.string.isRequired,
+  actionButtonTitle: PropTypes.string.isRequired,
+  cancelButtonTitle: PropTypes.string.isRequired,
   usingTwoButtonFormat: PropTypes.bool.isRequired,
+  usingFields: PropTypes.bool.isRequired,
+  actionButtonColor: PropTypes.string.isRequired,
 };
 
 export default GenericModal;
