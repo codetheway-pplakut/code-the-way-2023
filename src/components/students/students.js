@@ -3,6 +3,7 @@ import { Button, Modal, Box, Grid, Typography, TextField } from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
+import { DynamicTable } from './dynamicTable';
 
 export function Students() {
   // const navigate = useNavigate();
@@ -82,6 +83,11 @@ export function Students() {
         </Button>,
       ]}
     >
+      <Grid container justifyContent="center">
+        <Grid item xs={10}>
+          <DynamicTable />
+        </Grid>
+      </Grid>
       <Modal open={open} onClose={handleClose}>
         <Box
           alignItems="center"

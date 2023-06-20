@@ -17,12 +17,12 @@ import EnhancedTableHead from './enhancedTableHead';
 import { Search, SearchIconWrapper, StyledInputBase } from './search';
 import { Todal } from './modal';
 
-function createData(name, age, email, carbs, coach) {
+function createData(name, age, email, phone, coach) {
   return {
     name,
     age,
     email,
-    carbs,
+    phone,
     coach,
   };
 }
@@ -184,8 +184,8 @@ export function DynamicTable() {
               onChange={handleTabChange}
               aria-label="nav tabs example"
             >
-              <Tab value="one" label="active" />
-              <Tab value="two" label="applicants" />
+              <Tab value="one" label="applicants" sx={{ borderBottom: 1 }} />
+              <Tab value="two" label="active" sx={{ borderBottom: 1 }} />
             </Tabs>
           </Grid>
           <Toolbar>
@@ -224,76 +224,69 @@ export function DynamicTable() {
         )} */}
 
         {tabValue === 'two' && (
-          <Paper sx={{ width: '100%', mb: 2 }}>
-            <TableContainer>
-              <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
-                size={dense ? 'small' : 'medium'}
-              >
-                <EnhancedTableHead
-                  order={order}
-                  orderBy={orderBy}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                />
-                <TableBody>
-                  {visibleRows.map((row, index) => {
-                    const labelId = `enhanced-table-checkbox-${index}`;
-
-                    return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.name}
-                        sx={{ cursor: 'pointer' }}
-                      >
-                        <TableCell
-                          component="th"
-                          id={labelId}
-                          scope="row"
-                          padding="none"
+          <div>
+            <Paper sx={{ width: '100%', mb: 2 }}>
+              <TableContainer>
+                <Table
+                  sx={{ minWidth: 750 }}
+                  aria-labelledby="tableTitle"
+                  size={dense ? 'small' : 'medium'}
+                >
+                  <EnhancedTableHead
+                    order={order}
+                    orderBy={orderBy}
+                    onRequestSort={handleRequestSort}
+                    rowCount={rows.length}
+                  />
+                  <TableBody>
+                    {visibleRows.map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.name}
+                          sx={{ cursor: 'pointer' }}
                         >
-                          {row.name}
-                        </TableCell>
-                        <TableCell align="right">{row.age}</TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
-                        <TableCell align="right">{row.carbs}</TableCell>
-                        <TableCell align="right">{row.coach}</TableCell>
-                        <TableCell align="right">
-                          <Todal />
-                        </TableCell>
+                          <TableCell align="left">{row.name}</TableCell>
+                          <TableCell align="left">{row.age}</TableCell>
+                          <TableCell align="left">{row.email}</TableCell>
+                          <TableCell align="left">{row.phone}</TableCell>
+                          <TableCell align="left">{row.coach}</TableCell>
+                          <TableCell align="left">
+                            <Todal />
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                    {emptyRows > 0 && (
+                      <TableRow
+                        style={{
+                          height: (dense ? 33 : 53) * emptyRows,
+                        }}
+                      >
+                        <TableCell colSpan={6} />
                       </TableRow>
-                    );
-                  })}
-                  {emptyRows > 0 && (
-                    <TableRow
-                      style={{
-                        height: (dense ? 33 : 53) * emptyRows,
-                      }}
-                    >
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                    )}
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Paper>
             <FormControlLabel
               control={<Switch checked={dense} onChange={handleChangeDense} />}
               label="Dense padding"
             />
-          </Paper>
+          </div>
         )}
       </Box>
     </div>
