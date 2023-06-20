@@ -24,8 +24,10 @@
     "prettier/prettier": [
       1,
       {
-        "singleQuote": true
+        "singleQuote": true,
+        "endOfLine": "auto"
       }
+
     ],
     "quotes": ["error", "single"],
     "radix": 0,
