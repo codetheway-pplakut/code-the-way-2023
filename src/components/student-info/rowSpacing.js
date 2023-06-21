@@ -6,7 +6,7 @@ import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
 
 export default function RowAndColumnSpacing() {
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -25,6 +25,14 @@ export default function RowAndColumnSpacing() {
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 150,
+    // '&:hover': {
+    //   bgcolor: '#ffb570',
+    //   opacity: 1,
+    // },
+    '&.Mui-selected': {
+      color: '#ffffff',
+      bgcolor: '#ff7c00',
+    },
   };
   const iconStyle = {
     bgcolor: '#004cbb',
@@ -43,24 +51,27 @@ export default function RowAndColumnSpacing() {
         <Grid item width="50%" alignItems="center" mr="5%">
           <Grid container direction="row" sx={style} alignItems="center">
             <Tabs
+              value={value}
+              onChange={handleChange}
               variant="scrollable"
-              scrollButtons="auto"
+              scrollButtons="true"
               width="100%"
-              centered
             >
-              <Grid item xs={2} sx={tabStyle}>
-                <Tab value="one" label="Contact Info" alignItems="center" />
-              </Grid>
-              <Grid item xs={2} sx={tabStyle}>
-                <Tab
-                  value="two"
-                  label="Goals and Careers"
-                  alignItems="center"
-                />
-              </Grid>
-              <Grid item xs={2} sx={tabStyle}>
-                <Tab value="three" label="Interview Info" alignItems="center" />
-              </Grid>
+              <Tab sx={tabStyle} value="one" label="Contact Info" />
+
+              <Tab
+                sx={tabStyle}
+                value="two"
+                label="Goals and Careers"
+                alignItems="center"
+              />
+
+              <Tab
+                sx={tabStyle}
+                value="three"
+                label="Interview Info"
+                alignItems="center"
+              />
             </Tabs>
           </Grid>
         </Grid>
@@ -92,9 +103,17 @@ export default function RowAndColumnSpacing() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item container direction="row" alignItems="center">
-        <InfoBox />
-      </Grid>
+
+      {value === 'one' && (
+        <Grid item container direction="row" alignItems="center">
+          <InfoBox />
+        </Grid>
+      )}
+      {value === 'two' && (
+        <Grid item container direction="row" alignItems="center">
+          Placeholder
+        </Grid>
+      )}
     </Grid>
   );
 }
