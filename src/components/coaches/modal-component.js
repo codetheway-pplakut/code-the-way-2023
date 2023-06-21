@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React, { Children, useState } from 'react';
 import {
   Box,
   Button,
@@ -11,6 +11,8 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
+import { validate } from 'validate.js';
+import { flattenDeep } from 'lodash';
 import {
   backgroundStyle,
   headingStyle,
@@ -21,22 +23,32 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
+// function onClick confirm
+// function onCLick cancel
+// onConfirm lable
+// onCancel label
 
 export function GenericModal(props) {
   const {
     openModal,
     modalHeadingTitle,
     modalMessage,
-    actionButtonFunction,
     actionButtonTitle,
     cancelButtonTitle,
     actionButtonColor,
+    actionButtonDisabled,
+    onActionButtonClick,
     children,
   } = props;
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const actionAndClose = () => {
+    if (onActionButtonClick) onActionButtonClick();
+    handleClose();
+  };
 
   return (
     <div>
@@ -76,11 +88,9 @@ export function GenericModal(props) {
               </Button>
               <Button
                 variant="contained"
-                onClick={() => {
-                  actionButtonFunction();
-                  handleClose();
-                }}
+                onClick={actionAndClose}
                 sx={buttonBackground}
+                disabled={actionButtonDisabled}
                 theme={buttonTheme}
                 color={actionButtonColor}
               >
@@ -102,16 +112,42 @@ GenericModal.propTypes = {
   openModal: PropTypes.string,
   modalHeadingTitle: PropTypes.string.isRequired,
   modalMessage: PropTypes.string.isRequired,
-  actionButtonFunction: PropTypes.element.isRequired,
   actionButtonTitle: PropTypes.string.isRequired,
   cancelButtonTitle: PropTypes.string.isRequired,
   actionButtonColor: PropTypes.string.isRequired,
+  onActionButtonClick: PropTypes.func.isRequired,
 };
 
-export function AddCoachModal() {
-  const addCoachAction = () => {
-    console.log('here is where you connect to api');
+export function AddCoachModal(props) {
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
+  const { handleClose } = props;
+
+  const validator = validate(
+    { userName, password },
+    {
+      userName: {
+        presence: true,
+        email: true,
+      },
+      password: {
+        presence: true,
+        length: {
+          minimum: 6,
+          message: 'must be at least 6 characters',
+        },
+      },
+    }
+  );
+
+  const messages = flattenDeep(Object.values(validator || {}));
+  console.log('messages: ', messages);
+
+  const submitAction = () => {
+    alert('submit');
   };
+
+  const actionButtonDisabled = Boolean(messages.length);
 
   return (
     <div>
@@ -121,32 +157,44 @@ export function AddCoachModal() {
         modalMessage="Fill out the fields below to add a coach."
         actionButtonTitle="Create"
         cancelButtonTitle="Cancel"
+        actionButtonDisabled={actionButtonDisabled}
         actionButtonColor="submit"
-        actionButtonFunction={addCoachAction}
+        onActionButtonClick={submitAction}
       >
         <Grid container justifyContent="center">
-          {' '}
-          {/* Center the Grid container */}
-          <Grid item xs={7}>
+          <Grid item xs={9}>
             <TextField
-              fullWidth // Make the TextField component occupy the full width
-              error
-              helperText="Username cannot include a space."
+              onChange={(event) => setUserName(event.target.value)}
+              label="Username"
+              value={userName}
+              type="email"
+            />
+            <TextField
+              onChange={(event) => setPassword(event.target.value)}
+              label="Password"
+              value={password}
+              type="password"
             />
           </Grid>
+          {messages.length > 0 && (
+            <Grid item xs={9}>
+              {messages.map((message, index) => (
+                <Typography key={index} variant="body2" color="error">
+                  {message}
+                </Typography>
+              ))}
+            </Grid>
+          )}
         </Grid>
-        <TextField fullWidth />{' '}
-        {/* Make the TextField component occupy the full width */}
-        <TextField />
       </GenericModal>
     </div>
   );
 }
 
 export function ArchiveCoachModal() {
-  const archiveCoachAction = () => {
-    console.log('here is where you connect to api');
-  };
+  // const archiveCoachAction = () => {
+  //   console.log('here is where you connect to api');
+  // };
 
   return (
     <div>
@@ -157,7 +205,7 @@ export function ArchiveCoachModal() {
         actionButtonTitle="Archive"
         cancelButtonTitle="Cancel"
         actionButtonColor="archive"
-        actionButtonFunction={archiveCoachAction}
+        // actionButtonFunction={archiveCoachAction}
       />
     </div>
   );

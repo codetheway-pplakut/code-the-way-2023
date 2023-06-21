@@ -8,11 +8,6 @@ import {
 } from './modal-component';
 
 export function Coaches() {
-  const actionButtonFunction = () => {
-    console.log('Function completed');
-    // Do other actions with the selected coach in this function
-  };
-
   return (
     <div>
       <Grid container justifyContent="center">
