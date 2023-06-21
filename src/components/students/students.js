@@ -45,13 +45,13 @@ export function Students() {
       id: 'parentFirstName',
       numeric: false,
       disablePadding: false,
-      label: "Parent's First Name",
+      label: 'Parent\'s First Name',
     },
     {
       id: 'parentLastName',
       numeric: false,
       disablePadding: false,
-      label: "Parent's Last Name",
+      label: 'Parent\'s Last Name',
     },
   ];
 
@@ -120,18 +120,7 @@ export function Students() {
     setOpen(true);
   };
   return (
-    <Layout
-      actions={[
-        <Button
-          variant="contained"
-          key="1"
-          color="success"
-          onClick={handleOpen}
-        >
-          Button
-        </Button>,
-      ]}
-    >
+    <div>
       <Grid container justifyContent="center">
         <Grid item xs={10}>
           <TableLayout
@@ -208,6 +197,6 @@ export function Students() {
           </Grid>
         </Box>
       </Modal>
-    </Layout>
+    </div>
   );
 }
