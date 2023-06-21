@@ -6,6 +6,7 @@ import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
+import CommunicationBox from './communication-box';
 
 export default function RowAndColumnSpacing() {
   const [value, setValue] = React.useState('one');
@@ -48,8 +49,20 @@ export default function RowAndColumnSpacing() {
     minHeight: 40,
   };
   return (
-    <Grid container direction="column" alignItems="center">
-      <Grid item container direction="row" alignItems="center" minWidth="100%">
+    <Grid
+      container
+      direction="column"
+      alignItems="center"
+      border="1px solid black"
+    >
+      <Grid
+        item
+        container
+        direction="row"
+        alignItems="center"
+        minWidth="100%"
+        border="1px solid black"
+      >
         <Grid item width="50%" alignItems="center" mr="5%">
           <Grid
             container
@@ -94,13 +107,15 @@ export default function RowAndColumnSpacing() {
           alignItems="center"
           width="45%"
           sx={style}
-          justifyContent="space-evenly"
+          justifyContent="space-between"
+          border="1px solid black"
         >
           <Grid
             container
             direction="row"
             alignItems="center"
-            justifyContent="space-around"
+            justifyContent="space-between"
+            border="1px solid black"
           >
             <Grid item sx={tabStyle} mr="20%">
               <Tab
@@ -116,9 +131,8 @@ export default function RowAndColumnSpacing() {
           </Grid>
         </Grid>
       </Grid>
-
-      {value === 'one' && (
-        <Grid item container direction="row" alignItems="center">
+      <Grid item container direction="row" border="1px solid black">
+        {value === 'one' && (
           <InfoBox
             headers={['Student', 'Parent']}
             modal={[
@@ -136,10 +150,8 @@ export default function RowAndColumnSpacing() {
             content={[['frank'], ['jenny', '867-5309', 'jenny@gmail.com']]}
             labels={[['Name'], ['Name', 'Phone Number', 'Email']]}
           />
-        </Grid>
-      )}
-      {value === 'two' && (
-        <Grid item container direction="row" alignItems="center">
+        )}
+        {value === 'two' && (
           <InfoBox
             headers={['Goals', 'Careers']}
             modal={[
@@ -160,8 +172,23 @@ export default function RowAndColumnSpacing() {
             ]}
             labels={[['Goal 1'], ['Career 1', 'Career 2']]}
           />
+        )}
+        {/* XXX: doesn't work on all viewport sizes, just most */}
+        <Grid
+          container
+          item
+          xs={2}
+          sx={{
+            position: 'relative',
+            display: 'grid',
+            width: '100vw',
+            mx: '0.55%',
+            maxWidth: '47%',
+          }}
+        >
+          <CommunicationBox />
         </Grid>
-      )}
+      </Grid>
     </Grid>
   );
 }
