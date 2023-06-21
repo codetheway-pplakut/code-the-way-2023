@@ -111,7 +111,7 @@ export default function RowAndColumnSpacing() {
               />
             </Grid>
             <Grid item>
-              <GenericModal buttonIcon={<AddIcon sx={iconStyle} />} />
+              <GenericModal openButtonIcon={<AddIcon sx={iconStyle} />} />
             </Grid>
           </Grid>
         </Grid>
@@ -125,12 +125,12 @@ export default function RowAndColumnSpacing() {
               <GenericModal
                 key="1"
                 modalHeadingTitle="Edit Student"
-                buttonIcon={<EditIcon sx={iconStyle} />}
+                openButtonIcon={<EditIcon sx={iconStyle} />}
               />,
               <GenericModal
                 key="2"
-                modalHeadingTitle="Edit  Parent"
-                buttonIcon={<EditIcon sx={iconStyle} />}
+                modalHeadingTitle="Edit Parent"
+                openButtonIcon={<EditIcon sx={iconStyle} />}
               />,
             ]}
             content={[['frank'], ['jenny', '867-5309', 'jenny@gmail.com']]}
@@ -146,12 +146,12 @@ export default function RowAndColumnSpacing() {
               <GenericModal
                 key="1"
                 modalHeadingTitle="Add Goal"
-                buttonIcon={<AddIcon sx={iconStyle} />}
+                openButtonIcon={<AddIcon sx={iconStyle} />}
               />,
               <GenericModal
                 key="2"
                 modalHeadingTitle="Add Career"
-                buttonIcon={<AddIcon sx={iconStyle} />}
+                openButtonIcon={<AddIcon sx={iconStyle} />}
               />,
             ]}
             content={[
