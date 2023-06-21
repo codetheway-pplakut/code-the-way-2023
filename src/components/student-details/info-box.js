@@ -19,9 +19,13 @@ export default function InfoBox(props) {
   const boxStyle = {
     bgcolor: '#004cbb',
     color: '#ffffff',
-    minHeight: '100%',
+    position: 'relative',
+    minHeight: '70vh',
     minWidth: '55%',
+
     mx: '10px',
+    mt: 'auto',
+    mb: '20px',
   };
 
   const textStyle = {

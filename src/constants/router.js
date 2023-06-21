@@ -9,7 +9,7 @@ import { Splash } from '../components/splash/splash';
 // eslint-disable-next-line import/named
 import { Test } from '../components/test/test';
 import { Coaches } from '../components/coaches/coaches';
-import { StudentInfo } from '../components/student-info/student-info';
+import { StudentInfo } from '../components/student-details/student-info';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
