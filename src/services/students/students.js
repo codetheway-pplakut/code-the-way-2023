@@ -3,7 +3,7 @@ import { callApi } from '../../utils/call-api/call-api';
 /**
  * Basic Request for all students at once. Gets all, regardless of state.
  * @returns {[{id:uuid, state:string, firstName: string, lastName: string, email:email, studentCellPhone:string, parentFirstName: string, parentLastName: string, coachId: uuid, createdOnUtc: Date, updatedOnUtc: Date}]}
- * @author Adam Miller
+ * @author Joey Schroeder
  */
 export const getStudents = async () => callApi({ url: '/Students' });
 
@@ -30,10 +30,6 @@ export const addStudent = async (student) =>
     url: '/Students',
     data: student,
     method: 'POST',
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
 
 /**
@@ -47,10 +43,6 @@ export const editStudent = async (student) =>
     url: '/Students',
     data: student,
     method: 'PUT',
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
 
 /**
@@ -64,10 +56,6 @@ export const deleteStudent = async (studentId) =>
     url: '/Students',
     params: studentId,
     method: 'DELETE',
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
 
 /**
@@ -82,10 +70,6 @@ export const assignStudent = async (studentId, coachId) =>
     url: '/Students/assign-student',
     method: 'POST',
     data: { coachId, studentId },
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
 
 /**
@@ -100,8 +84,4 @@ export const unassignStudent = async (studentId, coachId) =>
     url: '/Students/unassign-student',
     method: 'POST',
     data: { coachId, studentId },
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });

@@ -25,10 +25,6 @@ export const addCoach = (coach) =>
     url: '/Coaches',
     data: coach,
     method: 'POST',
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
 
 /**
@@ -42,10 +38,6 @@ export const editCoach = (coach) =>
     url: '/Coaches',
     data: coach,
     method: 'PUT',
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
 
 /**
@@ -58,8 +50,4 @@ export const deleteCoach = (coachId) =>
     url: '/Coaches',
     params: coachId,
     method: 'DELETE',
-    headers: {
-      Accept: 'application/json, text/plain',
-      'Content-Type': 'application/json',
-    },
   });
