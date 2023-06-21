@@ -144,7 +144,7 @@ export function AddCoachModal(props) {
   console.log('messages: ', messages);
 
   const submitAction = () => {
-    alert('submit');
+    alert('make api call here');
   };
 
   const actionButtonDisabled = Boolean(messages.length);
