@@ -1,21 +1,35 @@
-import React from 'react';
-import { Button } from '@mui/material';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
-import { DataTable } from '../data-table/data-table';
+import { DynamicTable } from './dynamicTable';
 
 export function TableLayout(props) {
-  const {
-    columns,
-    rows,
-    isLoading,
-    hasError,
-    onRequestClick,
-    subTitle,
-    requestLabel,
-    title,
-  } = props;
+  const { columns, subTitle, title, requestFunc } = props;
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [rows, setRows] = useState([]);
+
+  const request = async () => {
+    setIsLoading(true);
+    setHasError(false);
+
+    try {
+      const response = await requestFunc();
+      const { data } = response;
+      setRows(data);
+    } catch (error) {
+      setRows([]);
+      setHasError(true);
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
 
   return (
     <EntitlementRestricted>
@@ -25,32 +39,21 @@ export function TableLayout(props) {
         subTitle={subTitle}
         title={title}
       >
-        <Button variant="contained" onClick={onRequestClick}>
-          {requestLabel}
-        </Button>
-        <DataTable columns={columns} rows={rows} />
+        <DynamicTable APIcolumns={columns} APIrows={rows} />
       </Layout>
     </EntitlementRestricted>
   );
 }
+
 TableLayout.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
-  hasError: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  onRequestClick: PropTypes.func,
-  requestLabel: PropTypes.string,
-  rows: PropTypes.arrayOf(PropTypes.object),
+  requestFunc: PropTypes.func.isRequired,
   subTitle: PropTypes.string,
   title: PropTypes.string,
 };
 
 TableLayout.defaultProps = {
   columns: [],
-  hasError: false,
-  isLoading: false,
-  onRequestClick: undefined,
-  requestLabel: 'Request',
-  rows: [],
   subTitle: undefined,
   title: undefined,
 };

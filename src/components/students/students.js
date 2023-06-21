@@ -3,9 +3,49 @@ import { Button, Modal, Box, Grid, Typography, TextField } from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
-import { DynamicTable } from './dynamicTable';
+import { getStudents } from '../../services/students/students';
+import { TableLayout } from '../table-layout/table-layout';
 
 export function Students() {
+  const COLUMNS = [
+    {
+      id: 'firstName',
+      numeric: false,
+      disablePadding: false,
+      label: 'First Name',
+    },
+    {
+      id: 'lastName',
+      numeric: false,
+      disablePadding: false,
+      label: 'Last Name',
+    },
+    {
+      id: 'email',
+      numeric: false,
+      disablePadding: false,
+      label: 'Email',
+    },
+    {
+      id: 'studentCellPhone',
+      numeric: false,
+      disablePadding: false,
+      label: 'Student Cell',
+    },
+    {
+      id: 'parentFirstName',
+      numeric: false,
+      disablePadding: false,
+      label: "Parent's First Name",
+    },
+    {
+      id: 'parentLastName',
+      numeric: false,
+      disablePadding: false,
+      label: "Parent's Last Name",
+    },
+  ];
+
   // const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   // eslint-disable-next-line no-useless-escape
@@ -85,7 +125,12 @@ export function Students() {
     >
       <Grid container justifyContent="center">
         <Grid item xs={10}>
-          <DynamicTable />
+          <TableLayout
+            columns={COLUMNS}
+            requestFunc={getStudents}
+            title="Students"
+            subTitle="View all students"
+          />
         </Grid>
       </Grid>
       <Modal open={open} onClose={handleClose}>

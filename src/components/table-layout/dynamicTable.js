@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -16,78 +17,6 @@ import { Box, Grid, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { Search, SearchIconWrapper, StyledInputBase } from './search';
 import { Todal } from './modal';
-
-function createData(name, age, email, phone, coach) {
-  return {
-    name,
-    age,
-    email,
-    phone,
-    coach,
-  };
-}
-
-const originalRows = [
-  createData(
-    'jihong bae',
-    -1,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'mrosterburg'
-  ),
-  createData(
-    'abby winn ',
-    200,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'mrosterburg'
-  ),
-  createData('omh', 28, 'jihongbae@gmail.com', '262-282-4209', 'mrosterburg'),
-  createData(
-    'brandon',
-    19,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'mrosterburg'
-  ),
-  createData('noah', 1, 'jihongbae@gmail.com', '262-282-4209', 'mrosterburg'),
-  createData(
-    'osterburg',
-    54,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'mrosterburg'
-  ),
-  createData('adam', 1, 'jihongbae@gmail.com', '262-282-4209', 'mrosterburg'),
-  createData(
-    'aniket',
-    22,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'stephen hawking'
-  ),
-  createData(
-    'john doe',
-    1,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'andrej karpathy'
-  ),
-  createData(
-    'jane doe',
-    1.9,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'albert einstein'
-  ),
-  createData(
-    'alan S',
-    0.4,
-    'jihongbae@gmail.com',
-    '262-282-4209',
-    'nikola tesla'
-  ),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -117,22 +46,23 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-export function DynamicTable() {
+export function DynamicTable(props) {
+  const { APIcolumns, APIrows } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [tabValue, setTabValue] = React.useState('one');
-  const [rows, setRows] = useState(originalRows);
+  const [rows, setRows] = useState(APIrows);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
 
   const requestSearch = (searchedVal) => {
-    const filteredRows = originalRows.filter((row) => {
-      return row.name.toLowerCase().includes(searchedVal); // coachFirstName
+    const filteredRows = APIrows.filter((row) => {
+      return row.firstName.toLowerCase().includes(searchedVal); // coachFirstName
     });
     setRows(filteredRows);
   };
@@ -156,7 +86,6 @@ export function DynamicTable() {
     setDense(event.target.checked);
   };
 
-  // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
@@ -171,7 +100,7 @@ export function DynamicTable() {
 
   return (
     <div>
-      <Box sx={{ width: '100%' }} marginInline={{}}>
+      <Box sx={{ width: '100%' }}>
         <Grid
           container
           direction="row"
@@ -227,12 +156,9 @@ export function DynamicTable() {
           <div>
             <Paper sx={{ width: '100%', mb: 2 }}>
               <TableContainer>
-                <Table
-                  sx={{ minWidth: 750 }}
-                  aria-labelledby="tableTitle"
-                  size={dense ? 'small' : 'medium'}
-                >
+                <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
                   <EnhancedTableHead
+                    columns={APIcolumns}
                     order={order}
                     orderBy={orderBy}
                     onRequestSort={handleRequestSort}
@@ -240,25 +166,29 @@ export function DynamicTable() {
                   />
                   <TableBody>
                     {visibleRows.map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.name}
-                          sx={{ cursor: 'pointer' }}
-                        >
-                          <TableCell align="left">{row.name}</TableCell>
-                          <TableCell align="left">{row.age}</TableCell>
-                          <TableCell align="left">{row.email}</TableCell>
-                          <TableCell align="left">{row.phone}</TableCell>
-                          <TableCell align="left">{row.coach}</TableCell>
-                          <TableCell align="left">
-                            <Todal />
-                          </TableCell>
-                        </TableRow>
-                      );
+                      // return (
+                      // <TableRow hover key={row.id}>
+                      //   <TableCell align="left">{row.firstName}</TableCell>
+                      //   <TableCell align="left">{row.lastName}</TableCell>
+                      //   <TableCell align="left">{row.email}</TableCell>
+                      //   <TableCell align="left">
+                      //     {row.studentCellPhone}
+                      //   </TableCell>
+                      //   <TableCell align="left">
+                      //     {row.parentFirstName}
+                      //   </TableCell>
+                      //   <TableCell align="left">
+                      //     {row.parentLastName}
+                      //   </TableCell>
+                      //   <TableCell align="left">
+                      //     <Todal />
+                      //   </TableCell>
+                      // </TableRow>
+                      // );
+
+                      return APIcolumns.map((column) => {});
                     })}
+
                     {emptyRows > 0 && (
                       <TableRow
                         style={{
@@ -292,3 +222,13 @@ export function DynamicTable() {
     </div>
   );
 }
+
+DynamicTable.propTypes = {
+  APIcolumns: PropTypes.arrayOf(PropTypes.object),
+  APIrows: PropTypes.arrayOf(PropTypes.object),
+};
+
+DynamicTable.defaultProps = {
+  APIcolumns: [],
+  APIrows: [],
+};

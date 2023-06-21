@@ -1,5 +1,5 @@
 import React from 'react';
-import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
+import { TableLayout } from '../table-layout/table-layout';
 import { getGoals } from '../../services/goals/goals';
 
 // [
@@ -39,7 +39,7 @@ const COLUMNS = [
 
 export function Goals() {
   return (
-    <TableLayoutWithRequest
+    <TableLayout
       columns={COLUMNS}
       requestFunc={getGoals}
       requestLabel="Request Goals"

@@ -9,41 +9,8 @@ import { Box } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { visuallyHidden } from '@mui/utils';
 
-const headCells = [
-  {
-    id: 'name',
-    numeric: false,
-    disablePadding: false,
-    label: 'NAME',
-  },
-  {
-    id: 'age',
-    numeric: false,
-    disablePadding: false,
-    label: 'AGE',
-  },
-  {
-    id: 'email',
-    numeric: false,
-    disablePadding: false,
-    label: 'EMAIL',
-  },
-  {
-    id: 'phone',
-    numeric: false,
-    disablePadding: false,
-    label: 'PHONE',
-  },
-  {
-    id: 'coach',
-    numeric: false,
-    disablePadding: false,
-    label: 'COACH',
-  },
-];
-
 export default function EnhancedTableHead(props) {
-  const { order, orderBy, onRequestSort } = props;
+  const { columns, order, orderBy, onRequestSort } = props;
 
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
@@ -52,7 +19,7 @@ export default function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {headCells.map((headCell) => (
+        {columns.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'right' : 'left'}
@@ -79,7 +46,12 @@ export default function EnhancedTableHead(props) {
 }
 
 EnhancedTableHead.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
   orderBy: PropTypes.string.isRequired,
+};
+
+EnhancedTableHead.defaultProps = {
+  columns: [],
 };
