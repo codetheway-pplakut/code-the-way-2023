@@ -70,10 +70,12 @@
     "@mui/material": "^5.13.2",
     "@mui/x-data-grid": "^6.6.0",
     "axios": "^1.4.0",
+    "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.11.2"
+    "react-router-dom": "^6.11.2",
+    "validate.js": "^0.13.1"
   }
 }

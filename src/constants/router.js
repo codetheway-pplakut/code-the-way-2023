@@ -6,9 +6,9 @@ import { Login } from '../components/login/login';
 import { isProduction } from '../utils/is-production/is-production';
 import packageJson from '../../package.json';
 import { Splash } from '../components/splash/splash';
-// eslint-disable-next-line import/named
-import { Test } from '../components/test/test';
+import { Students } from '../components/students/students';
 import { Coaches } from '../components/coaches/coaches';
+import { Goals } from '../components/goals/goals';
 import { StudentInfo } from '../components/student-details/student-info';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
@@ -20,9 +20,10 @@ export const ROUTER = createBrowserRouter(
       element: <App />,
       children: [
         { path: '/', element: <Splash /> },
-        { path: 'login', element: <Login /> },
         { path: 'coaches', element: <Coaches /> },
-        { path: 'test', element: <Test /> },
+        { path: 'login', element: <Login /> },
+        { path: 'goals', element: <Goals /> },
+        { path: 'students', element: <Students /> },
         { path: '*', element: <Error /> },
         { path: 'student-info', element: <StudentInfo /> },
       ],
