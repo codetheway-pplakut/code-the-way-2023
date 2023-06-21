@@ -1,7 +1,17 @@
-import InputBase from '@mui/material/InputBase';
+import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import Grid from '@mui/material/Grid';
 
-export const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -16,8 +26,7 @@ export const Search = styled('div')(({ theme }) => ({
     width: 'auto',
   },
 }));
-
-export const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
@@ -26,8 +35,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
 }));
-
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -40,3 +48,63 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+export function SearchBar(props) {
+  const { requestSearch, useTab, tabValue, handleTabChange } = props;
+  return (
+    <div>
+      <Box sx={{ width: '100%' }} marginInline={{}}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            {useTab ? (
+              <Tabs
+                value={tabValue}
+                onChange={handleTabChange}
+                aria-label="nav tabs example"
+              >
+                <Tab value="one" label="active" sx={{ borderBottom: 1.5 }} />
+                <Tab
+                  value="two"
+                  label="applicants"
+                  sx={{ borderBottom: 1.5 }}
+                />
+              </Tabs>
+            ) : (
+              <React.Fragment>
+                {' '}
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  aria-label="nav tabs example"
+                >
+                  {' '}
+                </Tabs>
+              </React.Fragment>
+            )}
+          </Grid>
+          <Search sx={{ border: 1.5 }}>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              onChange={(event) => {
+                requestSearch(event.target.value);
+              }}
+            />
+          </Search>
+        </Grid>
+      </Box>
+    </div>
+  );
+}
+SearchBar.propTypes = {
+  requestSearch: PropTypes.func,
+};
+SearchBar.defaultProps = {
+  requestSearch: () => {},
+};

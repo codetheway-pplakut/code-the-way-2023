@@ -13,9 +13,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Grid, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
-
 import EnhancedTableHead from './enhancedTableHead';
-import { Search, SearchIconWrapper, StyledInputBase } from './search';
+import { SearchBar, SearchIconWrapper, StyledInputBase } from './search';
 import { Todal } from './modal';
 
 function descendingComparator(a, b, orderBy) {
@@ -47,7 +46,7 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows } = props;
+  const { APIcolumns, APIrows, useTab } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [page, setPage] = React.useState(0);
@@ -100,53 +99,12 @@ export function DynamicTable(props) {
 
   return (
     <div>
-      <Box sx={{ width: '100%' }}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <Tabs
-              value={tabValue}
-              onChange={handleTabChange}
-              aria-label="nav tabs example"
-            >
-              <Tab value="one" label="applicants" sx={{ borderBottom: 1 }} />
-              <Tab value="two" label="active" sx={{ borderBottom: 1 }} />
-            </Tabs>
-          </Grid>
-          <Toolbar>
-            <Grid item>
-              <Search sx={{ border: 1.5 }}>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  onChange={(event) => {
-                    requestSearch(event.target.value);
-                  }}
-                />
-              </Search>
-            </Grid>
-            <Grid item>
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AddIcon />
-                </IconButton>
-              </Box>
-            </Grid>
-          </Toolbar>
-        </Grid>
-      </Box>
+      <SearchBar
+        useTab
+        tabValue={tabValue}
+        handleTabChange={handleTabChange}
+        requestSearch={requestSearch}
+      />
       <Box sx={{ width: '100%' }}>
         {/* {tabValue === 'one' && (
 
