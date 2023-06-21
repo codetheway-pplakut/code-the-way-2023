@@ -1,10 +1,21 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
-import EditIcon from '@mui/icons-material/Edit';
+import PropTypes, { array, instanceOf } from 'prop-types';
 import GenericModal from '../coaches/modal-component';
 
+/**
+ * PROPS
+ * headers: Array of strings
+ * modal: Array of generic modals
+ * content: 2D array
+ * labels: 2D array of strings
+ *
+ * RETURNS
+ * A box of info
+ * image of InfoBox with default props: https://codetheway2022.slack.com/archives/C035YN121GW/p1687366194249229
+ */
 export default function InfoBox(props) {
-  const { student, parent1, parent2 } = props;
+  const { headers, modal, content, labels } = props;
   const boxStyle = {
     bgcolor: '#004cbb',
     color: '#ffffff',
@@ -23,54 +34,47 @@ export default function InfoBox(props) {
     fontSize: '2.2vw',
   };
 
-  const iconStyle = {
-    bgcolor: '#004cbb',
-    color: '#ffffff',
-    position: 'relative',
-    ml: '2%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: 40,
-    minHeight: 40,
-  };
   return (
     <Box sx={boxStyle}>
       <Grid container direction="column">
-        <Grid container item direction="row">
-          <Typography sx={headerStyle}> Student </Typography>
-          <GenericModal buttonIcon={<EditIcon sx={iconStyle} />} />
-        </Grid>
-        <Grid item my="2%">
-          <Typography sx={textStyle}>Name: {student[0]}</Typography>
-          <Typography sx={textStyle}>Phone: {student[1]}</Typography>
-          <Typography sx={textStyle}>Email: {student[2]}</Typography>
-        </Grid>
-        <Grid container item direction="row">
-          <Typography sx={headerStyle}> Parent 1</Typography>
-          <GenericModal buttonIcon={<EditIcon sx={iconStyle} />} />
-        </Grid>
-        <Grid item my="2%">
-          <Typography sx={textStyle}>Name: {parent1[0]}</Typography>
-          <Typography sx={textStyle}>Phone: {parent1[1]}</Typography>
-          <Typography sx={textStyle}>Email: {parent1[2]}</Typography>
-        </Grid>
-        <Grid container item direction="row">
-          <Typography sx={headerStyle}> Parent 2</Typography>
-          <GenericModal buttonIcon={<EditIcon sx={iconStyle} />} />
-        </Grid>
-        <Grid item my="2%">
-          <Typography sx={textStyle}>Name: {parent2[0]}</Typography>
-          <Typography sx={textStyle}>Phone: {parent2[1]}</Typography>
-          <Typography sx={textStyle}>Email: {parent2[2]}</Typography>
-        </Grid>
+        {headers.map((header, headerIndex) => (
+          <Grid container key={headerIndex.id}>
+            <Grid container item direction="row">
+              <Typography sx={headerStyle}> {header} </Typography>
+              {modal[headerIndex]}
+            </Grid>
+            {content[headerIndex].map((contents, contentIndex) => (
+              <Grid container item my="2%" key={contentIndex.id}>
+                <Typography sx={textStyle}>
+                  {' '}
+                  {labels[headerIndex][contentIndex]}: {contents}
+                </Typography>
+              </Grid>
+            ))}
+          </Grid>
+        ))}
       </Grid>
     </Box>
   );
 }
 
 InfoBox.defaultProps = {
-  student: ['John Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
-  parent1: ['Jane Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
-  parent2: ['John Doe Sr.', 'xxx-xxxx', 'placeholder@gmail.com'],
+  headers: ['Student', 'Parent 1', 'Parent 2'],
+  modal: [],
+  content: [
+    ['John Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
+    ['Jane Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
+    ['John Doe Sr.', 'xxx-xxxx', 'placeholder@gmail.com'],
+  ],
+  labels: [
+    ['Name', 'Phone Number', 'Email'],
+    ['Name', 'Phone Number', 'Email'],
+    ['Name', 'Phone Number', 'Email'],
+  ],
+};
+InfoBox.propTypes = {
+  headers: PropTypes.array,
+  modal: PropTypes.arrayOf(instanceOf(GenericModal)),
+  content: PropTypes.arrayOf(array),
+  labels: PropTypes.arrayOf(array),
 };

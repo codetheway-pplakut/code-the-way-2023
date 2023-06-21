@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import { Box, IconButton, Paper, Tab, Toolbar } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
@@ -118,12 +119,47 @@ export default function RowAndColumnSpacing() {
 
       {value === 'one' && (
         <Grid item container direction="row" alignItems="center">
-          <InfoBox />
+          <InfoBox
+            headers={['Student', 'Parent']}
+            modal={[
+              <GenericModal
+                key="1"
+                modalHeadingTitle="Edit Student"
+                buttonIcon={<EditIcon sx={iconStyle} />}
+              />,
+              <GenericModal
+                key="2"
+                modalHeadingTitle="Edit  Parent"
+                buttonIcon={<EditIcon sx={iconStyle} />}
+              />,
+            ]}
+            content={[['frank'], ['jenny', '867-5309', 'jenny@gmail.com']]}
+            labels={[['Name'], ['Name', 'Phone Number', 'Email']]}
+          />
         </Grid>
       )}
       {value === 'two' && (
         <Grid item container direction="row" alignItems="center">
-          Placeholder
+          <InfoBox
+            headers={['Goals', 'Careers']}
+            modal={[
+              <GenericModal
+                key="1"
+                modalHeadingTitle="Add Goal"
+                buttonIcon={<AddIcon sx={iconStyle} />}
+              />,
+              <GenericModal
+                key="2"
+                modalHeadingTitle="Add Career"
+                buttonIcon={<AddIcon sx={iconStyle} />}
+              />,
+            ]}
+            content={[
+              ['Finish this website'],
+              ['Aspiring software developer', 'API bankruptor'],
+            ]}
+            labels={[['Goal 1'], ['Career 1', 'Career 2']]}
+          />
         </Grid>
       )}
     </Grid>
