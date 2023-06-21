@@ -1,5 +1,13 @@
 import React from 'react';
-import { Button, Modal, Box, Grid, Typography, TextField } from '@mui/material';
+import {
+  Button,
+  Modal,
+  Box,
+  Grid,
+  Typography,
+  TextField,
+  Link,
+} from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
@@ -25,6 +33,7 @@ export function Students() {
       numeric: false,
       disablePadding: false,
       label: 'Email',
+      render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
     },
     {
       id: 'studentCellPhone',

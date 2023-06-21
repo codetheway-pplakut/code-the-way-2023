@@ -149,7 +149,7 @@ export function DynamicTable(props) {
       </Box>
       <Box sx={{ width: '100%' }}>
         {/* {tabValue === 'one' && (
-        
+
         )} */}
 
         {tabValue === 'two' && (
@@ -166,27 +166,23 @@ export function DynamicTable(props) {
                   />
                   <TableBody>
                     {visibleRows.map((row) => {
-                      // return (
-                      // <TableRow hover key={row.id}>
-                      //   <TableCell align="left">{row.firstName}</TableCell>
-                      //   <TableCell align="left">{row.lastName}</TableCell>
-                      //   <TableCell align="left">{row.email}</TableCell>
-                      //   <TableCell align="left">
-                      //     {row.studentCellPhone}
-                      //   </TableCell>
-                      //   <TableCell align="left">
-                      //     {row.parentFirstName}
-                      //   </TableCell>
-                      //   <TableCell align="left">
-                      //     {row.parentLastName}
-                      //   </TableCell>
-                      //   <TableCell align="left">
-                      //     <Todal />
-                      //   </TableCell>
-                      // </TableRow>
-                      // );
+                      return (
+                        <TableRow hover key={row.id}>
+                          {APIcolumns.map((column) => {
+                            const { id: columnId, numeric, render } = column;
+                            const value = row[columnId];
 
-                      return APIcolumns.map((column) => {});
+                            return (
+                              <TableCell
+                                align={numeric ? 'right' : 'left'}
+                                key={columnId}
+                              >
+                                {render ? render(value) : value}
+                              </TableCell>
+                            );
+                          })}
+                        </TableRow>
+                      );
                     })}
 
                     {emptyRows > 0 && (
