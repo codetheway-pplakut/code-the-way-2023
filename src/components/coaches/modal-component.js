@@ -203,7 +203,7 @@ export function AddCoachModal() {
           {messages.length > 0 && (
             <Grid item xs={9}>
               {messages.map((message, index) => (
-                <Typography key={index} variant="body2" color="error">
+                <Typography key={index.id} variant="body2" color="error">
                   {message}
                 </Typography>
               ))}
