@@ -38,6 +38,8 @@ export function GenericModal(props) {
     actionButtonColor,
     actionButtonDisabled,
     onActionButtonClick,
+    onCancelButtonClick,
+    onIconButtonClick,
     children,
   } = props;
 
@@ -50,6 +52,16 @@ export function GenericModal(props) {
     handleClose();
   };
 
+  const cancelAndClose = () => {
+    if (onCancelButtonClick) onCancelButtonClick();
+    handleClose();
+  };
+
+  const iconAndClose = () => {
+    if (onIconButtonClick) onIconButtonClick();
+    handleClose();
+  };
+
   return (
     <div>
       <Button onClick={handleOpen}>{openModal}</Button>
@@ -59,7 +71,7 @@ export function GenericModal(props) {
             <Typography padding={2} align="center" sx={headingText}>
               {modalHeadingTitle}
             </Typography>
-            <IconButton size="small" onClick={handleClose} sx={closeIconStyle}>
+            <IconButton size="small" onClick={iconAndClose} sx={closeIconStyle}>
               <CloseIcon fontSize="large" sx={closeIconStyle} />
             </IconButton>
           </Grid>
@@ -78,7 +90,7 @@ export function GenericModal(props) {
             >
               <Button
                 variant="text"
-                onClick={handleClose}
+                onClick={cancelAndClose}
                 spacing={2}
                 sx={buttonBackground}
                 theme={buttonTheme}
@@ -118,10 +130,9 @@ GenericModal.propTypes = {
   onActionButtonClick: PropTypes.func.isRequired,
 };
 
-export function AddCoachModal(props) {
+export function AddCoachModal() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
-  const { handleClose } = props;
 
   const validator = validate(
     { userName, password },
@@ -145,6 +156,13 @@ export function AddCoachModal(props) {
 
   const submitAction = () => {
     alert('make api call here');
+    setUserName('');
+    setPassword('');
+  };
+
+  const cancelAction = () => {
+    setUserName('');
+    setPassword('');
   };
 
   const actionButtonDisabled = Boolean(messages.length);
@@ -160,21 +178,27 @@ export function AddCoachModal(props) {
         actionButtonDisabled={actionButtonDisabled}
         actionButtonColor="submit"
         onActionButtonClick={submitAction}
+        onCancelButtonClick={cancelAction}
+        onIconButtonClick={cancelAction}
       >
         <Grid container justifyContent="center">
           <Grid item xs={9}>
-            <TextField
-              onChange={(event) => setUserName(event.target.value)}
-              label="Username"
-              value={userName}
-              type="email"
-            />
-            <TextField
-              onChange={(event) => setPassword(event.target.value)}
-              label="Password"
-              value={password}
-              type="password"
-            />
+            <Stack spacing={2}>
+              <TextField
+                fullWidth
+                onChange={(event) => setUserName(event.target.value)}
+                label="Username"
+                value={userName}
+                type="email"
+              />
+              <TextField
+                fullWidth
+                onChange={(event) => setPassword(event.target.value)}
+                label="Password"
+                value={password}
+                type="password"
+              />
+            </Stack>
           </Grid>
           {messages.length > 0 && (
             <Grid item xs={9}>
