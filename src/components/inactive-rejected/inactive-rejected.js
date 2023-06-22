@@ -1,56 +1,25 @@
-import React from 'react';
-import {
-  InputAdornment,
-  Paper,
-  Tab,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Tabs,
-  TextField,
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import React, { useState } from 'react';
+import { Tab, Tabs } from '@mui/material';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
+import { InactiveRejectedStudent } from './inactive-rejected-student/inactive-rejected-student';
 
 export function InactiveRejected() {
+  const [tab, setTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setTab(newValue);
+  };
+
   return (
     <EntitlementRestricted>
       <Layout title="Inactive/Rejected">
-        <Tabs>
-          <Tab label="Student" />
-          <Tab label="Coach" />
-          <Tab label="Admin" />
+        <Tabs value={tab} onChange={handleTabChange} sx={{ mb: 2 }}>
+          <Tab value={0} label="Student" />
+          <Tab value={1} label="Coach" />
+          <Tab value={2} label="Admin" />
         </Tabs>
-        <TextField
-          placeholder="search..."
-          variant="outlined"
-          sx={{ mb: 2 }}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment>
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>test</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell>test</TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </TableContainer>
+        {tab === 0 && <InactiveRejectedStudent />}
       </Layout>
     </EntitlementRestricted>
   );
