@@ -9,6 +9,7 @@ import { Splash } from '../components/splash/splash';
 import { Students } from '../components/students/students';
 import { Coaches } from '../components/coaches/coaches';
 import { Goals } from '../components/goals/goals';
+import { InactiveRejected } from '../components/inactive-rejected/inactive-rejected';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
@@ -23,6 +24,7 @@ export const ROUTER = createBrowserRouter(
         { path: 'login', element: <Login /> },
         { path: 'goals', element: <Goals /> },
         { path: 'students', element: <Students /> },
+        { path: 'inactive-rejected', element: <InactiveRejected /> },
         { path: '*', element: <Error /> },
       ],
     },
