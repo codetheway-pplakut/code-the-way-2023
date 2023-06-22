@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Typography } from '@mui/material';
 import PropTypes from 'prop-types';
-import RowAndColumnSpacing from './rowSpacing';
+import StudentDetails from './student-details-page';
 
 export function StudentInfo(props) {
   const { name } = props;
@@ -13,7 +13,7 @@ export function StudentInfo(props) {
       <Typography variant="h4" mx="10px" mb="15px">
         Student Info
       </Typography>
-      <RowAndColumnSpacing />
+      <StudentDetails />
     </div>
   );
 }

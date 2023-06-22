@@ -1,6 +1,8 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Delete } from '@mui/icons-material';
+import GenericModal from '../coaches/modal-component';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
@@ -21,6 +23,14 @@ export default function CommunicationBox(props) {
     ml: '28px',
     fontSize: '1.2vw',
   };
+
+  const iconStyle = {
+    mt: '5px',
+    ml: '28px',
+    color: '#ffffff',
+    minWidth: 40,
+    minHeight: 40,
+  };
   const headerStyle = {
     mt: '0.1px',
 
@@ -40,8 +50,14 @@ export default function CommunicationBox(props) {
         <Grid item xs={5}>
           <Typography sx={textStyle}> Date Created: {date}</Typography>
         </Grid>
-        <Grid item xs={0}>
+        <Grid item xs={4}>
           <Typography sx={textStyle}>Coach: {coach} </Typography>
+        </Grid>
+        <Grid item xs={0} sx={iconStyle}>
+          <GenericModal
+            openButtonIcon={<Delete sx={iconStyle} />}
+            modalHeadingTitle="Delete Comunication?"
+          />
         </Grid>
         <Grid item xs={9}>
           <Typography sx={headerStyle}>{topic}</Typography>

@@ -9,7 +9,7 @@ import InfoBox from './info-box';
 import CommunicationBox from './communication-box';
 import { CommunicationLog } from './communication-log';
 
-export default function RowAndColumnSpacing() {
+export default function StudentDetails() {
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
