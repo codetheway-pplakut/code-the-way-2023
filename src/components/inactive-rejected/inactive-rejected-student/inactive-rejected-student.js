@@ -11,7 +11,7 @@ import {
   TextField,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React from 'react';
+import React, { useState } from 'react';
 import { ActivateButton } from '../activate-button/activate-button';
 
 const COLUMNS = [
@@ -52,12 +52,27 @@ const ROWS = [
 ];
 
 export function InactiveRejectedStudent() {
+  const [filterInput, setFilterInput] = useState('');
+
+  const filteredRows = ROWS.filter((row) => {
+    const { name, email, phone } = row;
+    const lowerFilterInput = filterInput.toLowerCase();
+
+    return (
+      name.toLowerCase().includes(lowerFilterInput) ||
+      email.toLowerCase().includes(lowerFilterInput) ||
+      phone.toLowerCase().includes(lowerFilterInput)
+    );
+  });
+
   return (
     <React.Fragment>
       <TextField
         placeholder="search..."
         variant="outlined"
         sx={{ mb: 2 }}
+        value={filterInput}
+        onChange={(event) => setFilterInput(event.target.value)}
         InputProps={{
           startAdornment: (
             <InputAdornment>
@@ -81,7 +96,7 @@ export function InactiveRejectedStudent() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {ROWS.map((row) => {
+            {filteredRows.map((row) => {
               const { id } = row;
               return (
                 <TableRow key={id}>
