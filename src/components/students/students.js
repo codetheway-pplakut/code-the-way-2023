@@ -13,45 +13,46 @@ import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
 import { getStudents } from '../../services/students/students';
 import { TableLayout } from '../table-layout/table-layout';
+import { Todal } from '../test/modal';
 
 export function Students() {
   const COLUMNS = [
     {
       id: 'firstName',
-      numeric: false,
       disablePadding: false,
       label: 'First Name',
+      align: 'left',
+      active: false,
     },
     {
       id: 'lastName',
-      numeric: false,
       disablePadding: false,
       label: 'Last Name',
+      align: 'left',
+      active: false,
     },
     {
       id: 'email',
-      numeric: false,
       disablePadding: false,
       label: 'Email',
+      align: 'left',
       render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
+      active: false,
     },
     {
       id: 'studentCellPhone',
-      numeric: false,
       disablePadding: false,
       label: 'Student Cell',
+      align: 'left',
+      active: false,
     },
     {
-      id: 'parentFirstName',
-      numeric: false,
+      id: 'options',
       disablePadding: false,
-      label: 'Parent\'s First Name',
-    },
-    {
-      id: 'parentLastName',
-      numeric: false,
-      disablePadding: false,
-      label: 'Parent\'s Last Name',
+      label: '',
+      align: 'left',
+      render: () => <Todal size="HUGE" />,
+      active: false,
     },
   ];
 

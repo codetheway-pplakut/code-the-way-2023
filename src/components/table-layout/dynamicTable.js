@@ -98,7 +98,7 @@ export function DynamicTable(props) {
   );
 
   return (
-    <div>
+    <React.Fragment>
       <SearchBar
         useTab
         tabValue={tabValue}
@@ -111,7 +111,7 @@ export function DynamicTable(props) {
         )} */}
 
         {tabValue === 'two' && (
-          <div>
+          <React.Fragment>
             <Paper sx={{ width: '100%', mb: 2 }}>
               <TableContainer>
                 <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
@@ -127,14 +127,10 @@ export function DynamicTable(props) {
                       return (
                         <TableRow hover key={row.id}>
                           {APIcolumns.map((column) => {
-                            const { id: columnId, numeric, render } = column;
+                            const { id: columnId, render, align } = column;
                             const value = row[columnId];
-
                             return (
-                              <TableCell
-                                align={numeric ? 'right' : 'left'}
-                                key={columnId}
-                              >
+                              <TableCell align={align} key={columnId}>
                                 {render ? render(value) : value}
                               </TableCell>
                             );
@@ -170,10 +166,10 @@ export function DynamicTable(props) {
               control={<Switch checked={dense} onChange={handleChangeDense} />}
               label="Dense padding"
             />
-          </div>
+          </React.Fragment>
         )}
       </Box>
-    </div>
+    </React.Fragment>
   );
 }
 

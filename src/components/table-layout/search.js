@@ -65,6 +65,7 @@ export function SearchBar(props) {
                 value={tabValue}
                 onChange={handleTabChange}
                 aria-label="nav tabs example"
+                sx={{ pb: 1 }}
               >
                 <Tab value="one" label="active" sx={{ borderBottom: 1.5 }} />
                 <Tab
@@ -86,17 +87,34 @@ export function SearchBar(props) {
               </React.Fragment>
             )}
           </Grid>
-          <Search sx={{ border: 1.5 }}>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              onChange={(event) => {
-                requestSearch(event.target.value);
-              }}
-            />
-          </Search>
+          <Toolbar>
+            <Grid item>
+              <Search sx={{ border: 1.5 }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  onChange={(event) => {
+                    requestSearch(event.target.value);
+                  }}
+                />
+              </Search>
+            </Grid>
+            <Grid item>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <AddIcon />
+                </IconButton>
+              </Box>
+            </Grid>
+          </Toolbar>
         </Grid>
       </Box>
     </div>
