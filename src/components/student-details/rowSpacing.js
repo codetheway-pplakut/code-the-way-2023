@@ -37,7 +37,7 @@ export default function RowAndColumnSpacing() {
     display: 'flex',
     borderTopLeftRadius: '5px',
     borderTopRightRadius: '5px',
-    minWidth: '175px',
+    minWidth: '13vw',
     margin: '0 10px',
     '&.Mui-selected': {
       color: '#0000000',
