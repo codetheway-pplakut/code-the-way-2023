@@ -49,20 +49,8 @@ export default function RowAndColumnSpacing() {
     minHeight: 40,
   };
   return (
-    <Grid
-      container
-      direction="column"
-      alignItems="center"
-      border="1px solid black"
-    >
-      <Grid
-        item
-        container
-        direction="row"
-        alignItems="center"
-        minWidth="100%"
-        border="1px solid black"
-      >
+    <Grid container direction="column" alignItems="center">
+      <Grid item container direction="row" alignItems="center" minWidth="100%">
         <Grid item width="50%" alignItems="center" mr="5%">
           <Grid
             container
@@ -108,14 +96,12 @@ export default function RowAndColumnSpacing() {
           width="45%"
           sx={style}
           justifyContent="space-between"
-          border="1px solid black"
         >
           <Grid
             container
             direction="row"
             alignItems="center"
             justifyContent="space-between"
-            border="1px solid black"
           >
             <Grid item sx={tabStyle} mr="20%">
               <Tab
@@ -131,7 +117,7 @@ export default function RowAndColumnSpacing() {
           </Grid>
         </Grid>
       </Grid>
-      <Grid item container direction="row" border="1px solid black">
+      <Grid item container direction="row">
         {value === 'one' && (
           <InfoBox
             headers={['Student', 'Parent']}
@@ -182,11 +168,20 @@ export default function RowAndColumnSpacing() {
             position: 'relative',
             display: 'grid',
             width: '100vw',
-            mx: '0.55%',
+            mr: '0.1%',
+            ml: '0.1%',
+
             maxWidth: '47%',
           }}
         >
-          <CommunicationBox />
+          <Grid item>
+            <CommunicationBox
+              date="01/24/2023"
+              coach="John"
+              topic="Intro"
+              notes="Today TodayTodayTodayTodayToday Today   Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Toy"
+            />
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
