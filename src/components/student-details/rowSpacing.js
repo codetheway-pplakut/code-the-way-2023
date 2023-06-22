@@ -1,12 +1,13 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import { Box, IconButton, Paper, Tab, Toolbar } from '@mui/material';
+import { Tab } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
 import CommunicationBox from './communication-box';
+import { CommunicationLog } from './communication-log';
 
 export default function RowAndColumnSpacing() {
   const [value, setValue] = React.useState('one');
@@ -160,29 +161,21 @@ export default function RowAndColumnSpacing() {
           />
         )}
         {/* XXX: doesn't work on all viewport sizes, just most */}
-        <Grid
-          container
-          item
-          xs={2}
-          sx={{
-            position: 'relative',
-            display: 'grid',
-            width: '100vw',
-            mr: '0.1%',
-            ml: '0.1%',
-
-            maxWidth: '47%',
-          }}
-        >
-          <Grid item>
-            <CommunicationBox
-              date="01/24/2023"
-              coach="John"
-              topic="Intro"
-              notes="Today TodayTodayTodayTodayToday Today   Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Today  Toy"
-            />
-          </Grid>
-        </Grid>
+        <CommunicationLog
+          data={[
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+          ]}
+        />
       </Grid>
     </Grid>
   );

@@ -9,12 +9,12 @@ export default function CommunicationBox(props) {
     bgcolor: '#ff7c00',
     color: '#ffffff',
     borderColor: '#000000',
-    height: 'auto',
+    // height: 'auto',
     width: '43.3vw',
     minHeight: '250px',
-    flexShrink: 1,
+    // flexShrink: 1,
     display: 'flex',
-    gridColumn: '1 / -1',
+    // gridColumn: '1 / -1',
   };
   const textStyle = {
     mt: '13px',
