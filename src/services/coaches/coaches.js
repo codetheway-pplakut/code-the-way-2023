@@ -10,14 +10,14 @@ export const getCoaches = () => callApi({ url: '/Coaches' });
 /**
  * Gets all data on a coach, including all students (same as getCoaches at the moment. To be deprecated.)
  * @param {uuid} coachId
- * @returns {{id:uuid, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, students:[{}]}}
+ * @returns {{id:uuid, userId:string, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, active:boolean}}
  * @author Adam Miller
  */
 export const getCoachById = (coachId) =>
   callApi({ url: `/Coaches/${coachId}` });
 /**
  * Adds a coach to the DB
- * @param {{firstName: string, lastName:string, email:email, phone: string}} coach - Coach to add to DB
+ * @param {{firstName: string, lastName:string, email:email, phone: string, password, confirmPassword}} coach - Coach to add to DB
  * @author Adam Miller
  */
 export const addCoach = (coach) =>
@@ -30,7 +30,7 @@ export const addCoach = (coach) =>
 /**
  * Edits a Coach, replacing entry in DB
  *
- * @param {{id:uuid, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, students:[{}]}} coach
+ * @param {{id:uuid, userId:string, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, active:boolean}} coach
  * @author Adam Miller
  */
 export const editCoach = (coach) =>

@@ -43,7 +43,7 @@ export function getCoachesHandler() {
  * Gets all info from the DB.
  *
  * @param {uuid} coachId Coach to get info on.
- * @returns {{id:uuid, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, students:[{}]}}
+ * @returns {{id:uuid, userId:string, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, active:boolean}}
  * @author Adam Miller
  */
 export function getCoachByIdHandler(coachId) {
@@ -57,17 +57,27 @@ export function getCoachByIdHandler(coachId) {
  * @param {string} lastName
  * @param {email} email
  * @param {string} phone
+ * @param {string} password
+ * @param {string} confirmPassword
+ *
  * @author Adam Miller
  */
-export function addCoachHandler(firstName, lastName, email, phone) {
-  const data = { firstName, lastName, email, phone };
+export function addCoachHandler(
+  firstName,
+  lastName,
+  email,
+  phone,
+  password,
+  confirmPassword
+) {
+  const data = { firstName, lastName, email, phone, password, confirmPassword };
   addCoach(data);
 }
 
 /**
  * Edits a coach, replacing the whole DB entry.
  *
- * @param {Coach} coach Whole coach object, including students, to change.
+ * @param {{id:uuid, userId:string, coachFirstName:string, coachLastName:string, coachEmail:string, coachPhoneNumber: string, active:boolean}} coach Whole coach object, including students, to change.
  * @author Adam Miller
  */
 export function editCoachHandler(coach) {
