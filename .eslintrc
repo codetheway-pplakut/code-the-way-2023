@@ -27,6 +27,7 @@
         "singleQuote": true,
         "endOfLine": "auto"
       }
+
     ],
     "quotes": ["error", "single"],
     "radix": 0,
