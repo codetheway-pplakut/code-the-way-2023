@@ -13,6 +13,7 @@ import {
 import SearchIcon from '@mui/icons-material/Search';
 import React, { useState } from 'react';
 import { ActivateButton } from '../activate-button/activate-button';
+import { filterRowsByInput } from '../../../utils/filter-rows-by-input/filter-rows-by-input';
 
 const COLUMNS = [
   { id: 'name', label: 'Name' },
@@ -47,23 +48,18 @@ const ROWS = [
     id: 3,
     name: 'test 4',
     email: 'test@test.com',
-    phone: '123-456-7890',
+    phone: '414-444-4444',
   },
 ];
 
 export function InactiveRejectedStudent() {
   const [filterInput, setFilterInput] = useState('');
 
-  const filteredRows = ROWS.filter((row) => {
-    const { name, email, phone } = row;
-    const lowerFilterInput = filterInput.toLowerCase();
-
-    return (
-      name.toLowerCase().includes(lowerFilterInput) ||
-      email.toLowerCase().includes(lowerFilterInput) ||
-      phone.toLowerCase().includes(lowerFilterInput)
-    );
-  });
+  const filteredRows = filterRowsByInput(filterInput, ROWS, [
+    'name',
+    'email',
+    'phone',
+  ]);
 
   return (
     <React.Fragment>
