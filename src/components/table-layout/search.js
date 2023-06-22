@@ -10,6 +10,14 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import Grid from '@mui/material/Grid';
+import { Stack, TextField } from '@mui/material';
+import { GridDeleteIcon } from '@mui/x-data-grid';
+import GenericModal, {
+  ArchiveCoachModal,
+  ArchiveStudentModal,
+  ChooseCoachModal,
+  ActivateStudentModal,
+} from '../coaches/modal-component';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -96,9 +104,11 @@ export function SearchBar(props) {
                 requestSearch(event.target.value);
               }}
             />
+            <ActivateStudentModal /> <ArchiveStudentModal />
           </Search>
         </Grid>
       </Box>
+      <ChooseCoachModal />
     </div>
   );
 }

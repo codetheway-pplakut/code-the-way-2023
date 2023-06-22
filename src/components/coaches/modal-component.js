@@ -8,11 +8,15 @@ import {
   IconButton,
   Stack,
   TextField,
+  MenuItem,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
+import { GridDeleteIcon } from '@mui/x-data-grid';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import {
   backgroundStyle,
   headingStyle,
@@ -232,6 +236,84 @@ export function ArchiveCoachModal() {
         // actionButtonFunction={archiveCoachAction}
       />
     </div>
+  );
+}
+
+export function ArchiveStudentModal() {
+  return (
+    <GenericModal
+      openModal={<GridDeleteIcon />}
+      modalHeadingTitle="Archive Student"
+      modalMessage="Are you sure you want to archive this student?"
+      actionButtonColor="archive"
+      cancelButtonColor="cancel"
+      actionButtonTitle="Archive"
+      cancelButtonTitle="Cancel"
+    />
+  );
+}
+
+export function ActivateStudentModal() {
+  return (
+    <GenericModal
+      openModal="Accept"
+      modalHeadingTitle="Accept Student"
+      modalMessage="Are you sure you want to accept this student?"
+      actionButtonColor="submit"
+      cancelButtonColor="cancel"
+      actionButtonTitle="Accept"
+      cancelButtonTitle="Cancel"
+    />
+  );
+}
+
+export function ChooseCoachModal() {
+  const test = [
+    {
+      value: 'Coach API',
+      label: 'Coach 1 API Call',
+    },
+    {
+      value: 'Coach API!',
+      label: 'Coach 2 API Call',
+    },
+    {
+      value: 'Coach API!!',
+      label: 'Coach 3 API Call',
+    },
+    {
+      value: 'Coach API!!!',
+      label: 'Coach 4 API Call',
+    },
+  ];
+  const content = (
+    <Grid container spacing={2} justifyContent="center">
+      <div>
+        <TextField
+          id="API"
+          select
+          label="Select"
+          defaultValue="Coach API"
+          helperText="Select Coach"
+        >
+          {test.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+    </Grid>
+  );
+  return (
+    <GenericModal
+      openModal={<EditIcon />}
+      modalHeadingTitle="Change Coach"
+      modalMessage={content}
+      actionButtonTitle="Save"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="submit"
+    />
   );
 }
 
