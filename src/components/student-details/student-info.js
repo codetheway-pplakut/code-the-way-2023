@@ -10,9 +10,6 @@ export function StudentInfo(props) {
       <Typography variant="h2" mx="10px" mt="5px">
         {name}
       </Typography>
-      <Typography variant="h4" mx="10px" mb="15px">
-        Student Info
-      </Typography>
       <RowAndColumnSpacing />
     </div>
   );

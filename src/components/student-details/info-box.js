@@ -17,48 +17,37 @@ import GenericModal from '../coaches/modal-component';
 export default function InfoBox(props) {
   const { headers, modal, content, labels } = props;
   const boxStyle = {
-    bgcolor: '#004cbb',
-    color: '#ffffff',
+    bgcolor: '#ffffff',
+    color: '#000000',
     position: 'relative',
     minHeight: '70vh',
-    minWidth: '55%',
-
-    mx: '10px',
-    mt: 'auto',
-    mb: '20px',
+    borderRadius: '10px',
+    boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
   };
 
-  const textStyle = {
-    mx: '5px',
-    fontSize: '1.2vw',
-  };
+  const textStyle = {};
 
-  const headerStyle = {
-    mx: '5px',
-    fontSize: '2.2vw',
-  };
+  const headerStyle = {};
 
   return (
-    <Box sx={boxStyle}>
-      <Grid container direction="column">
-        {headers.map((header, headerIndex) => (
-          <Grid container key={headerIndex.id}>
-            <Grid container item direction="row">
-              <Typography sx={headerStyle}> {header} </Typography>
-              {modal[headerIndex]}
-            </Grid>
-            {content[headerIndex].map((contents, contentIndex) => (
-              <Grid container item my="2%" key={contentIndex.id}>
-                <Typography sx={textStyle}>
-                  {' '}
-                  {labels[headerIndex][contentIndex]}: {contents}
-                </Typography>
-              </Grid>
-            ))}
+    <Grid container direction="column">
+      {headers.map((header, headerIndex) => (
+        <Grid container key={headerIndex.id}>
+          <Grid container item direction="row">
+            <Typography sx={headerStyle}> {header} </Typography>
+            {modal[headerIndex]}
           </Grid>
-        ))}
-      </Grid>
-    </Box>
+          {content[headerIndex].map((contents, contentIndex) => (
+            <Grid container item my="2%" key={contentIndex.id}>
+              <Typography sx={textStyle}>
+                {' '}
+                {labels[headerIndex][contentIndex]}: {contents}
+              </Typography>
+            </Grid>
+          ))}
+        </Grid>
+      ))}
+    </Grid>
   );
 }
 
