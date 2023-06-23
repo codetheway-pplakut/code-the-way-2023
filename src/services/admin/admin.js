@@ -14,7 +14,7 @@ export const getAllAdmins = () => callApi({ url: '/Admin/' });
  * @returns {[{id:uuid, userName:string, email:email, status:string}]}
  * @author Adam Miller
  */
-export const getActiveAdmins = () => callApi({ url: '/Admin/active' });
+export const getActiveAdmins = () => callApi({ url: '/Admin/GetActiveAdmins' });
 
 /**
  * Gets inactive Admins stored in DB
@@ -22,7 +22,8 @@ export const getActiveAdmins = () => callApi({ url: '/Admin/active' });
  * @returns {[{id:uuid, userName:string, email:email, status:string}]}
  * @author Adam Miller
  */
-export const getInactiveAdmins = () => callApi({ url: '/Admin/inactive' });
+export const getInactiveAdmins = () =>
+  callApi({ url: '/Admin/GetInactiveAdmins' });
 
 /**
  * Gets a specific Admin

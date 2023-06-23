@@ -13,7 +13,8 @@ export const getAllCoaches = () => callApi({ url: '/Coaches/' });
  * @returns All inactive coaches in the DB
  * @author Adam Miller
  */
-export const getActiveCoaches = () => callApi({ url: '/Coaches/active' });
+export const getActiveCoaches = () =>
+  callApi({ url: '/Coaches/GetActiveCoaches' });
 
 /**
  * Gets all inactive coaches.
@@ -21,7 +22,8 @@ export const getActiveCoaches = () => callApi({ url: '/Coaches/active' });
  * @returns All inactive coaches in the DB
  * @author Adam Miller
  */
-export const getInactiveCoaches = () => callApi({ url: '/Coaches/inactive' });
+export const getInactiveCoaches = () =>
+  callApi({ url: '/Coaches/GetInactiveCoaches' });
 
 /**
  * Gets all data on a coach, including all students (same as getCoaches at the moment. To be deprecated.)
