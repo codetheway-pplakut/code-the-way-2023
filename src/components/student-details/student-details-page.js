@@ -64,9 +64,9 @@ export default function StudentDetails() {
               value={value}
               onChange={handleChange}
               variant="scrollable"
-              scrollButtons="auto"
+              scrollButtons
               sx={{
-                width: '700px',
+                width: '50%',
                 [`& .${tabsClasses.scrollButtons}`]: {
                   '&.Mui-disabled': { opacity: 0.3 },
                 },
@@ -113,7 +113,10 @@ export default function StudentDetails() {
               />
             </Grid>
             <Grid item>
-              <GenericModal openButtonIcon={<AddIcon sx={iconStyle} />} />
+              <GenericModal
+                modalHeadingTitle="Add Communication"
+                openButtonIcon={<AddIcon sx={iconStyle} />}
+              />
             </Grid>
           </Grid>
         </Grid>

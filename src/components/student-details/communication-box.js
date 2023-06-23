@@ -41,7 +41,7 @@ export default function CommunicationBox(props) {
   const noteStyle = {
     mb: '10px',
     mx: '30px',
-    fontSize: '0.5vw',
+    fontSize: '0.9vw',
   };
 
   return (
