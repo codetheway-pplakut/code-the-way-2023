@@ -1,59 +1,68 @@
 import React from 'react';
-import { Grid, Link } from '@mui/material';
+import {
+  Button,
+  Grid,
+  Link,
+  TextField,
+  Modal,
+  Box,
+  Typography,
+} from '@mui/material';
+import { CenterFocusStrong } from '@mui/icons-material';
+
 import { getStudents } from '../../services/students/students';
 import { TableLayout } from '../table-layout/table-layout';
 import { Todal } from '../test/modal';
+
 import {
   ArchiveStudentModal,
   ChooseCoachModal,
 } from '../coaches/modal-component';
-import { CenterFocusStrong } from '@mui/icons-material';
 
-export function Students() {
-  const COLUMNS = [
-    {
-      id: 'firstName',
-      disablePadding: false,
-      label: 'First Name',
-      align: 'left',
-      active: false,
-      render: (value) => <Button>{value}</Button>,
-    },
-    {
-      id: 'lastName',
-      disablePadding: false,
-      label: 'Last Name',
-      align: 'left',
-      active: false,
-    },
-    {
-      id: 'email',
-      disablePadding: false,
-      label: 'Email',
-      align: 'left',
-      render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
-      active: false,
-    },
-    {
-      id: 'studentCellPhone',
-      disablePadding: false,
-      label: 'Student Cell',
-      align: 'left',
-      active: false,
-    },
-    {
-      id: 'options',
-      disablePadding: false,
-      label: '',
-      align: 'left',
-      render: () => (
-        <React.Fragment>
-          <ArchiveStudentModal /> <ChooseCoachModal />
-        </React.Fragment>
-      ),
-      active: false,
-    },
-  ];
+const COLUMNS = [
+  {
+    id: 'firstName',
+    disablePadding: false,
+    label: 'First Name',
+    align: 'left',
+    active: false,
+    render: (value) => <Button>{value}</Button>,
+  },
+  {
+    id: 'lastName',
+    disablePadding: false,
+    label: 'Last Name',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'email',
+    disablePadding: false,
+    label: 'Email',
+    align: 'left',
+    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
+    active: false,
+  },
+  {
+    id: 'studentCellPhone',
+    disablePadding: false,
+    label: 'Student Cell',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'options',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    render: () => (
+      <React.Fragment>
+        <ArchiveStudentModal /> <ChooseCoachModal />
+      </React.Fragment>
+    ),
+    active: false,
+  },
+];
 
 export function Students() {
   return (
@@ -68,7 +77,7 @@ export function Students() {
           />
         </Grid>
       </Grid>
-      <Modal open={open} onClose={handleClose}>
+      {/* <Modal open={open} onClose={handleClose}>
         <Box
           alignItems="center"
           sx={{
@@ -133,7 +142,7 @@ export function Students() {
             </Grid>
           </Grid>
         </Box>
-      </Modal>
+      </Modal> */}
     </div>
   );
 }

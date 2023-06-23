@@ -9,14 +9,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
-import { Box, Grid, IconButton, Toolbar } from '@mui/material';
-
+import { Box, Grid, IconButton } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
+import DynamicTab from './dynamicTabs';
 import { SearchBar } from './search';
-import DynamicTabs from './dynamicTabs';
+import { AddStudentModal } from '../coaches/modal-component';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -100,15 +98,72 @@ export function DynamicTable(props) {
     [rows, order, orderBy, page, rowsPerPage]
   );
 
-  return (
-    <React.Fragment>
-      <SearchBar
-        useTab
-        tabValue={tabValue}
-        handleTabChange={handleTabChange}
-        requestSearch={requestSearch}
+  const table = (
+    <div>
+      <Paper sx={{ width: '100%', mb: 2 }}>
+        <TableContainer>
+          <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
+            <EnhancedTableHead
+              columns={APIcolumns}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {visibleRows.map((row) => {
+                return (
+                  <TableRow hover key={row.id}>
+                    {APIcolumns.map((column) => {
+                      const { id: columnId, numeric, render } = column;
+                      const value = row[columnId];
+
+                      return (
+                        <TableCell
+                          align={numeric ? 'right' : 'left'}
+                          key={columnId}
+                        >
+                          {render ? render(value) : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+
+              {emptyRows > 0 && (
+                <TableRow
+                  style={{
+                    height: (dense ? 33 : 53) * emptyRows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
+      </Paper>
+      <FormControlLabel
+        control={<Switch checked={dense} onChange={handleChangeDense} />}
+        label="Dense padding"
       />
-      <Box sx={{ width: '100%' }}>
+    </div>
+  );
+
+  return (
+    <div>
+      <Box sx={{ width: '100%' }} marginInline={{}}>
         <Grid
           container
           direction="row"
@@ -116,16 +171,16 @@ export function DynamicTable(props) {
           alignItems="center"
         >
           <Grid item>
-            <DynamicTabs
+            <DynamicTab
               useTab={useTab}
               tabValue={tabValue}
               handleTabChange={handleTabChange}
             />
           </Grid>
-          <Toolbar>
-            <Grid item>
-              <SearchBar requestSearch={requestSearch} />
-            </Grid>
+          <Grid item>
+            <SearchBar requestSearch={requestSearch} />
+          </Grid>
+          <Grid item>
             <Grid item>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <IconButton
@@ -135,78 +190,22 @@ export function DynamicTable(props) {
                   aria-haspopup="true"
                   color="inherit"
                 >
-                  <AddIcon />
+                  <AddStudentModal />
                 </IconButton>
               </Box>
             </Grid>
-          </Toolbar>
+          </Grid>
         </Grid>
       </Box>
+
       <Box sx={{ width: '100%' }}>
-        {tabValue === 'one' && (
-          <div>
-            <Paper sx={{ width: '100%', mb: 2 }}>
-              <TableContainer>
-                <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
-                  <EnhancedTableHead
-                    columns={APIcolumns}
-                    order={order}
-                    orderBy={orderBy}
-                    onRequestSort={handleRequestSort}
-                    rowCount={rows.length}
-                  />
-                  <TableBody>
-                    {visibleRows.map((row) => {
-                      return (
-                        <TableRow hover key={row.id}>
-                          {APIcolumns.map((column) => {
-                            const { id: columnId, render, align } = column;
-                            const value = row[columnId];
-                            return (
-                              <TableCell align={align} key={columnId}>
-                                {render ? render(value) : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    })}
-
-                    {emptyRows > 0 && (
-                      <TableRow
-                        style={{
-                          height: (dense ? 33 : 53) * emptyRows,
-                        }}
-                      >
-                        <TableCell colSpan={6} />
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-              />
-            </Paper>
-            <FormControlLabel
-              control={<Switch checked={dense} onChange={handleChangeDense} />}
-              label="Dense padding"
-            />
-          </React.Fragment>
-        )}
+        {tabValue === 'one' && table}
 
         {/* {tabValue === 'two' && (
-          
+         
         )} */}
       </Box>
-    </React.Fragment>
+    </div>
   );
 }
 
