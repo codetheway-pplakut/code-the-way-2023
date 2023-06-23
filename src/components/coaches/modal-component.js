@@ -14,7 +14,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
-import { GridDeleteIcon } from '@mui/x-data-grid';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import {
@@ -242,7 +242,7 @@ export function ArchiveCoachModal() {
 export function ArchiveStudentModal() {
   return (
     <GenericModal
-      openModal={<GridDeleteIcon />}
+      openModal={<DeleteIcon />}
       modalHeadingTitle="Archive Student"
       modalMessage="Are you sure you want to archive this student?"
       actionButtonColor="archive"
@@ -262,6 +262,69 @@ export function ActivateStudentModal() {
       actionButtonColor="submit"
       cancelButtonColor="cancel"
       actionButtonTitle="Accept"
+      cancelButtonTitle="Cancel"
+    />
+  );
+}
+
+export function AddStudentModal() {
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+
+  const content = (
+    <React.Fragment>
+      <div>
+        <TextField
+          label="First Name"
+          margin="normal"
+          size="small"
+          onChange={(event) => {
+            setFirstName(event.target.value);
+          }}
+        />
+      </div>
+      <div>
+        <TextField
+          label="Last Name"
+          margin="normal"
+          size="small"
+          onChange={(event) => {
+            setLastName(event.target.value);
+          }}
+        />
+      </div>
+      <div>
+        <TextField
+          label="Email"
+          margin="normal"
+          size="small"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+        />
+      </div>
+      <div>
+        <TextField
+          label="Phone"
+          margin="normal"
+          size="small"
+          onChange={(event) => {
+            setPhone(event.target.value);
+          }}
+        />
+      </div>
+    </React.Fragment>
+  );
+  return (
+    <GenericModal
+      openModal={<AddIcon />}
+      modalHeadingTitle="Add Student"
+      modalMessage={content}
+      actionButtonColor="submit"
+      cancelButtonColor="cancel"
+      actionButtonTitle="Add"
       cancelButtonTitle="Cancel"
     />
   );

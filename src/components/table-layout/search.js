@@ -17,6 +17,7 @@ import GenericModal, {
   ArchiveStudentModal,
   ChooseCoachModal,
   ActivateStudentModal,
+  AddStudentModal,
 } from '../coaches/modal-component';
 
 const Search = styled('div')(({ theme }) => ({
@@ -118,14 +119,13 @@ export function SearchBar(props) {
                   aria-haspopup="true"
                   color="inherit"
                 >
-                  <AddIcon />
+                  <AddStudentModal />
                 </IconButton>
               </Box>
             </Grid>
           </Toolbar>
         </Grid>
       </Box>
-      <ChooseCoachModal />
     </div>
   );
 }

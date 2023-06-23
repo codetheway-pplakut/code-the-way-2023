@@ -14,6 +14,11 @@ import { Layout } from '../layout/layout';
 import { getStudents } from '../../services/students/students';
 import { TableLayout } from '../table-layout/table-layout';
 import { Todal } from '../test/modal';
+import {
+  ArchiveStudentModal,
+  ChooseCoachModal,
+} from '../coaches/modal-component';
+import { CenterFocusStrong } from '@mui/icons-material';
 
 export function Students() {
   const COLUMNS = [
@@ -23,6 +28,7 @@ export function Students() {
       label: 'First Name',
       align: 'left',
       active: false,
+      render: (value) => <Button>{value}</Button>,
     },
     {
       id: 'lastName',
@@ -51,7 +57,11 @@ export function Students() {
       disablePadding: false,
       label: '',
       align: 'left',
-      render: () => <Todal size="HUGE" />,
+      render: () => (
+        <React.Fragment>
+          <ArchiveStudentModal /> <ChooseCoachModal />
+        </React.Fragment>
+      ),
       active: false,
     },
   ];
