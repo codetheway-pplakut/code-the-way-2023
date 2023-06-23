@@ -168,17 +168,77 @@ export default function StudentDetails() {
         {/* XXX: doesn't work on all viewport sizes, just most */}
         <CommunicationLog
           data={[
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
-            [0, '01/24/2023', 'John', 'Fun', 'We Had Fun'],
+            [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
+            [
+              1,
+              '01/24/2023',
+              'John',
+              'Consulation 1',
+              'We talked about schools',
+            ],
+            [
+              2,
+              '01/25/2023',
+              'John',
+              'Consulation 2',
+              'They said they liked UW Madison',
+            ],
+            [
+              3,
+              '01/26/2023',
+              'John',
+              'Consulation 3',
+              'They said they are having trouble with Calculus',
+            ],
+            [
+              4,
+              '01/27/2023',
+              'John',
+              'Consulation 4',
+              'They are deciding wether to pursue medicine or engineering',
+            ],
+            [
+              5,
+              '01/28/2023',
+              'John',
+              'Consulation 5',
+              'They are thinking of doing extracurricular activities',
+            ],
+            [
+              6,
+              '01/29/2023',
+              'John',
+              'Career Talk 1',
+              'We are talking about their careers',
+            ],
+            [
+              7,
+              '01/30/2023',
+              'John',
+              'Goal Setting 1',
+              'We are talking about their goals',
+            ],
+            [
+              8,
+              '01/31/2023',
+              'John',
+              'Career Interest Talk',
+              'We Had a Fun time discussing different career options',
+            ],
+            [
+              9,
+              '02/01/2023',
+              'John',
+              'Scholarships',
+              'We discussed Scholarships',
+            ],
+            [
+              10,
+              '02/03/2023',
+              'John',
+              'Conclusion',
+              'This was our last meeting',
+            ],
           ]}
         />
       </Grid>
