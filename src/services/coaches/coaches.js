@@ -3,9 +3,27 @@ import { callApi } from '../../utils/call-api/call-api';
 /**
  * Gets all coaches in the DB
  * @returns ALl Coaches in DB
- * @author Joey Schroeder
+ * @author Adam Miller
  */
-export const getCoaches = () => callApi({ url: '/Coaches' });
+export const getAllCoaches = () => callApi({ url: '/Coaches/' });
+
+/**
+ * Gets all inactive coaches.
+ *
+ * @returns All inactive coaches in the DB
+ * @author Adam Miller
+ */
+export const getActiveCoaches = () =>
+  callApi({ url: '/Coaches/GetActiveCoaches' });
+
+/**
+ * Gets all inactive coaches.
+ *
+ * @returns All inactive coaches in the DB
+ * @author Adam Miller
+ */
+export const getInactiveCoaches = () =>
+  callApi({ url: '/Coaches/GetInactiveCoaches' });
 
 /**
  * Gets all data on a coach, including all students (same as getCoaches at the moment. To be deprecated.)
@@ -50,4 +68,28 @@ export const deleteCoach = (coachId) =>
     url: '/Coaches',
     params: coachId,
     method: 'DELETE',
+  });
+
+/**
+ * Activates a coach in the DB
+ * @param {{id:uuid,userName:email,email:email, status:string}} data
+ * @author Adam Miller
+ */
+export const activateCoach = (data) =>
+  callApi({
+    url: '/Coaches/ActivateCoach',
+    data,
+    method: 'POST',
+  });
+
+/**
+ * Deactivates a coach in the DB
+ * @param {{id:uuid,userName:email,email:email, status:string}} data
+ * @author Adam Miller
+ */
+export const deactivateCoach = (data) =>
+  callApi({
+    url: '/Coaches/DeactivateCoach',
+    data,
+    method: 'POST',
   });
