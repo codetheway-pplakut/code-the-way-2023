@@ -101,7 +101,13 @@ export function DynamicTable(props) {
   );
 
   return (
-    <div>
+    <React.Fragment>
+      <SearchBar
+        useTab
+        tabValue={tabValue}
+        handleTabChange={handleTabChange}
+        requestSearch={requestSearch}
+      />
       <Box sx={{ width: '100%' }}>
         <Grid
           container
@@ -154,14 +160,10 @@ export function DynamicTable(props) {
                       return (
                         <TableRow hover key={row.id}>
                           {APIcolumns.map((column) => {
-                            const { id: columnId, numeric, render } = column;
+                            const { id: columnId, render, align } = column;
                             const value = row[columnId];
-
                             return (
-                              <TableCell
-                                align={numeric ? 'right' : 'left'}
-                                key={columnId}
-                              >
+                              <TableCell align={align} key={columnId}>
                                 {render ? render(value) : value}
                               </TableCell>
                             );
@@ -197,14 +199,14 @@ export function DynamicTable(props) {
               control={<Switch checked={dense} onChange={handleChangeDense} />}
               label="Dense padding"
             />
-          </div>
+          </React.Fragment>
         )}
 
         {/* {tabValue === 'two' && (
           
         )} */}
       </Box>
-    </div>
+    </React.Fragment>
   );
 }
 

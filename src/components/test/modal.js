@@ -1,5 +1,6 @@
 import React from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { Box, Modal, Typography } from '@mui/material';
 
 const style = {
@@ -20,7 +21,8 @@ export function Todal() {
   const handleClose = () => setOpen(false);
 
   return (
-    <div>
+    <React.Fragment>
+      <EditIcon onClick={handleOpen} sx={{ mr: 4 }} />
       <DeleteIcon onClick={handleOpen} />
       <Modal
         open={open}
@@ -37,6 +39,6 @@ export function Todal() {
           </Typography>
         </Box>
       </Modal>
-    </div>
+    </React.Fragment>
   );
 }

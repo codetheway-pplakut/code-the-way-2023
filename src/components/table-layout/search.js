@@ -43,6 +43,84 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+export function SearchBar(props) {
+  const { requestSearch, useTab, tabValue, handleTabChange } = props;
+  return (
+    <div>
+      <Box sx={{ width: '100%' }} marginInline={{}}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <Grid item>
+            {useTab ? (
+              <Tabs
+                value={tabValue}
+                onChange={handleTabChange}
+                aria-label="nav tabs example"
+                sx={{ pb: 1 }}
+              >
+                <Tab value="one" label="active" sx={{ borderBottom: 1.5 }} />
+                <Tab
+                  value="two"
+                  label="applicants"
+                  sx={{ borderBottom: 1.5 }}
+                />
+              </Tabs>
+            ) : (
+              <React.Fragment>
+                {' '}
+                <Tabs
+                  value={tabValue}
+                  onChange={handleTabChange}
+                  aria-label="nav tabs example"
+                >
+                  {' '}
+                </Tabs>
+              </React.Fragment>
+            )}
+          </Grid>
+          <Toolbar>
+            <Grid item>
+              <Search sx={{ border: 1.5 }}>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Search…"
+                  onChange={(event) => {
+                    requestSearch(event.target.value);
+                  }}
+                />
+              </Search>
+            </Grid>
+            <Grid item>
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                >
+                  <AddStudentModal />
+                </IconButton>
+              </Box>
+            </Grid>
+          </Toolbar>
+        </Grid>
+      </Box>
+    </div>
+  );
+}
+SearchBar.propTypes = {
+  requestSearch: PropTypes.func,
+};
+SearchBar.defaultProps = {
+  requestSearch: () => {},
+};
 
 export function SearchBar(props) {
   const { requestSearch } = props;

@@ -13,7 +13,6 @@ import {
 export function DropDownComponent(props) {
   const [selectedCoach, setSelectedCoach] = useState('');
   const {
-    actionButtonFunction,
     actionButtonColor,
     actionButtonTitle,
     cancelButtonTitle,
