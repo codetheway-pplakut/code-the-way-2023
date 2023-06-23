@@ -24,7 +24,7 @@ export const getAdminById = (adminId) => callApi({ url: `/Admin/${adminId}` });
  */
 export const addAdmin = (admin) =>
   callApi({
-    url: '/Admin',
+    url: '/Admin/Create',
     method: 'POST',
     data: admin,
   });
@@ -40,4 +40,28 @@ export const deleteAdmin = (adminId) =>
     url: '/Admin',
     method: 'DELETE',
     params: adminId,
+  });
+
+/**
+ * Activates a deactivated Admin
+ * @param {uuid} id
+ * @author Adam Miller
+ */
+export const activateAdmin = (id) =>
+  callApi({
+    url: '/Admin/Activate',
+    method: 'POST',
+    data: id,
+  });
+
+/**
+ * Decativates an active Admin
+ * @param {uuid} id
+ * @author Adam Miller
+ */
+export const deactivateAdmin = (id) =>
+  callApi({
+    url: '/Admin/Deactivate',
+    method: 'POST',
+    data: id,
   });

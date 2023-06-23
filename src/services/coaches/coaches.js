@@ -51,3 +51,27 @@ export const deleteCoach = (coachId) =>
     params: coachId,
     method: 'DELETE',
   });
+
+/**
+ * Activates a coach in the DB
+ * @param {{id:uuid,userName:email,email:email, status:string}} data
+ * @author Adam Miller
+ */
+export const activateCoach = (data) =>
+  callApi({
+    url: '/Coaches/ActivateCoach',
+    data,
+    method: 'POST',
+  });
+
+/**
+ * Deactivates a coach in the DB
+ * @param {{id:uuid,userName:email,email:email, status:string}} data
+ * @author Adam Miller
+ */
+export const deactivateCoach = (data) =>
+  callApi({
+    url: '/Coaches/DeactivateCoach',
+    data,
+    method: 'POST',
+  });
