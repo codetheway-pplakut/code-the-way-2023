@@ -1,7 +1,10 @@
-import InputBase from '@mui/material/InputBase';
+import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import PropTypes from 'prop-types';
 
-export const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -17,7 +20,7 @@ export const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-export const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 2),
   height: '100%',
   position: 'absolute',
@@ -27,7 +30,7 @@ export const SearchIconWrapper = styled('div')(({ theme }) => ({
   justifyContent: 'center',
 }));
 
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
@@ -40,3 +43,29 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+export function SearchBar(props) {
+  const { requestSearch } = props;
+
+  return (
+    <Search sx={{ border: 1.5 }}>
+      <SearchIconWrapper>
+        <SearchIcon />
+      </SearchIconWrapper>
+      <StyledInputBase
+        placeholder="Search…"
+        onChange={(event) => {
+          requestSearch(event.target.value);
+        }}
+      />
+    </Search>
+  );
+}
+
+SearchBar.propTypes = {
+  requestSearch: PropTypes.func,
+};
+
+SearchBar.defaultProps = {
+  requestSearch: () => {},
+};

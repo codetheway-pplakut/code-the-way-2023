@@ -12,11 +12,11 @@ import Switch from '@mui/material/Switch';
 import SearchIcon from '@mui/icons-material/Search';
 import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Grid, IconButton, Tab, Tabs, Toolbar } from '@mui/material';
+import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 
 import EnhancedTableHead from './enhancedTableHead';
-import { Search, SearchIconWrapper, StyledInputBase } from './search';
-import { Todal } from './modal';
+import { SearchBar } from './search';
+import DynamicTabs from './dynamicTabs';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -47,7 +47,7 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows } = props;
+  const { APIcolumns, APIrows, useTab } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [page, setPage] = React.useState(0);
@@ -55,6 +55,8 @@ export function DynamicTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [tabValue, setTabValue] = React.useState('one');
   const [rows, setRows] = useState(APIrows);
+
+  console.log(useTab);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
@@ -108,28 +110,15 @@ export function DynamicTable(props) {
           alignItems="center"
         >
           <Grid item>
-            <Tabs
-              value={tabValue}
-              onChange={handleTabChange}
-              aria-label="nav tabs example"
-            >
-              <Tab value="one" label="applicants" sx={{ borderBottom: 1 }} />
-              <Tab value="two" label="active" sx={{ borderBottom: 1 }} />
-            </Tabs>
+            <DynamicTabs
+              useTab={useTab}
+              tabValue={tabValue}
+              handleTabChange={handleTabChange}
+            />
           </Grid>
           <Toolbar>
             <Grid item>
-              <Search sx={{ border: 1.5 }}>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  onChange={(event) => {
-                    requestSearch(event.target.value);
-                  }}
-                />
-              </Search>
+              <SearchBar requestSearch={requestSearch} />
             </Grid>
             <Grid item>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
@@ -148,11 +137,7 @@ export function DynamicTable(props) {
         </Grid>
       </Box>
       <Box sx={{ width: '100%' }}>
-        {/* {tabValue === 'one' && (
-
-        )} */}
-
-        {tabValue === 'two' && (
+        {tabValue === 'one' && (
           <div>
             <Paper sx={{ width: '100%', mb: 2 }}>
               <TableContainer>
@@ -214,6 +199,10 @@ export function DynamicTable(props) {
             />
           </div>
         )}
+
+        {/* {tabValue === 'two' && (
+          
+        )} */}
       </Box>
     </div>
   );
@@ -222,6 +211,7 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
+  useTab: PropTypes.bool.isRequired,
 };
 
 DynamicTable.defaultProps = {

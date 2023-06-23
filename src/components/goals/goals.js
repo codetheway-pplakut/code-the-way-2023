@@ -1,4 +1,5 @@
 import React from 'react';
+import { Grid } from '@mui/material';
 import { TableLayout } from '../table-layout/table-layout';
 import { getGoals } from '../../services/goals/goals';
 
@@ -16,35 +17,49 @@ import { getGoals } from '../../services/goals/goals';
 // ]
 const COLUMNS = [
   {
-    headerName: 'ID',
-    field: 'id',
-    width: 300,
+    label: 'Goal Set',
+    id: 'goalSet',
+    numeric: false,
+    disablePadding: false,
   },
   {
-    headerName: 'Student ID',
-    field: 'studentId',
-    width: 300,
+    label: 'Date Goal Set',
+    id: 'dateGoalSet',
+    numeric: false,
+    disablePadding: false,
   },
   {
-    headerName: 'Goal Set',
-    field: 'goalSet',
-    width: 100,
+    label: 'Goal Review Date',
+    id: 'goalReviewDate',
+    numeric: false,
+    disablePadding: false,
   },
   {
-    headerName: 'Goal Review Date',
-    field: 'goalReviewDate',
-    width: 300,
+    label: 'WasItAccomplished',
+    id: 'wasItAccomplished',
+    numeric: false,
+    disablePadding: false,
+  },
+  {
+    label: 'Explanation',
+    id: 'explanation',
+    numeric: false,
+    disablePadding: false,
   },
 ];
 
 export function Goals() {
   return (
-    <TableLayout
-      columns={COLUMNS}
-      requestFunc={getGoals}
-      requestLabel="Request Goals"
-      subTitle="View all goals"
-      title="Goals"
-    />
+    <Grid container justifyContent="center">
+      <Grid item xs={10}>
+        <TableLayout
+          columns={COLUMNS}
+          requestFunc={getGoals}
+          title="Goals"
+          subTitle="View all Goals"
+          useTab={false}
+        />
+      </Grid>
+    </Grid>
   );
 }
