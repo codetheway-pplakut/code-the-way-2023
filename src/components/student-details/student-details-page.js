@@ -14,8 +14,9 @@ import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
 import CommunicationBox from './communication-box';
+import { CommunicationLog } from './communication-log';
 
-export default function RowAndColumnSpacing() {
+export default function StudentDetails() {
   const [value, setValue] = React.useState('one');
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -57,8 +58,8 @@ export default function RowAndColumnSpacing() {
   };
 
   return (
-    <Grid container>
-      <Grid container width="50%">
+    <Grid container direction="row" display='flex' sx={{flexWrap:'nowrap' }}>
+      <Grid item  xs={6} direction="row"   >
         <Grid container justifyContent="center">
           <Tabs
             value={value}
@@ -76,7 +77,7 @@ export default function RowAndColumnSpacing() {
             <Tab sx={tabStyle} value={3} label="Interview Info" />
           </Tabs>
         </Grid>
-        <Grid container justifyContent="center">
+        <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
             {value === 0 && (
               <InfoBox
@@ -133,15 +134,94 @@ export default function RowAndColumnSpacing() {
             )}
           </Box>
         </Grid>
-      </Grid>
+        
 
-      <Grid
-        item
+     
+    </Grid>
+    <Grid
         container
-        alignItems="center"
-        width="50%"
-        justifyContent="space-between"
-      />
+       
+      
+      >
+
+        <Grid item  xs={1}>
+      <CommunicationLog
+          data={[
+            [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
+            [
+              1,
+              '01/24/2023',
+              'John',
+              'Consulation 1',
+              'We talked about schools',
+            ],
+            [
+              2,
+              '01/25/2023',
+              'John',
+              'Consulation 2',
+              'They said they liked UW Madison',
+            ],
+            [
+              3,
+              '01/26/2023',
+              'John',
+              'Consulation 3',
+              'They said they are having trouble with Calculus',
+            ],
+            [
+              4,
+              '01/27/2023',
+              'John',
+              'Consulation 4',
+              'They are deciding wether to pursue medicine or engineering',
+            ],
+            [
+              5,
+              '01/28/2023',
+              'John',
+              'Consulation 5',
+              'They are thinking of doing extracurricular activities',
+            ],
+            [
+              6,
+              '01/29/2023',
+              'John',
+              'Career Talk 1',
+              'We are talking about their careers',
+            ],
+            [
+              7,
+              '01/30/2023',
+              'John',
+              'Goal Setting 1',
+              'We are talking about their goals',
+            ],
+            [
+              8,
+              '01/31/2023',
+              'John',
+              'Career Interest Talk',
+              'We Had a Fun time discussing different career options',
+            ],
+            [
+              9,
+              '02/01/2023',
+              'John',
+              'Scholarships',
+              'We discussed Scholarships',
+            ],
+            [
+              10,
+              '02/03/2023',
+              'John',
+              'Conclusion',
+              'This was our last meeting',
+            ],
+          ]}
+        />
+        </Grid>
+      </Grid>
     </Grid>
   );
 }
