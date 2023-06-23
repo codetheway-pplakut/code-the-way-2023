@@ -38,7 +38,7 @@ export default function StudentDetails() {
     display: 'flex',
     borderTopLeftRadius: '5px',
     borderTopRightRadius: '5px',
-    minWidth: '13vw',
+    minWidth: '10vw',
     margin: '0 10px',
     '&.Mui-selected': {
       color: '#0000000',
@@ -58,8 +58,13 @@ export default function StudentDetails() {
   };
 
   return (
-    <Grid container direction="row" display='flex' sx={{flexWrap:'nowrap' }}>
-      <Grid item  xs={6} direction="row"   >
+    <Grid
+      container
+      direction="row"
+      display="flex"
+      sx={{ flexWrap: 'nowrap', mt: '50px' }}
+    >
+      <Grid item xs={6} direction="row">
         <Grid container justifyContent="center">
           <Tabs
             value={value}
@@ -134,92 +139,84 @@ export default function StudentDetails() {
             )}
           </Box>
         </Grid>
-        
-
-     
-    </Grid>
-    <Grid
-        container
-       
-      
-      >
-
-        <Grid item  xs={1}>
-      <CommunicationLog
-          data={[
-            [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
-            [
-              1,
-              '01/24/2023',
-              'John',
-              'Consulation 1',
-              'We talked about schools',
-            ],
-            [
-              2,
-              '01/25/2023',
-              'John',
-              'Consulation 2',
-              'They said they liked UW Madison',
-            ],
-            [
-              3,
-              '01/26/2023',
-              'John',
-              'Consulation 3',
-              'They said they are having trouble with Calculus',
-            ],
-            [
-              4,
-              '01/27/2023',
-              'John',
-              'Consulation 4',
-              'They are deciding wether to pursue medicine or engineering',
-            ],
-            [
-              5,
-              '01/28/2023',
-              'John',
-              'Consulation 5',
-              'They are thinking of doing extracurricular activities',
-            ],
-            [
-              6,
-              '01/29/2023',
-              'John',
-              'Career Talk 1',
-              'We are talking about their careers',
-            ],
-            [
-              7,
-              '01/30/2023',
-              'John',
-              'Goal Setting 1',
-              'We are talking about their goals',
-            ],
-            [
-              8,
-              '01/31/2023',
-              'John',
-              'Career Interest Talk',
-              'We Had a Fun time discussing different career options',
-            ],
-            [
-              9,
-              '02/01/2023',
-              'John',
-              'Scholarships',
-              'We discussed Scholarships',
-            ],
-            [
-              10,
-              '02/03/2023',
-              'John',
-              'Conclusion',
-              'This was our last meeting',
-            ],
-          ]}
-        />
+      </Grid>
+      <Grid container xs={1}>
+        <Grid item sx={{ ml: '10%', mt: '25%' }}>
+          <CommunicationLog
+            data={[
+              [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
+              [
+                1,
+                '01/24/2023',
+                'John',
+                'Consulation 1',
+                'We talked about schools',
+              ],
+              [
+                2,
+                '01/25/2023',
+                'John',
+                'Consulation 2',
+                'They said they liked UW Madison',
+              ],
+              [
+                3,
+                '01/26/2023',
+                'John',
+                'Consulation 3',
+                'They said they are having trouble with Calculus',
+              ],
+              [
+                4,
+                '01/27/2023',
+                'John',
+                'Consulation 4',
+                'They are deciding wether to pursue medicine or engineering',
+              ],
+              [
+                5,
+                '01/28/2023',
+                'John',
+                'Consulation 5',
+                'They are thinking of doing extracurricular activities',
+              ],
+              [
+                6,
+                '01/29/2023',
+                'John',
+                'Career Talk 1',
+                'We are talking about their careers',
+              ],
+              [
+                7,
+                '01/30/2023',
+                'John',
+                'Goal Setting 1',
+                'We are talking about their goals',
+              ],
+              [
+                8,
+                '01/31/2023',
+                'John',
+                'Career Interest Talk',
+                'We Had a Fun time discussing different career options',
+              ],
+              [
+                9,
+                '02/01/2023',
+                'John',
+                'Scholarships',
+                'We discussed Scholarships',
+              ],
+              [
+                10,
+                '02/03/2023',
+                'John',
+                'Conclusion',
+                'This was our last meeting',
+              ],
+            ]}
+          />
         </Grid>
       </Grid>
     </Grid>
