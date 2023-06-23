@@ -1,38 +1,50 @@
 import React from 'react';
-import { getCoaches } from '../../services/coaches/coaches';
-import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
-
-const COLUMNS = [
-  {
-    headerName: 'ID',
-    field: 'id',
-    width: 300,
-  },
-  {
-    headerName: 'First Name',
-    field: 'coachFirstName',
-    width: 100,
-  },
-  {
-    headerName: 'Last Name',
-    field: 'coachLastName',
-    width: 100,
-  },
-  {
-    headerName: 'Email',
-    field: 'coachEmail',
-    width: 300,
-  },
-];
+import { Grid } from '@mui/material';
+import GenericModal from './modal-component';
+import Table2 from './table';
 
 export function Coaches() {
+  const actionButtonFunction = () => {
+    console.log('Function completed');
+    // Do other actions with the selected coach in this function
+  };
+
   return (
-    <TableLayoutWithRequest
-      columns={COLUMNS}
-      requestFunc={getCoaches}
-      requestLabel="Request Coaches"
-      subTitle="View all coaches"
-      title="Coaches"
-    />
+    <div>
+      <Grid container justifyContent="center">
+        <Grid item xs={10}>
+          <Table2 />
+        </Grid>
+      </Grid>
+
+      <GenericModal
+        usingFields
+        openModal="Register a Coach"
+        modalHeadingTitle="Create a Coach"
+        modalMessage="Create a username and password"
+        actionButtonColor="submit"
+        actionButtonTitle="Register"
+        cancelButtonTitle="Cancel"
+      />
+      <GenericModal
+        usingDropDown
+        openModal="Select a Coach"
+        modalHeadingTitle="Select a Coach"
+        modalMessage="Select a coach to assign this student to."
+        actionButtonTitle="Select"
+        actionButtonColor="submit"
+        cancelButtonTitle="cancel"
+      />
+      <GenericModal
+        usingTwoButtonFormat
+        openModal="Archive"
+        modalHeadingTitle="Archive a Coach"
+        modalMessage="Are you sure you want to archive this coach?"
+        actionButtonTitle="Archive"
+        cancelButtonTitle="cancel"
+        actionButtonFunction={actionButtonFunction}
+        actionButtonColor="archive"
+      />
+    </div>
   );
 }

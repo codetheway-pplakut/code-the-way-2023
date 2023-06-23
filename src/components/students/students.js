@@ -1,47 +1,60 @@
 import React from 'react';
+import { Grid, Link } from '@mui/material';
 import { getStudents } from '../../services/students/students';
-import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
+import { TableLayout } from '../table-layout/table-layout';
 
 const COLUMNS = [
   {
-    headerName: 'ID',
-    field: 'id',
+    id: 'firstName',
+    numeric: false,
+    disablePadding: false,
+    label: 'First Name',
   },
   {
-    headerName: 'First Name',
-    field: 'firstName',
+    id: 'lastName',
+    numeric: false,
+    disablePadding: false,
+    label: 'Last Name',
   },
   {
-    headerName: 'Last Name',
-    field: 'lastName',
+    id: 'email',
+    numeric: false,
+    disablePadding: false,
+    label: 'Email',
+    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
   },
   {
-    headerName: 'Email',
-    field: 'email',
+    id: 'studentCellPhone',
+    numeric: false,
+    disablePadding: false,
+    label: 'Student Cell',
   },
   {
-    headerName: 'State',
-    field: 'state',
+    id: 'parentFirstName',
+    numeric: false,
+    disablePadding: false,
+    label: "Parent's First Name",
   },
   {
-    headerName: 'Parent First Name',
-    field: 'parentFirstName',
-  },
-  {
-    headerName: 'Parent Last Name',
-    field: 'parentLastName',
+    id: 'parentLastName',
+    numeric: false,
+    disablePadding: false,
+    label: "Parent's Last Name",
   },
 ];
 
 export function Students() {
   return (
-    <TableLayoutWithRequest
-      columns={COLUMNS}
-      tableSize="small"
-      requestFunc={getStudents}
-      requestLabel="Request Students"
-      subTitle="View all students"
-      title="Students"
-    />
+    <Grid container justifyContent="center">
+      <Grid item xs={10}>
+        <TableLayout
+          columns={COLUMNS}
+          requestFunc={getStudents}
+          title="Students"
+          subTitle="View all students"
+          useTab
+        />
+      </Grid>
+    </Grid>
   );
 }
