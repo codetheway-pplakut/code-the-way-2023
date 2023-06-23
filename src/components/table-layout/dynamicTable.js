@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useState } from 'react';
-import { Box, Grid, IconButton } from '@mui/material';
+import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import DynamicTab from './dynamicTabs';
 import { SearchBar } from './search';
@@ -45,7 +45,7 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, useTab } = props;
+  const { APIcolumns, APIrows, useTab, tabNames } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [page, setPage] = React.useState(0);
@@ -173,14 +173,15 @@ export function DynamicTable(props) {
           <Grid item>
             <DynamicTab
               useTab={useTab}
+              tabNames={tabNames}
               tabValue={tabValue}
               handleTabChange={handleTabChange}
             />
           </Grid>
-          <Grid item>
-            <SearchBar requestSearch={requestSearch} />
-          </Grid>
-          <Grid item>
+          <Toolbar>
+            <Grid item>
+              <SearchBar requestSearch={requestSearch} />
+            </Grid>
             <Grid item>
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                 <IconButton
@@ -194,7 +195,7 @@ export function DynamicTable(props) {
                 </IconButton>
               </Box>
             </Grid>
-          </Grid>
+          </Toolbar>
         </Grid>
       </Box>
 
@@ -213,9 +214,11 @@ DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
   useTab: PropTypes.bool.isRequired,
+  tabNames: PropTypes.arrayOf(PropTypes.object),
 };
 
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
+  tabNames: [],
 };

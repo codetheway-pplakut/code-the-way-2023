@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
 export default function DynamicTabs(props) {
-  const { useTab, tabValue, handleTabChange } = props;
+  const { useTab, tabNames, tabValue, handleTabChange } = props;
 
   return (
     <Box>
@@ -15,8 +15,16 @@ export default function DynamicTabs(props) {
           onChange={handleTabChange}
           aria-label="nav tabs example"
         >
-          <Tab value="one" label="active" sx={{ borderBottom: 1.5 }} />
-          <Tab value="two" label="applicants" sx={{ borderBottom: 1.5 }} />
+          {tabNames.map((tabName, index) => {
+            return (
+              <Tab
+                value={index}
+                label={tabName}
+                key=""
+                sx={{ borderBottom: 1.5 }}
+              />
+            );
+          })}
         </Tabs>
       ) : (
         <div />
@@ -29,9 +37,11 @@ DynamicTabs.propTypes = {
   handleTabChange: PropTypes.func,
   tabValue: PropTypes.string,
   useTab: PropTypes.bool.isRequired,
+  tabNames: PropTypes.arrayOf(PropTypes.object),
 };
 
 DynamicTabs.defaultProps = {
   handleTabChange: () => {},
   tabValue: 'one',
+  tabNames: [],
 };

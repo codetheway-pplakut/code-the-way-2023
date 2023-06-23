@@ -5,7 +5,7 @@ import { Layout } from '../layout/layout';
 import { DynamicTable } from './dynamicTable';
 
 export function TableLayout(props) {
-  const { columns, subTitle, title, requestFunc, useTab } = props;
+  const { columns, subTitle, title, requestFunc, useTab, tabNames } = props;
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -39,7 +39,12 @@ export function TableLayout(props) {
         subTitle={subTitle}
         title={title}
       >
-        <DynamicTable APIcolumns={columns} APIrows={rows} useTab={useTab} />
+        <DynamicTable
+          APIcolumns={columns}
+          APIrows={rows}
+          useTab={useTab}
+          tabNames={tabNames}
+        />
       </Layout>
     </EntitlementRestricted>
   );
@@ -51,10 +56,12 @@ TableLayout.propTypes = {
   subTitle: PropTypes.string,
   title: PropTypes.string,
   useTab: PropTypes.bool.isRequired,
+  tabNames: PropTypes.arrayOf(PropTypes.object),
 };
 
 TableLayout.defaultProps = {
   columns: [],
   subTitle: undefined,
   title: undefined,
+  tabNames: [],
 };
