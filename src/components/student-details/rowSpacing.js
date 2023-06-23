@@ -65,6 +65,11 @@ export default function RowAndColumnSpacing() {
             onChange={handleChange}
             variant="scrollable"
             scrollButtons="auto"
+            sx={{
+              [`& .${tabsClasses.scrollButtons}`]: {
+                '&.Mui-disabled': { opacity: 0.3 },
+              },
+            }}
           >
             <Tab sx={tabStyle} value={0} label="Student Info" />
             <Tab sx={tabStyle} value={1} label="Goals and Careers" />
@@ -72,24 +77,36 @@ export default function RowAndColumnSpacing() {
           </Tabs>
         </Grid>
         <Grid container justifyContent="center">
-          <Box sx={boxStyle}>
+          <Box sx={boxStyle} padding="4vh">
             {value === 0 && (
               <InfoBox
-                headers={['Student', 'Parent']}
+                headers={[
+                  'Student Information',
+                  'Parent Information',
+                  'Household Information',
+                ]}
                 modal={[
                   <GenericModal
                     key="1"
-                    modalHeadingTitle="Edit Student"
+                    modalHeadingTitle="Edit Parent Info"
                     openButtonIcon={<EditIcon sx={iconStyle} />}
                   />,
                   <GenericModal
                     key="2"
-                    modalHeadingTitle="Edit Parent"
+                    modalHeadingTitle="Edit Household Info"
                     openButtonIcon={<EditIcon sx={iconStyle} />}
                   />,
                 ]}
-                content={[['frank'], ['jenny', '867-5309', 'jenny@gmail.com']]}
-                labels={[['Name'], ['Name', 'Phone Number', 'Email']]}
+                content={[
+                  ['John Doe', '(262) 555-7535', 'john@gmail.com'],
+                  ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
+                  ['W-2'],
+                ]}
+                labels={[
+                  ['Name', 'Phone Number', 'Email'],
+                  ['Name', 'Phone Number', 'Email'],
+                  ['Financial Assistance'],
+                ]}
               />
             )}
             {value === 1 && (
@@ -108,8 +125,8 @@ export default function RowAndColumnSpacing() {
                   />,
                 ]}
                 content={[
-                  ['Finish this website'],
-                  ['Aspiring software developer', 'API bankruptor'],
+                  ['Get a job'],
+                  ['Aspiring software developer', 'Job 2'],
                 ]}
                 labels={[['Goal 1'], ['Career 1', 'Career 2']]}
               />
@@ -124,39 +141,7 @@ export default function RowAndColumnSpacing() {
         alignItems="center"
         width="50%"
         justifyContent="space-between"
-      >
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Grid item>
-            <Typography>Communication Log</Typography>
-          </Grid>
-          <Grid item>
-            <GenericModal openButtonIcon={<AddIcon sx={iconStyle} />} />
-          </Grid>
-        </Grid>
-      </Grid>
-
-      <Grid item container direction="row">
-        {/* XXX: doesn't work on all viewport sizes, just most */}
-        <Grid
-          container
-          item
-          xs={2}
-          sx={{
-            position: 'relative',
-            display: 'grid',
-            width: '100vw',
-            mx: '0.55%',
-            maxWidth: '47%',
-          }}
-        >
-          <CommunicationBox />
-        </Grid>
-      </Grid>
+      />
     </Grid>
   );
 }

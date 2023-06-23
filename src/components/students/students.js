@@ -3,7 +3,6 @@ import { Button, Modal, Box, Grid, Typography, TextField } from '@mui/material';
 // import { useNavigate } from 'react-router-dom';
 import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
-import { Button } from '@mui/material';
 import {
   addStudent,
   assignStudent,

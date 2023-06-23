@@ -15,15 +15,7 @@ import GenericModal from '../coaches/modal-component';
  * image of InfoBox with default props: https://codetheway2022.slack.com/archives/C035YN121GW/p1687366194249229
  */
 export default function InfoBox(props) {
-  const { headers, modal, content, labels } = props;
-  const boxStyle = {
-    bgcolor: '#ffffff',
-    color: '#000000',
-    position: 'relative',
-    minHeight: '70vh',
-    borderRadius: '10px',
-    boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
-  };
+  const { name, headers, modal, content, labels } = props;
 
   const textStyle = {};
 
@@ -31,12 +23,16 @@ export default function InfoBox(props) {
 
   return (
     <Grid container direction="column">
+      <Typography fontSize="35px">{name}&#39;s Student Details</Typography>
       {headers.map((header, headerIndex) => (
         <Grid container key={headerIndex.id}>
           <Grid container item direction="row">
-            <Typography sx={headerStyle}> {header} </Typography>
+            <Typography sx={headerStyle} fontSize="35px">
+              {header}
+            </Typography>
             {modal[headerIndex]}
           </Grid>
+
           {content[headerIndex].map((contents, contentIndex) => (
             <Grid container item my="2%" key={contentIndex.id}>
               <Typography sx={textStyle}>
@@ -52,7 +48,7 @@ export default function InfoBox(props) {
 }
 
 InfoBox.defaultProps = {
-  headers: ['Student', 'Parent 1', 'Parent 2'],
+  headers: ['Student Info', 'Parent Info', 'Household Info'],
   modal: [],
   content: [
     ['John Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
@@ -70,4 +66,8 @@ InfoBox.propTypes = {
   modal: PropTypes.arrayOf(instanceOf(GenericModal)),
   content: PropTypes.arrayOf(array),
   labels: PropTypes.arrayOf(array),
+};
+
+InfoBox.defaultProps = {
+  name: 'John Doe',
 };
