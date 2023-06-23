@@ -3,9 +3,25 @@ import { callApi } from '../../utils/call-api/call-api';
 /**
  * Gets all coaches in the DB
  * @returns ALl Coaches in DB
- * @author Joey Schroeder
+ * @author Adam Miller
  */
-export const getCoaches = () => callApi({ url: '/Coaches' });
+export const getAllCoaches = () => callApi({ url: '/Coaches/' });
+
+/**
+ * Gets all inactive coaches.
+ *
+ * @returns All inactive coaches in the DB
+ * @author Adam Miller
+ */
+export const getActiveCoaches = () => callApi({ url: '/Coaches/active' });
+
+/**
+ * Gets all inactive coaches.
+ *
+ * @returns All inactive coaches in the DB
+ * @author Adam Miller
+ */
+export const getInactiveCoaches = () => callApi({ url: '/Coaches/inactive' });
 
 /**
  * Gets all data on a coach, including all students (same as getCoaches at the moment. To be deprecated.)
