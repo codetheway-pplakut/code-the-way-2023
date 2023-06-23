@@ -3,6 +3,7 @@ import { Grid } from '@mui/material';
 import Table2 from './table';
 import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
 import { getActiveCoachesHandler } from './coachHandlers';
+import { AddCoachModal, ArchiveCoachModal } from './modal-component';
 
 const COLUMNS = [
   {

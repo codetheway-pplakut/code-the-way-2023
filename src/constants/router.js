@@ -10,6 +10,8 @@ import { Students } from '../components/students/students';
 import { Coaches } from '../components/coaches/coaches';
 import { Goals } from '../components/goals/goals';
 import { StudentInfo } from '../components/student-details/student-info';
+import { Admins, InactiveAdmins } from '../components/admin/inactiveadmin';
+import { ActiveAdmins } from '../components/admin/activeadmin;';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
 
@@ -26,6 +28,8 @@ export const ROUTER = createBrowserRouter(
         { path: 'students', element: <Students /> },
         { path: '*', element: <Error /> },
         { path: 'student-info', element: <StudentInfo /> },
+        { path: 'inactiveAdmins', element: <InactiveAdmins /> },
+        { path: 'activeAdmins', element: <ActiveAdmins /> },
       ],
     },
   ],
