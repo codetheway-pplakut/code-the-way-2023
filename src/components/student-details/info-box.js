@@ -64,18 +64,10 @@ export default function InfoBox(props) {
 }
 
 InfoBox.defaultProps = {
-  headers: ['Student', 'Parent 1', 'Parent 2'],
+  headers: [],
   modal: [],
-  content: [
-    ['John Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
-    ['Jane Doe', 'xxx-xxxx', 'placeholder@gmail.com'],
-    ['John Doe Sr.', 'xxx-xxxx', 'placeholder@gmail.com'],
-  ],
-  labels: [
-    ['Name', 'Phone Number', 'Email'],
-    ['Name', 'Phone Number', 'Email'],
-    ['Name', 'Phone Number', 'Email'],
-  ],
+  content: [],
+  labels: [],
 };
 InfoBox.propTypes = {
   headers: PropTypes.array,

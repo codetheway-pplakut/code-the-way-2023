@@ -163,6 +163,8 @@ export default function StudentDetails() {
             labels={[['Goal 1'], ['Career 1', 'Career 2']]}
           />
         )}
+
+        {value === 'three' && <InfoBox />}
         {/* XXX: doesn't work on all viewport sizes, just most */}
         <CommunicationLog
           data={[
