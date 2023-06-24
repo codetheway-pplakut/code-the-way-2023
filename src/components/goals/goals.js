@@ -1,20 +1,11 @@
-import React from 'react';
-import { Grid } from '@mui/material';
-import { TableLayout } from '../table-layout/table-layout';
+import React, { useEffect, useState } from 'react';
+import { Grid, Box } from '@mui/material';
 import { getGoals } from '../../services/goals/goals';
+import DynamicTabs from '../table-layout/dynamicTabs';
+import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { Layout } from '../layout/layout';
+import { DynamicTable } from '../table-layout/dynamicTable';
 
-// [
-//   {
-//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "goalSet": "string",
-//     "dateGoalSet": "2023-06-07T15:44:46.151Z",
-//     "sel": "string",
-//     "goalReviewDate": "2023-06-07T15:44:46.151Z",
-//     "wasItAccomplished": "string",
-//     "explanation": "string"
-//   }
-// ]
 const COLUMNS = [
   {
     label: 'Goal Set',
@@ -49,16 +40,64 @@ const COLUMNS = [
 ];
 
 export function Goals() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [rows, setRows] = useState([]);
+
+  const request = async () => {
+    setIsLoading(true);
+    setHasError(false);
+
+    try {
+      const response = await getGoals();
+      const { data } = response;
+      setRows(data);
+    } catch (error) {
+      setRows([]);
+      setHasError(true);
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  const [tabValue, setTabValue] = React.useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
-        <TableLayout
-          columns={COLUMNS}
-          requestFunc={getGoals}
-          title="Goals"
-          subTitle="View all Goals"
-          useTab={false}
-        />
+        <EntitlementRestricted>
+          <Layout
+            hasError={hasError}
+            isLoading={isLoading}
+            title="Goals"
+            subTitle="View All Goals"
+          >
+            <DynamicTabs
+              useTab
+              tabNames={['Active', 'Applicant']}
+              tabValue={tabValue}
+              handleTabChange={handleTabChange}
+            />
+
+            <Box sx={{ width: '100%' }}>
+              {tabValue === 0 && (
+                <DynamicTable APIcolumns={COLUMNS} APIrows={rows} />
+              )}
+
+              {/* {tabValue === 1 && (
+                <DynamicTable APIcolumns={COLUMNS} APIrows={rows} />
+              )} */}
+            </Box>
+          </Layout>
+        </EntitlementRestricted>
       </Grid>
     </Grid>
   );

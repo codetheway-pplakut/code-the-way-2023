@@ -20,7 +20,7 @@ export default function DynamicTabs(props) {
               <Tab
                 value={index}
                 label={tabName}
-                key=""
+                key={tabName}
                 sx={{ borderBottom: 1.5 }}
               />
             );
@@ -37,11 +37,11 @@ DynamicTabs.propTypes = {
   handleTabChange: PropTypes.func,
   tabValue: PropTypes.string,
   useTab: PropTypes.bool.isRequired,
-  tabNames: PropTypes.arrayOf(PropTypes.object),
+  tabNames: PropTypes.arrayOf(PropTypes.string),
 };
 
 DynamicTabs.defaultProps = {
   handleTabChange: () => {},
-  tabValue: 'one',
+  tabValue: 0,
   tabNames: [],
 };

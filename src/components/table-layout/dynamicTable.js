@@ -4,7 +4,6 @@ import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -12,7 +11,6 @@ import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
-import DynamicTab from './dynamicTabs';
 import { SearchBar } from './search';
 import { AddStudentModal } from '../coaches/modal-component';
 
@@ -45,27 +43,11 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, useTab, tabNames } = props;
+  const { APIcolumns, APIrows } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
-  const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [tabValue, setTabValue] = React.useState('one');
   const [rows, setRows] = useState(APIrows);
-
-  console.log(useTab);
-
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
-
-  const requestSearch = (searchedVal) => {
-    const filteredRows = APIrows.filter((row) => {
-      return row.firstName.toLowerCase().includes(searchedVal); // coachFirstName
-    });
-    setRows(filteredRows);
-  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -73,33 +55,50 @@ export function DynamicTable(props) {
     setOrderBy(property);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+  const requestSearch = (searchedVal) => {
+    const filteredRows = APIrows.filter((row) => {
+      return row.goalSet.toLowerCase().includes(searchedVal); // coachFirstName
+    });
+    setRows(filteredRows);
   };
 
   const handleChangeDense = (event) => {
     setDense(event.target.checked);
   };
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const visibleRows = React.useMemo(
-    () =>
-      stableSort(rows, getComparator(order, orderBy)).slice(
-        page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage
-      ),
-    [rows, order, orderBy, page, rowsPerPage]
+    () => stableSort(rows, getComparator(order, orderBy)),
+    [rows, order, orderBy]
   );
 
-  const table = (
+  return (
     <div>
+      <Box sx={{ width: '100%' }} marginInline={{}}>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        />
+        <Toolbar>
+          <Grid paddingLeft="70%" item>
+            <SearchBar requestSearch={requestSearch} />
+          </Grid>
+          <Grid item>
+            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AddStudentModal />
+              </IconButton>
+            </Box>
+          </Grid>
+        </Toolbar>
+      </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
           <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
@@ -131,10 +130,10 @@ export function DynamicTable(props) {
                 );
               })}
 
-              {emptyRows > 0 && (
+              {rows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: (dense ? 33 : 53) * rows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -143,16 +142,6 @@ export function DynamicTable(props) {
             </TableBody>
           </Table>
         </TableContainer>
-
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
       </Paper>
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
@@ -160,65 +149,14 @@ export function DynamicTable(props) {
       />
     </div>
   );
-
-  return (
-    <div>
-      <Box sx={{ width: '100%' }} marginInline={{}}>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Grid item>
-            <DynamicTab
-              useTab={useTab}
-              tabNames={tabNames}
-              tabValue={tabValue}
-              handleTabChange={handleTabChange}
-            />
-          </Grid>
-          <Toolbar>
-            <Grid item>
-              <SearchBar requestSearch={requestSearch} />
-            </Grid>
-            <Grid item>
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-haspopup="true"
-                  color="inherit"
-                >
-                  <AddStudentModal />
-                </IconButton>
-              </Box>
-            </Grid>
-          </Toolbar>
-        </Grid>
-      </Box>
-
-      <Box sx={{ width: '100%' }}>
-        {tabValue === 'one' && table}
-
-        {/* {tabValue === 'two' && (
-         
-        )} */}
-      </Box>
-    </div>
-  );
 }
 
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
-  useTab: PropTypes.bool.isRequired,
-  tabNames: PropTypes.arrayOf(PropTypes.object),
 };
 
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
-  tabNames: [],
 };
