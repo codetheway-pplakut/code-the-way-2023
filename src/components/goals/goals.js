@@ -81,7 +81,6 @@ export function Goals() {
             subTitle="View All Goals"
           >
             <DynamicTabs
-              useTab
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
               handleTabChange={handleTabChange}
@@ -89,7 +88,11 @@ export function Goals() {
 
             <Box sx={{ width: '100%' }}>
               {tabValue === 0 && (
-                <DynamicTable APIcolumns={COLUMNS} APIrows={rows} />
+                <DynamicTable
+                  APIcolumns={COLUMNS}
+                  APIrows={rows}
+                  sortBy={['goalSet']}
+                />
               )}
 
               {/* {tabValue === 1 && (

@@ -43,7 +43,7 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows } = props;
+  const { APIcolumns, APIrows, sortBy } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [dense, setDense] = React.useState(false);
@@ -56,8 +56,14 @@ export function DynamicTable(props) {
   };
 
   const requestSearch = (searchedVal) => {
+    const lowerFilterInput = String(searchedVal).toLowerCase();
+
     const filteredRows = APIrows.filter((row) => {
-      return row.goalSet.toLowerCase().includes(searchedVal); // coachFirstName
+      return sortBy.some((key) => {
+        const value = row[key];
+        const lowerValue = String(value).toLowerCase();
+        return lowerValue.includes(lowerFilterInput);
+      });
     });
     setRows(filteredRows);
   };
@@ -154,6 +160,7 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
+  sortBy: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 DynamicTable.defaultProps = {
