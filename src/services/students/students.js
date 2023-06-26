@@ -2,25 +2,25 @@ import { callApi } from '../../utils/call-api/call-api';
 
 /**
  * Gets Active Students
- * 
+ *
  * @returns Gets only active students
  * @author Adam Miller
  */
 export const getActiveStudents = () =>
   callApi({ url: '/Students/GetActiveStudents' });
 
-  /**
-   * Gets Inactive Students
-   * 
-   * @returns Gets only inactive students
-   * @author Holly Raetz
-   */
+/**
+ * Gets Inactive Students
+ *
+ * @returns Gets only inactive students
+ * @author Holly Raetz
+ */
 export const getInactiveStudents = () =>
   callApi({ url: '/Students/GetInactiveStudents'});
 
-  /**
+/**
  * Gets Applied Students
- * 
+ *
  * @returns Gets only applied students
  * @author Holly Raetz
  */

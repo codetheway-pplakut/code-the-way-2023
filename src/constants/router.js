@@ -9,8 +9,9 @@ import { Splash } from '../components/splash/splash';
 import { Students } from '../components/students/students';
 import { Coaches } from '../components/coaches/coaches';
 import { Goals } from '../components/goals/goals';
+import { InactiveRejected } from '../components/inactive-rejected/inactive-rejected';
 import { StudentInfo } from '../components/student-details/student-info';
-import { Admins, InactiveAdmins } from '../components/admin/inactiveadmin';
+import { InactiveAdmins } from '../components/admin/inactiveadmin';
 import { ActiveAdmins } from '../components/admin/activeadmin;';
 
 const basename = isProduction() ? `/${packageJson.name}` : '';
@@ -26,10 +27,11 @@ export const ROUTER = createBrowserRouter(
         { path: 'login', element: <Login /> },
         { path: 'goals', element: <Goals /> },
         { path: 'students', element: <Students /> },
-        { path: '*', element: <Error /> },
+        { path: 'inactive-rejected', element: <InactiveRejected /> },
         { path: 'student-info', element: <StudentInfo /> },
         { path: 'inactiveAdmins', element: <InactiveAdmins /> },
         { path: 'activeAdmins', element: <ActiveAdmins /> },
+        { path: '*', element: <Error /> },
       ],
     },
   ],
