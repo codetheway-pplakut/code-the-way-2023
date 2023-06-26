@@ -7,7 +7,7 @@ import { callApi } from '../../utils/call-api/call-api';
  * @author Adam Miller
  */
 export const getActiveStudents = () =>
-  callApi({ url: '/GetActiveStudents' });
+  callApi({ url: '/Students/GetActiveStudents' });
 
   /**
    * Gets Inactive Students
@@ -16,7 +16,7 @@ export const getActiveStudents = () =>
    * @author Holly Raetz
    */
 export const getInactiveStudents = () =>
-  callApi({ url: '/GetInactiveStudents'});
+  callApi({ url: '/Students/GetInactiveStudents'});
 
   /**
  * Gets Applied Students
@@ -25,7 +25,7 @@ export const getInactiveStudents = () =>
  * @author Holly Raetz
  */
 export const getAppliedStudents = () =>
-callApi({ url: '/GetAppliedStudents' });
+callApi({ url: '/Students/GetAppliedStudents' });
 
 /**
  * Gets Rejected Students
@@ -33,11 +33,11 @@ callApi({ url: '/GetAppliedStudents' });
  * @author Holly Raetz
  */
 export const getRejectedStudents = () =>
-  callApi({ url: '/GetRejectedStudents'});
+  callApi({ url: '/Students/GetRejectedStudents'});
 
 export const getStudentsByCoachId = (id) =>
   callApi({
-    url: `/GetStudentsByCoachId/${id}`,
+    url: `/Students/GetStudentsByCoachId/${id}`,
   });
 
 /**
