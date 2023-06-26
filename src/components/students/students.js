@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Box, Button, Grid, Link } from '@mui/material';
 
-import { getStudents } from '../../services/students/students';
+import {
+  getActiveStudents,
+  getAppliedStudents,
+} from '../../services/students/students';
 
 import {
   ArchiveStudentModal,
@@ -10,7 +13,7 @@ import {
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
-import { DynamicTable } from '../table-layout/dynamicTable';
+import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 
 const COLUMNS = [
   {
@@ -58,55 +61,35 @@ const COLUMNS = [
 ];
 
 export function Students() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
-  const [rows, setRows] = useState([]);
-
-  const request = async () => {
-    setIsLoading(true);
-    setHasError(false);
-
-    try {
-      const response = await getStudents();
-      const { data } = response;
-      setRows(data);
-    } catch (error) {
-      setRows([]);
-      setHasError(true);
-    }
-
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    request();
-  }, []);
-
   const [tabValue, setTabValue] = React.useState(0);
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
   };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout
-            hasError={hasError}
-            isLoading={isLoading}
-            title="Goals"
-            subTitle="View All Goals"
-          >
+          <Layout title="Students" subTitle="View all students.">
             <DynamicTabs
               useTab
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
               handleTabChange={handleTabChange}
             />
-
             <Box sx={{ width: '100%' }}>
               {tabValue === 0 && (
-                <DynamicTable APIcolumns={COLUMNS} APIrows={rows} />
+                <DynamicTableWithRequest
+                  columns={COLUMNS}
+                  requestFunc={getActiveStudents}
+                />
+              )}
+              {tabValue === 1 && (
+                <DynamicTableWithRequest
+                  columns={COLUMNS}
+                  requestFunc={getAppliedStudents}
+                />
               )}
 
               {/* {tabValue === 1 && (

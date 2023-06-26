@@ -8,6 +8,22 @@ import { callApi } from '../../utils/call-api/call-api';
 export const getStudents = async () => callApi({ url: '/Students' });
 
 /**
+ * Basic Request for active students at once. Gets active students only.
+ * @returns {[{id:uuid, state:string, firstName: string, lastName: string, email:email, studentCellPhone:string, parentFirstName: string, parentLastName: string, coachId: uuid, createdOnUtc: Date, updatedOnUtc: Date}]}
+ * @author Joey Schroeder
+ */
+export const getActiveStudents = async () =>
+  callApi({ url: '/Students/GetActiveStudents' });
+
+/**
+ * Basic Request for applied students at once. Gets applied students only.
+ * @returns {[{id:uuid, state:string, firstName: string, lastName: string, email:email, studentCellPhone:string, parentFirstName: string, parentLastName: string, coachId: uuid, createdOnUtc: Date, updatedOnUtc: Date}]}
+ * @author Joey Schroeder
+ */
+export const getAppliedStudents = async () =>
+  callApi({ url: '/Students/GetAppliedStudents' });
+
+/**
  * Gets the data of student associated with passed id.
  *
  * @param {uuid} id - Id of student to get info of
