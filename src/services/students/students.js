@@ -1,11 +1,44 @@
 import { callApi } from '../../utils/call-api/call-api';
 
 /**
- * Basic Request for all students at once. Gets all, regardless of state.
- * @returns {[{id:uuid, state:string, firstName: string, lastName: string, email:email, studentCellPhone:string, parentFirstName: string, parentLastName: string, coachId: uuid, createdOnUtc: Date, updatedOnUtc: Date}]}
- * @author Joey Schroeder
+ * Gets Active Students
+ * 
+ * @returns Gets only active students
+ * @author Adam Miller
  */
-export const getStudents = async () => callApi({ url: '/Students' });
+export const getActiveStudents = () =>
+  callApi({ url: '/GetActiveStudents' });
+
+  /**
+   * Gets Inactive Students
+   * 
+   * @returns Gets only inactive students
+   * @author Holly Raetz
+   */
+export const getInactiveStudents = () =>
+  callApi({ url: '/GetInactiveStudents'});
+
+  /**
+ * Gets Applied Students
+ * 
+ * @returns Gets only applied students
+ * @author Holly Raetz
+ */
+export const getAppliedStudents = () =>
+callApi({ url: '/GetAppliedStudents' });
+
+/**
+ * Gets Rejected Students
+ * @returns gets only rejected students
+ * @author Holly Raetz
+ */
+export const getRejectedStudents = () =>
+  callApi({ url: '/GetRejectedStudents'});
+
+export const getStudentsByCoachId = (id) =>
+  callApi({
+    url: `/GetStudentsByCoachId/${id}`,
+  });
 
 /**
  * Gets the data of student associated with passed id.
