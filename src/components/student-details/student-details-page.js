@@ -15,12 +15,45 @@ import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
 import CommunicationBox from './communication-box';
 import { CommunicationLog } from './communication-log';
+import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
+import { addCoachHandler } from '../coaches/coachHandlers';
 
 export default function StudentDetails() {
   const [value, setValue] = React.useState('one');
+  const [firstName, setFirstName] = React.useState();
+  const [lastName, setLastName] = React.useState();
+  const [email, setEmail] = React.useState();
+  const [phoneNumber, setPhoneNumber] = React.useState();
+  const [password, setPassword] = React.useState();
+  const [confirmPassword, setConfirmPassword] = React.useState();
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const cancelHandler = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPhoneNumber('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+  const submitHandler = async () => {
+    try {
+      await addCoachHandler(
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+        confirmPassword
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    // empties all fields after submitted to API
+    cancelHandler();
+  };
+
   const boxStyle = {
     bgcolor: '#ffffff',
     minWidth: '100%',
@@ -58,8 +91,8 @@ export default function StudentDetails() {
   };
 
   return (
-    <Grid container direction="row" display='flex' sx={{flexWrap:'nowrap' }}>
-      <Grid item  xs={6} direction="row"   >
+    <Grid container direction="row" display="flex" sx={{ flexWrap: 'nowrap' }}>
+      <Grid item xs={6} direction="row">
         <Grid container justifyContent="center">
           <Tabs
             value={value}
@@ -118,7 +151,42 @@ export default function StudentDetails() {
                     key="1"
                     modalHeadingTitle="Add Goal"
                     openButtonIcon={<AddIcon sx={iconStyle} />}
-                  />,
+                    actionButtonTitle="Add"
+                    cancelButtonTitle="Cancel"
+                    onActionButtonClick={submitHandler}
+                    onCancelButtonClick={cancelHandler}
+                  >
+                    <TextFieldWithErrorMessage
+                      label="Goal"
+                      value={firstName}
+                      onChange={setFirstName}
+                    />
+                    <TextFieldWithErrorMessage
+                      label="Goal"
+                      value={lastName}
+                      onChange={setLastName}
+                    />
+                    <TextFieldWithErrorMessage
+                      label="Goal"
+                      value={email}
+                      onChange={setEmail}
+                    />
+                    <TextFieldWithErrorMessage
+                      label="Goal"
+                      value={phoneNumber}
+                      onChange={setPhoneNumber}
+                    />
+                    <TextFieldWithErrorMessage
+                      label="Goal"
+                      value={password}
+                      onChange={setPassword}
+                    />
+                    <TextFieldWithErrorMessage
+                      label="Goal"
+                      value={confirmPassword}
+                      onChange={setConfirmPassword}
+                    />
+                  </GenericModal>,
                   <GenericModal
                     key="2"
                     modalHeadingTitle="Add Career"
@@ -134,92 +202,84 @@ export default function StudentDetails() {
             )}
           </Box>
         </Grid>
-        
-
-     
-    </Grid>
-    <Grid
-        container
-       
-      
-      >
-
-        <Grid item  xs={1}>
-      <CommunicationLog
-          data={[
-            [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
-            [
-              1,
-              '01/24/2023',
-              'John',
-              'Consulation 1',
-              'We talked about schools',
-            ],
-            [
-              2,
-              '01/25/2023',
-              'John',
-              'Consulation 2',
-              'They said they liked UW Madison',
-            ],
-            [
-              3,
-              '01/26/2023',
-              'John',
-              'Consulation 3',
-              'They said they are having trouble with Calculus',
-            ],
-            [
-              4,
-              '01/27/2023',
-              'John',
-              'Consulation 4',
-              'They are deciding wether to pursue medicine or engineering',
-            ],
-            [
-              5,
-              '01/28/2023',
-              'John',
-              'Consulation 5',
-              'They are thinking of doing extracurricular activities',
-            ],
-            [
-              6,
-              '01/29/2023',
-              'John',
-              'Career Talk 1',
-              'We are talking about their careers',
-            ],
-            [
-              7,
-              '01/30/2023',
-              'John',
-              'Goal Setting 1',
-              'We are talking about their goals',
-            ],
-            [
-              8,
-              '01/31/2023',
-              'John',
-              'Career Interest Talk',
-              'We Had a Fun time discussing different career options',
-            ],
-            [
-              9,
-              '02/01/2023',
-              'John',
-              'Scholarships',
-              'We discussed Scholarships',
-            ],
-            [
-              10,
-              '02/03/2023',
-              'John',
-              'Conclusion',
-              'This was our last meeting',
-            ],
-          ]}
-        />
+      </Grid>
+      <Grid container>
+        <Grid item xs={1}>
+          <CommunicationLog
+            data={[
+              [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
+              [
+                1,
+                '01/24/2023',
+                'John',
+                'Consulation 1',
+                'We talked about schools',
+              ],
+              [
+                2,
+                '01/25/2023',
+                'John',
+                'Consulation 2',
+                'They said they liked UW Madison',
+              ],
+              [
+                3,
+                '01/26/2023',
+                'John',
+                'Consulation 3',
+                'They said they are having trouble with Calculus',
+              ],
+              [
+                4,
+                '01/27/2023',
+                'John',
+                'Consulation 4',
+                'They are deciding wether to pursue medicine or engineering',
+              ],
+              [
+                5,
+                '01/28/2023',
+                'John',
+                'Consulation 5',
+                'They are thinking of doing extracurricular activities',
+              ],
+              [
+                6,
+                '01/29/2023',
+                'John',
+                'Career Talk 1',
+                'We are talking about their careers',
+              ],
+              [
+                7,
+                '01/30/2023',
+                'John',
+                'Goal Setting 1',
+                'We are talking about their goals',
+              ],
+              [
+                8,
+                '01/31/2023',
+                'John',
+                'Career Interest Talk',
+                'We Had a Fun time discussing different career options',
+              ],
+              [
+                9,
+                '02/01/2023',
+                'John',
+                'Scholarships',
+                'We discussed Scholarships',
+              ],
+              [
+                10,
+                '02/03/2023',
+                'John',
+                'Conclusion',
+                'This was our last meeting',
+              ],
+            ]}
+          />
         </Grid>
       </Grid>
     </Grid>
