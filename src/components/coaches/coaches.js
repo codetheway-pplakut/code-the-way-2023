@@ -54,7 +54,7 @@ export function Coaches() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Goals" subTitle="View All Goals">
+          <Layout title="Coaches">
             <DynamicTabs
               tabNames={['Active', 'Inactive']}
               tabValue={tabValue}

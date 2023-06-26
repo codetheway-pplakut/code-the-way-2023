@@ -47,6 +47,13 @@ const COLUMNS = [
     active: false,
   },
   {
+    id: 'coach',
+    disablePadding: false,
+    label: 'Coach',
+    align: 'left',
+    active: false,
+  },
+  {
     id: 'options',
     disablePadding: false,
     label: '',
