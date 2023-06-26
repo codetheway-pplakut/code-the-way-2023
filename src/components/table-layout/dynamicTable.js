@@ -43,7 +43,7 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, sortBy } = props;
+  const { APIcolumns, APIrows, filterBy } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [dense, setDense] = React.useState(false);
@@ -59,7 +59,7 @@ export function DynamicTable(props) {
     const lowerFilterInput = String(searchedVal).toLowerCase();
 
     const filteredRows = APIrows.filter((row) => {
-      return sortBy.some((key) => {
+      return filterBy.some((key) => {
         const value = row[key];
         const lowerValue = String(value).toLowerCase();
         return lowerValue.includes(lowerFilterInput);
@@ -160,7 +160,7 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
-  sortBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 DynamicTable.defaultProps = {

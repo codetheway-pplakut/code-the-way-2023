@@ -58,13 +58,9 @@ export function Goals() {
                 <DynamicTableWithRequest
                   columns={COLUMNS}
                   requestFunc={getGoals}
-                  sortBy={['goalSet']}
+                  filterBy={['goalSet']}
                 />
               )}
-
-              {/* {tabValue === 1 && (
-                <DynamicTable APIcolumns={COLUMNS} APIrows={rows} />
-              )} */}
             </Box>
           </Layout>
         </EntitlementRestricted>

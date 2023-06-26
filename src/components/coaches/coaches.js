@@ -3,33 +3,36 @@ import { Box, Grid } from '@mui/material';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
-import { getActiveCoaches } from '../../services/coaches/coaches';
+import {
+  getActiveCoaches,
+  getInactiveCoaches,
+} from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 
 const COLUMNS = [
   {
-    id: 'firstName',
+    id: 'coachFirstName',
     disablePadding: false,
     label: 'First Name',
     align: 'left',
     active: false,
   },
   {
-    id: 'lastName',
+    id: 'coachLastName',
     disablePadding: false,
     label: 'Last Name',
     align: 'left',
     active: false,
   },
   {
-    id: 'email',
+    id: 'coachEmail',
     disablePadding: false,
     label: 'Email',
     align: 'left',
     active: false,
   },
   {
-    id: 'studentCellPhone',
+    id: 'coachPhoneNumber',
     disablePadding: false,
     label: 'Student Cell',
     align: 'left',
@@ -53,17 +56,25 @@ export function Coaches() {
         <EntitlementRestricted>
           <Layout title="Goals" subTitle="View All Goals">
             <DynamicTabs
-              useTab
               tabNames={['Active', 'Inactive']}
               tabValue={tabValue}
               handleTabChange={setTabValue}
             />
-
             <Box sx={{ width: '100%' }}>
-              <DynamicTableWithRequest
-                columns={COLUMNS}
-                requestFunc={getActiveCoaches}
-              />
+              {tabValue === 0 && (
+                <DynamicTableWithRequest
+                  columns={COLUMNS}
+                  requestFunc={getActiveCoaches}
+                  filterBy={['coachFirstName']}
+                />
+              )}
+              {tabValue === 1 && (
+                <DynamicTableWithRequest
+                  columns={COLUMNS}
+                  requestFunc={getInactiveCoaches}
+                  filterBy={['coachFirstName']}
+                />
+              )}
             </Box>
           </Layout>
         </EntitlementRestricted>

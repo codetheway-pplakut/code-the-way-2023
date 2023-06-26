@@ -5,7 +5,7 @@ import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 
 export function DynamicTableWithRequest(props) {
-  const { columns, sortBy, requestFunc } = props;
+  const { columns, filterBy, requestFunc } = props;
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -34,17 +34,19 @@ export function DynamicTableWithRequest(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  return <DynamicTable APIcolumns={columns} APIrows={rows} sortBy={sortBy} />;
+  return (
+    <DynamicTable APIcolumns={columns} APIrows={rows} filterBy={filterBy} />
+  );
 }
 
 DynamicTableWithRequest.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   requestFunc: PropTypes.func,
-  sortBy: PropTypes.arrayOf(PropTypes.string),
+  filterBy: PropTypes.arrayOf(PropTypes.string),
 };
 
 DynamicTableWithRequest.defaultProps = {
   columns: [],
   requestFunc: () => {},
-  sortBy: [],
+  filterBy: [],
 };

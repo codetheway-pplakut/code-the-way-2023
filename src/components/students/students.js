@@ -69,7 +69,6 @@ export function Students() {
         <EntitlementRestricted>
           <Layout title="Students" subTitle="View all students.">
             <DynamicTabs
-              useTab
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
               handleTabChange={setTabValue}
@@ -78,19 +77,17 @@ export function Students() {
               {tabValue === 0 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
+                  filterBy={['firstName']}
                   requestFunc={getActiveStudents}
                 />
               )}
               {tabValue === 1 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
+                  filterBy={['firstName']}
                   requestFunc={getAppliedStudents}
                 />
               )}
-
-              {/* {tabValue === 1 && (
-                <DynamicTable APIcolumns={COLUMNS} APIrows={rows} />
-              )} */}
             </Box>
           </Layout>
         </EntitlementRestricted>

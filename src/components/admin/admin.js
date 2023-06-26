@@ -3,7 +3,7 @@ import { Grid, Box } from '@mui/material';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
-import { getAllAdminsHandler } from './adminHandlers';
+import { getActiveAdmins, getInactiveAdmins } from '../../services/admin/admin';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 
 const COLUMNS = [
@@ -39,8 +39,15 @@ export function Admins() {
               {tabValue === 0 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  requestFunc={getAllAdminsHandler}
-                  sortBy={['userName']}
+                  requestFunc={getActiveAdmins}
+                  filterBy={['userName']}
+                />
+              )}
+              {tabValue === 1 && (
+                <DynamicTableWithRequest
+                  columns={COLUMNS}
+                  requestFunc={getInactiveAdmins}
+                  filterBy={['userName']}
                 />
               )}
             </Box>
