@@ -22,7 +22,7 @@ export default function StudentDetails() {
     setValue(newValue);
   };
   const boxStyle = {
-    bgcolor: '#ffffff',
+    bgcolor: '#dddddd',
     minWidth: '100%',
     color: '#000000',
     position: 'relative',
