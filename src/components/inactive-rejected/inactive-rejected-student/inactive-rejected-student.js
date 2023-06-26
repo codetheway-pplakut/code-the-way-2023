@@ -11,18 +11,24 @@ import {
   TextField,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivateButton } from '../activate-button/activate-button';
 import { filterRowsByInput } from '../../../utils/filter-rows-by-input/filter-rows-by-input';
+import {
+  getInactiveStudents,
+  getRejectedStudents,
+} from '../../../services/students/students';
 
 const COLUMNS = [
-  { id: 'name', label: 'Name' },
+  { id: 'firstName', label: 'First Name' },
+  { id: 'lastName', label: 'Last Name' },
   {
     id: 'email',
     label: 'Email',
     cellFormat: (email) => <Link href={`mailto:${email}`}>{email}</Link>,
   },
-  { id: 'phone', label: 'Phone', align: 'right' },
+  { id: 'studentCellPhone', label: 'Phone', align: 'right' },
+  { id: 'state', label: 'State' },
   {
     id: 'id',
     label: '',
@@ -31,34 +37,31 @@ const COLUMNS = [
   },
 ];
 
-const ROWS = [
-  {
-    id: 1,
-    name: 'test',
-    email: 'test@test.com',
-    phone: '123-456-7890',
-  },
-  {
-    id: 2,
-    name: 'test 2',
-    email: 'test@test.com',
-    phone: '123-456-7890',
-  },
-  {
-    id: 3,
-    name: 'test 4',
-    email: 'test@test.com',
-    phone: '414-444-4444',
-  },
-];
-
 export function InactiveRejectedStudent() {
   const [filterInput, setFilterInput] = useState('');
 
-  const filteredRows = filterRowsByInput(filterInput, ROWS, [
-    'name',
+  const [rows, setRows] = useState([]);
+
+  const request = async () => {
+    try {
+      const inactiveStudents = await getInactiveStudents();
+      const rejectedStudents = await getRejectedStudents();
+
+      setRows([...inactiveStudents.data, ...rejectedStudents.data]);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  const filteredRows = filterRowsByInput(filterInput, rows, [
+    'firstName',
+    'lastName',
     'email',
-    'phone',
+    'studentCellPhone',
   ]);
 
   return (

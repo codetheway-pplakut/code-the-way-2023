@@ -8,19 +8,9 @@ import {
   assignStudent,
   deleteStudent,
   editStudent,
-  getStudents,
   unassignStudent,
 } from '../../services/students/students';
 import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
-
-/**
- * Gets list of all students
- * @returns Gets all students in DB
- * @author Adam Miller
- */
-export function getStudentsHandler() {
-  return getStudents();
-}
 
 /**
  * Gets all data stored in DB of specific student
