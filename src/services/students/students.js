@@ -6,7 +6,8 @@ import { callApi } from '../../utils/call-api/call-api';
  * @returns Gets only active students
  * @author Adam Miller
  */
-export const getActiveStudents = () => callApi({ url: '/GetActiveStudents' });
+export const getActiveStudents = () =>
+  callApi({ url: '/Students/GetActiveStudents' });
 
 /**
  * Gets Inactive Students
@@ -15,7 +16,7 @@ export const getActiveStudents = () => callApi({ url: '/GetActiveStudents' });
  * @author Holly Raetz
  */
 export const getInactiveStudents = () =>
-  callApi({ url: '/Students/GetInactiveStudents' });
+  callApi({ url: '/Students/GetInactiveStudents'});
 
 /**
  * Gets Applied Students
@@ -23,7 +24,8 @@ export const getInactiveStudents = () =>
  * @returns Gets only applied students
  * @author Holly Raetz
  */
-export const getAppliedStudents = () => callApi({ url: '/GetAppliedStudents' });
+export const getAppliedStudents = () =>
+callApi({ url: '/Students/GetAppliedStudents' });
 
 /**
  * Gets Rejected Students
@@ -31,11 +33,11 @@ export const getAppliedStudents = () => callApi({ url: '/GetAppliedStudents' });
  * @author Holly Raetz
  */
 export const getRejectedStudents = () =>
-  callApi({ url: '/Students/GetRejectedStudents' });
+  callApi({ url: '/Students/GetRejectedStudents'});
 
 export const getStudentsByCoachId = (id) =>
   callApi({
-    url: `/GetStudentsByCoachId/${id}`,
+    url: `/Students/GetStudentsByCoachId/${id}`,
   });
 
 /**
