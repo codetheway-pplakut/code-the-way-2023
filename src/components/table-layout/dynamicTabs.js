@@ -5,7 +5,11 @@ import Box from '@mui/material/Box';
 import PropTypes from 'prop-types';
 
 export default function DynamicTabs(props) {
-  const { tabNames, tabValue, handleTabChange } = props;
+  const { tabNames, tabValue, handleTabChange: handleOnTabChangeProp } = props;
+
+  const handleTabChange = (event, newValue) => {
+    handleOnTabChangeProp(newValue);
+  };
 
   return (
     <Box>

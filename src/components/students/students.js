@@ -63,10 +63,6 @@ const COLUMNS = [
 export function Students() {
   const [tabValue, setTabValue] = React.useState(0);
 
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-  };
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
@@ -76,7 +72,7 @@ export function Students() {
               useTab
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
-              handleTabChange={handleTabChange}
+              handleTabChange={setTabValue}
             />
             <Box sx={{ width: '100%' }}>
               {tabValue === 0 && (

@@ -1,13 +1,6 @@
 import { callApi } from '../../utils/call-api/call-api';
 
 /**
- * Gets all coaches in the DB
- * @returns ALl Coaches in DB
- * @author Adam Miller
- */
-export const getAllCoaches = () => callApi({ url: '/Coaches/' });
-
-/**
  * Gets all inactive coaches.
  *
  * @returns All inactive coaches in the DB
