@@ -8,9 +8,10 @@ export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
   const boxStyle = {
     position: 'relative',
-    bgcolor: '#ff7c00',
-    color: '#ffffff',
+    bgcolor: '#dadada',
+    color: '#000000',
     borderColor: '#000000',
+    ml: '2%',
     // height: 'auto',
     width: '43.3vw',
     minHeight: '250px',
@@ -27,7 +28,7 @@ export default function CommunicationBox(props) {
   const iconStyle = {
     mt: '5px',
     ml: '28px',
-    color: '#ffffff',
+    color: '#000000',
     minWidth: 40,
     minHeight: 40,
   };
@@ -46,7 +47,15 @@ export default function CommunicationBox(props) {
 
   return (
     <Box sx={boxStyle}>
-      <Grid container direction="row" sx={{ border: 1 }}>
+      <Grid
+        container
+        direction="row"
+        sx={{
+          border: 2,
+          borderTopLeftRadius: '5px',
+          borderTopRightRadius: '5px',
+        }}
+      >
         <Grid item xs={5}>
           <Typography sx={textStyle}> Date Created: {date}</Typography>
         </Grid>

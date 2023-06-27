@@ -2,8 +2,12 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import {
   Box,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Tab,
   Toolbar,
   Typography,
@@ -13,49 +17,22 @@ import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
-import CommunicationBox from './communication-box';
-import { CommunicationLog } from './communication-log';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
-import { addCoachHandler } from '../coaches/coachHandlers';
+import { CommunicationLog } from './communication-log';
 
 export default function StudentDetails() {
-  const [value, setValue] = React.useState('one');
-  const [firstName, setFirstName] = React.useState();
-  const [lastName, setLastName] = React.useState();
-  const [email, setEmail] = React.useState();
-  const [phoneNumber, setPhoneNumber] = React.useState();
-  const [password, setPassword] = React.useState();
-  const [confirmPassword, setConfirmPassword] = React.useState();
+  const [value, setValue] = React.useState(0);
+  const [sel, setSel] = React.useState('');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const cancelHandler = () => {
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPhoneNumber('');
-    setPassword('');
-    setConfirmPassword('');
+  const handleSel = (event) => {
+    setSel(event.target.value);
   };
-  const submitHandler = async () => {
-    try {
-      await addCoachHandler(
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        password,
-        confirmPassword
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    // empties all fields after submitted to API
-    cancelHandler();
-  };
+  // TODO Add handlers for submitting and cancelling
 
   const boxStyle = {
-    bgcolor: '#ffffff',
+    bgcolor: '#dddddd',
     minWidth: '100%',
     color: '#000000',
     position: 'relative',
@@ -71,7 +48,7 @@ export default function StudentDetails() {
     display: 'flex',
     borderTopLeftRadius: '5px',
     borderTopRightRadius: '5px',
-    minWidth: '13vw',
+    minWidth: '10vw',
     margin: '0 10px',
     '&.Mui-selected': {
       color: '#0000000',
@@ -90,8 +67,30 @@ export default function StudentDetails() {
     borderRadius: '5px',
   };
 
+  const labelArray = [
+    ['Name', 'Phone Number', 'Email'],
+    ['Name', 'Phone Number', 'Email'],
+    ['Financial Assistance'],
+  ];
+
+  const headerArray = [
+    'Student Information',
+    'Parent Information',
+    'Household Information',
+  ];
+
+  const contentArray = [
+    ['John Doe', '(262) 555-7535', 'john@gmail.com'],
+    ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
+    ['W-2'],
+  ];
   return (
-    <Grid container direction="row" display="flex" sx={{ flexWrap: 'nowrap' }}>
+    <Grid
+      container
+      direction="row"
+      display="flex"
+      sx={{ flexWrap: 'nowrap', mt: '50px' }}
+    >
       <Grid item xs={6} direction="row">
         <Grid container justifyContent="center">
           <Tabs
@@ -107,40 +106,39 @@ export default function StudentDetails() {
           >
             <Tab sx={tabStyle} value={0} label="Student Info" />
             <Tab sx={tabStyle} value={1} label="Goals and Careers" />
-            <Tab sx={tabStyle} value={3} label="Interview Info" />
+            <Tab sx={tabStyle} value={2} label="Interview Info" />
           </Tabs>
         </Grid>
+
         <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
             {value === 0 && (
               <InfoBox
-                headers={[
-                  'Student Information',
-                  'Parent Information',
-                  'Household Information',
-                ]}
-                modal={[
+                headers={headerArray}
+                content={contentArray}
+                labels={labelArray}
+                modal={headerArray.map((header, headerIndex) => (
                   <GenericModal
-                    key="1"
-                    modalHeadingTitle="Edit Parent Info"
+                    key={headerIndex.id}
+                    modalHeadingTitle={`Edit ${header}`}
                     openButtonIcon={<EditIcon sx={iconStyle} />}
-                  />,
-                  <GenericModal
-                    key="2"
-                    modalHeadingTitle="Edit Household Info"
-                    openButtonIcon={<EditIcon sx={iconStyle} />}
-                  />,
-                ]}
-                content={[
-                  ['John Doe', '(262) 555-7535', 'john@gmail.com'],
-                  ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
-                  ['W-2'],
-                ]}
-                labels={[
-                  ['Name', 'Phone Number', 'Email'],
-                  ['Name', 'Phone Number', 'Email'],
-                  ['Financial Assistance'],
-                ]}
+                    actionButtonTitle="Submit"
+                    cancelButtonTitle="Cancel"
+                  >
+                    <Grid container direction="column">
+                      {labelArray.map(
+                        (label, labelIndex) =>
+                          labelArray[headerIndex][labelIndex] && (
+                            <Grid item key={labelIndex.id} sx={{ py: 3 }}>
+                              <TextFieldWithErrorMessage
+                                label={labelArray[headerIndex][labelIndex]}
+                              />
+                            </Grid>
+                          )
+                      )}
+                    </Grid>
+                  </GenericModal>
+                ))}
               />
             )}
             {value === 1 && (
@@ -153,45 +151,59 @@ export default function StudentDetails() {
                     openButtonIcon={<AddIcon sx={iconStyle} />}
                     actionButtonTitle="Add"
                     cancelButtonTitle="Cancel"
-                    onActionButtonClick={submitHandler}
-                    onCancelButtonClick={cancelHandler}
                   >
-                    <TextFieldWithErrorMessage
-                      label="Goal"
-                      value={firstName}
-                      onChange={setFirstName}
-                    />
-                    <TextFieldWithErrorMessage
-                      label="Goal"
-                      value={lastName}
-                      onChange={setLastName}
-                    />
-                    <TextFieldWithErrorMessage
-                      label="Goal"
-                      value={email}
-                      onChange={setEmail}
-                    />
-                    <TextFieldWithErrorMessage
-                      label="Goal"
-                      value={phoneNumber}
-                      onChange={setPhoneNumber}
-                    />
-                    <TextFieldWithErrorMessage
-                      label="Goal"
-                      value={password}
-                      onChange={setPassword}
-                    />
-                    <TextFieldWithErrorMessage
-                      label="Goal"
-                      value={confirmPassword}
-                      onChange={setConfirmPassword}
-                    />
+                    <Grid Container direction="column">
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Goal" />
+                      </Grid>
+                      {/* TODO Make dropdown a component: this is too big */}
+                      <Grid item alignItems="center" sx={{ py: 3, px: 12 }}>
+                        <FormControl sx={{ minWidth: '200px', mx: 5 }}>
+                          <InputLabel id="sel">sel</InputLabel>
+                          <Select
+                            labelid="select"
+                            id="select"
+                            value={sel}
+                            label="SEL"
+                            onChange={handleSel}
+                          >
+                            <MenuItem value="Social">Social</MenuItem>
+                            <MenuItem value="Emotional">Emotional</MenuItem>
+                            <MenuItem value="Learning">Learning</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Was it Accomplished" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Explanation" />
+                      </Grid>
+                    </Grid>
                   </GenericModal>,
                   <GenericModal
                     key="2"
                     modalHeadingTitle="Add Career"
                     openButtonIcon={<AddIcon sx={iconStyle} />}
-                  />,
+                    actionButtonTitle="Add"
+                    cancelButtonTitle="Cancel"
+                  >
+                    {/* TODO: items 1 and 4 need to be bool, item 2 needs to be dropdown */}
+                    <Grid Container direction="column">
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="College Bound?" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Career Cluster" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Career Name" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Technical College Bound?" />
+                      </Grid>
+                    </Grid>
+                  </GenericModal>,
                 ]}
                 content={[
                   ['Get a job'],
@@ -203,8 +215,30 @@ export default function StudentDetails() {
           </Box>
         </Grid>
       </Grid>
-      <Grid container>
-        <Grid item xs={1}>
+      <Grid container xs={1}>
+        <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
+          <GenericModal
+            modalHeadingTitle="Add Communication"
+            actionButtonTitle="Add"
+            cancelButtonTitle="Cancel"
+            openButtonIcon={<AddIcon sx={iconStyle} />}
+          >
+            {/* TODO: Make Coach and Topic Dropdowns, Make Notes a large Textfield */}
+            <Grid Container direction="column">
+              <Grid item sx={{ py: 3 }}>
+                <TextFieldWithErrorMessage label="Coach" />
+              </Grid>
+              <Grid item sx={{ py: 3 }}>
+                <TextFieldWithErrorMessage label="Topic" />
+              </Grid>
+              <Grid item sx={{ py: 3 }}>
+                <TextFieldWithErrorMessage label="Notes" />
+              </Grid>
+            </Grid>
+          </GenericModal>
+        </Grid>
+
+        <Grid item sx={{ ml: '10%' }}>
           <CommunicationLog
             data={[
               [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],

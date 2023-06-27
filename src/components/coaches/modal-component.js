@@ -9,11 +9,15 @@ import {
   Stack,
   TextField,
   Icon,
+  MenuItem,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 import {
   backgroundStyle,
   headingStyle,
@@ -65,7 +69,7 @@ export function GenericModal(props) {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Button onClick={handleOpen} startIcon={openButtonIcon}>
         {openModal}
       </Button>
@@ -79,9 +83,11 @@ export function GenericModal(props) {
               <CloseIcon fontSize="large" sx={closeIconStyle} />
             </IconButton>
           </Grid>
-          <Typography padding={5} align="center" fontSize={20}>
-            {modalMessage}
-          </Typography>
+          {modalMessage && (
+            <Typography padding={5} align="center" fontSize={20}>
+              {modalMessage}
+            </Typography>
+          )}
 
           {children}
 
@@ -116,7 +122,7 @@ export function GenericModal(props) {
           </Grid>
         </Box>
       </Modal>
-    </div>
+    </React.Fragment>
   );
 }
 
@@ -174,50 +180,48 @@ export function AddCoachModal() {
   const actionButtonDisabled = Boolean(messages.length);
 
   return (
-    <div>
-      <GenericModal
-        openModal="open1"
-        modalHeadingTitle="Add a Coach"
-        modalMessage="Fill out the fields below to add a coach."
-        actionButtonTitle="Create"
-        cancelButtonTitle="Cancel"
-        actionButtonDisabled={actionButtonDisabled}
-        actionButtonColor="submit"
-        onActionButtonClick={submitAction}
-        onCancelButtonClick={cancelAction}
-        onIconButtonClick={cancelAction}
-      >
-        <Grid container justifyContent="center">
-          <Grid item xs={9}>
-            <Stack spacing={2}>
-              <TextField
-                fullWidth
-                onChange={(event) => setUserName(event.target.value)}
-                label="Username"
-                value={userName}
-                type="email"
-              />
-              <TextField
-                fullWidth
-                onChange={(event) => setPassword(event.target.value)}
-                label="Password"
-                value={password}
-                type="password"
-              />
-            </Stack>
-          </Grid>
-          {messages.length > 0 && (
-            <Grid item xs={9}>
-              {messages.map((message, index) => (
-                <Typography key={index.id} variant="body2" color="error">
-                  {message}
-                </Typography>
-              ))}
-            </Grid>
-          )}
+    <GenericModal
+      openModal={<AddIcon />}
+      modalHeadingTitle="Add a Coach"
+      modalMessage="Fill out the fields below to add a coach."
+      actionButtonTitle="Create"
+      cancelButtonTitle="Cancel"
+      actionButtonDisabled={actionButtonDisabled}
+      actionButtonColor="submit"
+      onActionButtonClick={submitAction}
+      onCancelButtonClick={cancelAction}
+      onIconButtonClick={cancelAction}
+    >
+      <Grid container justifyContent="center">
+        <Grid item xs={9}>
+          <Stack spacing={2}>
+            <TextField
+              fullWidth
+              onChange={(event) => setUserName(event.target.value)}
+              label="Username"
+              value={userName}
+              type="email"
+            />
+            <TextField
+              fullWidth
+              onChange={(event) => setPassword(event.target.value)}
+              label="Password"
+              value={password}
+              type="password"
+            />
+          </Stack>
         </Grid>
-      </GenericModal>
-    </div>
+        {messages.length > 0 && (
+          <Grid item xs={9}>
+            {messages.map((message, index) => (
+              <Typography key={index.id} variant="body2" color="error">
+                {message}
+              </Typography>
+            ))}
+          </Grid>
+        )}
+      </Grid>
+    </GenericModal>
   );
 }
 
@@ -227,17 +231,148 @@ export function ArchiveCoachModal() {
   // };
 
   return (
-    <div>
-      <GenericModal
-        openModal="open"
-        modalHeadingTitle="Archive Coach"
-        modalMessage="Are you sure you want to archive this coach?"
-        actionButtonTitle="Archive"
-        cancelButtonTitle="Cancel"
-        actionButtonColor="archive"
-        // actionButtonFunction={archiveCoachAction}
+    <GenericModal
+      openModal="open"
+      modalHeadingTitle="Archive Coach"
+      modalMessage="Are you sure you want to archive this coach?"
+      actionButtonTitle="Archive"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="archive"
+      // actionButtonFunction={archiveCoachAction}
+    />
+  );
+}
+
+export function ArchiveStudentModal() {
+  return (
+    <GenericModal
+      openModal={<DeleteIcon />}
+      modalHeadingTitle="Archive Student"
+      modalMessage="Are you sure you want to archive this student?"
+      actionButtonColor="archive"
+      cancelButtonColor="cancel"
+      actionButtonTitle="Archive"
+      cancelButtonTitle="Cancel"
+    />
+  );
+}
+
+export function ActivateStudentModal() {
+  return (
+    <GenericModal
+      openModal="Accept"
+      modalHeadingTitle="Accept Student"
+      modalMessage="Are you sure you want to accept this student?"
+      actionButtonColor="submit"
+      cancelButtonColor="cancel"
+      actionButtonTitle="Accept"
+      cancelButtonTitle="Cancel"
+    />
+  );
+}
+
+export function AddStudentModal() {
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+
+  const content = (
+    <React.Fragment>
+      <TextField
+        label="First Name"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setFirstName(event.target.value);
+        }}
       />
-    </div>
+      <TextField
+        label="Last Name"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setLastName(event.target.value);
+        }}
+      />
+      <TextField
+        label="Email"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setEmail(event.target.value);
+        }}
+      />
+      <TextField
+        label="Phone"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setPhone(event.target.value);
+        }}
+      />
+    </React.Fragment>
+  );
+  return (
+    <GenericModal
+      openModal={<AddIcon />}
+      modalHeadingTitle="Add Student"
+      modalMessage={content}
+      actionButtonColor="submit"
+      cancelButtonColor="cancel"
+      actionButtonTitle="Add"
+      cancelButtonTitle="Cancel"
+    />
+  );
+}
+
+export function ChooseCoachModal() {
+  const test = [
+    {
+      value: 'Coach API',
+      label: 'Coach 1 API Call',
+    },
+    {
+      value: 'Coach API!',
+      label: 'Coach 2 API Call',
+    },
+    {
+      value: 'Coach API!!',
+      label: 'Coach 3 API Call',
+    },
+    {
+      value: 'Coach API!!!',
+      label: 'Coach 4 API Call',
+    },
+  ];
+  const content = (
+    <Grid container spacing={2} justifyContent="center">
+      <div>
+        <TextField
+          id="API"
+          select
+          label="Select"
+          defaultValue="Coach API"
+          helperText="Select Coach"
+        >
+          {test.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+    </Grid>
+  );
+  return (
+    <GenericModal
+      openModal={<EditIcon />}
+      modalHeadingTitle="Change Coach"
+      modalMessage={content}
+      actionButtonTitle="Save"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="submit"
+    />
   );
 }
 

@@ -15,7 +15,7 @@ export function LayoutTitle(props) {
       {hasTitle && <Typography variant="h2">{title}</Typography>}
       {hasSubTitle && (
         <Typography variant="h6" color="text.secondary">
-          {subTitle}
+          {subTitle} 
         </Typography>
       )}
     </Box>
