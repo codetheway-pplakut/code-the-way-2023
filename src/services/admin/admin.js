@@ -50,7 +50,7 @@ export const addAdmin = (admin) =>
 /**
  * Deletes an Admin from the DB. SHOULD NOT BE USED
  *
- * @param {uuid} adminId Id of Admin to delete
+ * @param {UUID} adminId Id of Admin to delete
  * @author Adam Miller
  */
 export const deleteAdmin = (adminId) =>
@@ -62,24 +62,24 @@ export const deleteAdmin = (adminId) =>
 
 /**
  * Activates a deactivated Admin
- * @param {uuid} id
+ * @param {{id:UUID}} adminId
  * @author Adam Miller
  */
-export const activateAdmin = (id) =>
+export const activateAdmin = (adminId) =>
   callApi({
     url: '/Admin/Activate',
     method: 'POST',
-    data: id,
+    data: adminId,
   });
 
 /**
  * Decativates an active Admin
- * @param {uuid} id
+ * @param {{id:UUID}} adminId
  * @author Adam Miller
  */
-export const deactivateAdmin = (id) =>
+export const deactivateAdmin = (adminId) =>
   callApi({
     url: '/Admin/Deactivate',
     method: 'POST',
-    data: id,
+    data: adminId,
   });
