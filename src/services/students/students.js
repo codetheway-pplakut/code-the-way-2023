@@ -119,71 +119,59 @@ export const unassignStudent = async (studentId, coachId) =>
     data: { coachId, studentId },
   });
 
-/**
- * Gets all data stored in DB of specific student
- * @param {uuid} studentId
- * @returns All Data of Student
- * @author Adam Miller
- */
-export function getStudentByIdHandler(studentId) {
-  return getStudentByIdHandler(studentId);
-}
-/**
- * Function to call API to add student.
- *
- * @param {string} firstName
- * @param {string} lastName
- * @param {string} email
- * @param {Date} dateOfBirth
- * @param {string} cellPhone
- * @author Adam Miller
- *
- */
-export function addStudentHandler(
-  firstName,
-  lastName,
-  email,
-  dateOfBirth,
-  cellPhone
-) {
-  const data = { firstName, lastName, email, dateOfBirth, cellPhone };
-  addStudent(data);
-}
+const rejected = 'rejected';
+const active = 'active';
+const inactive = 'inactive';
+const applied = 'applied';
 
 /**
- * Replaces the student's database entry with the updated one.
- * @param {Student} student Whole student object
- * @author Adam Miller
+ * Reject Student
+ * @param {uuid} studentId
+ * @returns Sets the specified student's state to rejected
+ * @author Holly Raetz
  */
-export function editStudentHandler(student) {
-  editStudent(student);
-}
-/**
- * Function to call API to delete student. This should not be used - We want to deactivate students instead.
- * @param {uuid} studentId - Id of student to delete
- * @author Adam Miller
- */
-export function deleteStudentHandler(studentId) {
-  const params = { id: studentId };
-  deleteStudent(params);
-}
+export const setStudentRejected = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: rejected },
+  });
 
 /**
- * Function to call services to call to API to assign a Student to a coach
+ * Activate Student
  * @param {uuid} studentId
- * @param {uuid} coachId
- * @author Adam Miller
+ * @returns Sets the specified student's state to active
+ * @author Holly Raetz
  */
-export function assignStudentHandler(studentId, coachId) {
-  assignStudent(studentId, coachId);
-}
+export const setStudentActive = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: active },
+  });
 
 /**
- * Function to call services to call to API to unassign a Student from a coach
+ * Deactivate Student
  * @param {uuid} studentId
- * @param {uuid} coachId
- * @author Adam Miller
+ * @returns Sets the specified student's state to inactive
+ * @author Holly Raetz
  */
-export function unassignStudentHandler(studentId, coachId) {
-  unassignStudent(studentId, coachId);
-}
+export const setStudentInactive = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: inactive },
+  });
+
+/**
+ * Applicant Student
+ * @param {uuid} studentId
+ * @returns Sets the specified student's state to applied
+ * @author Holly Raetz
+ */
+export const setStudentApplied = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: applied },
+  });

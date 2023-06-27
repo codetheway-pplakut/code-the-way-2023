@@ -10,6 +10,10 @@ import {
   deleteStudent,
   assignStudent,
   unassignStudent,
+  setStudentRejected,
+  setStudentApplied,
+  setStudentActive,
+  setStudentInactive,
 } from '../../services/students/students';
 
 /**
@@ -131,4 +135,44 @@ export function assignStudentHandler(coachId, studentId) {
 export function unassignStudentHandler(coachId, studentId) {
   const data = { coachId, studentId };
   return unassignStudent(data);
+}
+
+/**
+ * Activate Student
+ * @param {uuid} id
+ * @returns Sets the specified student's state to active
+ * @author Holly Raetz
+ */
+export function setStudentActiveHandler(id) {
+  return setStudentActive(id);
+}
+
+/**
+ * Deactivate Student
+ * @param {uuid} id
+ * @returns Sets the specified student's state to inactive
+ * @author Holly Raetz
+ */
+export function setStudentInactiveHandler(id) {
+  return setStudentInactive(id);
+}
+
+/**
+ * Reject Student
+ * @param {uuid} id
+ * @returns Sets the specified student's state to rejected
+ * @author Holly Raetz
+ */
+export function setStudentRejectedHandler(id) {
+  return setStudentRejected(id);
+}
+
+/**
+ * Applied Student
+ * @param {uuid} id
+ * @returns Sets the specified student's state to applied
+ * @author Holly Raetz
+ */
+export function setStudentAppliedHandler(id) {
+  return setStudentApplied(id);
 }
