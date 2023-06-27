@@ -16,7 +16,7 @@ export const getActiveStudents = () =>
  * @author Holly Raetz
  */
 export const getInactiveStudents = () =>
-  callApi({ url: '/Students/GetInactiveStudents'});
+  callApi({ url: '/Students/GetInactiveStudents' });
 
 /**
  * Gets Applied Students
@@ -25,7 +25,7 @@ export const getInactiveStudents = () =>
  * @author Holly Raetz
  */
 export const getAppliedStudents = () =>
-callApi({ url: '/Students/GetAppliedStudents' });
+  callApi({ url: '/Students/GetAppliedStudents' });
 
 /**
  * Gets Rejected Students
@@ -33,28 +33,12 @@ callApi({ url: '/Students/GetAppliedStudents' });
  * @author Holly Raetz
  */
 export const getRejectedStudents = () =>
-  callApi({ url: '/Students/GetRejectedStudents'});
+  callApi({ url: '/Students/GetRejectedStudents' });
 
 export const getStudentsByCoachId = (id) =>
   callApi({
     url: `/Students/GetStudentsByCoachId/${id}`,
   });
-
-/**
- * Basic Request for active students at once. Gets active students only.
- * @returns {[{id:uuid, state:string, firstName: string, lastName: string, email:email, studentCellPhone:string, parentFirstName: string, parentLastName: string, coachId: uuid, createdOnUtc: Date, updatedOnUtc: Date}]}
- * @author Joey Schroeder
- */
-export const getActiveStudents = async () =>
-  callApi({ url: '/Students/GetActiveStudents' });
-
-/**
- * Basic Request for applied students at once. Gets applied students only.
- * @returns {[{id:uuid, state:string, firstName: string, lastName: string, email:email, studentCellPhone:string, parentFirstName: string, parentLastName: string, coachId: uuid, createdOnUtc: Date, updatedOnUtc: Date}]}
- * @author Joey Schroeder
- */
-export const getAppliedStudents = async () =>
-  callApi({ url: '/Students/GetAppliedStudents' });
 
 /**
  * Gets the data of student associated with passed id.
@@ -134,15 +118,6 @@ export const unassignStudent = async (studentId, coachId) =>
     method: 'POST',
     data: { coachId, studentId },
   });
-
-/**
- * Gets list of all students
- * @returns Gets all students in DB
- * @author Adam Miller
- */
-export function getStudentsHandler() {
-  return getStudents();
-}
 
 /**
  * Gets all data stored in DB of specific student

@@ -9,6 +9,7 @@ import {
   Stack,
   TextField,
   Icon,
+  MenuItem,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
@@ -68,7 +69,7 @@ export function GenericModal(props) {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Button onClick={handleOpen} startIcon={openButtonIcon}>
         {openModal}
       </Button>
@@ -211,23 +212,14 @@ export function AddCoachModal() {
         {messages.length > 0 && (
           <Grid item xs={9}>
             {messages.map((message, index) => (
-              <Typography key={index} variant="body2" color="error">
+              <Typography key={index.id} variant="body2" color="error">
                 {message}
               </Typography>
             ))}
           </Grid>
-          {messages.length > 0 && (
-            <Grid item xs={9}>
-              {messages.map((message, index) => (
-                <Typography key={index.id} variant="body2" color="error">
-                  {message}
-                </Typography>
-              ))}
-            </Grid>
-          )}
-        </Grid>
-      </GenericModal>
-    </div>
+        )}
+      </Grid>
+    </GenericModal>
   );
 }
 

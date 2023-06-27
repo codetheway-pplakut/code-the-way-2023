@@ -5,6 +5,7 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { AddCoachModal } from './modal-component';
+import { addCoachHandler } from './coachHandlers';
 
 const COLUMNS = [
   {
@@ -43,51 +44,7 @@ const COLUMNS = [
     active: false,
   },
 ];
-export function AddAdmin() {
-  const [username, setUsername] = React.useState();
-  const [password, setPassword] = React.useState();
-  const [confirmPassword, setConfirmPassword] = React.useState();
 
-  const cancelHandler = () => {
-    setUsername('');
-    setPassword('');
-  };
-  const submitHandler = async () => {
-    try {
-      addAdminHandler(username, password, confirmPassword);
-    } catch (error) {
-      console.log(error);
-    }
-    // empties all fields after submitted to API
-    cancelHandler();
-  };
-  return (
-    <GenericModal
-      modalHeadingTitle="Add Admin"
-      openButtonIcon={<AddIcon sx={{ iconStyle }} />}
-      actionButtonTitle="Add"
-      cancelButtonTitle="Cancel"
-      onActionButtonClick={submitHandler}
-      onCancelButtonClick={cancelHandler}
-    >
-      <TextFieldWithErrorMessage
-        label="Username"
-        value={username}
-        onChange={setUsername}
-      />
-      <TextFieldWithErrorMessage
-        label="Password"
-        value={password}
-        onChange={setPassword}
-      />
-      <TextFieldWithErrorMessage
-        label="Confirm Password"
-        value={confirmPassword}
-        onChange={setConfirmPassword}
-      />
-    </GenericModal>
-  );
-}
 export function Coaches() {
   const [firstName, setFirstName] = React.useState();
   const [lastName, setLastName] = React.useState();

@@ -2,8 +2,9 @@ import React from 'react';
 import { Grid, Box } from '@mui/material';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
-import { getActiveAdmins } from '../../services/admin/admin';
+import { getActiveAdmins, getInactiveAdmins } from '../../services/admin/admin';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { getInactiveAdminsHandler } from './adminHandlers';
 
 const COLUMNS = [
   {
@@ -29,7 +30,7 @@ export function Admins() {
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}
-                requestFunc={getActiveAdmins}
+                requestFunc={getInactiveAdminsHandler}
                 filterBy={['userName']}
               >
                 {/* <AddAdminModal /> */}

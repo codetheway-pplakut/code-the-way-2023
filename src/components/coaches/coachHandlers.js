@@ -4,18 +4,9 @@ import {
   deleteCoach,
   editCoach,
   getActiveCoaches,
-  getAllCoaches,
   getCoachById,
   getInactiveCoaches,
 } from '../../services/coaches/coaches';
-/**
- * Returns all coaches in the DB
- * @returns All Coaches
- * @author Adam Miller
- */
-export function getAllCoachesHandler() {
-  return getAllCoaches();
-}
 
 export function getActiveCoachesHandler() {
   return getActiveCoaches();
