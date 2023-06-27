@@ -6,8 +6,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
@@ -46,7 +44,6 @@ export function DynamicTable(props) {
   const { APIcolumns, APIrows, filterBy } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
-  const [dense, setDense] = React.useState(false);
   const [rows, setRows] = useState(APIrows);
 
   const handleRequestSort = (event, property) => {
@@ -66,10 +63,6 @@ export function DynamicTable(props) {
       });
     });
     setRows(filteredRows);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
   };
 
   const visibleRows = React.useMemo(
@@ -107,7 +100,7 @@ export function DynamicTable(props) {
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
+          <Table sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
               order={order}
@@ -139,7 +132,7 @@ export function DynamicTable(props) {
               {rows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * rows,
+                    height: 53 * rows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -149,10 +142,6 @@ export function DynamicTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 }
