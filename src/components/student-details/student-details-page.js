@@ -79,11 +79,15 @@ export default function StudentDetails() {
     'Household Information',
   ];
 
-  const contentArray = [
+  const [contentArray, setContentArray] = React.useState([
     ['John Doe', '(262) 555-7535', 'john@gmail.com'],
     ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
     ['W-2'],
-  ];
+  ]);
+
+  const handleContent = (newValue) => {
+    setContentArray(newValue);
+  };
   return (
     <Grid
       container
@@ -152,26 +156,13 @@ export default function StudentDetails() {
                     actionButtonTitle="Add"
                     cancelButtonTitle="Cancel"
                   >
-                    <Grid Container direction="column">
+                    <Grid container direction="column">
                       <Grid item sx={{ py: 3 }}>
                         <TextFieldWithErrorMessage label="Goal" />
                       </Grid>
                       {/* TODO Make dropdown a component: this is too big */}
-                      <Grid item alignItems="center" sx={{ py: 3, px: 12 }}>
-                        <FormControl sx={{ minWidth: '200px', mx: 5 }}>
-                          <InputLabel id="sel">sel</InputLabel>
-                          <Select
-                            labelid="select"
-                            id="select"
-                            value={sel}
-                            label="SEL"
-                            onChange={handleSel}
-                          >
-                            <MenuItem value="Social">Social</MenuItem>
-                            <MenuItem value="Emotional">Emotional</MenuItem>
-                            <MenuItem value="Learning">Learning</MenuItem>
-                          </Select>
-                        </FormControl>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Social Emotional Learning" />
                       </Grid>
                       <Grid item sx={{ py: 3 }}>
                         <TextFieldWithErrorMessage label="Was it Accomplished" />
@@ -189,18 +180,12 @@ export default function StudentDetails() {
                     cancelButtonTitle="Cancel"
                   >
                     {/* TODO: items 1 and 4 need to be bool, item 2 needs to be dropdown */}
-                    <Grid Container direction="column">
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="College Bound?" />
-                      </Grid>
+                    <Grid container direction="column">
                       <Grid item sx={{ py: 3 }}>
                         <TextFieldWithErrorMessage label="Career Cluster" />
                       </Grid>
                       <Grid item sx={{ py: 3 }}>
                         <TextFieldWithErrorMessage label="Career Name" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Technical College Bound?" />
                       </Grid>
                     </Grid>
                   </GenericModal>,
@@ -224,7 +209,7 @@ export default function StudentDetails() {
             openButtonIcon={<AddIcon sx={iconStyle} />}
           >
             {/* TODO: Make Coach and Topic Dropdowns, Make Notes a large Textfield */}
-            <Grid Container direction="column">
+            <Grid container direction="column">
               <Grid item sx={{ py: 3 }}>
                 <TextFieldWithErrorMessage label="Coach" />
               </Grid>
