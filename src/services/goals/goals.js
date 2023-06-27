@@ -17,7 +17,7 @@ export const editGoal = (goal) =>
   callApi({ url: '/Goals', data: goal, method: 'PUT' });
 
 export const deleteGoal = (goalId) =>
-  callApi({ url: `/Goals/${goalId}`, method: 'DELETE' });
+  callApi({ url: '/Goals', params: goalId, method: 'DELETE' });
 
 export const getStudentGoals = (studentId) =>
   callApi({ url: `/goals/student-goals/${studentId}` });
