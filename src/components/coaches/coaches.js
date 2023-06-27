@@ -1,94 +1,99 @@
 import React from 'react';
-import { Grid } from '@mui/material';
-import Table2 from './table';
-import {
-  ArchiveCoachModal,
-  GenericModal,
-  AddCoachModal,
-} from './modal-component';
-import {
-  addCoach,
-  getCoachById,
-  getCoaches,
-} from '../../services/coaches/coaches';
-import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
-import { editStudent } from '../../services/students/students';
+import { Box, Grid } from '@mui/material';
+import { Layout } from '../layout/layout';
+import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { getActiveCoaches } from '../../services/coaches/coaches';
+import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { AddCoachModal } from './modal-component';
+import { addCoachHandler } from './coachHandlers';
 
-/**
- * Returns all coaches in the DB
- * @returns All Coaches
- * @author Adam Miller
- */
-export function getCoachesHandler() {
-  return getCoaches();
-}
-
-/**
- * Gets all info from the DB.
- *
- * @param {uuid} coachId Coach to get info on.
- * @returns {{id:uuid, userId:string, coachFirstName: string, coachLastName:string, coachEmail: string, coachPhoneNumber:string, active:boolean}}
- * @author Adam Miller
- */
-export function getCoachByIdHandler(coachId) {
-  return getCoachById(coachId);
-}
-
-/**
- * Adds a Coach to the DB
- *
- * @param {string} firstName
- * @param {string} lastName
- * @param {email} email
- * @param {string} phone
- * @param {string} password
- * @param {string} confirmPassword
- *
- * @author Adam Miller
- */
-export function addCoachHandler(
-  firstName,
-  lastName,
-  email,
-  phone,
-  password,
-  confirmPassword
-) {
-  const data = { firstName, lastName, email, phone, password, confirmPassword };
-  addCoach(data);
-}
-
-/**
- * Edits a coach, replacing the whole DB entry.
- *
- * @param {{id:uuid, userId:string, coachFirstName:string, coachLastName:string, coachEmail:string, coachPhoneNumber: string, active:boolean}} coach Whole coach object, including students, to change.
- * @author Adam Miller
- */
-export function editCoachHandler(coach) {
-  editStudent(coach);
-}
-
-/**
- * Deletes a coach from the DB. THIS SHOULD NOT BE USED.
- *
- * @param {uuid} coachId
- * @author Adam Miller
- */
-export function deleteCoach(coachId) {
-  deleteCoach(coachId);
-}
+const COLUMNS = [
+  {
+    id: 'coachFirstName',
+    disablePadding: false,
+    label: 'First Name',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'coachLastName',
+    disablePadding: false,
+    label: 'Last Name',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'coachEmail',
+    disablePadding: false,
+    label: 'Email',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'coachPhoneNumber',
+    disablePadding: false,
+    label: 'Student Cell',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'options',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    active: false,
+  },
+];
 
 export function Coaches() {
-  return (
-    <div>
-      <Grid container justifyContent="center">
-        <Grid item xs={10}>
-          <Table2 />
-        </Grid>
-      </Grid>
+  const [firstName, setFirstName] = React.useState();
+  const [lastName, setLastName] = React.useState();
+  const [email, setEmail] = React.useState();
+  const [phoneNumber, setPhoneNumber] = React.useState();
+  const [password, setPassword] = React.useState();
+  const [confirmPassword, setConfirmPassword] = React.useState();
 
-      <AddCoachModal />
-      <ArchiveCoachModal />
-    </div>
+  const cancelHandler = () => {
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setPhoneNumber('');
+    setPassword('');
+    setConfirmPassword('');
+  };
+  const submitHandler = async () => {
+    try {
+      addCoachHandler(
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+        confirmPassword
+      );
+    } catch (error) {
+      console.log(error);
+    }
+    // empties all fields after submitted to API
+    cancelHandler();
+  };
+  return (
+    <Grid container justifyContent="center">
+      <Grid item xs={10}>
+        <EntitlementRestricted>
+          <Layout title="Coaches">
+            <Box sx={{ width: '100%' }}>
+              <DynamicTableWithRequest
+                columns={COLUMNS}
+                requestFunc={getActiveCoaches}
+                filterBy={['coachFirstName']}
+              >
+                <AddCoachModal />
+              </DynamicTableWithRequest>
+            </Box>
+          </Layout>
+        </EntitlementRestricted>
+      </Grid>
+    </Grid>
   );
 }

@@ -1,50 +1,70 @@
 import React from 'react';
-import { TableLayoutWithRequest } from '../table-layout-with-request/table-layout-with-request';
+import { Grid, Box } from '@mui/material';
 import { getGoals } from '../../services/goals/goals';
+import DynamicTabs from '../table-layout/dynamicTabs';
+import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { Layout } from '../layout/layout';
+import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 
-// [
-//   {
-//     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-//     "goalSet": "string",
-//     "dateGoalSet": "2023-06-07T15:44:46.151Z",
-//     "sel": "string",
-//     "goalReviewDate": "2023-06-07T15:44:46.151Z",
-//     "wasItAccomplished": "string",
-//     "explanation": "string"
-//   }
-// ]
 const COLUMNS = [
   {
-    headerName: 'ID',
-    field: 'id',
-    width: 300,
+    label: 'Goal Set',
+    id: 'goalSet',
+    numeric: false,
+    disablePadding: false,
   },
   {
-    headerName: 'Student ID',
-    field: 'studentId',
-    width: 300,
+    label: 'Date Goal Set',
+    id: 'dateGoalSet',
+    numeric: false,
+    disablePadding: false,
   },
   {
-    headerName: 'Goal Set',
-    field: 'goalSet',
-    width: 100,
+    label: 'Goal Review Date',
+    id: 'goalReviewDate',
+    numeric: false,
+    disablePadding: false,
   },
   {
-    headerName: 'Goal Review Date',
-    field: 'goalReviewDate',
-    width: 300,
+    label: 'WasItAccomplished',
+    id: 'wasItAccomplished',
+    numeric: false,
+    disablePadding: false,
+  },
+  {
+    label: 'Explanation',
+    id: 'explanation',
+    numeric: false,
+    disablePadding: false,
   },
 ];
 
 export function Goals() {
+  const [tabValue, setTabValue] = React.useState(0);
+
   return (
-    <TableLayoutWithRequest
-      columns={COLUMNS}
-      requestFunc={getGoals}
-      requestLabel="Request Goals"
-      subTitle="View all goals"
-      title="Goals"
-    />
+    <Grid container justifyContent="center">
+      <Grid item xs={10}>
+        <EntitlementRestricted>
+          <Layout title="Goals" subTitle="View All Goals">
+            <DynamicTabs
+              tabNames={['Active', 'Applicant']}
+              tabValue={tabValue}
+              handleTabChange={setTabValue}
+            />
+
+            <Box sx={{ width: '100%' }}>
+              {tabValue === 0 && (
+                <DynamicTableWithRequest
+                  columns={COLUMNS}
+                  requestFunc={getGoals}
+                  filterBy={['goalSet']}
+                />
+              )}
+            </Box>
+          </Layout>
+        </EntitlementRestricted>
+      </Grid>
+    </Grid>
   );
 }

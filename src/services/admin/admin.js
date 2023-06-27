@@ -2,16 +2,34 @@ import { callApi } from '../../utils/call-api/call-api';
 
 /**
  * Gets all Admins stored in DB
- * @returns {[{id:uuid, userName:string, email:email}]} All Admins in DB
+ *
+ * @returns {[{id:uuid, userName:string, email:email, status:string}]} All Admins in DB
  * @author Adam Miller
  */
-export const getAdmins = () => callApi({ url: '/Admin' });
+export const getAllAdmins = () => callApi({ url: '/Admin/' });
 
 /**
- * Gets a specific Admin (same data as getAdmins)
+ * Gets active Admins stored in DB
+ *
+ * @returns {[{id:uuid, userName:string, email:email, status:string}]}
+ * @author Adam Miller
+ */
+export const getActiveAdmins = () => callApi({ url: '/Admin/GetActiveAdmins' });
+
+/**
+ * Gets inactive Admins stored in DB
+ *
+ * @returns {[{id:uuid, userName:string, email:email, status:string}]}
+ * @author Adam Miller
+ */
+export const getInactiveAdmins = () =>
+  callApi({ url: '/Admin/GetInactiveAdmins' });
+
+/**
+ * Gets a specific Admin
  *
  * @param {uuid} adminId Id of Admin to get
- * @returns {[{id:uuid, userName:string, email:email}]} Admins info
+ * @returns {[{id:uuid, userName:string, email:email,status:string}]} Admins info
  * @author Adam Miller
  */
 export const getAdminById = (adminId) => callApi({ url: `/Admin/${adminId}` });
@@ -24,7 +42,7 @@ export const getAdminById = (adminId) => callApi({ url: `/Admin/${adminId}` });
  */
 export const addAdmin = (admin) =>
   callApi({
-    url: '/Admin',
+    url: '/Admin/Create',
     method: 'POST',
     data: admin,
   });
@@ -40,4 +58,28 @@ export const deleteAdmin = (adminId) =>
     url: '/Admin',
     method: 'DELETE',
     params: adminId,
+  });
+
+/**
+ * Activates a deactivated Admin
+ * @param {uuid} id
+ * @author Adam Miller
+ */
+export const activateAdmin = (id) =>
+  callApi({
+    url: '/Admin/Activate',
+    method: 'POST',
+    data: id,
+  });
+
+/**
+ * Decativates an active Admin
+ * @param {uuid} id
+ * @author Adam Miller
+ */
+export const deactivateAdmin = (id) =>
+  callApi({
+    url: '/Admin/Deactivate',
+    method: 'POST',
+    data: id,
   });
