@@ -5,13 +5,9 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { DynamicTableWithRequestData } from '../table-layout/dynamicTableWithRequestData';
 import { AddCoachModal, GenericViewModal } from './modal-component';
 import { addCoachHandler } from './coachHandlers';
-import {
-  getStudentsByCoachId,
-  getActiveStudents,
-} from '../../services/students/students';
+import { getStudentsByCoachId } from '../../services/students/students';
 
 const STUDENTCOLUMNS = [
   {
@@ -89,7 +85,7 @@ const COLUMNS = [
         modalHeadingTitle="View Students"
         viewModalWidth={900}
       >
-        <DynamicTableWithRequestData
+        <DynamicTableWithRequest
           columns={STUDENTCOLUMNS}
           requestFunc={getStudentsByCoachId}
           filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
