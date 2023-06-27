@@ -4,36 +4,28 @@ import { App } from '../components/app/app';
 import { Error } from '../components/error/error';
 import { Login } from '../components/login/login';
 import { isProduction } from '../utils/is-production/is-production';
-import packageJson from '../../package.json';
 import { Splash } from '../components/splash/splash';
 import { Students } from '../components/students/students';
 import { Coaches } from '../components/coaches/coaches';
 import { Goals } from '../components/goals/goals';
 import { InactiveRejected } from '../components/inactive-rejected/inactive-rejected';
 import { StudentInfo } from '../components/student-details/student-info';
-import { InactiveAdmins } from '../components/admin/inactiveadmin';
-import { ActiveAdmins } from '../components/admin/activeadmin;';
+import { Admins } from '../components/admin/admin';
 
-const basename = isProduction() ? `/${packageJson.name}` : '';
-
-export const ROUTER = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: <App />,
-      children: [
-        { path: '/', element: <Splash /> },
-        { path: 'coaches', element: <Coaches /> },
-        { path: 'login', element: <Login /> },
-        { path: 'goals', element: <Goals /> },
-        { path: 'students', element: <Students /> },
-        { path: 'inactive-rejected', element: <InactiveRejected /> },
-        { path: 'student-info', element: <StudentInfo /> },
-        { path: 'inactiveAdmins', element: <InactiveAdmins /> },
-        { path: 'activeAdmins', element: <ActiveAdmins /> },
-        { path: '*', element: <Error /> },
-      ],
-    },
-  ],
-  { basename }
-);
+export const ROUTER = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      { path: '/', element: <Splash /> },
+      { path: 'admins', element: <Admins /> },
+      { path: 'coaches', element: <Coaches /> },
+      { path: 'login', element: <Login /> },
+      { path: 'goals', element: <Goals /> },
+      { path: 'students', element: <Students /> },
+      { path: 'inactive-rejected', element: <InactiveRejected /> },
+      { path: 'student-info', element: <StudentInfo /> },
+      { path: '*', element: <Error /> },
+    ],
+  },
+]);
