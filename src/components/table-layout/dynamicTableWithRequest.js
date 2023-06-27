@@ -5,7 +5,7 @@ import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 
 export function DynamicTableWithRequest(props) {
-  const { columns, filterBy, requestFunc } = props;
+  const { columns, filterBy, requestFunc, customTableMaxHeight } = props;
 
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -35,7 +35,12 @@ export function DynamicTableWithRequest(props) {
   if (hasError) return <LayoutError />;
 
   return (
-    <DynamicTable APIcolumns={columns} APIrows={rows} filterBy={filterBy}>
+    <DynamicTable
+      APIcolumns={columns}
+      APIrows={rows}
+      filterBy={filterBy}
+      customTableMaxHeight={customTableMaxHeight}
+    >
       {props.children}
     </DynamicTable>
   );
@@ -46,10 +51,12 @@ DynamicTableWithRequest.propTypes = {
   requestFunc: PropTypes.func,
   filterBy: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node.isRequired,
+  customTableMaxHeight: PropTypes.number,
 };
 
 DynamicTableWithRequest.defaultProps = {
   columns: [],
   requestFunc: () => {},
   filterBy: [],
+  customTableMaxHeight: null,
 };

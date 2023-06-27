@@ -41,7 +41,7 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, filterBy } = props;
+  const { APIcolumns, APIrows, filterBy, customTableMaxHeight } = props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
   const [rows, setRows] = useState(APIrows);
@@ -99,7 +99,7 @@ export function DynamicTable(props) {
         </Toolbar>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
+        <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
           <Table sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
@@ -151,9 +151,11 @@ DynamicTable.propTypes = {
   APIrows: PropTypes.arrayOf(PropTypes.object),
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
+  customTableMaxHeight: PropTypes.number,
 };
 
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
+  customTableMaxHeight: null,
 };

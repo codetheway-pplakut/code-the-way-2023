@@ -1,12 +1,52 @@
 import React from 'react';
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Button, Link } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { AddCoachModal } from './modal-component';
+import { AddCoachModal, GenericViewModal } from './modal-component';
 import { addCoachHandler } from './coachHandlers';
+import {
+  getStudentsByCoachId,
+  getActiveStudents,
+} from '../../services/students/students';
 
+const STUDENTCOLUMNS = [
+  {
+    id: 'firstName',
+    disablePadding: false,
+    label: 'First Name',
+    align: 'left',
+    active: false,
+    render: (value) => <Button>{value}</Button>,
+  },
+  {
+    id: 'lastName',
+    disablePadding: false,
+    label: 'Last Name',
+    align: 'left',
+    active: false,
+  },
+  {
+    id: 'email',
+    disablePadding: false,
+    label: 'Email',
+    align: 'left',
+    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
+    active: false,
+  },
+  {
+    id: 'studentCellPhone',
+    disablePadding: false,
+    label: 'Student Cell',
+    align: 'left',
+    active: false,
+  },
+];
+const studentTableMaxHeight = 440;
+
+const currentCoachIdTEMP = '219332bd-bab4-4998-2c52-08da7653950c';
 const COLUMNS = [
   {
     id: 'coachFirstName',
@@ -42,6 +82,21 @@ const COLUMNS = [
     label: '',
     align: 'left',
     active: false,
+    render: () => (
+      <GenericViewModal
+        openButtonIcon={<InfoOutlinedIcon />}
+        modalHeadingTitle="View Students"
+        viewModalWidth={900}
+      >
+        <DynamicTableWithRequest
+          columns={STUDENTCOLUMNS}
+          // requestFunc={getStudentsByCoachId(currentCoachIdTEMP)}
+          requestFunc={getActiveStudents}
+          filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+          customTableMaxHeight={studentTableMaxHeight}
+        />
+      </GenericViewModal>
+    ),
   },
 ];
 
@@ -77,6 +132,7 @@ export function Coaches() {
     // empties all fields after submitted to API
     cancelHandler();
   };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
