@@ -32,7 +32,7 @@ const COLUMNS = [
   {
     id: 'coachPhoneNumber',
     disablePadding: false,
-    label: 'Student Cell',
+    label: 'Phone',
     align: 'left',
     active: false,
   },
@@ -86,7 +86,12 @@ export function Coaches() {
               <DynamicTableWithRequest
                 columns={COLUMNS}
                 requestFunc={getActiveCoaches}
-                filterBy={['coachFirstName']}
+                filterBy={[
+                  'coachFirstName',
+                  'coachLastName',
+                  'coachEmail',
+                  'coachPhoneNumber',
+                ]}
               >
                 <AddCoachModal />
               </DynamicTableWithRequest>

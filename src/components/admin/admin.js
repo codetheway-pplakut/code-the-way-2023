@@ -31,7 +31,7 @@ export function Admins() {
               <DynamicTableWithRequest
                 columns={COLUMNS}
                 requestFunc={getInactiveAdminsHandler}
-                filterBy={['userName']}
+                filterBy={['userName', 'email']}
               >
                 {/* <AddAdminModal /> */}
               </DynamicTableWithRequest>

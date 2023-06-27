@@ -85,7 +85,13 @@ export function Students() {
               {tabValue === 0 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={['firstName']}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                    'coach',
+                  ]}
                   requestFunc={getActiveStudents}
                 >
                   <AddStudentModal />
@@ -94,7 +100,13 @@ export function Students() {
               {tabValue === 1 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={['firstName']}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                    'coach',
+                  ]}
                   requestFunc={getAppliedStudents}
                 >
                   <AddStudentModal />
