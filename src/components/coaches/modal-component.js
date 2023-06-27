@@ -83,9 +83,11 @@ export function GenericModal(props) {
               <CloseIcon fontSize="large" sx={closeIconStyle} />
             </IconButton>
           </Grid>
-          <Typography padding={5} align="center" fontSize={20}>
-            {modalMessage}
-          </Typography>
+          {modalMessage && (
+            <Typography padding={5} align="center" fontSize={20}>
+              {modalMessage}
+            </Typography>
+          )}
 
           {children}
 
