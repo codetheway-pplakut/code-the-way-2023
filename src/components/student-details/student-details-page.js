@@ -17,11 +17,8 @@ import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
-import CommunicationBox from './communication-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
-import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
-import { addCoachHandler } from '../coaches/coachHandlers';
 
 export default function StudentDetails() {
   const [value, setValue] = React.useState(0);
