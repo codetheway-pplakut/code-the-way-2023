@@ -67,7 +67,7 @@ export function GenericModal(props) {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Button onClick={handleOpen}>{openModal}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={backgroundStyle}>
@@ -116,7 +116,7 @@ export function GenericModal(props) {
           </Grid>
         </Box>
       </Modal>
-    </div>
+    </React.Fragment>
   );
 }
 
@@ -172,50 +172,48 @@ export function AddCoachModal() {
   const actionButtonDisabled = Boolean(messages.length);
 
   return (
-    <div>
-      <GenericModal
-        openModal="open1"
-        modalHeadingTitle="Add a Coach"
-        modalMessage="Fill out the fields below to add a coach."
-        actionButtonTitle="Create"
-        cancelButtonTitle="Cancel"
-        actionButtonDisabled={actionButtonDisabled}
-        actionButtonColor="submit"
-        onActionButtonClick={submitAction}
-        onCancelButtonClick={cancelAction}
-        onIconButtonClick={cancelAction}
-      >
-        <Grid container justifyContent="center">
-          <Grid item xs={9}>
-            <Stack spacing={2}>
-              <TextField
-                fullWidth
-                onChange={(event) => setUserName(event.target.value)}
-                label="Username"
-                value={userName}
-                type="email"
-              />
-              <TextField
-                fullWidth
-                onChange={(event) => setPassword(event.target.value)}
-                label="Password"
-                value={password}
-                type="password"
-              />
-            </Stack>
-          </Grid>
-          {messages.length > 0 && (
-            <Grid item xs={9}>
-              {messages.map((message, index) => (
-                <Typography key={index} variant="body2" color="error">
-                  {message}
-                </Typography>
-              ))}
-            </Grid>
-          )}
+    <GenericModal
+      openModal={<AddIcon />}
+      modalHeadingTitle="Add a Coach"
+      modalMessage="Fill out the fields below to add a coach."
+      actionButtonTitle="Create"
+      cancelButtonTitle="Cancel"
+      actionButtonDisabled={actionButtonDisabled}
+      actionButtonColor="submit"
+      onActionButtonClick={submitAction}
+      onCancelButtonClick={cancelAction}
+      onIconButtonClick={cancelAction}
+    >
+      <Grid container justifyContent="center">
+        <Grid item xs={9}>
+          <Stack spacing={2}>
+            <TextField
+              fullWidth
+              onChange={(event) => setUserName(event.target.value)}
+              label="Username"
+              value={userName}
+              type="email"
+            />
+            <TextField
+              fullWidth
+              onChange={(event) => setPassword(event.target.value)}
+              label="Password"
+              value={password}
+              type="password"
+            />
+          </Stack>
         </Grid>
-      </GenericModal>
-    </div>
+        {messages.length > 0 && (
+          <Grid item xs={9}>
+            {messages.map((message, index) => (
+              <Typography key={index} variant="body2" color="error">
+                {message}
+              </Typography>
+            ))}
+          </Grid>
+        )}
+      </Grid>
+    </GenericModal>
   );
 }
 
@@ -225,17 +223,15 @@ export function ArchiveCoachModal() {
   // };
 
   return (
-    <div>
-      <GenericModal
-        openModal="open"
-        modalHeadingTitle="Archive Coach"
-        modalMessage="Are you sure you want to archive this coach?"
-        actionButtonTitle="Archive"
-        cancelButtonTitle="Cancel"
-        actionButtonColor="archive"
-        // actionButtonFunction={archiveCoachAction}
-      />
-    </div>
+    <GenericModal
+      openModal="open"
+      modalHeadingTitle="Archive Coach"
+      modalMessage="Are you sure you want to archive this coach?"
+      actionButtonTitle="Archive"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="archive"
+      // actionButtonFunction={archiveCoachAction}
+    />
   );
 }
 
@@ -275,46 +271,38 @@ export function AddStudentModal() {
 
   const content = (
     <React.Fragment>
-      <div>
-        <TextField
-          label="First Name"
-          margin="normal"
-          size="small"
-          onChange={(event) => {
-            setFirstName(event.target.value);
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Last Name"
-          margin="normal"
-          size="small"
-          onChange={(event) => {
-            setLastName(event.target.value);
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Email"
-          margin="normal"
-          size="small"
-          onChange={(event) => {
-            setEmail(event.target.value);
-          }}
-        />
-      </div>
-      <div>
-        <TextField
-          label="Phone"
-          margin="normal"
-          size="small"
-          onChange={(event) => {
-            setPhone(event.target.value);
-          }}
-        />
-      </div>
+      <TextField
+        label="First Name"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setFirstName(event.target.value);
+        }}
+      />
+      <TextField
+        label="Last Name"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setLastName(event.target.value);
+        }}
+      />
+      <TextField
+        label="Email"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setEmail(event.target.value);
+        }}
+      />
+      <TextField
+        label="Phone"
+        margin="normal"
+        size="small"
+        onChange={(event) => {
+          setPhone(event.target.value);
+        }}
+      />
     </React.Fragment>
   );
   return (

@@ -1,13 +1,10 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
-import DynamicTabs from '../table-layout/dynamicTabs';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
-import {
-  getActiveCoaches,
-  getInactiveCoaches,
-} from '../../services/coaches/coaches';
+import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { AddCoachModal } from './modal-component';
 
 const COLUMNS = [
   {
@@ -48,33 +45,19 @@ const COLUMNS = [
 ];
 
 export function Coaches() {
-  const [tabValue, setTabValue] = React.useState(0);
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
           <Layout title="Coaches">
-            <DynamicTabs
-              tabNames={['Active', 'Inactive']}
-              tabValue={tabValue}
-              handleTabChange={setTabValue}
-            />
             <Box sx={{ width: '100%' }}>
-              {tabValue === 0 && (
-                <DynamicTableWithRequest
-                  columns={COLUMNS}
-                  requestFunc={getActiveCoaches}
-                  filterBy={['coachFirstName']}
-                />
-              )}
-              {tabValue === 1 && (
-                <DynamicTableWithRequest
-                  columns={COLUMNS}
-                  requestFunc={getInactiveCoaches}
-                  filterBy={['coachFirstName']}
-                />
-              )}
+              <DynamicTableWithRequest
+                columns={COLUMNS}
+                requestFunc={getActiveCoaches}
+                filterBy={['coachFirstName']}
+              >
+                <AddCoachModal />
+              </DynamicTableWithRequest>
             </Box>
           </Layout>
         </EntitlementRestricted>

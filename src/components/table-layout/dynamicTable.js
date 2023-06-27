@@ -99,7 +99,7 @@ export function DynamicTable(props) {
                 aria-haspopup="true"
                 color="inherit"
               >
-                <AddStudentModal />
+                {props.children}
               </IconButton>
             </Box>
           </Grid>
@@ -161,6 +161,7 @@ DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 DynamicTable.defaultProps = {

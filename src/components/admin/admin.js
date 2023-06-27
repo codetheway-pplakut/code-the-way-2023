@@ -1,9 +1,8 @@
 import React from 'react';
 import { Grid, Box } from '@mui/material';
-import DynamicTabs from '../table-layout/dynamicTabs';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
-import { getActiveAdmins, getInactiveAdmins } from '../../services/admin/admin';
+import { getActiveAdmins } from '../../services/admin/admin';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 
 const COLUMNS = [
@@ -22,34 +21,19 @@ const COLUMNS = [
 ];
 
 export function Admins() {
-  const [tabValue, setTabValue] = React.useState(0);
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
           <Layout title="Admins" subTitle="View All Admins">
-            <DynamicTabs
-              tabNames={['Active', 'Inactive']}
-              tabValue={tabValue}
-              handleTabChange={setTabValue}
-            />
-
             <Box sx={{ width: '100%' }}>
-              {tabValue === 0 && (
-                <DynamicTableWithRequest
-                  columns={COLUMNS}
-                  requestFunc={getActiveAdmins}
-                  filterBy={['userName']}
-                />
-              )}
-              {tabValue === 1 && (
-                <DynamicTableWithRequest
-                  columns={COLUMNS}
-                  requestFunc={getInactiveAdmins}
-                  filterBy={['userName']}
-                />
-              )}
+              <DynamicTableWithRequest
+                columns={COLUMNS}
+                requestFunc={getActiveAdmins}
+                filterBy={['userName']}
+              >
+                {/* <AddAdminModal /> */}
+              </DynamicTableWithRequest>
             </Box>
           </Layout>
         </EntitlementRestricted>

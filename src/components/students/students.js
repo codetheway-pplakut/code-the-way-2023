@@ -9,6 +9,7 @@ import {
 import {
   ArchiveStudentModal,
   ChooseCoachModal,
+  AddStudentModal,
 } from '../coaches/modal-component';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
@@ -86,14 +87,18 @@ export function Students() {
                   columns={COLUMNS}
                   filterBy={['firstName']}
                   requestFunc={getActiveStudents}
-                />
+                >
+                  <AddStudentModal />
+                </DynamicTableWithRequest>
               )}
               {tabValue === 1 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
                   filterBy={['firstName']}
                   requestFunc={getAppliedStudents}
-                />
+                >
+                  <AddStudentModal />
+                </DynamicTableWithRequest>
               )}
             </Box>
           </Layout>

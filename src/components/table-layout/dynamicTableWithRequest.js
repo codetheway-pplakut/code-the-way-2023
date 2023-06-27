@@ -35,7 +35,9 @@ export function DynamicTableWithRequest(props) {
   if (hasError) return <LayoutError />;
 
   return (
-    <DynamicTable APIcolumns={columns} APIrows={rows} filterBy={filterBy} />
+    <DynamicTable APIcolumns={columns} APIrows={rows} filterBy={filterBy}>
+      {props.children}
+    </DynamicTable>
   );
 }
 
@@ -43,6 +45,7 @@ DynamicTableWithRequest.propTypes = {
   columns: PropTypes.arrayOf(PropTypes.object),
   requestFunc: PropTypes.func,
   filterBy: PropTypes.arrayOf(PropTypes.string),
+  children: PropTypes.node.isRequired,
 };
 
 DynamicTableWithRequest.defaultProps = {
