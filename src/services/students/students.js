@@ -16,7 +16,7 @@ export const getActiveStudents = () =>
  * @author Holly Raetz
  */
 export const getInactiveStudents = () =>
-  callApi({ url: '/Students/GetInactiveStudents'});
+  callApi({ url: '/Students/GetInactiveStudents' });
 
 /**
  * Gets Applied Students
@@ -25,7 +25,7 @@ export const getInactiveStudents = () =>
  * @author Holly Raetz
  */
 export const getAppliedStudents = () =>
-callApi({ url: '/Students/GetAppliedStudents' });
+  callApi({ url: '/Students/GetAppliedStudents' });
 
 /**
  * Gets Rejected Students
@@ -33,7 +33,7 @@ callApi({ url: '/Students/GetAppliedStudents' });
  * @author Holly Raetz
  */
 export const getRejectedStudents = () =>
-  callApi({ url: '/Students/GetRejectedStudents'});
+  callApi({ url: '/Students/GetRejectedStudents' });
 
 export const getStudentsByCoachId = (id) =>
   callApi({
@@ -117,4 +117,61 @@ export const unassignStudent = async (studentId, coachId) =>
     url: '/Students/unassign-student',
     method: 'POST',
     data: { coachId, studentId },
+  });
+
+const rejected = 'rejected';
+const active = 'active';
+const inactive = 'inactive';
+const applied = 'applied';
+
+/**
+ * Reject Student
+ * @param {uuid} studentId
+ * @returns Sets the specified student's state to rejected
+ * @author Holly Raetz
+ */
+export const setStudentRejected = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: rejected },
+  });
+
+/**
+ * Activate Student
+ * @param {uuid} studentId
+ * @returns Sets the specified student's state to active
+ * @author Holly Raetz
+ */
+export const setStudentActive = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: active },
+  });
+
+/**
+ * Deactivate Student
+ * @param {uuid} studentId
+ * @returns Sets the specified student's state to inactive
+ * @author Holly Raetz
+ */
+export const setStudentInactive = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: inactive },
+  });
+
+/**
+ * Applicant Student
+ * @param {uuid} studentId
+ * @returns Sets the specified student's state to applied
+ * @author Holly Raetz
+ */
+export const setStudentApplied = async (studentId) =>
+  callApi({
+    url: '/Students/SetStudentState',
+    method: 'POST',
+    data: { studentId, state: applied },
   });
