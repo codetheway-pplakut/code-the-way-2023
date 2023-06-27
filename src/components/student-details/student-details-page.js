@@ -2,8 +2,12 @@ import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import {
   Box,
+  FormControl,
   IconButton,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   Tab,
   Toolbar,
   Typography,
@@ -14,13 +18,20 @@ import AddIcon from '@mui/icons-material/Add';
 import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
 import CommunicationBox from './communication-box';
+import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
 
 export default function StudentDetails() {
-  const [value, setValue] = React.useState('one');
+  const [value, setValue] = React.useState(0);
+  const [sel, setSel] = React.useState('');
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const handleSel = (event) => {
+    setSel(event.target.value);
+  };
+  // TODO Add handlers for submitting and cancelling
+
   const boxStyle = {
     bgcolor: '#dddddd',
     minWidth: '100%',
@@ -57,6 +68,23 @@ export default function StudentDetails() {
     borderRadius: '5px',
   };
 
+  const labelArray = [
+    ['Name', 'Phone Number', 'Email'],
+    ['Name', 'Phone Number', 'Email'],
+    ['Financial Assistance'],
+  ];
+
+  const headerArray = [
+    'Student Information',
+    'Parent Information',
+    'Household Information',
+  ];
+
+  const contentArray = [
+    ['John Doe', '(262) 555-7535', 'john@gmail.com'],
+    ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
+    ['W-2'],
+  ];
   return (
     <Grid
       container
@@ -79,40 +107,39 @@ export default function StudentDetails() {
           >
             <Tab sx={tabStyle} value={0} label="Student Info" />
             <Tab sx={tabStyle} value={1} label="Goals and Careers" />
-            <Tab sx={tabStyle} value={3} label="Interview Info" />
+            <Tab sx={tabStyle} value={2} label="Interview Info" />
           </Tabs>
         </Grid>
+
         <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
             {value === 0 && (
               <InfoBox
-                headers={[
-                  'Student Information',
-                  'Parent Information',
-                  'Household Information',
-                ]}
-                modal={[
+                headers={headerArray}
+                content={contentArray}
+                labels={labelArray}
+                modal={headerArray.map((header, headerIndex) => (
                   <GenericModal
-                    key="1"
-                    modalHeadingTitle="Edit Parent Info"
+                    key={headerIndex.id}
+                    modalHeadingTitle={`Edit ${header}`}
                     openButtonIcon={<EditIcon sx={iconStyle} />}
-                  />,
-                  <GenericModal
-                    key="2"
-                    modalHeadingTitle="Edit Household Info"
-                    openButtonIcon={<EditIcon sx={iconStyle} />}
-                  />,
-                ]}
-                content={[
-                  ['John Doe', '(262) 555-7535', 'john@gmail.com'],
-                  ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
-                  ['W-2'],
-                ]}
-                labels={[
-                  ['Name', 'Phone Number', 'Email'],
-                  ['Name', 'Phone Number', 'Email'],
-                  ['Financial Assistance'],
-                ]}
+                    actionButtonTitle="Submit"
+                    cancelButtonTitle="Cancel"
+                  >
+                    <Grid container direction="column">
+                      {labelArray.map(
+                        (label, labelIndex) =>
+                          labelArray[headerIndex][labelIndex] && (
+                            <Grid item key={labelIndex.id} sx={{ py: 3 }}>
+                              <TextFieldWithErrorMessage
+                                label={labelArray[headerIndex][labelIndex]}
+                              />
+                            </Grid>
+                          )
+                      )}
+                    </Grid>
+                  </GenericModal>
+                ))}
               />
             )}
             {value === 1 && (
@@ -123,12 +150,61 @@ export default function StudentDetails() {
                     key="1"
                     modalHeadingTitle="Add Goal"
                     openButtonIcon={<AddIcon sx={iconStyle} />}
-                  />,
+                    actionButtonTitle="Add"
+                    cancelButtonTitle="Cancel"
+                  >
+                    <Grid Container direction="column">
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Goal" />
+                      </Grid>
+                      {/* TODO Make dropdown a component: this is too big */}
+                      <Grid item alignItems="center" sx={{ py: 3, px: 12 }}>
+                        <FormControl sx={{ minWidth: '200px', mx: 5 }}>
+                          <InputLabel id="sel">sel</InputLabel>
+                          <Select
+                            labelid="select"
+                            id="select"
+                            value={sel}
+                            label="SEL"
+                            onChange={handleSel}
+                          >
+                            <MenuItem value="Social">Social</MenuItem>
+                            <MenuItem value="Emotional">Emotional</MenuItem>
+                            <MenuItem value="Learning">Learning</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Was it Accomplished" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Explanation" />
+                      </Grid>
+                    </Grid>
+                  </GenericModal>,
                   <GenericModal
                     key="2"
                     modalHeadingTitle="Add Career"
                     openButtonIcon={<AddIcon sx={iconStyle} />}
-                  />,
+                    actionButtonTitle="Add"
+                    cancelButtonTitle="Cancel"
+                  >
+                    {/* TODO: items 1 and 4 need to be bool, item 2 needs to be dropdown */}
+                    <Grid Container direction="column">
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="College Bound?" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Career Cluster" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Career Name" />
+                      </Grid>
+                      <Grid item sx={{ py: 3 }}>
+                        <TextFieldWithErrorMessage label="Technical College Bound?" />
+                      </Grid>
+                    </Grid>
+                  </GenericModal>,
                 ]}
                 content={[
                   ['Get a job'],
@@ -141,7 +217,29 @@ export default function StudentDetails() {
         </Grid>
       </Grid>
       <Grid container xs={1}>
-        <Grid item sx={{ ml: '10%', mt: '25%' }}>
+        <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
+          <GenericModal
+            modalHeadingTitle="Add Communication"
+            actionButtonTitle="Add"
+            cancelButtonTitle="Cancel"
+            openButtonIcon={<AddIcon sx={iconStyle} />}
+          >
+            {/* TODO: Make Coach and Topic Dropdowns, Make Notes a large Textfield */}
+            <Grid Container direction="column">
+              <Grid item sx={{ py: 3 }}>
+                <TextFieldWithErrorMessage label="Coach" />
+              </Grid>
+              <Grid item sx={{ py: 3 }}>
+                <TextFieldWithErrorMessage label="Topic" />
+              </Grid>
+              <Grid item sx={{ py: 3 }}>
+                <TextFieldWithErrorMessage label="Notes" />
+              </Grid>
+            </Grid>
+          </GenericModal>
+        </Grid>
+
+        <Grid item sx={{ ml: '10%' }}>
           <CommunicationLog
             data={[
               [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],

@@ -35,10 +35,10 @@ export function CommunicationLog(props) {
       }}
     >
       <List
-        height={900} // Adjust the height as per your requirements
+        height={850} // Adjust the height as per your requirements
         itemCount={data.length}
         itemSize={300} // Adjust the item size as per your requirements
-        style={{ width: '1060px' }}
+        style={{ width: '1090px' }}
       >
         {renderCommunicationBox}
       </List>
