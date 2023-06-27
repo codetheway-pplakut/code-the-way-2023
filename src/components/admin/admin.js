@@ -26,7 +26,7 @@ export function Admins() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Admins" subTitle="View All Admins">
+          <Layout title="Admins">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}

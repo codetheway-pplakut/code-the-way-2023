@@ -75,7 +75,7 @@ export function Students() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Students" subTitle="View all students.">
+          <Layout title="Students">
             <DynamicTabs
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
