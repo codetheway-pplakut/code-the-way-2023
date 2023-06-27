@@ -5,6 +5,7 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { DynamicTableWithRequestData } from '../table-layout/dynamicTableWithRequestData';
 import { AddCoachModal, GenericViewModal } from './modal-component';
 import { addCoachHandler } from './coachHandlers';
 import {
@@ -88,12 +89,12 @@ const COLUMNS = [
         modalHeadingTitle="View Students"
         viewModalWidth={900}
       >
-        <DynamicTableWithRequest
+        <DynamicTableWithRequestData
           columns={STUDENTCOLUMNS}
-          // requestFunc={getStudentsByCoachId(currentCoachIdTEMP)}
-          requestFunc={getActiveStudents}
+          requestFunc={getStudentsByCoachId}
           filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
           customTableMaxHeight={studentTableMaxHeight}
+          requestData={currentCoachIdTEMP}
         />
       </GenericViewModal>
     ),
