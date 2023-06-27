@@ -23,7 +23,12 @@ const COLUMNS = [
     label: 'First Name',
     align: 'left',
     active: false,
-    render: (value) => <Button>{value}</Button>,
+    render: (value) => (
+      <React.Fragment>
+        <ArchiveStudentModal />
+        <Button>{value}</Button>
+      </React.Fragment>
+    ),
   },
   {
     id: 'lastName',
@@ -48,23 +53,14 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'coach',
+    id: 'coachFirstName',
     disablePadding: false,
     label: 'Coach',
     align: 'left',
     active: false,
-  },
-  {
-    id: 'options',
-    disablePadding: false,
-    label: '',
-    align: 'left',
-    render: () => (
-      <React.Fragment>
-        <ArchiveStudentModal /> <ChooseCoachModal />
-      </React.Fragment>
+    render: (value) => (
+      <ChooseCoachModal value={value}>{value}</ChooseCoachModal>
     ),
-    active: false,
   },
 ];
 

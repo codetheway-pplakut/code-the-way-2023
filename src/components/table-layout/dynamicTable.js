@@ -87,7 +87,7 @@ export function DynamicTable(props) {
           alignItems="center"
         />
         <Toolbar>
-          <Grid paddingLeft="70%" item>
+          <Grid paddingRight="70%" item>
             <SearchBar requestSearch={requestSearch} />
           </Grid>
           <Grid item>

@@ -326,7 +326,9 @@ export function AddStudentModal() {
   );
 }
 
-export function ChooseCoachModal() {
+export function ChooseCoachModal(props) {
+  const { value } = props;
+
   const test = [
     {
       value: 'Coach API',
@@ -366,7 +368,7 @@ export function ChooseCoachModal() {
   );
   return (
     <GenericModal
-      openModal={<EditIcon />}
+      openModal={value}
       modalHeadingTitle="Change Coach"
       modalMessage={content}
       actionButtonTitle="Save"
@@ -375,5 +377,13 @@ export function ChooseCoachModal() {
     />
   );
 }
+
+ChooseCoachModal.propTypes = {
+  value: PropTypes.string,
+};
+
+ChooseCoachModal.defaultProps = {
+  value: undefined,
+};
 
 export default GenericModal;
