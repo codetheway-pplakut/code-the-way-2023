@@ -6,11 +6,11 @@ import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-mess
 import { editStudent, getStudentById } from '../../services/students/students';
 import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
 
-const TEST_ID = 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9';
+// const TEST_ID = 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9';
 
 export function EditStudentInfoModal(props) {
   // const { studentId } = props;
-  const studentId = TEST_ID;
+  const { studentId } = props;
 
   const [isLoading, setIsLoading] = useState(false);
 

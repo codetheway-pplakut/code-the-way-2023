@@ -79,15 +79,12 @@ export default function StudentDetails() {
     'Household Information',
   ];
 
-  const [contentArray, setContentArray] = React.useState([
+  const contentArray = [
     ['John Doe', '(262) 555-7535', 'john@gmail.com'],
     ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
     ['W-2'],
-  ]);
+  ];
 
-  const handleContent = (newValue) => {
-    setContentArray(newValue);
-  };
   return (
     <Grid
       container
