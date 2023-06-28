@@ -43,7 +43,6 @@ const STUDENTCOLUMNS = [
 ];
 const studentTableMaxHeight = 440;
 
-const currentCoachIdTEMP = '219332bd-bab4-4998-2c52-08da7653950c';
 const COLUMNS = [
   {
     id: 'coachFirstName',
@@ -74,26 +73,28 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'options',
+    id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
     active: false,
-    render: () => (
-      <GenericViewModal
-        openButtonIcon={<InfoOutlinedIcon />}
-        modalHeadingTitle="View Students"
-        viewModalWidth={900}
-      >
-        <DynamicTableWithRequest
-          columns={STUDENTCOLUMNS}
-          requestFunc={getStudentsByCoachId}
-          filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
-          customTableMaxHeight={studentTableMaxHeight}
-          requestData={currentCoachIdTEMP}
-        />
-      </GenericViewModal>
-    ),
+    render: (id) => {
+      return (
+        <GenericViewModal
+          openButtonIcon={<InfoOutlinedIcon />}
+          modalHeadingTitle="View Students"
+          viewModalWidth={900}
+        >
+          <DynamicTableWithRequest
+            columns={STUDENTCOLUMNS}
+            requestFunc={getStudentsByCoachId}
+            filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+            customTableMaxHeight={studentTableMaxHeight}
+            requestData={id}
+          />
+        </GenericViewModal>
+      );
+    },
   },
 ];
 
