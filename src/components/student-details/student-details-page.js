@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
+import propTypes from 'prop-types';
 import {
   Box,
   FormControl,
@@ -21,53 +22,64 @@ import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-mess
 import { CommunicationLog } from './communication-log';
 import { StudentInfoBox } from './student-info-box';
 
-export default function StudentDetails() {
-  const TEST_ID = 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9';
+export default function StudentDetails(props) {
+  const { student, onReload } = props;
   const [value, setValue] = React.useState(0);
   const [sel, setSel] = React.useState('');
-  const handleChange = (event, newValue) => {
+  console.log('coming from student-details', onReload);
+  const handleChange = React.useCallback((event, newValue) => {
     setValue(newValue);
-  };
-  const handleSel = (event) => {
+  }, []);
+
+  const handleSel = React.useCallback((event) => {
     setSel(event.target.value);
-  };
-  // TODO Add handlers for submitting and cancelling
+  }, []);
 
-  const boxStyle = {
-    bgcolor: '#dddddd',
-    minWidth: '100%',
-    color: '#000000',
-    position: 'relative',
-    minHeight: '70vh',
-    borderRadius: '10px',
-    boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
-  };
+  const boxStyle = React.useMemo(
+    () => ({
+      bgcolor: '#dddddd',
+      minWidth: '100%',
+      color: '#000000',
+      position: 'relative',
+      minHeight: '70vh',
+      borderRadius: '10px',
+      boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
+    }),
+    []
+  );
 
-  const tabStyle = {
-    bgcolor: '#3E4C61',
-    color: '#ffffff',
-    position: 'relative',
-    display: 'flex',
-    borderTopLeftRadius: '5px',
-    borderTopRightRadius: '5px',
-    minWidth: '10vw',
-    margin: '0 10px',
-    '&.Mui-selected': {
-      color: '#0000000',
-      bgcolor: '#ffffff',
-    },
-  };
-  const iconStyle = {
-    bgcolor: '#3E4C61',
-    color: '#ffffff',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: 40,
-    minHeight: 40,
-    borderRadius: '5px',
-  };
+  const tabStyle = React.useMemo(
+    () => ({
+      bgcolor: '#3E4C61',
+      color: '#ffffff',
+      position: 'relative',
+      display: 'flex',
+      borderTopLeftRadius: '5px',
+      borderTopRightRadius: '5px',
+      minWidth: '10vw',
+      margin: '0 10px',
+      '&.Mui-selected': {
+        color: '#0000000',
+        bgcolor: '#ffffff',
+      },
+    }),
+    []
+  );
+
+  const iconStyle = React.useMemo(
+    () => ({
+      bgcolor: '#3E4C61',
+      color: '#ffffff',
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minWidth: 40,
+      minHeight: 40,
+      borderRadius: '5px',
+    }),
+    []
+  );
 
   const labelArray = [
     ['Name', 'Phone Number', 'Email'],
@@ -117,8 +129,12 @@ export default function StudentDetails() {
           <Box sx={boxStyle} padding="4vh">
             {value === 0 && (
               <Grid>
-                <StudentInfoBox v studentId={TEST_ID} />
-                <StudentInfoBox studentId={TEST_ID} isParent />
+                <StudentInfoBox student={student} onReload={() => onReload()} />
+                <StudentInfoBox
+                  student={student}
+                  onReload={() => onReload()}
+                  isParent
+                />
               </Grid>
             )}
           </Box>
@@ -228,3 +244,12 @@ export default function StudentDetails() {
     </Grid>
   );
 }
+
+StudentDetails.propTypes = {
+  student: propTypes.func,
+  onReload: propTypes.func,
+};
+StudentDetails.defaultProps = {
+  student: undefined,
+  onReload: undefined,
+};
