@@ -5,14 +5,12 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { SearchBar } from './search';
-import { AddStudentModal } from '../coaches/modal-component';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -76,7 +74,6 @@ export function DynamicTable(props) {
     () => stableSort(rows, getComparator(order, orderBy)),
     [rows, order, orderBy]
   );
-
   return (
     <div>
       <Box sx={{ width: '100%' }} marginInline={{}}>
@@ -105,50 +102,49 @@ export function DynamicTable(props) {
           </Grid>
         </Toolbar>
       </Box>
-      <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
-            <EnhancedTableHead
-              columns={APIcolumns}
-              order={order}
-              orderBy={orderBy}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {visibleRows.map((row) => {
-                return (
-                  <TableRow hover key={row.id}>
-                    {APIcolumns.map((column) => {
-                      const { id: columnId, numeric, render } = column;
-                      const value = row[columnId];
+      <TableContainer sx={{ maxHeight: 520 }}>
+        <Table size={dense ? 'small' : 'medium'} stickyHeader>
+          <EnhancedTableHead
+            columns={APIcolumns}
+            order={order}
+            orderBy={orderBy}
+            onRequestSort={handleRequestSort}
+            rowCount={rows.length}
+          />
+          <TableBody>
+            {visibleRows.map((row) => {
+              return (
+                <TableRow hover key={row.id}>
+                  {APIcolumns.map((column) => {
+                    const { id: columnId, numeric, render } = column;
+                    const value = row[columnId];
 
-                      return (
-                        <TableCell
-                          align={numeric ? 'right' : 'left'}
-                          key={columnId}
-                        >
-                          {render ? render(value, refreshTable) : value}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
-                );
-              })}
-
-              {rows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * rows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
+                    return (
+                      <TableCell
+                        align={numeric ? 'right' : 'left'}
+                        key={columnId}
+                      >
+                        {render ? render(value, refreshTable) : value}
+                      </TableCell>
+                    );
+                  })}
                 </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
+              );
+            })}
+
+            {rows > 0 && (
+              <TableRow
+                style={{
+                  height: (dense ? 33 : 53) * rows,
+                }}
+              >
+                <TableCell colSpan={6} />
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
       <FormControlLabel
         control={<Switch checked={dense} onChange={handleChangeDense} />}
         label="Dense padding"

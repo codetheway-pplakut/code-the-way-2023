@@ -28,6 +28,7 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
+import { getActiveCoachesHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
 // onConfirm lable
@@ -325,6 +326,7 @@ export function AddStudentModal() {
     />
   );
 }
+const coachesList = getActiveCoachesHandler();
 
 export function ChooseCoachModal(props) {
   const { value } = props;

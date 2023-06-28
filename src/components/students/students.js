@@ -67,6 +67,12 @@ const COLUMNS = [
 export function Students() {
   const [tabValue, setTabValue] = React.useState(0);
 
+  const requestFunc = async () => {
+    const activeStudents = await getActiveStudents();
+
+    return { data: [...activeStudents.data] };
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
@@ -82,7 +88,7 @@ export function Students() {
                 <DynamicTableWithRequest
                   columns={COLUMNS}
                   filterBy={['firstName']}
-                  requestFunc={getActiveStudents}
+                  requestFunc={requestFunc}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
