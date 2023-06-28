@@ -4,7 +4,7 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { AddCoachModal } from './modal-component';
+import { AddCoachModal, DeactivateCoachModal } from './modal-component';
 import { addCoachHandler } from './coachHandlers';
 
 const COLUMNS = [
@@ -37,10 +37,19 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'options',
+    id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
+    render: (value, email, refreshTable) => {
+      return (
+        <DeactivateCoachModal
+          coachId={value}
+          coachEmail={email}
+          onCoachDeactivate={refreshTable}
+        />
+      );
+    },
     active: false,
   },
 ];
@@ -81,15 +90,13 @@ export function Coaches() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Coaches">
+          <Layout title="Coaches" subTitle="View all coaches.">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}
                 requestFunc={getActiveCoaches}
                 filterBy={['coachFirstName']}
-              >
-                <AddCoachModal />
-              </DynamicTableWithRequest>
+              />
             </Box>
           </Layout>
         </EntitlementRestricted>
