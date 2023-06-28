@@ -8,12 +8,6 @@ import { DeactivateAdminModal } from '../coaches/modal-component';
 
 const COLUMNS = [
   {
-    label: 'Username',
-    id: 'userName',
-    numeric: false,
-    disablePadding: false,
-  },
-  {
     id: 'email',
     disablePadding: false,
     label: 'Email',
@@ -22,16 +16,9 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'adminCellPhone',
-    disablePadding: false,
-    label: 'Phone',
-    align: 'left',
-    active: false,
-  },
-  {
     id: 'id',
     disablePadding: false,
-    label: '',
+    label: 'Deactivate',
     align: 'left',
     render: (value, refreshTable) => {
       return (
@@ -50,12 +37,12 @@ export function Admins() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Admins" subTitle="View all admins.">
+          <Layout title="Admins">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}
                 requestFunc={getActiveAdminsHandler}
-                filterBy={['userName']}
+                filterBy={['email']}
               />
             </Box>
           </Layout>
