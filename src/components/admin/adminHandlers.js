@@ -65,7 +65,8 @@ export function deleteAdminHandler(id) {
  * @param {uuid} id
  */
 export function activateAdminHandler(id) {
-  return activateAdmin(id);
+  const data = { id };
+  return activateAdmin(data);
 }
 
 /**
@@ -73,5 +74,6 @@ export function activateAdminHandler(id) {
  * @param {uuid} id
  */
 export function deactivateAdminHandler(id) {
-  return deactivateAdmin(id);
+  const data = { id };
+  return deactivateAdmin(data);
 }
