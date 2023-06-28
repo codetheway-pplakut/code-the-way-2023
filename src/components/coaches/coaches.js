@@ -97,11 +97,11 @@ const COLUMNS = [
     disablePadding: false,
     label: '',
     align: 'left',
-    render: (value, email, refreshTable) => {
+    render: (value, row, refreshTable) => {
       return (
         <DeactivateCoachModal
           coachId={value}
-          coachEmail={email}
+          coachEmail={row[2]}
           onCoachDeactivate={refreshTable}
         />
       );
