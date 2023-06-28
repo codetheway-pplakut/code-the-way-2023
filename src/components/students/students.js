@@ -75,7 +75,7 @@ export function Students() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Students" subTitle="View all students.">
+          <Layout title="Students">
             <DynamicTabs
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
@@ -85,7 +85,13 @@ export function Students() {
               {tabValue === 0 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={['firstName']}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                    'coach',
+                  ]}
                   requestFunc={getActiveStudents}
                 >
                   <AddStudentModal />
@@ -94,7 +100,13 @@ export function Students() {
               {tabValue === 1 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={['firstName']}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                    'coach',
+                  ]}
                   requestFunc={getAppliedStudents}
                 >
                   <AddStudentModal />
