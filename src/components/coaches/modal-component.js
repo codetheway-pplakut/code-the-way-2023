@@ -28,6 +28,7 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
+import { setStudentInactive } from '../../services/students/students';
 import { getActiveCoachesHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
@@ -244,7 +245,21 @@ export function ArchiveCoachModal() {
   );
 }
 
-export function ArchiveStudentModal() {
+export function ArchiveStudentModal(props) {
+  const { row, studentId, onStudentDeactivate } = props;
+  const deactivateStudentAction = async () => {
+    await setStudentInactive(studentId);
+    if (onStudentDeactivate) onStudentDeactivate();
+  };
+
+  ArchiveStudentModal.propTypes = {
+    studentId: PropTypes.string,
+    onStudentDeactivate: PropTypes.func.isRequired,
+  };
+
+  ArchiveStudentModal.defaultProps = {
+    studentId: '',
+  };
   return (
     <GenericModal
       openModal={<DeleteIcon />}
@@ -254,6 +269,7 @@ export function ArchiveStudentModal() {
       cancelButtonColor="cancel"
       actionButtonTitle="Archive"
       cancelButtonTitle="Cancel"
+      onActionButtonClick={deactivateStudentAction}
     />
   );
 }
@@ -326,7 +342,6 @@ export function AddStudentModal() {
     />
   );
 }
-const coachesList = getActiveCoachesHandler();
 
 export function ChooseCoachModal(props) {
   const { value } = props;

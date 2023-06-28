@@ -23,12 +23,18 @@ const COLUMNS = [
     label: 'First Name',
     align: 'left',
     active: false,
-    render: (value) => (
-      <React.Fragment>
-        <ArchiveStudentModal />
-        <Button>{value}</Button>
-      </React.Fragment>
-    ),
+    render: (value, refreshTable, row) => {
+      const { id } = row;
+      return (
+        <React.Fragment>
+          <ArchiveStudentModal
+            studentId={id}
+            onStudentDeactivate={refreshTable}
+          />{' '}
+          <Button>{value}</Button>
+        </React.Fragment>
+      );
+    },
   },
   {
     id: 'lastName',
