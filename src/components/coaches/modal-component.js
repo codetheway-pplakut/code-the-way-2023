@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -28,6 +28,11 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
+import {
+  activateAdminHandler,
+  deactivateAdminHandler,
+} from '../admin/adminHandlers';
+import { deactivateCoachHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
 // onConfirm lable
@@ -129,6 +134,10 @@ export function GenericModal(props) {
 GenericModal.defaultProps = {
   openModal: null,
   openButtonIcon: null,
+  actionButtonDisabled: null,
+  onCancelButtonClick: null,
+  onIconButtonClick: null,
+  children: null,
 };
 
 GenericModal.propTypes = {
@@ -140,6 +149,10 @@ GenericModal.propTypes = {
   cancelButtonTitle: PropTypes.string.isRequired,
   actionButtonColor: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func.isRequired,
+  actionButtonDisabled: PropTypes.func,
+  onCancelButtonClick: PropTypes.func,
+  onIconButtonClick: PropTypes.func,
+  children: PropTypes.element,
 };
 
 export function AddCoachModal() {
@@ -242,6 +255,66 @@ export function ArchiveCoachModal() {
     />
   );
 }
+
+export function DeactivateAdminModal(props) {
+  const { adminId, onAdminDeactivate } = props;
+  const deactivateAdminAction = async () => {
+    await deactivateAdminHandler(adminId);
+    if (onAdminDeactivate) onAdminDeactivate();
+  };
+
+  return (
+    <GenericModal
+      openModal={<DeleteIcon />}
+      modalHeadingTitle="Deactivate Admin"
+      modalMessage="Are you sure you want to deactivate this admin?"
+      actionButtonTitle="Deactivate"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="archive"
+      cancelButtonColor="cancel"
+      onActionButtonClick={deactivateAdminAction}
+    />
+  );
+}
+DeactivateAdminModal.propTypes = {
+  adminId: PropTypes.string,
+  onAdminDeactivate: PropTypes.func.isRequired,
+};
+
+DeactivateAdminModal.defaultProps = {
+  adminId: '',
+};
+
+export function DeactivateCoachModal(props) {
+  const { coachId, coachEmail, onCoachDeactivate } = props;
+  const deactivateCoachAction = async () => {
+    await deactivateCoachHandler(coachId, coachEmail, coachEmail);
+    if (onCoachDeactivate) onCoachDeactivate();
+  };
+
+  return (
+    <GenericModal
+      openModal={<DeleteIcon />}
+      modalHeadingTitle="Deactivate Coach"
+      modalMessage="Are you sure you want to deactivate this coach?"
+      actionButtonTitle="Deactivate"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="archive"
+      cancelButtonColor="cancel"
+      onActionButtonClick={deactivateCoachAction}
+    />
+  );
+}
+DeactivateCoachModal.propTypes = {
+  coachId: PropTypes.string,
+  coachEmail: PropTypes.string,
+  onCoachDeactivate: PropTypes.func.isRequired,
+};
+
+DeactivateCoachModal.defaultProps = {
+  coachId: '',
+  coachEmail: '',
+};
 
 export function ArchiveStudentModal() {
   return (
