@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -28,6 +28,11 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
+import {
+  activateAdminHandler,
+  deactivateAdminHandler,
+} from '../admin/adminHandlers';
+import { deactivateCoachHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
 // onConfirm lable
@@ -129,6 +134,10 @@ export function GenericModal(props) {
 GenericModal.defaultProps = {
   openModal: null,
   openButtonIcon: null,
+  actionButtonDisabled: null,
+  onCancelButtonClick: null,
+  onIconButtonClick: null,
+  children: null,
 };
 
 GenericModal.propTypes = {
@@ -140,6 +149,10 @@ GenericModal.propTypes = {
   cancelButtonTitle: PropTypes.string.isRequired,
   actionButtonColor: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func.isRequired,
+  actionButtonDisabled: PropTypes.func,
+  onCancelButtonClick: PropTypes.func,
+  onIconButtonClick: PropTypes.func,
+  children: PropTypes.element,
 };
 
 export function AddCoachModal() {
@@ -242,6 +255,66 @@ export function ArchiveCoachModal() {
     />
   );
 }
+
+export function DeactivateAdminModal(props) {
+  const { adminId, onAdminDeactivate } = props;
+  const deactivateAdminAction = async () => {
+    await deactivateAdminHandler(adminId);
+    if (onAdminDeactivate) onAdminDeactivate();
+  };
+
+  return (
+    <GenericModal
+      openModal={<DeleteIcon />}
+      modalHeadingTitle="Deactivate Admin"
+      modalMessage="Are you sure you want to deactivate this admin?"
+      actionButtonTitle="Deactivate"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="archive"
+      cancelButtonColor="cancel"
+      onActionButtonClick={deactivateAdminAction}
+    />
+  );
+}
+DeactivateAdminModal.propTypes = {
+  adminId: PropTypes.string,
+  onAdminDeactivate: PropTypes.func.isRequired,
+};
+
+DeactivateAdminModal.defaultProps = {
+  adminId: '',
+};
+
+export function DeactivateCoachModal(props) {
+  const { coachId, coachEmail, onCoachDeactivate } = props;
+  const deactivateCoachAction = async () => {
+    await deactivateCoachHandler(coachId, coachEmail, coachEmail);
+    if (onCoachDeactivate) onCoachDeactivate();
+  };
+
+  return (
+    <GenericModal
+      openModal={<DeleteIcon />}
+      modalHeadingTitle="Deactivate Coach"
+      modalMessage="Are you sure you want to deactivate this coach?"
+      actionButtonTitle="Deactivate"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="archive"
+      cancelButtonColor="cancel"
+      onActionButtonClick={deactivateCoachAction}
+    />
+  );
+}
+DeactivateCoachModal.propTypes = {
+  coachId: PropTypes.string,
+  coachEmail: PropTypes.string,
+  onCoachDeactivate: PropTypes.func.isRequired,
+};
+
+DeactivateCoachModal.defaultProps = {
+  coachId: '',
+  coachEmail: '',
+};
 
 export function ArchiveStudentModal() {
   return (
@@ -375,5 +448,70 @@ export function ChooseCoachModal() {
     />
   );
 }
+
+export function GenericViewModal(props) {
+  const {
+    openModal,
+    openButtonIcon,
+    modalHeadingTitle,
+    onIconButtonClick,
+    children,
+    viewModalWidth,
+  } = props;
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const iconAndClose = () => {
+    if (onIconButtonClick) onIconButtonClick();
+    handleClose();
+  };
+
+  return (
+    <React.Fragment>
+      <Button onClick={handleOpen} startIcon={openButtonIcon}>
+        {openModal}
+      </Button>
+      <Modal open={open} onClose={handleClose}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: viewModalWidth,
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+            borderRadius: '10px',
+          }}
+        >
+          <Grid item sx={headingStyle}>
+            <Typography padding={2} align="center" sx={headingText}>
+              {modalHeadingTitle}
+            </Typography>
+            <IconButton size="small" onClick={iconAndClose} sx={closeIconStyle}>
+              <CloseIcon fontSize="large" sx={closeIconStyle} />
+            </IconButton>
+          </Grid>
+          {children}
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
+GenericViewModal.defaultProps = {
+  openModal: null,
+  openButtonIcon: null,
+  viewModalWidth: 475,
+};
+
+GenericViewModal.propTypes = {
+  openModal: PropTypes.string,
+  openButtonIcon: PropTypes.instanceOf(Icon),
+  modalHeadingTitle: PropTypes.string.isRequired,
+  viewModalWidth: PropTypes.number,
+};
 
 export default GenericModal;

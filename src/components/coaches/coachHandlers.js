@@ -1,6 +1,7 @@
 import {
   activateCoach,
   addCoach,
+  deactivateCoach,
   deleteCoach,
   editCoach,
   getActiveCoaches,
@@ -115,5 +116,5 @@ export function activateCoachHandler(id, userName, email) {
  */
 export function deactivateCoachHandler(id, userName, email) {
   const data = { id, userName, email, status: 'inactive' };
-  activateCoach(data);
+  deactivateCoach(data);
 }

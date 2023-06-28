@@ -6,8 +6,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
@@ -43,10 +41,10 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, filterBy } = props;
+  const { APIcolumns, APIrows, filterBy, customTableMaxHeight, refreshTable } =
+    props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
-  const [dense, setDense] = React.useState(false);
   const [rows, setRows] = useState(APIrows);
 
   const handleRequestSort = (event, property) => {
@@ -66,10 +64,6 @@ export function DynamicTable(props) {
       });
     });
     setRows(filteredRows);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
   };
 
   const visibleRows = React.useMemo(
@@ -106,8 +100,8 @@ export function DynamicTable(props) {
         </Toolbar>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer>
-          <Table sx={{ minWidth: 750 }} size={dense ? 'small' : 'medium'}>
+        <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
+          <Table sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
               order={order}
@@ -122,13 +116,12 @@ export function DynamicTable(props) {
                     {APIcolumns.map((column) => {
                       const { id: columnId, numeric, render } = column;
                       const value = row[columnId];
-
                       return (
                         <TableCell
                           align={numeric ? 'right' : 'left'}
                           key={columnId}
                         >
-                          {render ? render(value) : value}
+                          {render ? render(value, row, refreshTable) : value}
                         </TableCell>
                       );
                     })}
@@ -139,7 +132,7 @@ export function DynamicTable(props) {
               {rows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * rows,
+                    height: 53 * rows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -149,10 +142,6 @@ export function DynamicTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 }
@@ -160,11 +149,16 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
+  children: PropTypes.node.isRequired,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
+  customTableMaxHeight: PropTypes.number,
+  refreshTable: PropTypes.func,
 };
 
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
+  customTableMaxHeight: null,
+  refreshTable: undefined,
 };
