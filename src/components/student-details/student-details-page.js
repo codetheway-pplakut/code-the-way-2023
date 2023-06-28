@@ -115,8 +115,12 @@ export default function StudentDetails() {
 
         <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
-            <StudentInfoBox studentId={TEST_ID} />
-            <StudentInfoBox studentId={TEST_ID} isParent />
+            {value === 0 && (
+              <Grid>
+                <StudentInfoBox v studentId={TEST_ID} />
+                <StudentInfoBox studentId={TEST_ID} isParent />
+              </Grid>
+            )}
           </Box>
         </Grid>
       </Grid>

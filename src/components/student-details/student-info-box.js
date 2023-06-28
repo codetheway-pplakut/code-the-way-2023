@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 import { Grid, Typography } from '@mui/material';
 import { getStudentById } from '../../services/students/students';
 import { EditStudentInfoModal } from './edit-student-info-modal';
+import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
 
 export function StudentInfoBox(props) {
   const { studentId, isParent } = props;
@@ -11,10 +12,11 @@ export function StudentInfoBox(props) {
   const [studentLastName, setLastName] = useState('');
   const [studentCellPhone, setPhone] = useState('');
   const [studentEmail, setEmail] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const requestStudent = async (id) => {
     if (!id) return;
-
+    setIsLoading(true);
     const response = await getStudentById(id);
     const { data } = response;
 
@@ -30,6 +32,7 @@ export function StudentInfoBox(props) {
       setPhone(data.student.studentCellPhone);
       setEmail(data.student.studentEmail);
     }
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -38,6 +41,7 @@ export function StudentInfoBox(props) {
 
   return (
     <Grid container direction="column" sx={{ my: 2 }}>
+      <CircularProgressOverlay active={isLoading} />
       <Grid item>
         <Typography fontSize="35px">
           {`${studentFirstName} ${studentLastName}`}
@@ -49,10 +53,10 @@ export function StudentInfoBox(props) {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography>{studentCellPhone}</Typography>
+        <Typography>{`Phone: ${studentCellPhone}`}</Typography>
       </Grid>
       <Grid item>
-        <Typography>{studentEmail}</Typography>
+        <Typography>{`Email: ${studentEmail}`}</Typography>
       </Grid>
     </Grid>
   );
