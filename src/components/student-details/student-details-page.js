@@ -19,8 +19,10 @@ import GenericModal from '../coaches/modal-component';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
+import { StudentInfoBox } from './student-info-box';
 
 export default function StudentDetails() {
+  const TEST_ID = 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9';
   const [value, setValue] = React.useState(0);
   const [sel, setSel] = React.useState('');
   const handleChange = (event, newValue) => {
@@ -113,87 +115,8 @@ export default function StudentDetails() {
 
         <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
-            {value === 0 && (
-              <InfoBox
-                headers={headerArray}
-                content={contentArray}
-                labels={labelArray}
-                modal={headerArray.map((header, headerIndex) => (
-                  <GenericModal
-                    key={headerIndex.id}
-                    modalHeadingTitle={`Edit ${header}`}
-                    openButtonIcon={<EditIcon sx={iconStyle} />}
-                    actionButtonTitle="Submit"
-                    cancelButtonTitle="Cancel"
-                  >
-                    <Grid container direction="column">
-                      {labelArray.map(
-                        (label, labelIndex) =>
-                          labelArray[headerIndex][labelIndex] && (
-                            <Grid item key={labelIndex.id} sx={{ py: 3 }}>
-                              <TextFieldWithErrorMessage
-                                label={labelArray[headerIndex][labelIndex]}
-                              />
-                            </Grid>
-                          )
-                      )}
-                    </Grid>
-                  </GenericModal>
-                ))}
-              />
-            )}
-            {value === 1 && (
-              <InfoBox
-                headers={['Goals', 'Careers']}
-                modal={[
-                  <GenericModal
-                    key="1"
-                    modalHeadingTitle="Add Goal"
-                    openButtonIcon={<AddIcon sx={iconStyle} />}
-                    actionButtonTitle="Add"
-                    cancelButtonTitle="Cancel"
-                  >
-                    <Grid container direction="column">
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Goal" />
-                      </Grid>
-                      {/* TODO Make dropdown a component: this is too big */}
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Social Emotional Learning" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Was it Accomplished" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Explanation" />
-                      </Grid>
-                    </Grid>
-                  </GenericModal>,
-                  <GenericModal
-                    key="2"
-                    modalHeadingTitle="Add Career"
-                    openButtonIcon={<AddIcon sx={iconStyle} />}
-                    actionButtonTitle="Add"
-                    cancelButtonTitle="Cancel"
-                  >
-                    {/* TODO: items 1 and 4 need to be bool, item 2 needs to be dropdown */}
-                    <Grid container direction="column">
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Career Cluster" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Career Name" />
-                      </Grid>
-                    </Grid>
-                  </GenericModal>,
-                ]}
-                content={[
-                  ['Get a job'],
-                  ['Aspiring software developer', 'Job 2'],
-                ]}
-                labels={[['Goal 1'], ['Career 1', 'Career 2']]}
-              />
-            )}
+            <StudentInfoBox studentId={TEST_ID} />
+            <StudentInfoBox studentId={TEST_ID} isParent />
           </Box>
         </Grid>
       </Grid>

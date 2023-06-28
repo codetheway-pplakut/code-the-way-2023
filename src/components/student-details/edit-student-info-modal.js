@@ -10,16 +10,22 @@ import { CircularProgressOverlay } from '../circular-progress-overlay/circular-p
 
 export function EditStudentInfoModal(props) {
   // const { studentId } = props;
-  const { studentId } = props;
+  const { studentId, onSaveSuccess, isParent } = props;
 
   const [isLoading, setIsLoading] = useState(false);
 
   const [student, setStudent] = useState({});
 
-  const [studentFirstName, setFirstName] = useState('');
-  const [studentLastName, setLastName] = useState('');
-  const [studentCellPhone, setPhone] = useState('');
-  const [studentEmail, setEmail] = useState('');
+  const [studentFirstName, setStudentFirstName] = useState('');
+  const [studentLastName, setStudentLastName] = useState('');
+  const [studentCellPhone, setStudentPhone] = useState('');
+  const [studentEmail, setStudentEmail] = useState('');
+
+  const [parentFirstName, setParentFirstName] = useState('');
+  const [parentLastName, setParentLastName] = useState('');
+  const [parentCellPhone, setParentPhone] = useState('');
+  const [parentEmail, setParentEmail] = useState('');
+  const [header, setHeader] = useState('');
 
   useEffect(() => {
     const requestStudent = async () => {
@@ -31,12 +37,19 @@ export function EditStudentInfoModal(props) {
       const { data } = response;
 
       setStudent(data.student);
-
-      setFirstName(data.student.studentFirstName);
-      setLastName(data.student.studentLastName);
-      setPhone(data.student.studentCellPhone);
-      setEmail(data.student.studentEmail);
-
+      if (isParent) {
+        setParentFirstName(data.student.parentFirstName);
+        setParentLastName(data.student.parentLastName);
+        setParentPhone(data.student.parentCellPhone);
+        setParentEmail(data.student.parentEmail);
+        setHeader('Edit Parent Information');
+      } else {
+        setStudentFirstName(data.student.studentFirstName);
+        setStudentLastName(data.student.studentLastName);
+        setStudentPhone(data.student.studentCellPhone);
+        setStudentEmail(data.student.studentEmail);
+        setHeader('Edit Student Information');
+      }
       setIsLoading(false);
     };
 
@@ -51,9 +64,19 @@ export function EditStudentInfoModal(props) {
       studentCellPhone,
       studentEmail,
     };
+    const updatedParent = {
+      ...student,
+      parentFirstName,
+      parentLastName,
+      parentCellPhone,
+      parentEmail,
+    };
 
     setIsLoading(true);
-    await editStudent(updatedStudent);
+
+    await editStudent(isParent ? updatedParent : updatedStudent);
+
+    if (onSaveSuccess) onSaveSuccess();
     setIsLoading(false);
   };
 
@@ -63,29 +86,37 @@ export function EditStudentInfoModal(props) {
       <GenericModal
         actionButtonTitle="Submit"
         cancelButtonTitle="cancel"
-        modalHeadingTitle="Edit Student Information"
+        modalHeadingTitle={header}
         onActionButtonClick={requestSave}
         openModal="open"
       >
         <TextFieldWithErrorMessage
           label="First Name"
-          onChange={(value) => setFirstName(value)}
-          value={studentFirstName}
+          onChange={(value) =>
+            isParent ? setParentFirstName(value) : setStudentFirstName(value)
+          }
+          value={isParent ? parentFirstName : studentFirstName}
         />
         <TextFieldWithErrorMessage
           label="Last Name"
-          onChange={(value) => setLastName(value)}
-          value={studentLastName}
+          onChange={(value) =>
+            isParent ? setParentLastName(value) : setStudentLastName(value)
+          }
+          value={isParent ? parentLastName : studentLastName}
         />
         <TextFieldWithErrorMessage
           label="Phone"
-          onChange={(value) => setPhone(value)}
-          value={studentCellPhone}
+          onChange={(value) =>
+            isParent ? setParentPhone(value) : setStudentPhone(value)
+          }
+          value={isParent ? parentCellPhone : studentCellPhone}
         />
         <TextFieldWithErrorMessage
           label="Email"
-          onChange={(value) => setEmail(value)}
-          value={studentEmail}
+          onChange={(value) =>
+            isParent ? setParentEmail(value) : setStudentEmail(value)
+          }
+          value={isParent ? parentEmail : studentEmail}
         />
       </GenericModal>
     </React.Fragment>
@@ -94,8 +125,12 @@ export function EditStudentInfoModal(props) {
 
 EditStudentInfoModal.propTypes = {
   studentId: PropTypes.string,
+  onSaveSuccess: PropTypes.func,
+  isParent: PropTypes.bool,
 };
 
 EditStudentInfoModal.defaultProps = {
   studentId: '',
+  onSaveSuccess: undefined,
+  isParent: false,
 };
