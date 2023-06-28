@@ -35,7 +35,12 @@ export function DynamicTableWithRequest(props) {
   if (hasError) return <LayoutError />;
 
   return (
-    <DynamicTable APIcolumns={columns} APIrows={rows} filterBy={filterBy}>
+    <DynamicTable
+      APIcolumns={columns}
+      APIrows={rows}
+      filterBy={filterBy}
+      refreshTable={request}
+    >
       {props.children}
     </DynamicTable>
   );
