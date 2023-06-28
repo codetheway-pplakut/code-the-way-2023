@@ -5,7 +5,7 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { AddCoachModal, DeactivateCoachModal } from './modal-component';
+import { DeactivateCoachModal, GenericViewModal } from './modal-component';
 import { addCoachHandler } from './coachHandlers';
 import { getStudentsByCoachId } from '../../services/students/students';
 
@@ -73,19 +73,6 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'id',
-    disablePadding: false,
-    label: '',
-    align: 'left',
-    render: (value, email, refreshTable) => {
-      return (
-        <DeactivateCoachModal
-          coachId={value}
-          coachEmail={email}
-          onCoachDeactivate={refreshTable}
-        />
-      );
-    },
     active: false,
     render: (id) => {
       return (
@@ -102,6 +89,21 @@ const COLUMNS = [
             requestData={id}
           />
         </GenericViewModal>
+      );
+    },
+  },
+  {
+    id: 'id',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    render: (value, email, refreshTable) => {
+      return (
+        <DeactivateCoachModal
+          coachId={value}
+          coachEmail={email}
+          onCoachDeactivate={refreshTable}
+        />
       );
     },
   },
