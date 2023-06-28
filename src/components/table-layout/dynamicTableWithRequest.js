@@ -41,6 +41,7 @@ export function DynamicTableWithRequest(props) {
       APIrows={rows}
       filterBy={filterBy}
       customTableMaxHeight={customTableMaxHeight}
+      refreshTable={request}
     >
       {props.children}
     </DynamicTable>
