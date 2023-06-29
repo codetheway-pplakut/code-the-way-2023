@@ -62,10 +62,12 @@ const COLUMNS = [
     label: '',
     align: 'left',
     render: (value, row, refreshTable) => {
-      const { id } = row;
+      const studentsId = { row };
+      console.log(studentsId);
       return (
         <React.Fragment>
-          <ArchiveStudentModal /> <ChooseCoachModal response={response} />
+          <ArchiveStudentModal />
+          <ChooseCoachModal response={response} studentsId={studentsId} />
         </React.Fragment>
       );
     },

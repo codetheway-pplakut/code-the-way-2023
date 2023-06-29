@@ -4,6 +4,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { getActiveCoachesHandler } from './coachHandlers';
 import {
   assignStudent,
+  getActiveStudents,
   getStudentById,
   unassignStudent,
 } from '../../services/students/students';
@@ -14,10 +15,10 @@ export function ChooseCoachModal(props) {
   const [student, setStudent] = useState([]);
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
-  const { response } = props;
+
+  const { response, studentsId } = props;
   const request = async () => {
     try {
-      //   const response = await getActiveCoachesHandler();
       const { data } = response;
       setCoaches(data);
     } catch (error) {
@@ -28,16 +29,22 @@ export function ChooseCoachModal(props) {
     request();
   }, []);
 
-  const reassignCoachHandler = async (studentsId, coachesId) => {
+  // const studentsId = '7fb4f1b2-3d3e-4b56-b106-08db6c1d577e'; ==> can use as sample
+
+  const reassignCoachHandler = async (coachsId) => {
     if (newCoachId !== '') {
       const updatedStudent = await getStudentById(studentsId);
-      if (coachesId === 'Unassigned' && updatedStudent.coachId !== null) {
+
+      if (coachsId === 'Unassigned' && updatedStudent.coachId !== null) {
         await unassignStudent({
           coachId: updatedStudent.coachId,
           studentId: studentsId,
         });
-      } else if (coachesId !== 'Unassigned') {
-        await assignStudent({ coachId: coachesId, studentId: studentsId });
+      } else if (coachsId !== 'Unassigned') {
+        await assignStudent({
+          studentId: studentsId,
+          coachId: coachsId,
+        });
       }
     }
   };
@@ -45,6 +52,8 @@ export function ChooseCoachModal(props) {
   const handleCoachChange = (event) => {
     setValue(event.target.value);
     setNewCoachId(event.target.value);
+    // console.log(studentId);
+    console.log(newCoachId);
   };
 
   const content = (
@@ -54,8 +63,8 @@ export function ChooseCoachModal(props) {
       label="Select Coach"
       value={value}
       onChange={handleCoachChange}
-      helperText="Select Coach"
       disabled={coaches.length === 0}
+      style={{ width: '200px' }}
     >
       {coaches && coaches.length > 0 ? (
         coaches.map((coach) => (
@@ -77,7 +86,7 @@ export function ChooseCoachModal(props) {
       actionButtonTitle="Save"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
-      onActionButtonClick={() => reassignCoachHandler(student.id, coaches.id)}
+      onActionButtonClick={() => reassignCoachHandler(student.id, newCoachId)}
     />
   );
 }
