@@ -5,7 +5,8 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { DeactivateCoachModal, GenericViewModal } from './modal-component';
+import { DeactivateCoachModal } from './deactivate-coach-modal';
+import { GenericViewModal } from '../shared/generic-view-modal';
 import { addCoachHandler } from './coachHandlers';
 import { getStudentsByCoachId } from '../../services/students/students';
 
