@@ -40,11 +40,6 @@ export function Navigation(props) {
           to="/inactive-rejected"
         />
         <NavigationItem
-          label="StudentInfo"
-          onClick={onToggle}
-          to="/student-info"
-        />
-        <NavigationItem
           LinkComponent="a"
           href="https://api-dev-lead2change-ctw.azurewebsites.net/swagger/index.html"
           icon={<ApiIcon />}

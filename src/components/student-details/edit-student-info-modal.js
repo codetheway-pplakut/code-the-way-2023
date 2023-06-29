@@ -1,25 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress } from '@mui/material';
-import GenericModal from '../coaches/modal-component';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
-import { editStudent, getStudentById } from '../../services/students/students';
-import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
+import { editStudent } from '../../services/students/students';
+import { GenericModal } from '../coaches/modal-component';
 
-// const TEST_ID = 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9';
-
-export function EditStudentInfoModal(props) {
+export default function EditStudentInfoModal(props) {
   // const { studentId } = props;
   const { student, onSaveSuccess, isParent } = props;
 
   const [studentFirstName, setStudentFirstName] = useState('');
   const [studentLastName, setStudentLastName] = useState('');
-  const [studentCellPhone, setStudentPhone] = useState('');
+  const [studentCellPhone, setStudentCellPhone] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
 
   const [parentFirstName, setParentFirstName] = useState('');
   const [parentLastName, setParentLastName] = useState('');
-  const [parentCellPhone, setParentPhone] = useState('');
+  const [parentCellPhone, setParentCellPhone] = useState('');
   const [parentEmail, setParentEmail] = useState('');
   const [header, setHeader] = useState('');
 
@@ -27,13 +23,13 @@ export function EditStudentInfoModal(props) {
     if (isParent) {
       setParentFirstName(student.parentFirstName);
       setParentLastName(student.parentLastName);
-      setParentPhone(student.parentCellPhone);
+      setParentCellPhone(student.parentCellPhone);
       setParentEmail(student.parentEmail);
       setHeader('Edit Parent Information');
     } else {
       setStudentFirstName(student.studentFirstName);
       setStudentLastName(student.studentLastName);
-      setStudentPhone(student.studentCellPhone);
+      setStudentCellPhone(student.studentCellPhone);
       setStudentEmail(student.studentEmail);
       setHeader('Edit Student Information');
     }
@@ -85,7 +81,7 @@ export function EditStudentInfoModal(props) {
       <TextFieldWithErrorMessage
         label="Phone"
         onChange={(value) =>
-          isParent ? setParentPhone(value) : setStudentPhone(value)
+          isParent ? setParentCellPhone(value) : setStudentCellPhone(value)
         }
         value={isParent ? parentCellPhone : studentCellPhone}
       />

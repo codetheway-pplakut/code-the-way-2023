@@ -1,32 +1,19 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import propTypes from 'prop-types';
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-  Tab,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import { Box, Tab } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
-import GenericModal from '../coaches/modal-component';
-import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
 import { StudentInfoBox } from './student-info-box';
+import { GenericModal } from '../coaches/modal-component';
 
 export default function StudentDetails(props) {
-  const { student, onReload } = props;
+  const { student, goals, careers, interviews, onReload } = props;
   const [value, setValue] = React.useState(0);
   const [sel, setSel] = React.useState('');
-  console.log('coming from student-details', onReload);
+
   const handleChange = React.useCallback((event, newValue) => {
     setValue(newValue);
   }, []);
@@ -81,24 +68,6 @@ export default function StudentDetails(props) {
     []
   );
 
-  const labelArray = [
-    ['Name', 'Phone Number', 'Email'],
-    ['Name', 'Phone Number', 'Email'],
-    ['Financial Assistance'],
-  ];
-
-  const headerArray = [
-    'Student Information',
-    'Parent Information',
-    'Household Information',
-  ];
-
-  const contentArray = [
-    ['John Doe', '(262) 555-7535', 'john@gmail.com'],
-    ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
-    ['W-2'],
-  ];
-
   return (
     <Grid
       container
@@ -129,13 +98,69 @@ export default function StudentDetails(props) {
           <Box sx={boxStyle} padding="4vh">
             {value === 0 && (
               <Grid>
-                <StudentInfoBox student={student} onReload={() => onReload()} />
+                <h1>Student Info</h1>
+                <StudentInfoBox
+                  student={student}
+                  onReload={() => onReload()}
+                  isParent={false}
+                />
+                <br />
+                <br />
+                <br />
+                <h1>Parent Info</h1>
                 <StudentInfoBox
                   student={student}
                   onReload={() => onReload()}
                   isParent
                 />
               </Grid>
+            )}
+
+            {value === 1 && (
+              <React.Fragment>
+                <h1>Goals</h1>
+                <Grid>
+                  {goals === null && <h6>No Goals</h6>}
+                  {goals !== null &&
+                    goals !== undefined &&
+                    goals.map((goal) => {
+                      return <h6 key={goal.id}>Goal: {goal.goalSet}</h6>;
+                    })}
+                </Grid>
+                <h1>Careers</h1>
+                <Grid>
+                  {careers === null ||
+                    (careers === undefined && <h6>No Careers</h6>)}
+                  {careers !== null &&
+                    [careers].map((career) => {
+                      return (
+                        <h6 key={career.careerDeclaration}>
+                          Career: {career.studentCareerPath}
+                        </h6>
+                      );
+                    })}
+                </Grid>
+              </React.Fragment>
+            )}
+
+            {value === 2 && (
+              <React.Fragment>
+                <h1>Interviews</h1>
+                <Grid>
+                  {(interviews === null ||
+                    interviews === undefined ||
+                    interviews === {}) && <h6>No Interviews</h6>}
+                  {interviews !== null &&
+                    interviews !== undefined &&
+                    [interviews].map((interview) => {
+                      return (
+                        <h6 key={interview.id}>
+                          Interview: {interview.goalSet}
+                        </h6>
+                      );
+                    })}
+                </Grid>
+              </React.Fragment>
             )}
           </Box>
         </Grid>
@@ -247,9 +272,15 @@ export default function StudentDetails(props) {
 
 StudentDetails.propTypes = {
   student: propTypes.func,
+  goals: propTypes.func,
+  careers: propTypes.func,
+  interviews: propTypes.func,
   onReload: propTypes.func,
 };
 StudentDetails.defaultProps = {
   student: undefined,
+  goals: undefined,
+  careers: undefined,
+  interviews: undefined,
   onReload: undefined,
 };

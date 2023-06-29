@@ -1,26 +1,45 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Typography } from '@mui/material';
-import { Propane } from '@mui/icons-material';
-import propTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import StudentDetails from './student-details-page';
-import { EditStudentInfoModal } from './edit-student-info-modal';
-import { StudentInfoBox } from './student-info-box';
 import { getStudentById } from '../../services/students/students';
 import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
+import { getStudentInterviews } from '../../services/interviews/interviews';
+import { LayoutError } from '../layout/layout-error/layout-error';
 
-export function StudentInfo(props) {
-  const { studentId } = props;
-  const TEST_ID = 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9';
-
+export function StudentInfo() {
   const [student, setStudent] = useState({});
+  const [goals, setGoals] = useState({});
+  const [careers, setCareers] = useState({});
+  const [interviews, setInterviews] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  const location = useLocation();
+  const { studentId } = location.state;
 
   const requestStudent = async (id) => {
-    setIsLoading(true);
-    const response = await getStudentById(id);
-    const { data } = response;
+    try {
+      setHasError(false);
+      setIsLoading(true);
+      const response = await getStudentById(id);
+      const { data } = response;
+      setStudent(data.student);
+      setGoals(data.student.goals);
 
-    setStudent(data.student);
+      const careerData = {
+        studentCareerPath: data.student.studentCareerPath,
+        studentCareerInterest: data.student.studentCareerInterest,
+        careerPathList: data.student.careerPathList,
+        careerDeclaration: data.student.careerDeclaration,
+      };
+      setCareers(careerData);
+
+      const interviewResponse = await getStudentInterviews(id);
+      const { interviewData } = interviewResponse;
+      setInterviews(interviewData);
+    } catch (error) {
+      setHasError(true);
+    }
     setIsLoading(false);
   };
 
@@ -33,25 +52,17 @@ export function StudentInfo(props) {
     () => (
       <StudentDetails
         student={student}
-        onReload={() => requestStudent(TEST_ID)}
+        goals={goals}
+        careers={careers}
+        interviews={interviews}
+        onReload={() => requestStudent(studentId)}
       />
     ),
     [student]
   );
 
-  return (
-    <div>
-      <CircularProgressOverlay active={isLoading} />
+  if (isLoading) return <CircularProgressOverlay />;
+  if (hasError) return <LayoutError />;
 
-      {memoizedStudentDetails}
-    </div>
-  );
+  return <div>{memoizedStudentDetails}</div>;
 }
-
-StudentInfo.propTypes = {
-  studentId: propTypes.string,
-};
-
-StudentInfo.defaultProps = {
-  studentId: 'c4f8bbf7-2ad0-4e97-6a3c-08da762785c9',
-};
