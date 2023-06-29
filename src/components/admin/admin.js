@@ -4,7 +4,7 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import { Layout } from '../layout/layout';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { getActiveAdminsHandler } from './adminHandlers';
-import { DeactivateAdminModal } from './deactivate-admin-modal';
+import { DeactivateAdminModal } from './de-activate-admin-modal';
 
 const COLUMNS = [
   {
