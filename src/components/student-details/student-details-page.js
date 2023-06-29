@@ -26,9 +26,11 @@ export default function StudentDetails() {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   const handleSel = (event) => {
     setSel(event.target.value);
   };
+
   // TODO Add handlers for submitting and cancelling
 
   const boxStyle = {
@@ -84,6 +86,7 @@ export default function StudentDetails() {
     ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
     ['W-2'],
   ];
+
   return (
     <Grid
       container
