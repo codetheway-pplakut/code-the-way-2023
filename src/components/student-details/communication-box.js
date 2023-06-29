@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Delete } from '@mui/icons-material';
-import GenericModal from '../coaches/modal-component';
+import { GenericModal } from '../shared/generic-modal';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;

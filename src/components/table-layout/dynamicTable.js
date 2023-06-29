@@ -10,7 +10,7 @@ import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { SearchBar } from './search';
-import { AddStudentModal } from '../coaches/modal-component';
+import { AddStudentModal } from '../students/add-student-modal';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {

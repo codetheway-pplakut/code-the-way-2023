@@ -138,3 +138,5 @@ GenericModal.propTypes = {
   onIconButtonClick: PropTypes.func,
   children: PropTypes.element,
 };
+
+export default GenericModal;

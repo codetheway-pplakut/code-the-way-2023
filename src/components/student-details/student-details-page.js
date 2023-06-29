@@ -16,7 +16,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
-import GenericModal from '../coaches/modal-component';
+import { GenericModal } from '../shared/generic-modal';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
