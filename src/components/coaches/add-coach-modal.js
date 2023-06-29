@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, Stack, TextField, Typography } from '@mui/material';
-import { Phone } from '@mui/icons-material';
-import GenericModal from './modal-component';
+import GenericModal from '../shared/generic-modal';
 import { addCoachHandler } from './coachHandlers';
 
 export function AddCoachModal() {
@@ -19,18 +18,17 @@ export function AddCoachModal() {
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
-        presence: { allowEmpty: false, message: 'is required' },
+        presence: { allowEmpty: false },
       },
       lastName: {
-        presence: { allowEmpty: false, message: 'is required' },
+        presence: { allowEmpty: false },
       },
       email: {
-        presence: { allowEmpty: false, message: 'is required' },
-        email: { message: 'is not valid' },
+        presence: { allowEmpty: false },
       },
       phone: {},
       password: {
-        presence: { allowEmpty: false, message: 'is required' },
+        presence: { allowEmpty: false },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:

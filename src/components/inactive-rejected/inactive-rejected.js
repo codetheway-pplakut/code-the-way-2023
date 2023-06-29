@@ -3,6 +3,8 @@ import { Tab, Tabs } from '@mui/material';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
 import { InactiveRejectedStudent } from './inactive-rejected-student/inactive-rejected-student';
+import { InactiveCoach } from './inactive-coach/inactive-coach';
+import { InactiveAdmin } from './inactive-admin/inactive-admin';
 
 export function InactiveRejected() {
   const [tab, setTab] = useState(0);
@@ -20,6 +22,8 @@ export function InactiveRejected() {
           <Tab value={2} label="Admin" />
         </Tabs>
         {tab === 0 && <InactiveRejectedStudent />}
+        {tab === 1 && <InactiveCoach />}
+        {tab === 2 && <InactiveAdmin />}
       </Layout>
     </EntitlementRestricted>
   );
