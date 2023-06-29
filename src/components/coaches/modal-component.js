@@ -32,7 +32,7 @@ import {
   activateAdminHandler,
   deactivateAdminHandler,
 } from '../admin/adminHandlers';
-import { deactivateCoachHandler } from './coachHandlers';
+import { activateCoachHandler, deactivateCoachHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
 // onConfirm lable
@@ -285,6 +285,35 @@ DeactivateAdminModal.defaultProps = {
   adminId: '',
 };
 
+export function ActivateAdminModal(props) {
+  const { adminId, onAdminActivate } = props;
+  const activateAdminAction = async () => {
+    await activateAdminHandler(adminId);
+    if (onAdminActivate) onAdminActivate();
+  };
+
+  return (
+    <GenericModal
+      openModal={<Typography>Activate</Typography>}
+      modalHeadingTitle="Activate Admin"
+      modalMessage="Are you sure you want to activate this admin?"
+      actionButtonTitle="Activate"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="submit"
+      cancelButtonColor="cancel"
+      onActionButtonClick={activateAdminAction}
+    />
+  );
+}
+ActivateAdminModal.propTypes = {
+  adminId: PropTypes.string,
+  onAdminActivate: PropTypes.func.isRequired,
+};
+
+ActivateAdminModal.defaultProps = {
+  adminId: '',
+};
+
 export function DeactivateCoachModal(props) {
   const { coachId, coachEmail, onCoachDeactivate } = props;
   const deactivateCoachAction = async () => {
@@ -312,6 +341,37 @@ DeactivateCoachModal.propTypes = {
 };
 
 DeactivateCoachModal.defaultProps = {
+  coachId: '',
+  coachEmail: '',
+};
+
+export function ActivateCoachModal(props) {
+  const { coachId, coachEmail, onCoachActivate } = props;
+  const activateCoachAction = async () => {
+    await activateCoachHandler(coachId, coachEmail, coachEmail);
+    if (onCoachActivate) onCoachActivate();
+  };
+
+  return (
+    <GenericModal
+      openModal={<Typography>Activate</Typography>}
+      modalHeadingTitle="Activate Coach"
+      modalMessage="Are you sure you want to activate this coach?"
+      actionButtonTitle="Activate"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="submit"
+      cancelButtonColor="cancel"
+      onActionButtonClick={activateCoachAction}
+    />
+  );
+}
+ActivateCoachModal.propTypes = {
+  coachId: PropTypes.string,
+  coachEmail: PropTypes.string,
+  onCoachActivate: PropTypes.func.isRequired,
+};
+
+ActivateCoachModal.defaultProps = {
   coachId: '',
   coachEmail: '',
 };
