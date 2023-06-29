@@ -59,11 +59,14 @@ const COLUMNS = [
     disablePadding: false,
     label: '',
     align: 'left',
-    render: () => (
-      <React.Fragment>
-        <ArchiveStudentModal /> <ChooseCoachModal />
-      </React.Fragment>
-    ),
+    render: (value, row, refreshTable) => {
+      const { id } = row;
+      return (
+        <React.Fragment>
+          <ArchiveStudentModal /> <ChooseCoachModal coachId={id} />
+        </React.Fragment>
+      );
+    },
     active: false,
   },
 ];

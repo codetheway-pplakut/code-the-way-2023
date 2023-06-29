@@ -1,4 +1,4 @@
-import React, { Children, useState } from 'react';
+import React, { Children, useState, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -18,6 +18,7 @@ import { flattenDeep } from 'lodash';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+import { getActiveCoaches } from '../../services/coaches/coaches';
 import {
   backgroundStyle,
   headingStyle,
@@ -28,6 +29,12 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
+import {
+  assignStudent,
+  getStudentById,
+  unassignStudent,
+} from '../../services/students/students';
+import { getActiveCoachesHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
 // onConfirm lable
@@ -225,6 +232,79 @@ export function AddCoachModal() {
   );
 }
 
+export function ChooseCoachModal() {
+  const [coaches, setCoaches] = useState([]);
+  const [student, setStudent] = useState([]);
+  const [value, setValue] = useState('');
+  const [newCoachId, setNewCoachId] = useState('');
+  const request = async () => {
+    try {
+      const response = await getActiveCoachesHandler();
+      const { data } = response;
+      setCoaches(data);
+    } catch (error) {
+      setCoaches([]);
+    }
+  };
+
+  useEffect(() => {
+    request();
+  }, []);
+
+  const reassignCoachHandler = async (studentsId, coachesId) => {
+    if (newCoachId !== '') {
+      const updatedStudent = await getStudentById(studentsId);
+      if (coachesId === 'Unassigned' && updatedStudent.coachId !== null) {
+        await unassignStudent({
+          coachId: updatedStudent.coachId,
+          studentId: studentsId,
+        });
+      } else if (coachesId !== 'Unassigned') {
+        await assignStudent({ coachId: coachesId, studentId: studentsId });
+      }
+    }
+  };
+
+  const handleCoachChange = (event) => {
+    setValue(event.target.value);
+    setNewCoachId(event.target.value);
+  };
+
+  const content = (
+    <TextField
+      id="coach-select"
+      select
+      label="Select Coach"
+      value={value}
+      onChange={handleCoachChange}
+      helperText="Select Coach"
+      disabled={coaches.length === 0}
+    >
+      {coaches && coaches.length > 0 ? (
+        coaches.map((coach) => (
+          <MenuItem key={coach.id} value={coach.id}>
+            {coach.coachFirstName}
+          </MenuItem>
+        ))
+      ) : (
+        <MenuItem disabled>No coaches available</MenuItem>
+      )}
+    </TextField>
+  );
+
+  return (
+    <GenericModal
+      openButtonIcon={<EditIcon />}
+      modalHeadingTitle="Change Coach"
+      modalMessage={content}
+      actionButtonTitle="Save"
+      cancelButtonTitle="Cancel"
+      actionButtonColor="submit"
+      onActionButtonClick={() => reassignCoachHandler(student.id, coaches.id)}
+    />
+  );
+}
+
 export function ArchiveCoachModal() {
   // const archiveCoachAction = () => {
   //   console.log('here is where you connect to api');
@@ -322,56 +402,6 @@ export function AddStudentModal() {
       cancelButtonColor="cancel"
       actionButtonTitle="Add"
       cancelButtonTitle="Cancel"
-    />
-  );
-}
-
-export function ChooseCoachModal() {
-  const test = [
-    {
-      value: 'Coach API',
-      label: 'Coach 1 API Call',
-    },
-    {
-      value: 'Coach API!',
-      label: 'Coach 2 API Call',
-    },
-    {
-      value: 'Coach API!!',
-      label: 'Coach 3 API Call',
-    },
-    {
-      value: 'Coach API!!!',
-      label: 'Coach 4 API Call',
-    },
-  ];
-  const content = (
-    <Grid container spacing={2} justifyContent="center">
-      <div>
-        <TextField
-          id="API"
-          select
-          label="Select"
-          defaultValue="Coach API"
-          helperText="Select Coach"
-        >
-          {test.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-      </div>
-    </Grid>
-  );
-  return (
-    <GenericModal
-      openModal={<EditIcon />}
-      modalHeadingTitle="Change Coach"
-      modalMessage={content}
-      actionButtonTitle="Save"
-      cancelButtonTitle="Cancel"
-      actionButtonColor="submit"
     />
   );
 }

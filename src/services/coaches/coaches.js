@@ -1,10 +1,10 @@
 import { callApi } from '../../utils/call-api/call-api';
 
 /**
- * Gets all inactive coaches.
+ * Gets all active coaches.
  *
- * @returns All inactive coaches in the DB
- * @author Adam Miller
+ * @returns All active coaches in the DB
+ * @author Abby Winn
  */
 export const getActiveCoaches = () =>
   callApi({ url: '/Coaches/GetActiveCoaches' });
