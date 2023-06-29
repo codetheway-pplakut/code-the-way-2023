@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Grid, Link } from '@mui/material';
 import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-restricted';
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
-import { ActivateAdminModal } from '../../coaches/modal-component';
+import { ActivateAdminModal } from '../../admin/de-activate-admin-modal';
 import { getInactiveAdmins } from '../../../services/admin/admin';
 
 const COLUMNS = [

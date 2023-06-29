@@ -3,7 +3,7 @@ import { Box, Grid } from '@mui/material';
 import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-restricted';
 import { getInactiveCoaches } from '../../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
-import { ActivateCoachModal } from '../../coaches/modal-component';
+import { ActivateCoachModal } from '../../coaches/de-activate-coach-modal';
 
 const COLUMNS = [
   {

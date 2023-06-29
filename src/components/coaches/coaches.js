@@ -5,7 +5,8 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { DeactivateCoachModal, GenericViewModal } from './modal-component';
+import { DeactivateCoachModal } from './de-activate-coach-modal';
+import { GenericViewModal } from '../shared/generic-view-modal';
 import { getStudentsByCoachId } from '../../services/students/students';
 
 const STUDENTCOLUMNS = [
@@ -72,6 +73,7 @@ const COLUMNS = [
     active: false,
   },
   {
+    id: 'id',
     active: false,
     render: (id) => {
       return (
