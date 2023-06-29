@@ -6,7 +6,6 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { DeactivateCoachModal, GenericViewModal } from './modal-component';
-import { addCoachHandler } from './coachHandlers';
 import { getStudentsByCoachId } from '../../services/students/students';
 
 const STUDENTCOLUMNS = [
@@ -110,38 +109,6 @@ const COLUMNS = [
 ];
 
 export function Coaches() {
-  const [firstName, setFirstName] = React.useState();
-  const [lastName, setLastName] = React.useState();
-  const [email, setEmail] = React.useState();
-  const [phoneNumber, setPhoneNumber] = React.useState();
-  const [password, setPassword] = React.useState();
-  const [confirmPassword, setConfirmPassword] = React.useState();
-
-  const cancelHandler = () => {
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPhoneNumber('');
-    setPassword('');
-    setConfirmPassword('');
-  };
-  const submitHandler = async () => {
-    try {
-      addCoachHandler(
-        firstName,
-        lastName,
-        email,
-        phoneNumber,
-        password,
-        confirmPassword
-      );
-    } catch (error) {
-      console.log(error);
-    }
-    // empties all fields after submitted to API
-    cancelHandler();
-  };
-
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
