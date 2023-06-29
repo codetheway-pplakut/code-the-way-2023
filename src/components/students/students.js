@@ -8,14 +8,16 @@ import {
 
 import {
   ArchiveStudentModal,
-  ChooseCoachModal,
   AddStudentModal,
 } from '../coaches/modal-component';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { ChooseCoachModal } from '../coaches/choose-coach-modal';
+import { getActiveCoachesHandler } from '../coaches/coachHandlers';
 
+const response = await getActiveCoachesHandler();
 const COLUMNS = [
   {
     id: 'firstName',
@@ -63,7 +65,7 @@ const COLUMNS = [
       const { id } = row;
       return (
         <React.Fragment>
-          <ArchiveStudentModal /> <ChooseCoachModal coachId={id} />
+          <ArchiveStudentModal /> <ChooseCoachModal response={response} />
         </React.Fragment>
       );
     },
