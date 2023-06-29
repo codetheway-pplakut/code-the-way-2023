@@ -18,6 +18,8 @@ import { flattenDeep } from 'lodash';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import {
   backgroundStyle,
   headingStyle,
@@ -28,7 +30,11 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
-import { setStudentInactive } from '../../services/students/students';
+import {
+  setStudentInactive,
+  addStudent,
+} from '../../services/students/students';
+
 import { getActiveCoachesHandler } from './coachHandlers';
 // function onClick confirm
 // function onCLick cancel
@@ -246,7 +252,7 @@ export function ArchiveCoachModal() {
 }
 
 export function ArchiveStudentModal(props) {
-  const { row, studentId, onStudentDeactivate } = props;
+  const { studentId, onStudentDeactivate } = props;
   const deactivateStudentAction = async () => {
     await setStudentInactive(studentId);
     if (onStudentDeactivate) onStudentDeactivate();
@@ -291,44 +297,75 @@ export function ActivateStudentModal() {
 export function AddStudentModal() {
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
+  const [dateOfBirth, setDateOfBitrh] = React.useState('');
   const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+  const [cellPhone, setCellPhone] = React.useState('');
+
+  const addStudentAction = async () => {
+    await addStudent(firstName, lastName, dateOfBirth, cellPhone, email);
+    // if (onStudentDeactivate) onStudentDeactivate(); add props for this and think how can add this
+  };
 
   const content = (
-    <React.Fragment>
-      <TextField
-        label="First Name"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setFirstName(event.target.value);
-        }}
-      />
-      <TextField
-        label="Last Name"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setLastName(event.target.value);
-        }}
-      />
-      <TextField
-        label="Email"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setEmail(event.target.value);
-        }}
-      />
-      <TextField
-        label="Phone"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setPhone(event.target.value);
-        }}
-      />
-    </React.Fragment>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid item>
+        <TextField
+          label="First Name"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setFirstName(event.target.value);
+          }}
+        />
+      </Grid>
+      <Grid item sx={{ mb: 2 }}>
+        <TextField
+          label="Last Name"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setLastName(event.target.value);
+          }}
+        />
+      </Grid>
+      <Grid item sx={{ mb: 1 }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Date of Birth"
+            margin="normal"
+            size="small"
+            onChange={(event) => {
+              setDateOfBitrh(event.target.value);
+            }}
+          />
+        </LocalizationProvider>
+      </Grid>
+      <Grid item>
+        <TextField
+          label="Phone"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setCellPhone(event.target.value);
+          }}
+        />
+      </Grid>
+      <Grid item>
+        <TextField
+          label="Email"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+        />
+      </Grid>
+    </Grid>
   );
   return (
     <GenericModal
@@ -339,6 +376,7 @@ export function AddStudentModal() {
       cancelButtonColor="cancel"
       actionButtonTitle="Add"
       cancelButtonTitle="Cancel"
+      onActionButtonClick={addStudentAction}
     />
   );
 }

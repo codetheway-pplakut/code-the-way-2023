@@ -22,7 +22,6 @@ const COLUMNS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    active: false,
     render: (value, refreshTable, row) => {
       const { id } = row;
       return (
@@ -41,7 +40,6 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Last Name',
     align: 'left',
-    active: false,
   },
   {
     id: 'email',
@@ -49,21 +47,18 @@ const COLUMNS = [
     label: 'Email',
     align: 'left',
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
-    active: false,
   },
   {
     id: 'studentCellPhone',
     disablePadding: false,
     label: 'Student Cell',
     align: 'left',
-    active: false,
   },
   {
     id: 'coachFirstName',
     disablePadding: false,
     label: 'Coach',
     align: 'left',
-    active: false,
     render: (value) => (
       <ChooseCoachModal value={value}>{value}</ChooseCoachModal>
     ),
