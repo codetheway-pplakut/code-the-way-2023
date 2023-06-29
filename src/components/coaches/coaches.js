@@ -74,6 +74,7 @@ const COLUMNS = [
     active: false,
   },
   {
+    id: 'id',
     active: false,
     render: (id) => {
       return (
