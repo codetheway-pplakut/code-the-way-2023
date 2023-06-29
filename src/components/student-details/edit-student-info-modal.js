@@ -5,7 +5,6 @@ import { editStudent } from '../../services/students/students';
 import { GenericModal } from '../coaches/modal-component';
 
 export default function EditStudentInfoModal(props) {
-  // const { studentId } = props;
   const { student, onSaveSuccess, isParent } = props;
 
   const [studentFirstName, setStudentFirstName] = useState('');

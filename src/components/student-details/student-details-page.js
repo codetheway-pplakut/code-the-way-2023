@@ -8,18 +8,15 @@ import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-mess
 import { CommunicationLog } from './communication-log';
 import { StudentInfoBox } from './student-info-box';
 import { GenericModal } from '../coaches/modal-component';
+import DynamicTabs from '../table-layout/dynamicTabs';
+import AddGoalModal from './addGoalMoal';
 
 export default function StudentDetails(props) {
   const { student, goals, careers, interviews, onReload } = props;
-  const [value, setValue] = React.useState(0);
-  const [sel, setSel] = React.useState('');
+  const [tabValue, setTabValue] = React.useState(0);
 
   const handleChange = React.useCallback((event, newValue) => {
-    setValue(newValue);
-  }, []);
-
-  const handleSel = React.useCallback((event) => {
-    setSel(event.target.value);
+    setTabValue(newValue);
   }, []);
 
   const boxStyle = React.useMemo(
@@ -78,7 +75,7 @@ export default function StudentDetails(props) {
       <Grid item xs={6} direction="row">
         <Grid container justifyContent="center">
           <Tabs
-            value={value}
+            value={tabValue}
             onChange={handleChange}
             variant="scrollable"
             scrollButtons="auto"
@@ -94,9 +91,22 @@ export default function StudentDetails(props) {
           </Tabs>
         </Grid>
 
+        {/* <DynamicTabs
+          tabNames={['Student Info', 'Goals and Careers', 'Interview Info']}
+          tabValue={tabValue}
+          handleTabChange={setTabValue}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{
+            [`& .${tabsClasses.scrollButtons}`]: {
+              '&.Mui-disabled': { opacity: 0.3 },
+            },
+          }}
+        /> */}
+
         <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
-            {value === 0 && (
+            {tabValue === 0 && (
               <Grid>
                 <h1>Student Info</h1>
                 <StudentInfoBox
@@ -116,10 +126,11 @@ export default function StudentDetails(props) {
               </Grid>
             )}
 
-            {value === 1 && (
+            {tabValue === 1 && (
               <React.Fragment>
                 <h1>Goals</h1>
                 <Grid>
+                  <AddGoalModal student={student} />
                   {goals === null && <h6>No Goals</h6>}
                   {goals !== null &&
                     goals !== undefined &&
@@ -143,7 +154,7 @@ export default function StudentDetails(props) {
               </React.Fragment>
             )}
 
-            {value === 2 && (
+            {tabValue === 2 && (
               <React.Fragment>
                 <h1>Interviews</h1>
                 <Grid>
