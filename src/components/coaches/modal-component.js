@@ -20,6 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 import {
   backgroundStyle,
   headingStyle,
@@ -30,10 +31,8 @@ import {
   buttonText,
   buttonTheme,
 } from './modal-styling';
-import {
-  setStudentInactive,
-  addStudent,
-} from '../../services/students/students';
+import { setStudentInactive } from '../../services/students/students';
+import { addStudentHandler } from '../students/studentHandlers';
 
 import { getActiveCoachesHandler } from './coachHandlers';
 // function onClick confirm
@@ -297,13 +296,12 @@ export function ActivateStudentModal() {
 export function AddStudentModal() {
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
-  const [dateOfBirth, setDateOfBitrh] = React.useState('');
+  const [dateOfBirth, setDateOfBirth] = React.useState(new Date());
   const [email, setEmail] = React.useState('');
   const [cellPhone, setCellPhone] = React.useState('');
 
   const addStudentAction = async () => {
-    await addStudent(firstName, lastName, dateOfBirth, cellPhone, email);
-    // if (onStudentDeactivate) onStudentDeactivate(); add props for this and think how can add this
+    await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
   };
 
   const content = (
@@ -339,9 +337,8 @@ export function AddStudentModal() {
             label="Date of Birth"
             margin="normal"
             size="small"
-            onChange={(event) => {
-              setDateOfBitrh(event.target.value);
-            }}
+            value={dayjs(dateOfBirth)}
+            onChange={(newValue) => setDateOfBirth(newValue)}
           />
         </LocalizationProvider>
       </Grid>
