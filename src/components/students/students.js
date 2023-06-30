@@ -59,9 +59,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Coach',
     align: 'left',
-    render: (value) => (
-      <ChooseCoachModal value={value}>{value}</ChooseCoachModal>
-    ),
+    render: (value) => <ChooseCoachModal coachName={value} />,
   },
 ];
 

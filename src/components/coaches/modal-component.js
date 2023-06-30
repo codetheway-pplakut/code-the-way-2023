@@ -379,7 +379,7 @@ export function AddStudentModal() {
 }
 
 export function ChooseCoachModal(props) {
-  const { value } = props;
+  const { coachName } = props;
 
   const test = [
     {
@@ -420,7 +420,7 @@ export function ChooseCoachModal(props) {
   );
   return (
     <GenericModal
-      openModal={value}
+      openModal={coachName}
       modalHeadingTitle="Change Coach"
       modalMessage={content}
       actionButtonTitle="Save"
