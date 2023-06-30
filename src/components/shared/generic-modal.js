@@ -125,7 +125,7 @@ GenericModal.defaultProps = {
 };
 
 GenericModal.propTypes = {
-  openModal: PropTypes.string,
+  openModal: PropTypes.element,
   openButtonIcon: PropTypes.instanceOf(Icon),
   modalHeadingTitle: PropTypes.string.isRequired,
   modalMessage: PropTypes.string.isRequired,

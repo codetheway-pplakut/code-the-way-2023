@@ -1,36 +1,46 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { Grid, Typography } from '@mui/material';
-import { getStudentById } from '../../services/students/students';
-import { EditStudentInfoModal } from './edit-student-info-modal';
+import EditStudentInfoModal from './edit-student-info-modal';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
 
-  const [studentFirstName, setFirstName] = useState('');
-  const [studentLastName, setLastName] = useState('');
-  const [studentCellPhone, setPhone] = useState('');
-  const [studentEmail, setEmail] = useState('');
+  const [FirstName, setFirstName] = useState('');
+  const [LastName, setLastName] = useState('');
+  const [CellPhone, setCellPhone] = useState('');
+  const [Email, setEmail] = useState('');
+
+  // useEffect(() => {
+  //   setStudentFirstName(student.studentFirstName);
+  //   setStudentLastName(student.studentLastName);
+  //   setStudentCellPhone(student.studentCellPhone);
+  //   setStudentEmail(student.studentEmail);
+  //   setParentFirstName(student.parentFirstName);
+  //   setParentLastName(student.parentLastName);
+  //   setParentCellPhone(student.parentCellPhone);
+  //   setParentEmail(student.parentEmail);
+  // }, [student]); // Run only once on mount
 
   useEffect(() => {
     if (isParent) {
       setFirstName(student.parentFirstName);
       setLastName(student.parentLastName);
-      setPhone(student.parentCellPhone);
+      setCellPhone(student.parentCellPhone);
       setEmail(student.parentEmail);
     } else {
       setFirstName(student.studentFirstName);
       setLastName(student.studentLastName);
-      setPhone(student.studentCellPhone);
+      setCellPhone(student.studentCellPhone);
       setEmail(student.studentEmail);
     }
-  }, [student]); // Run only once on mount
+  }, [student]);
 
   return (
     <Grid container direction="column" sx={{ my: 2 }}>
       <Grid item>
         <Typography fontSize="35px">
-          {`${studentFirstName} ${studentLastName}`}
+          {`${FirstName} ${LastName}`}
           <EditStudentInfoModal
             student={student}
             onSaveSuccess={() => onReload()}
@@ -39,10 +49,10 @@ export function StudentInfoBox(props) {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography>{studentCellPhone}</Typography>
+        <Typography>Cell: {CellPhone}</Typography>
       </Grid>
       <Grid item>
-        <Typography>{studentEmail}</Typography>
+        <Typography>Email: {Email}</Typography>
       </Grid>
     </Grid>
   );
