@@ -5,14 +5,13 @@ import {
   getActiveStudents,
   getAppliedStudents,
 } from '../../services/students/students';
-
-import { ArchiveStudentModal } from './activate-archive-student-modal';
 import { ChooseCoachModal } from './choose-coach-modal';
 import { AddStudentModal } from './add-student-modal';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { DeactivateStudentModal } from '../inactive-rejected/student-activate-button/student-activate-button';
 
 const COLUMNS = [
   {
@@ -53,15 +52,23 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'options',
+    id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
-    render: () => (
-      <React.Fragment>
-        <ArchiveStudentModal /> <ChooseCoachModal />
-      </React.Fragment>
+    render: (value, row, refreshTable) => (
+      <DeactivateStudentModal
+        studentId={value}
+        onStudentDeactivate={refreshTable}
+      />
     ),
+  },
+  {
+    id: 'Choose Coach',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    render: () => <ChooseCoachModal />,
     active: false,
   },
 ];
