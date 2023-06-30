@@ -21,59 +21,64 @@ const COLUMNS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    active: false,
-    render: (rowId, value) => (
-      <NavLink to="/student-info" state={{ studentId: rowId }}>
-        <Button>{value}</Button>
-      </NavLink>
-    ),
+    render: (value, refreshTable, row) => {
+      const { id } = row;
+      return (
+        <React.Fragment>
+          <ArchiveStudentModal
+            studentId={id}
+            onStudentDeactivate={refreshTable}
+          />{' '}
+          <NavLink to="/student-info" state={{ studentId: id }}>
+            {value}
+          </NavLink>
+        </React.Fragment>
+      );
+    },
   },
   {
     id: 'lastName',
     disablePadding: false,
     label: 'Last Name',
     align: 'left',
-    active: false,
   },
   {
     id: 'email',
     disablePadding: false,
     label: 'Email',
     align: 'left',
-    render: (rowId, value) => <Link href={`mailto:${value}`}>{value}</Link>,
-    active: false,
+    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
   },
   {
     id: 'studentCellPhone',
     disablePadding: false,
     label: 'Student Cell',
     align: 'left',
-    active: false,
   },
   {
-    id: 'coach',
+    id: 'coachFirstName',
     disablePadding: false,
     label: 'Coach',
     align: 'left',
-    active: false,
+    // render: (value) => <ChooseCoachModal coachName={value} />,
   },
   {
     id: 'options',
     disablePadding: false,
     label: '',
     align: 'left',
-    render: () => (
-      <React.Fragment>
-        <ArchiveStudentModal />
-        <ChooseCoachModal />
-      </React.Fragment>
-    ),
-    active: false,
+    render: (value) => <ChooseCoachModal coachName={value} />,
   },
 ];
 
 export function Students() {
   const [tabValue, setTabValue] = React.useState(0);
+
+  const requestFunc = async () => {
+    const activeStudents = await getActiveStudents();
+
+    return { data: [...activeStudents.data] };
+  };
 
   return (
     <Grid container justifyContent="center">
@@ -96,7 +101,8 @@ export function Students() {
                     'studentCellPhone',
                     'coach',
                   ]}
-                  requestFunc={getActiveStudents}
+                  requestFunc={requestFunc}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
@@ -112,6 +118,7 @@ export function Students() {
                     'coach',
                   ]}
                   requestFunc={getAppliedStudents}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
