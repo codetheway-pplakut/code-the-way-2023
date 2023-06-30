@@ -8,6 +8,7 @@ import {
   getStudentById,
   unassignStudent,
 } from '../../services/students/students';
+import { assignStudentHandler } from '../students/studentHandlers';
 import GenericModal from './modal-component';
 
 export function ChooseCoachModal(props) {
@@ -33,18 +34,15 @@ export function ChooseCoachModal(props) {
 
   const reassignCoachHandler = async (coachsId) => {
     if (newCoachId !== '') {
-      const updatedStudent = await getStudentById(studentsId);
-
-      if (coachsId === 'Unassigned' && updatedStudent.coachId !== null) {
-        await unassignStudent({
-          coachId: updatedStudent.coachId,
-          studentId: studentsId,
-        });
-      } else if (coachsId !== 'Unassigned') {
-        await assignStudent({
-          studentId: studentsId,
-          coachId: coachsId,
-        });
+      console.log(studentsId);
+      // if (coachsId === 'Unassigned' && updatedStudent.coachId !== null) {
+      //   await unassignStudent({
+      //     coachId: updatedStudent.coachId,
+      //     studentId: studentsId,
+      //   });
+      // }
+      if (coachsId !== 'Unassigned') {
+        await assignStudentHandler(coachsId, studentsId);
       }
     }
   };
@@ -61,8 +59,8 @@ export function ChooseCoachModal(props) {
       id="coach-select"
       select
       label="Select Coach"
-      value={value}
       onChange={handleCoachChange}
+      value={value}
       disabled={coaches.length === 0}
       style={{ width: '200px' }}
     >
@@ -86,7 +84,7 @@ export function ChooseCoachModal(props) {
       actionButtonTitle="Save"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
-      onActionButtonClick={() => reassignCoachHandler(student.id, newCoachId)}
+      onActionButtonClick={() => reassignCoachHandler(newCoachId)}
     />
   );
 }

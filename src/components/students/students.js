@@ -57,18 +57,18 @@ const COLUMNS = [
     active: false,
   },
   {
-    id: 'options',
+    id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
-    render: (value, row, refreshTable) => {
-      const studentsId = { row };
+    render: (value, refreshTable) => {
+      const studentsId = value;
       console.log(studentsId);
       return (
-        <React.Fragment>
-          <ArchiveStudentModal />
-          <ChooseCoachModal response={response} studentsId={studentsId} />
-        </React.Fragment>
+        // <React.Fragment>
+        //   <ArchiveStudentModal />
+        <ChooseCoachModal response={response} studentsId={studentsId} />
+        // </React.Fragment>
       );
     },
     active: false,
