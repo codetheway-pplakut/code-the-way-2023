@@ -1,21 +1,19 @@
 import React from 'react';
 import { Box, Button, Grid, Link } from '@mui/material';
 
+import { NavLink } from 'react-router-dom';
 import {
   getActiveStudents,
   getAppliedStudents,
 } from '../../services/students/students';
-
-import {
-  ArchiveStudentModal,
-  AddStudentModal,
-} from '../coaches/modal-component';
+import { AddStudentModal } from './add-student-modal';
+import { ChooseCoachModal } from './choose-coach-modal';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { ChooseCoachModal } from '../coaches/choose-coach-modal';
 import { getActiveCoachesHandler } from '../coaches/coachHandlers';
+import { DeactivateStudentModal } from '../inactive-rejected/student-activate-button/student-activate-button';
 
 const response = await getActiveCoachesHandler();
 const COLUMNS = [
@@ -24,15 +22,20 @@ const COLUMNS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    active: false,
-    render: (value) => <Button>{value}</Button>,
+    render: (value, row, refreshTable) => {
+      const { id } = row;
+      return (
+        <NavLink to="/student-info" state={{ studentId: id }}>
+          {value}
+        </NavLink>
+      );
+    },
   },
   {
     id: 'lastName',
     disablePadding: false,
     label: 'Last Name',
     align: 'left',
-    active: false,
   },
   {
     id: 'email',
@@ -40,43 +43,49 @@ const COLUMNS = [
     label: 'Email',
     align: 'left',
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
-    active: false,
   },
   {
     id: 'studentCellPhone',
     disablePadding: false,
     label: 'Student Cell',
     align: 'left',
-    active: false,
   },
   {
-    id: 'coach',
+    id: 'coachFirstName',
     disablePadding: false,
     label: 'Coach',
     align: 'left',
-    active: false,
+    // render: (value) => <ChooseCoachModal coachName={value} />,
   },
   {
     id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
-    render: (value, refreshTable) => {
-      const studentsId = value;
-      console.log(studentsId);
-      return (
-        // <React.Fragment>
-        //   <ArchiveStudentModal />
-        <ChooseCoachModal response={response} studentsId={studentsId} />
-        // </React.Fragment>
-      );
-    },
-    active: false,
+    render: (value, row, refreshTable) => (
+      <React.Fragment>
+        <DeactivateStudentModal
+          studentId={value}
+          onStudentDeactivate={refreshTable}
+        />
+        <ChooseCoachModal
+          apiResponse={response}
+          studentId={value}
+          refreshTable={refreshTable}
+        />
+      </React.Fragment>
+    ),
   },
 ];
 
 export function Students() {
   const [tabValue, setTabValue] = React.useState(0);
+
+  const requestFunc = async () => {
+    const activeStudents = await getActiveStudents();
+
+    return { data: [...activeStudents.data] };
+  };
 
   return (
     <Grid container justifyContent="center">
@@ -99,7 +108,8 @@ export function Students() {
                     'studentCellPhone',
                     'coach',
                   ]}
-                  requestFunc={getActiveStudents}
+                  requestFunc={requestFunc}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
@@ -115,6 +125,7 @@ export function Students() {
                     'coach',
                   ]}
                   requestFunc={getAppliedStudents}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>

@@ -1,89 +1,71 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
-import {
-  Box,
-  FormControl,
-  IconButton,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-  Tab,
-  Toolbar,
-  Typography,
-} from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import propTypes from 'prop-types';
+import { Box, Tab } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
-import GenericModal from '../coaches/modal-component';
+import { GenericModal } from '../shared/generic-modal';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
+import { StudentInfoBox } from './student-info-box';
+import DynamicTabs from '../table-layout/dynamicTabs';
+import AddGoalModal from './addGoalMoal';
 
-export default function StudentDetails() {
-  const [value, setValue] = React.useState(0);
-  const [sel, setSel] = React.useState('');
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-  const handleSel = (event) => {
-    setSel(event.target.value);
-  };
-  // TODO Add handlers for submitting and cancelling
+export default function StudentDetails(props) {
+  const { student, goals, careers, interviews, onReload } = props;
+  const [tabValue, setTabValue] = React.useState(0);
 
-  const boxStyle = {
-    bgcolor: '#dddddd',
-    minWidth: '100%',
-    color: '#000000',
-    position: 'relative',
-    minHeight: '70vh',
-    borderRadius: '10px',
-    boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
-  };
+  const handleChange = React.useCallback((event, newValue) => {
+    setTabValue(newValue);
+  }, []);
 
-  const tabStyle = {
-    bgcolor: '#3E4C61',
-    color: '#ffffff',
-    position: 'relative',
-    display: 'flex',
-    borderTopLeftRadius: '5px',
-    borderTopRightRadius: '5px',
-    minWidth: '10vw',
-    margin: '0 10px',
-    '&.Mui-selected': {
-      color: '#0000000',
-      bgcolor: '#ffffff',
-    },
-  };
-  const iconStyle = {
-    bgcolor: '#3E4C61',
-    color: '#ffffff',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minWidth: 40,
-    minHeight: 40,
-    borderRadius: '5px',
-  };
+  const boxStyle = React.useMemo(
+    () => ({
+      bgcolor: '#dddddd',
+      minWidth: '100%',
+      color: '#000000',
+      position: 'relative',
+      minHeight: '70vh',
+      borderRadius: '10px',
+      boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
+    }),
+    []
+  );
 
-  const labelArray = [
-    ['Name', 'Phone Number', 'Email'],
-    ['Name', 'Phone Number', 'Email'],
-    ['Financial Assistance'],
-  ];
+  const tabStyle = React.useMemo(
+    () => ({
+      bgcolor: '#3E4C61',
+      color: '#ffffff',
+      position: 'relative',
+      display: 'flex',
+      borderTopLeftRadius: '5px',
+      borderTopRightRadius: '5px',
+      minWidth: '10vw',
+      margin: '0 10px',
+      '&.Mui-selected': {
+        color: '#0000000',
+        bgcolor: '#ffffff',
+      },
+    }),
+    []
+  );
 
-  const headerArray = [
-    'Student Information',
-    'Parent Information',
-    'Household Information',
-  ];
+  const iconStyle = React.useMemo(
+    () => ({
+      bgcolor: '#3E4C61',
+      color: '#ffffff',
+      position: 'relative',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      minWidth: 40,
+      minHeight: 40,
+      borderRadius: '5px',
+    }),
+    []
+  );
 
-  const contentArray = [
-    ['John Doe', '(262) 555-7535', 'john@gmail.com'],
-    ['Jenny', '(414) 555-5309', 'jenny@gmail.com'],
-    ['W-2'],
-  ];
   return (
     <Grid
       container
@@ -94,7 +76,7 @@ export default function StudentDetails() {
       <Grid item xs={6} direction="row">
         <Grid container justifyContent="center">
           <Tabs
-            value={value}
+            value={tabValue}
             onChange={handleChange}
             variant="scrollable"
             scrollButtons="auto"
@@ -110,107 +92,87 @@ export default function StudentDetails() {
           </Tabs>
         </Grid>
 
+        {/* <DynamicTabs
+          tabNames={['Student Info', 'Goals and Careers', 'Interview Info']}
+          tabValue={tabValue}
+          handleTabChange={setTabValue}
+          variant="scrollable"
+          scrollButtons="auto"
+          sx={{
+            [`& .${tabsClasses.scrollButtons}`]: {
+              '&.Mui-disabled': { opacity: 0.3 },
+            },
+          }}
+        /> */}
+
         <Grid item justifyContent="center">
           <Box sx={boxStyle} padding="4vh">
-            {value === 0 && (
-              <InfoBox
-                headers={headerArray}
-                content={contentArray}
-                labels={labelArray}
-                modal={headerArray.map((header, headerIndex) => (
-                  <GenericModal
-                    key={headerIndex.id}
-                    modalHeadingTitle={`Edit ${header}`}
-                    openButtonIcon={<EditIcon sx={iconStyle} />}
-                    actionButtonTitle="Submit"
-                    cancelButtonTitle="Cancel"
-                  >
-                    <Grid container direction="column">
-                      {labelArray.map(
-                        (label, labelIndex) =>
-                          labelArray[headerIndex][labelIndex] && (
-                            <Grid item key={labelIndex.id} sx={{ py: 3 }}>
-                              <TextFieldWithErrorMessage
-                                label={labelArray[headerIndex][labelIndex]}
-                              />
-                            </Grid>
-                          )
-                      )}
-                    </Grid>
-                  </GenericModal>
-                ))}
-              />
+            {tabValue === 0 && (
+              <Grid>
+                <h1>Student Info</h1>
+                <StudentInfoBox
+                  student={student}
+                  onReload={() => onReload()}
+                  isParent={false}
+                />
+                <br />
+                <br />
+                <br />
+                <h1>Parent Info</h1>
+                <StudentInfoBox
+                  student={student}
+                  onReload={() => onReload()}
+                  isParent
+                />
+              </Grid>
             )}
-            {value === 1 && (
-              <InfoBox
-                headers={['Goals', 'Careers']}
-                modal={[
-                  <GenericModal
-                    key="1"
-                    modalHeadingTitle="Add Goal"
-                    openButtonIcon={<AddIcon sx={iconStyle} />}
-                    actionButtonTitle="Add"
-                    cancelButtonTitle="Cancel"
-                  >
-                    <Grid Container direction="column">
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Goal" />
-                      </Grid>
-                      {/* TODO Make dropdown a component: this is too big */}
-                      <Grid item alignItems="center" sx={{ py: 3, px: 12 }}>
-                        <FormControl sx={{ minWidth: '200px', mx: 5 }}>
-                          <InputLabel id="sel">sel</InputLabel>
-                          <Select
-                            labelid="select"
-                            id="select"
-                            value={sel}
-                            label="SEL"
-                            onChange={handleSel}
-                          >
-                            <MenuItem value="Social">Social</MenuItem>
-                            <MenuItem value="Emotional">Emotional</MenuItem>
-                            <MenuItem value="Learning">Learning</MenuItem>
-                          </Select>
-                        </FormControl>
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Was it Accomplished" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Explanation" />
-                      </Grid>
-                    </Grid>
-                  </GenericModal>,
-                  <GenericModal
-                    key="2"
-                    modalHeadingTitle="Add Career"
-                    openButtonIcon={<AddIcon sx={iconStyle} />}
-                    actionButtonTitle="Add"
-                    cancelButtonTitle="Cancel"
-                  >
-                    {/* TODO: items 1 and 4 need to be bool, item 2 needs to be dropdown */}
-                    <Grid Container direction="column">
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="College Bound?" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Career Cluster" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Career Name" />
-                      </Grid>
-                      <Grid item sx={{ py: 3 }}>
-                        <TextFieldWithErrorMessage label="Technical College Bound?" />
-                      </Grid>
-                    </Grid>
-                  </GenericModal>,
-                ]}
-                content={[
-                  ['Get a job'],
-                  ['Aspiring software developer', 'Job 2'],
-                ]}
-                labels={[['Goal 1'], ['Career 1', 'Career 2']]}
-              />
+
+            {tabValue === 1 && (
+              <React.Fragment>
+                <h1>Goals</h1>
+                <Grid>
+                  <AddGoalModal student={student} />
+                  {goals === null && <h6>No Goals</h6>}
+                  {goals !== null &&
+                    goals !== undefined &&
+                    goals.map((goal) => {
+                      return <h6 key={goal.id}>Goal: {goal.goalSet}</h6>;
+                    })}
+                </Grid>
+                <h1>Careers</h1>
+                <Grid>
+                  {careers === null ||
+                    (careers === undefined && <h6>No Careers</h6>)}
+                  {careers !== null &&
+                    [careers].map((career) => {
+                      return (
+                        <h6 key={career.careerDeclaration}>
+                          Career: {career.studentCareerPath}
+                        </h6>
+                      );
+                    })}
+                </Grid>
+              </React.Fragment>
+            )}
+
+            {tabValue === 2 && (
+              <React.Fragment>
+                <h1>Interviews</h1>
+                <Grid>
+                  {(interviews === null ||
+                    interviews === undefined ||
+                    interviews === {}) && <h6>No Interviews</h6>}
+                  {interviews !== null &&
+                    interviews !== undefined &&
+                    [interviews].map((interview) => {
+                      return (
+                        <h6 key={interview.id}>
+                          Interview: {interview.goalSet}
+                        </h6>
+                      );
+                    })}
+                </Grid>
+              </React.Fragment>
             )}
           </Box>
         </Grid>
@@ -224,7 +186,7 @@ export default function StudentDetails() {
             openButtonIcon={<AddIcon sx={iconStyle} />}
           >
             {/* TODO: Make Coach and Topic Dropdowns, Make Notes a large Textfield */}
-            <Grid Container direction="column">
+            <Grid container direction="column">
               <Grid item sx={{ py: 3 }}>
                 <TextFieldWithErrorMessage label="Coach" />
               </Grid>
@@ -319,3 +281,18 @@ export default function StudentDetails() {
     </Grid>
   );
 }
+
+StudentDetails.propTypes = {
+  student: propTypes.object,
+  goals: propTypes.object,
+  careers: propTypes.object,
+  interviews: propTypes.object,
+  onReload: propTypes.func,
+};
+StudentDetails.defaultProps = {
+  student: undefined,
+  goals: undefined,
+  careers: undefined,
+  interviews: undefined,
+  onReload: undefined,
+};

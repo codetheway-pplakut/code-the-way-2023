@@ -1,7 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import PropTypes, { array, instanceOf } from 'prop-types';
-import GenericModal from '../coaches/modal-component';
+import { GenericModal } from '../shared/generic-modal';
 
 /**
  * PROPS

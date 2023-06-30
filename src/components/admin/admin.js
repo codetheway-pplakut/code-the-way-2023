@@ -1,23 +1,35 @@
 import React from 'react';
-import { Grid, Box } from '@mui/material';
+import { Grid, Box, Link } from '@mui/material';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { Layout } from '../layout/layout';
-import { getActiveAdmins, getInactiveAdmins } from '../../services/admin/admin';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
-import { getInactiveAdminsHandler } from './adminHandlers';
+import { getActiveAdminsHandler } from './adminHandlers';
+import { DeactivateAdminModal } from './de-activate-admin-modal';
+import { AddAdminModal } from './addAdminModal';
 
 const COLUMNS = [
   {
-    label: 'Username',
-    id: 'userName',
-    numeric: false,
+    id: 'email',
     disablePadding: false,
+    label: 'Email',
+    align: 'left',
+    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
+    active: false,
   },
   {
-    label: 'Email',
-    id: 'email',
-    numeric: false,
+    id: 'id',
     disablePadding: false,
+    label: 'Deactivate',
+    align: 'left',
+    render: (value, refreshTable) => {
+      return (
+        <DeactivateAdminModal
+          adminId={value}
+          onAdminDeactivate={refreshTable}
+        />
+      );
+    },
+    active: false,
   },
 ];
 
@@ -30,10 +42,10 @@ export function Admins() {
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}
-                requestFunc={getInactiveAdminsHandler}
-                filterBy={['userName', 'email']}
+                requestFunc={getActiveAdminsHandler}
+                filterBy={['email']}
               >
-                {/* <AddAdminModal /> */}
+                <AddAdminModal />
               </DynamicTableWithRequest>
             </Box>
           </Layout>

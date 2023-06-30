@@ -10,7 +10,6 @@ import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { SearchBar } from './search';
-import { AddStudentModal } from '../coaches/modal-component';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -70,7 +69,6 @@ export function DynamicTable(props) {
     () => stableSort(rows, getComparator(order, orderBy)),
     [rows, order, orderBy]
   );
-
   return (
     <div>
       <Box sx={{ width: '100%' }} marginInline={{}}>
@@ -81,7 +79,7 @@ export function DynamicTable(props) {
           alignItems="center"
         />
         <Toolbar>
-          <Grid paddingLeft="70%" item>
+          <Grid paddingRight="70%" item>
             <SearchBar requestSearch={requestSearch} />
           </Grid>
           <Grid item>
@@ -101,7 +99,7 @@ export function DynamicTable(props) {
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
-          <Table sx={{ minWidth: 750 }} size="medium">
+          <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
               order={order}
@@ -116,13 +114,12 @@ export function DynamicTable(props) {
                     {APIcolumns.map((column) => {
                       const { id: columnId, numeric, render } = column;
                       const value = row[columnId];
-
                       return (
                         <TableCell
                           align={numeric ? 'right' : 'left'}
                           key={columnId}
                         >
-                          {render ? render(value, refreshTable) : value}
+                          {render ? render(value, row, refreshTable) : value}
                         </TableCell>
                       );
                     })}
