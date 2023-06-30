@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { addStudentHandler } from './studentHandlers';
@@ -47,10 +47,10 @@ export function AddStudentModal() {
       </Grid>
       <Grid item sx={{ mb: 1 }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
+          <DesktopDatePicker
             label="Date of Birth"
             margin="normal"
-            size="small"
+            sx={{ width: 210 }}
             value={dayjs(dateOfBirth)}
             onChange={(newValue) => setDateOfBirth(newValue)}
           />

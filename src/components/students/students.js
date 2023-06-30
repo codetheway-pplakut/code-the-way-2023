@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Grid, Link } from '@mui/material';
 
+import { NavLink } from 'react-router-dom';
 import {
   getActiveStudents,
   getAppliedStudents,
@@ -28,7 +29,9 @@ const COLUMNS = [
             studentId={id}
             onStudentDeactivate={refreshTable}
           />{' '}
-          <Button>{value}</Button>
+          <NavLink to="/student-info" state={{ studentId: id }}>
+            {value}
+          </NavLink>
         </React.Fragment>
       );
     },
