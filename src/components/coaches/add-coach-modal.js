@@ -18,7 +18,7 @@ export function AddCoachModal() {
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: '' },
       },
       lastName: {
         presence: { allowEmpty: false },
@@ -43,7 +43,8 @@ export function AddCoachModal() {
         presence: { allowEmpty: false, message: 'is required' },
         equality: 'password',
       },
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
@@ -97,6 +98,9 @@ export function AddCoachModal() {
               onChange={(event) => setFirstName(event.target.value)}
               label="First Name"
               value={firstName}
+              errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
+              error={firstName.length < 1}
+              required
               type="text"
             />
             <TextField
@@ -104,6 +108,9 @@ export function AddCoachModal() {
               onChange={(event) => setLastName(event.target.value)}
               label="Last Name"
               value={lastName}
+              errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
+              error={lastName.length < 1}
+              required
               type="text"
             />
             <TextField
@@ -111,6 +118,9 @@ export function AddCoachModal() {
               onChange={(event) => setEmail(event.target.value)}
               label="Email"
               value={email}
+              error={!email.includes('@')}
+              errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+              required
               type="email"
             />
             <TextField
@@ -118,6 +128,9 @@ export function AddCoachModal() {
               onChange={(event) => setPhone(event.target.value)}
               label="Phone Number"
               value={phone}
+              required
+              error={phone.length < 1}
+              errorText={phone.length < 1 ? 'Enter Phone Number' : ' '}
               type="text"
             />
             <TextField
@@ -125,6 +138,9 @@ export function AddCoachModal() {
               onChange={(event) => setPassword(event.target.value)}
               label="Password"
               value={password}
+              error={!email.includes('@')}
+              errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+              required
               type="password"
             />
             <TextField
@@ -132,19 +148,15 @@ export function AddCoachModal() {
               onChange={(event) => setConfirmPassword(event.target.value)}
               label="Confirm Password"
               value={confirmPassword}
+              error={confirmPassword !== password}
+              errorText={
+                confirmPassword !== password ? 'Passwords must match.' : ' '
+              }
+              required
               type="password"
             />
           </Stack>
         </Grid>
-        {messages.length > 0 && (
-          <Grid item xs={9}>
-            {messages.map((message, index) => (
-              <Typography key={index.id} variant="body2" color="error">
-                {message}
-              </Typography>
-            ))}
-          </Grid>
-        )}
       </Grid>
     </GenericModal>
   );

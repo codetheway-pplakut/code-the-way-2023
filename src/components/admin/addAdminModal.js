@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, Stack, TextField, Typography } from '@mui/material';
-import GenericModal from '../coaches/modal-component';
+import GenericModal from '../shared/generic-modal';
 import { addAdminHandler } from './adminHandlers';
 
 export function AddAdminModal() {
