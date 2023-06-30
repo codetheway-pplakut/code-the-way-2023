@@ -6,14 +6,13 @@ import {
   getActiveStudents,
   getAppliedStudents,
 } from '../../services/students/students';
-
-import { ArchiveStudentModal } from './activate-archive-student-modal';
 import { ChooseCoachModal } from './choose-coach-modal';
 import { AddStudentModal } from './add-student-modal';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { DeactivateStudentModal } from '../inactive-rejected/student-activate-button/student-activate-button';
 
 const COLUMNS = [
   {
@@ -21,18 +20,12 @@ const COLUMNS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    render: (value, refreshTable, row) => {
+    render: (value, row, refreshTable) => {
       const { id } = row;
       return (
-        <React.Fragment>
-          <ArchiveStudentModal
-            studentId={id}
-            onStudentDeactivate={refreshTable}
-          />{' '}
-          <NavLink to="/student-info" state={{ studentId: id }}>
-            {value}
-          </NavLink>
-        </React.Fragment>
+        <NavLink to="/student-info" state={{ studentId: id }}>
+          {value}
+        </NavLink>
       );
     },
   },
@@ -63,11 +56,24 @@ const COLUMNS = [
     // render: (value) => <ChooseCoachModal coachName={value} />,
   },
   {
-    id: 'options',
+    id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
-    render: (value) => <ChooseCoachModal coachName={value} />,
+    render: (value, row, refreshTable) => (
+      <DeactivateStudentModal
+        studentId={value}
+        onStudentDeactivate={refreshTable}
+      />
+    ),
+  },
+  {
+    id: 'Choose Coach',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    render: () => <ChooseCoachModal />,
+    active: false,
   },
 ];
 

@@ -160,7 +160,7 @@ export const setStudentInactive = async (studentId) =>
   callApi({
     url: '/Students/SetStudentState',
     method: 'POST',
-    data: { studentId, state: inactive },
+    data: { studentId, state: 'inactive' },
   });
 
 /**
@@ -173,5 +173,5 @@ export const setStudentApplied = async (studentId) =>
   callApi({
     url: '/Students/SetStudentState',
     method: 'POST',
-    data: { studentId, state: applied },
+    data: { studentId, state: 'applied' },
   });
