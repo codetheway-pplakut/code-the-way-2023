@@ -77,7 +77,6 @@ const COLUMNS = [
   //   align: 'left',
   //   render: (value) => <ChooseCoachModal coachName={value} />,
   // },
-  // This code will be decided how it will be displayed, pls work along with jihong - by jihong
 ];
 
 const OPTIONS = [
@@ -136,7 +135,7 @@ const OPTIONS = [
     id: 'options',
     disablePadding: false,
     align: 'left',
-    render: (value, refreshTable, row) => {
+    render: (value, row, refreshTable) => {
       const { id } = row;
       return (
         <React.Fragment>
