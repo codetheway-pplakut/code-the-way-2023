@@ -138,8 +138,8 @@ export function AddCoachModal() {
               onChange={(event) => setPassword(event.target.value)}
               label="Password"
               value={password}
-              error={!email.includes('@')}
-              errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+              error={password.length < 1}
+              errorText={password.length < 1}
               required
               type="password"
             />
@@ -148,7 +148,7 @@ export function AddCoachModal() {
               onChange={(event) => setConfirmPassword(event.target.value)}
               label="Confirm Password"
               value={confirmPassword}
-              error={confirmPassword !== password}
+              error={confirmPassword !== password || confirmPassword.length < 1}
               errorText={
                 confirmPassword !== password ? 'Passwords must match.' : ' '
               }

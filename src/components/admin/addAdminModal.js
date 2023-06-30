@@ -75,6 +75,9 @@ export function AddAdminModal() {
               onChange={(event) => setEmail(event.target.value)}
               label="Email"
               value={email}
+              error={!email.includes('@')}
+              errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+              required
               type="email"
             />
             <TextField
@@ -82,6 +85,9 @@ export function AddAdminModal() {
               onChange={(event) => setPassword(event.target.value)}
               label="Password"
               value={password}
+              error={password.length < 1}
+              errorText={!password.length < 1}
+              required
               type="password"
             />
             <TextField
@@ -90,18 +96,14 @@ export function AddAdminModal() {
               label="Confirm Password"
               value={confirmPassword}
               type="password"
+              error={confirmPassword !== password || confirmPassword.length < 1}
+              errorText={
+                confirmPassword !== password ? 'Passwords must match.' : ' '
+              }
+              required
             />
           </Stack>
         </Grid>
-        {messages.length > 0 && (
-          <Grid item xs={9}>
-            {messages.map((message, index) => (
-              <Typography key={index.id} variant="body2" color="error">
-                {message}
-              </Typography>
-            ))}
-          </Grid>
-        )}
       </Grid>
     </GenericModal>
   );
