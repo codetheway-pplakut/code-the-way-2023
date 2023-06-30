@@ -8,6 +8,7 @@ import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest
 import { DeactivateCoachModal } from './de-activate-coach-modal';
 import { GenericViewModal } from '../shared/generic-view-modal';
 import { getStudentsByCoachId } from '../../services/students/students';
+import { AddCoachModal } from './add-coach-modal';
 
 const STUDENTCOLUMNS = [
   {
@@ -126,7 +127,9 @@ export function Coaches() {
                   'coachEmail',
                   'coachPhoneNumber',
                 ]}
-              />
+              >
+                <AddCoachModal />
+              </DynamicTableWithRequest>
             </Box>
           </Layout>
         </EntitlementRestricted>

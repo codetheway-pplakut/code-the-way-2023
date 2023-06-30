@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Grid, Link } from '@mui/material';
 
+import { NavLink } from 'react-router-dom';
 import {
   getActiveStudents,
   getAppliedStudents,
@@ -19,15 +20,20 @@ const COLUMNS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    active: false,
-    render: (value) => <Button>{value}</Button>,
+    render: (value, row, refreshTable) => {
+      const { id } = row;
+      return (
+        <NavLink to="/student-info" state={{ studentId: id }}>
+          {value}
+        </NavLink>
+      );
+    },
   },
   {
     id: 'lastName',
     disablePadding: false,
     label: 'Last Name',
     align: 'left',
-    active: false,
   },
   {
     id: 'email',
@@ -35,21 +41,19 @@ const COLUMNS = [
     label: 'Email',
     align: 'left',
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
-    active: false,
   },
   {
     id: 'studentCellPhone',
     disablePadding: false,
     label: 'Student Cell',
     align: 'left',
-    active: false,
   },
   {
-    id: 'coach',
+    id: 'coachFirstName',
     disablePadding: false,
     label: 'Coach',
     align: 'left',
-    active: false,
+    // render: (value) => <ChooseCoachModal coachName={value} />,
   },
   {
     id: 'id',
@@ -76,6 +80,12 @@ const COLUMNS = [
 export function Students() {
   const [tabValue, setTabValue] = React.useState(0);
 
+  const requestFunc = async () => {
+    const activeStudents = await getActiveStudents();
+
+    return { data: [...activeStudents.data] };
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
@@ -97,7 +107,8 @@ export function Students() {
                     'studentCellPhone',
                     'coach',
                   ]}
-                  requestFunc={getActiveStudents}
+                  requestFunc={requestFunc}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
@@ -113,6 +124,7 @@ export function Students() {
                     'coach',
                   ]}
                   requestFunc={getAppliedStudents}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>

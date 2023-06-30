@@ -4,35 +4,26 @@ import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, Stack, TextField, Typography } from '@mui/material';
 import GenericModal from '../shared/generic-modal';
-import { addCoachHandler } from './coachHandlers';
+import { addAdminHandler } from './adminHandlers';
 
-export function AddCoachModal() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+export function AddAdminModal() {
   const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const validator = validate(
-    { firstName, lastName, email, phone, password, confirmPassword },
+    { email, password, confirmPassword },
     {
-      firstName: {
-        presence: { allowEmpty: false, message: '' },
-      },
-      lastName: {
-        presence: { allowEmpty: false },
-      },
       email: {
-        presence: { allowEmpty: false },
+        presence: true,
+        email: true,
       },
-      phone: {},
       password: {
-        presence: { allowEmpty: false },
+        presence: true,
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
-            'must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
+            'must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
         },
         length: {
           minimum: 12,
@@ -40,39 +31,25 @@ export function AddCoachModal() {
         },
       },
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'is required' },
+        presence: true,
         equality: 'password',
       },
-    },
-    { fullMessages: false }
+    }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
 
   const submitAction = () => {
-    addCoachHandler(
-      firstName,
-      lastName,
-      email,
-      phone,
-      password,
-      confirmPassword
-    );
-    setFirstName('');
-    setLastName('');
+    addAdminHandler(email, password, confirmPassword);
     setEmail('');
-    setPhone('');
-    setConfirmPassword('');
     setPassword('');
+    setConfirmPassword('');
   };
 
   const cancelAction = () => {
-    setFirstName('');
-    setLastName('');
     setEmail('');
-    setPhone('');
-    setConfirmPassword('');
     setPassword('');
+    setConfirmPassword('');
   };
 
   const actionButtonDisabled = Boolean(messages.length);
@@ -95,26 +72,6 @@ export function AddCoachModal() {
           <Stack spacing={2}>
             <TextField
               fullWidth
-              onChange={(event) => setFirstName(event.target.value)}
-              label="First Name"
-              value={firstName}
-              errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
-              error={firstName.length < 1}
-              required
-              type="text"
-            />
-            <TextField
-              fullWidth
-              onChange={(event) => setLastName(event.target.value)}
-              label="Last Name"
-              value={lastName}
-              errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
-              error={lastName.length < 1}
-              required
-              type="text"
-            />
-            <TextField
-              fullWidth
               onChange={(event) => setEmail(event.target.value)}
               label="Email"
               value={email}
@@ -125,21 +82,11 @@ export function AddCoachModal() {
             />
             <TextField
               fullWidth
-              onChange={(event) => setPhone(event.target.value)}
-              label="Phone Number"
-              value={phone}
-              required
-              error={phone.length < 1}
-              errorText={phone.length < 1 ? 'Enter Phone Number' : ' '}
-              type="text"
-            />
-            <TextField
-              fullWidth
               onChange={(event) => setPassword(event.target.value)}
               label="Password"
               value={password}
               error={password.length < 1}
-              errorText={password.length < 1}
+              errorText={!password.length < 1}
               required
               type="password"
             />
@@ -148,12 +95,12 @@ export function AddCoachModal() {
               onChange={(event) => setConfirmPassword(event.target.value)}
               label="Confirm Password"
               value={confirmPassword}
+              type="password"
               error={confirmPassword !== password || confirmPassword.length < 1}
               errorText={
                 confirmPassword !== password ? 'Passwords must match.' : ' '
               }
               required
-              type="password"
             />
           </Stack>
         </Grid>
