@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, Button, Grid, Link } from '@mui/material';
 
+import { NavLink } from 'react-router-dom';
 import {
   getActiveStudents,
   getAppliedStudents,
@@ -21,7 +22,11 @@ const COLUMNS = [
     label: 'First Name',
     align: 'left',
     active: false,
-    render: (value) => <Button>{value}</Button>,
+    render: (rowId, value) => (
+      <NavLink to="/student-info" state={{ studentId: rowId }}>
+        <Button>{value}</Button>
+      </NavLink>
+    ),
   },
   {
     id: 'lastName',
@@ -35,7 +40,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Email',
     align: 'left',
-    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
+    render: (rowId, value) => <Link href={`mailto:${value}`}>{value}</Link>,
     active: false,
   },
   {
@@ -59,7 +64,8 @@ const COLUMNS = [
     align: 'left',
     render: () => (
       <React.Fragment>
-        <ArchiveStudentModal /> <ChooseCoachModal />
+        <ArchiveStudentModal />
+        <ChooseCoachModal />
       </React.Fragment>
     ),
     active: false,

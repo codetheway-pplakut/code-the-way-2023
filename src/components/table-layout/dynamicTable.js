@@ -116,12 +116,13 @@ export function DynamicTable(props) {
                     {APIcolumns.map((column) => {
                       const { id: columnId, numeric, render } = column;
                       const value = row[columnId];
+                      const rowId = row.id;
                       return (
                         <TableCell
                           align={numeric ? 'right' : 'left'}
                           key={columnId}
                         >
-                          {render ? render(value, row, refreshTable) : value}
+                          {render ? render(rowId, value, refreshTable) : value}
                         </TableCell>
                       );
                     })}
