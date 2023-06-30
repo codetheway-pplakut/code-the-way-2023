@@ -91,7 +91,8 @@ export function Students() {
                     'studentCellPhone',
                     'coach',
                   ]}
-                  requestFunc={getActiveStudents}
+                  requestFunc={requestFunc}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
@@ -107,6 +108,7 @@ export function Students() {
                     'coach',
                   ]}
                   requestFunc={getAppliedStudents}
+                  customTableMaxHeight={520}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>

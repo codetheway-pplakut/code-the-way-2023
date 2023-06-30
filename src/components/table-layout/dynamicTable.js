@@ -6,13 +6,10 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { SearchBar } from './search';
-import { AddStudentModal } from '../students/add-student-modal';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -102,7 +99,7 @@ export function DynamicTable(props) {
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
-          <Table sx={{ minWidth: 750 }} size="medium">
+          <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
               order={order}

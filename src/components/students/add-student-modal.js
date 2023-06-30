@@ -1,49 +1,82 @@
 import React from 'react';
-import { TextField } from '@mui/material';
+import { Grid, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import GenericModal from '../shared/generic-modal';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { addStudentHandler } from './studentHandlers';
+import { GenericModal } from '../shared/generic-modal';
 
 export function AddStudentModal() {
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
+  const [dateOfBirth, setDateOfBirth] = React.useState(new Date());
   const [email, setEmail] = React.useState('');
-  const [phone, setPhone] = React.useState('');
+  const [cellPhone, setCellPhone] = React.useState('');
+
+  const addStudentAction = async () => {
+    await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
+  };
 
   const content = (
-    <React.Fragment>
-      <TextField
-        label="First Name"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setFirstName(event.target.value);
-        }}
-      />
-      <TextField
-        label="Last Name"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setLastName(event.target.value);
-        }}
-      />
-      <TextField
-        label="Email"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setEmail(event.target.value);
-        }}
-      />
-      <TextField
-        label="Phone"
-        margin="normal"
-        size="small"
-        onChange={(event) => {
-          setPhone(event.target.value);
-        }}
-      />
-    </React.Fragment>
+    <Grid
+      container
+      direction="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid item>
+        <TextField
+          label="First Name"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setFirstName(event.target.value);
+          }}
+        />
+      </Grid>
+      <Grid item sx={{ mb: 2 }}>
+        <TextField
+          label="Last Name"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setLastName(event.target.value);
+          }}
+        />
+      </Grid>
+      <Grid item sx={{ mb: 1 }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Date of Birth"
+            margin="normal"
+            size="small"
+            value={dayjs(dateOfBirth)}
+            onChange={(newValue) => setDateOfBirth(newValue)}
+          />
+        </LocalizationProvider>
+      </Grid>
+      <Grid item>
+        <TextField
+          label="Phone"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setCellPhone(event.target.value);
+          }}
+        />
+      </Grid>
+      <Grid item>
+        <TextField
+          label="Email"
+          margin="normal"
+          size="large"
+          onChange={(event) => {
+            setEmail(event.target.value);
+          }}
+        />
+      </Grid>
+    </Grid>
   );
   return (
     <GenericModal
@@ -54,6 +87,7 @@ export function AddStudentModal() {
       cancelButtonColor="cancel"
       actionButtonTitle="Add"
       cancelButtonTitle="Cancel"
+      onActionButtonClick={addStudentAction}
     />
   );
 }
