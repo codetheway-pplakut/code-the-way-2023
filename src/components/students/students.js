@@ -6,11 +6,9 @@ import {
   getAppliedStudents,
 } from '../../services/students/students';
 
-import {
-  ArchiveStudentModal,
-  ChooseCoachModal,
-  AddStudentModal,
-} from '../coaches/modal-component';
+import { ArchiveStudentModal } from './activate-archive-student-modal';
+import { ChooseCoachModal } from './choose-coach-modal';
+import { AddStudentModal } from './add-student-modal';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
@@ -76,7 +74,7 @@ export function Students() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Students" subTitle="View all students.">
+          <Layout title="Students">
             <DynamicTabs
               tabNames={['Active', 'Applicant']}
               tabValue={tabValue}
@@ -86,8 +84,14 @@ export function Students() {
               {tabValue === 0 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={['firstName']}
-                  requestFunc={requestFunc}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                    'coach',
+                  ]}
+                  requestFunc={getActiveStudents}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
@@ -95,7 +99,13 @@ export function Students() {
               {tabValue === 1 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={['firstName']}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                    'coach',
+                  ]}
                   requestFunc={getAppliedStudents}
                 >
                   <AddStudentModal />

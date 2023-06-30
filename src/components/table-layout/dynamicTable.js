@@ -5,12 +5,14 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { useState } from 'react';
 import { Box, Grid, IconButton, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { SearchBar } from './search';
+import { AddStudentModal } from '../students/add-student-modal';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -41,10 +43,10 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, filterBy, refreshTable } = props;
+  const { APIcolumns, APIrows, filterBy, customTableMaxHeight, refreshTable } =
+    props;
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('');
-  const [dense, setDense] = React.useState(false);
   const [rows, setRows] = useState(APIrows);
 
   const handleRequestSort = (event, property) => {
@@ -64,10 +66,6 @@ export function DynamicTable(props) {
       });
     });
     setRows(filteredRows);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
   };
 
   const visibleRows = React.useMemo(
@@ -102,52 +100,49 @@ export function DynamicTable(props) {
           </Grid>
         </Toolbar>
       </Box>
-      <TableContainer sx={{ maxHeight: 520 }}>
-        <Table size={dense ? 'small' : 'medium'} stickyHeader>
-          <EnhancedTableHead
-            columns={APIcolumns}
-            order={order}
-            orderBy={orderBy}
-            onRequestSort={handleRequestSort}
-            rowCount={rows.length}
-          />
-          <TableBody>
-            {visibleRows.map((row) => {
-              return (
-                <TableRow hover key={row.id}>
-                  {APIcolumns.map((column) => {
-                    const { id: columnId, numeric, render } = column;
-                    const value = row[columnId];
-                    return (
-                      <TableCell
-                        align={numeric ? 'right' : 'left'}
-                        key={columnId}
-                      >
-                        {render ? render(value, refreshTable, row) : value}
-                      </TableCell>
-                    );
-                  })}
+      <Paper sx={{ width: '100%', mb: 2 }}>
+        <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
+          <Table sx={{ minWidth: 750 }} size="medium">
+            <EnhancedTableHead
+              columns={APIcolumns}
+              order={order}
+              orderBy={orderBy}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {visibleRows.map((row) => {
+                return (
+                  <TableRow hover key={row.id}>
+                    {APIcolumns.map((column) => {
+                      const { id: columnId, numeric, render } = column;
+                      const value = row[columnId];
+                      return (
+                        <TableCell
+                          align={numeric ? 'right' : 'left'}
+                          key={columnId}
+                        >
+                          {render ? render(value, row, refreshTable) : value}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })}
+
+              {rows > 0 && (
+                <TableRow
+                  style={{
+                    height: 53 * rows,
+                  }}
+                >
+                  <TableCell colSpan={6} />
                 </TableRow>
-              );
-            })}
-
-            {rows > 0 && (
-              <TableRow
-                style={{
-                  height: (dense ? 33 : 53) * rows,
-                }}
-              >
-                <TableCell colSpan={6} />
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
     </div>
   );
 }
@@ -157,11 +152,14 @@ DynamicTable.propTypes = {
   APIrows: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node.isRequired,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
+  children: PropTypes.node.isRequired,
+  customTableMaxHeight: PropTypes.number,
   refreshTable: PropTypes.func,
 };
 
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
+  customTableMaxHeight: null,
   refreshTable: undefined,
 };
