@@ -50,8 +50,6 @@ export function ChooseCoachModal(props) {
   const handleCoachChange = (event) => {
     setValue(event.target.value);
     setNewCoachId(event.target.value);
-    // console.log(studentId);
-    console.log(newCoachId);
   };
 
   const content = (
