@@ -119,7 +119,7 @@ export function DynamicTable(props) {
                           align={numeric ? 'right' : 'left'}
                           key={columnId}
                         >
-                          {render ? render(value, refreshTable, row) : value}
+                          {render ? render(value, row, refreshTable) : value}
                         </TableCell>
                       );
                     })}
