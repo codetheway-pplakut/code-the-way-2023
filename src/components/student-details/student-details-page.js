@@ -4,10 +4,11 @@ import propTypes from 'prop-types';
 import { Box, Tab } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
+import { GenericModal } from '../shared/generic-modal';
+import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
 import { StudentInfoBox } from './student-info-box';
-import { GenericModal } from '../coaches/modal-component';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import AddGoalModal from './addGoalMoal';
 
@@ -282,10 +283,10 @@ export default function StudentDetails(props) {
 }
 
 StudentDetails.propTypes = {
-  student: propTypes.func,
-  goals: propTypes.func,
-  careers: propTypes.func,
-  interviews: propTypes.func,
+  student: propTypes.object,
+  goals: propTypes.object,
+  careers: propTypes.object,
+  interviews: propTypes.object,
   onReload: propTypes.func,
 };
 StudentDetails.defaultProps = {

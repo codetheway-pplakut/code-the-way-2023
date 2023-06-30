@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { CircularProgress } from '@mui/material';
+import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
-import { GenericModal } from '../coaches/modal-component';
 
 export default function EditStudentInfoModal(props) {
   const { student, onSaveSuccess, isParent } = props;

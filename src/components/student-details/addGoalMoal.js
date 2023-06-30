@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { GenericModal } from '../coaches/modal-component';
+import GenericModal from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { addGoalHandler } from './goalsHandler';
 

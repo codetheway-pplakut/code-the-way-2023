@@ -7,11 +7,9 @@ import {
   getAppliedStudents,
 } from '../../services/students/students';
 
-import {
-  ArchiveStudentModal,
-  ChooseCoachModal,
-  AddStudentModal,
-} from '../coaches/modal-component';
+import { ArchiveStudentModal } from './activate-archive-student-modal';
+import { ChooseCoachModal } from './choose-coach-modal';
+import { AddStudentModal } from './add-student-modal';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
