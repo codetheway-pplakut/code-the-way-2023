@@ -10,10 +10,12 @@ import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-mess
 import { CommunicationLog } from './communication-log';
 import { StudentInfoBox } from './student-info-box';
 import DynamicTabs from '../table-layout/dynamicTabs';
-import AddGoalModal from './addGoalMoal';
+import Goal from './goal';
 
+// StudentDetails is meant to be a 'skeleton' that controls page layout
+// Nothing in here should be hard-coded, should be passed via props
 export default function StudentDetails(props) {
-  const { student, goals, careers, interviews, onReload } = props;
+  const { student, onReload } = props;
   const [tabValue, setTabValue] = React.useState(0);
 
   const handleChange = React.useCallback((event, newValue) => {
@@ -109,16 +111,7 @@ export default function StudentDetails(props) {
           <Box sx={boxStyle} padding="4vh">
             {tabValue === 0 && (
               <Grid>
-                <h1>Student Info</h1>
-                <StudentInfoBox
-                  student={student}
-                  onReload={() => onReload()}
-                  isParent={false}
-                />
-                <br />
-                <br />
-                <br />
-                <h1>Parent Info</h1>
+                <StudentInfoBox student={student} onReload={() => onReload()} />
                 <StudentInfoBox
                   student={student}
                   onReload={() => onReload()}
@@ -128,51 +121,41 @@ export default function StudentDetails(props) {
             )}
 
             {tabValue === 1 && (
-              <React.Fragment>
-                <h1>Goals</h1>
-                <Grid>
-                  <AddGoalModal student={student} />
-                  {goals === null && <h6>No Goals</h6>}
-                  {goals !== null &&
-                    goals !== undefined &&
-                    goals.map((goal) => {
-                      return <h6 key={goal.id}>Goal: {goal.goalSet}</h6>;
-                    })}
-                </Grid>
-                <h1>Careers</h1>
-                <Grid>
-                  {careers === null ||
-                    (careers === undefined && <h6>No Careers</h6>)}
-                  {careers !== null &&
-                    [careers].map((career) => {
-                      return (
-                        <h6 key={career.careerDeclaration}>
-                          Career: {career.studentCareerPath}
-                        </h6>
-                      );
-                    })}
-                </Grid>
-              </React.Fragment>
+              // TODO use GoalsBox in student-info-box.js once it's finished
+              <Goal
+                goal={[
+                  'Test Goal 1',
+                  '2023-07-04T18:36:01.681Z',
+                  'SL',
+                  '2023-07-04T18:36:01.681Z',
+                  'No',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                ]}
+              />
             )}
 
             {tabValue === 2 && (
-              <React.Fragment>
-                <h1>Interviews</h1>
-                <Grid>
-                  {(interviews === null ||
-                    interviews === undefined ||
-                    interviews === {}) && <h6>No Interviews</h6>}
-                  {interviews !== null &&
-                    interviews !== undefined &&
-                    [interviews].map((interview) => {
-                      return (
-                        <h6 key={interview.id}>
-                          Interview: {interview.goalSet}
-                        </h6>
-                      );
-                    })}
-                </Grid>
-              </React.Fragment>
+              <Box> Placeholder </Box>
+              // TO BE DEPRECATED
+              // Should be part of its own component
+
+              // <React.Fragment>
+              //   <h1>Interviews</h1>
+              //   <Grid>
+              //     {(interviews === null ||
+              //       interviews === undefined ||
+              //       interviews === {}) && <h6>No Interviews</h6>}
+              //     {interviews !== null &&
+              //       interviews !== undefined &&
+              //       [interviews].map((interview) => {
+              //         return (
+              //           <h6 key={interview.id}>
+              //             Interview: {interview.goalSet}
+              //           </h6>
+              //         );
+              //       })}
+              //   </Grid>
+              // </React.Fragment>
             )}
           </Box>
         </Grid>
@@ -201,6 +184,7 @@ export default function StudentDetails(props) {
         </Grid>
 
         <Grid item sx={{ ml: '10%' }}>
+          {/* TEMP UNTIL API FOR COMMS ADDED */}
           <CommunicationLog
             data={[
               [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],

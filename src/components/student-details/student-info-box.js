@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { Grid, Typography } from '@mui/material';
 import EditStudentInfoModal from './edit-student-info-modal';
+import Goal from './goal';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
@@ -11,17 +12,7 @@ export function StudentInfoBox(props) {
   const [CellPhone, setCellPhone] = useState('');
   const [Email, setEmail] = useState('');
 
-  // useEffect(() => {
-  //   setStudentFirstName(student.studentFirstName);
-  //   setStudentLastName(student.studentLastName);
-  //   setStudentCellPhone(student.studentCellPhone);
-  //   setStudentEmail(student.studentEmail);
-  //   setParentFirstName(student.parentFirstName);
-  //   setParentLastName(student.parentLastName);
-  //   setParentCellPhone(student.parentCellPhone);
-  //   setParentEmail(student.parentEmail);
-  // }, [student]); // Run only once on mount
-
+  // useEffect gets names again when the student is updated
   useEffect(() => {
     if (isParent) {
       setFirstName(student.parentFirstName);
@@ -34,7 +25,7 @@ export function StudentInfoBox(props) {
       setCellPhone(student.studentCellPhone);
       setEmail(student.studentEmail);
     }
-  }, [student]);
+  }, [isParent, student]);
 
   return (
     <Grid container direction="column" sx={{ my: 2 }}>
@@ -56,6 +47,15 @@ export function StudentInfoBox(props) {
       </Grid>
     </Grid>
   );
+}
+export function GoalsBox(props) {
+  const { student, onReload } = props;
+
+  const { allGoals, setAllGoals } = useState([]);
+
+  return allGoals.map((goalContent, index) => (
+    <Goal goal={goalContent} key={index.id} />
+  ));
 }
 
 StudentInfoBox.propTypes = {
