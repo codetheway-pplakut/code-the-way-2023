@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import { Grid, Typography } from '@mui/material';
+import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
+import { getStudentGoalsHandler } from './goalsHandler';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
@@ -51,7 +53,31 @@ export function StudentInfoBox(props) {
 export function GoalsBox(props) {
   const { student, onReload } = props;
 
-  const { allGoals, setAllGoals } = useState([]);
+  const [allGoals, setAllGoals] = useState([]);
+  const TESTGOALS = [
+    [
+      'Test Goal 1',
+      '2023-07-04T18:36:01.681Z',
+      'SL',
+      '2023-07-04T18:36:01.681Z',
+      'No',
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    ],
+    [
+      'Test Goal 2',
+      '2023-07-04T18:36:01.681Z',
+      'SL',
+      '2023-07-04T18:36:01.681Z',
+      'No',
+      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    ],
+  ];
+
+  useEffect(() => {
+    // PENDING: once API changes are made, setAllGoals(student.goals) should be sufficient
+    setAllGoals(getStudentGoalsHandler(student.id));
+    console.log('FINDME', allGoals);
+  }, []);
 
   return allGoals.map((goalContent, index) => (
     <Goal goal={goalContent} key={index.id} />

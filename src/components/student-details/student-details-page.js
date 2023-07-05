@@ -8,7 +8,7 @@ import { GenericModal } from '../shared/generic-modal';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
-import { StudentInfoBox } from './student-info-box';
+import { GoalsBox, StudentInfoBox } from './student-info-box';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import Goal from './goal';
 
@@ -120,19 +120,7 @@ export default function StudentDetails(props) {
               </Grid>
             )}
 
-            {tabValue === 1 && (
-              // TODO use GoalsBox in student-info-box.js once it's finished
-              <Goal
-                goal={[
-                  'Test Goal 1',
-                  '2023-07-04T18:36:01.681Z',
-                  'SL',
-                  '2023-07-04T18:36:01.681Z',
-                  'No',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                ]}
-              />
-            )}
+            {tabValue === 1 && <GoalsBox student={student} />}
 
             {tabValue === 2 && (
               <Box> Placeholder </Box>
