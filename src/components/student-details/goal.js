@@ -8,6 +8,7 @@ export default function Goal(props) {
   const { goal, onReload } = props;
 
   // handles API stuff
+  const [goalId, setGoalId] = useState('');
   const [goalSet, setGoalSet] = useState('');
   const [dateGoalSet, setDateGoalSet] = useState(Date);
   const [SEL, setSEL] = useState('');
@@ -18,12 +19,13 @@ export default function Goal(props) {
   // controls how much of the explanation is shown
   const [showMore, setShowMore] = useState(true);
   useEffect(() => {
-    setGoalSet(goal[0]);
-    setDateGoalSet(goal[1]);
-    setSEL(goal[2]);
-    setGoalReviewDate(goal[3]);
-    setWasItAccomplished(goal[4]);
-    setExplanation(goal[5]);
+    setGoalId(goal[0]);
+    setGoalSet(goal[1]);
+    setDateGoalSet(goal[2]);
+    setSEL(goal[3]);
+    setGoalReviewDate(goal[4]);
+    setWasItAccomplished(goal[5]);
+    setExplanation(goal[6]);
   }, [goal]);
   const handleChange = () => {
     setShowMore(!showMore);

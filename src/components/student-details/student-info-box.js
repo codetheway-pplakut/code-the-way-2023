@@ -4,7 +4,12 @@ import { Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
-import { getStudentGoalsHandler } from './goalsHandler';
+import {
+  altGetStudentGoalsHandler,
+  getStudentGoalsHandler,
+} from './goalsHandler';
+import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
+import { LayoutError } from '../layout/layout-error/layout-error';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
@@ -54,33 +59,47 @@ export function GoalsBox(props) {
   const { student, onReload } = props;
 
   const [allGoals, setAllGoals] = useState([]);
-  const TESTGOALS = [
-    [
-      'Test Goal 1',
-      '2023-07-04T18:36:01.681Z',
-      'SL',
-      '2023-07-04T18:36:01.681Z',
-      'No',
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-    ],
-    [
-      'Test Goal 2',
-      '2023-07-04T18:36:01.681Z',
-      'SL',
-      '2023-07-04T18:36:01.681Z',
-      'No',
-      'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    ],
-  ];
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    // PENDING: once API changes are made, setAllGoals(student.goals) should be sufficient
-    setAllGoals(getStudentGoalsHandler(student.id));
-    console.log('FINDME', allGoals);
-  }, []);
+    // const fetchGoals = () => {
+    //   setIsLoading(true);
+    //   setHasError(false);
 
-  return allGoals.map((goalContent, index) => (
-    <Goal goal={goalContent} key={index.id} />
+    //   // altGetStudentGoalsHandler uses callbacks
+    //   // I have no clue why it didn't work with the regular one.
+    //   altGetStudentGoalsHandler(student.id, (goals, error) => {
+    //     if (error) {
+    //       setHasError(true);
+    //     } else {
+    //       setAllGoals(goals.data);
+    //       console.log('FINDME', goals.data);
+    //     }
+    //     setIsLoading(false);
+    //   });
+    // };
+    const fetchGoals = async () => {
+      setIsLoading(true);
+      setHasError(false);
+      try {
+        // PENDING: once API changes are made, setAllGoals(student.goals) should be sufficient
+        const goals = getStudentGoalsHandler(student.id);
+        setAllGoals(goals.data);
+        console.log('FINDME', goals.data);
+      } catch (error) {
+        setHasError(true);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchGoals();
+  }, [student.id]);
+  if (isLoading) return <LayoutPreloader />;
+  if (hasError) return <LayoutError />;
+
+  return allGoals.map((goalContent) => (
+    <Goal goal={goalContent} key={goalContent[0]} />
   ));
 }
 
