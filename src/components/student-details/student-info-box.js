@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import { Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
-import {
-  altGetStudentGoalsHandler,
-  getStudentGoalsHandler,
-} from './goalsHandler';
+import { altGetStudentGoalsHandler } from './goalsHandler';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 
@@ -84,9 +81,13 @@ export function GoalsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  return allGoals.map((goalContent) => (
-    <Goal goal={goalContent} key={goalContent[0]} />
-  ));
+  return (
+    <Box>
+      {allGoals.map((goalContent) => (
+        <Goal goal={goalContent} key={goalContent[0]} />
+      ))}
+    </Box>
+  );
 }
 
 StudentInfoBox.propTypes = {
