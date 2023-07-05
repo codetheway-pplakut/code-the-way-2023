@@ -63,35 +63,21 @@ export function GoalsBox(props) {
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    // const fetchGoals = () => {
-    //   setIsLoading(true);
-    //   setHasError(false);
-
-    //   // altGetStudentGoalsHandler uses callbacks
-    //   // I have no clue why it didn't work with the regular one.
-    //   altGetStudentGoalsHandler(student.id, (goals, error) => {
-    //     if (error) {
-    //       setHasError(true);
-    //     } else {
-    //       setAllGoals(goals.data);
-    //       console.log('FINDME', goals.data);
-    //     }
-    //     setIsLoading(false);
-    //   });
-    // };
-    const fetchGoals = async () => {
+    const fetchGoals = () => {
       setIsLoading(true);
       setHasError(false);
-      try {
-        // PENDING: once API changes are made, setAllGoals(student.goals) should be sufficient
-        const goals = getStudentGoalsHandler(student.id);
-        setAllGoals(goals.data);
-        console.log('FINDME', goals.data);
-      } catch (error) {
-        setHasError(true);
-      } finally {
+
+      // altGetStudentGoalsHandler uses callbacks
+      // I have no clue why it didn't work with the regular one.
+      altGetStudentGoalsHandler(student.id, (goals, error) => {
+        if (error) {
+          setHasError(true);
+        } else {
+          setAllGoals(goals.data);
+          console.log('FINDME', goals.data);
+        }
         setIsLoading(false);
-      }
+      });
     };
     fetchGoals();
   }, [student.id]);
