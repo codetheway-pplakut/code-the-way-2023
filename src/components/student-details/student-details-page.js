@@ -120,7 +120,9 @@ export default function StudentDetails(props) {
               </Grid>
             )}
 
-            {tabValue === 1 && <GoalsBox student={student} />}
+            {tabValue === 1 && (
+              <GoalsBox student={student} onReload={() => onReload()} />
+            )}
 
             {tabValue === 2 && (
               <Box> Placeholder </Box>

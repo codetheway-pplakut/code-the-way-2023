@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
-import * as moment from 'moment/moment';
+import dayjs from 'dayjs';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
   const { goal, onReload } = props;
@@ -43,11 +44,11 @@ export default function Goal(props) {
       >
         <Typography>Goal: {goalSet}</Typography>
         <Typography>{SEL}</Typography>
-        {/* Formats dates with the Moment library */}
-        {/* splits so it only shows year/month/day */}
+
         <Typography>
-          Goal set: {moment(dateGoalSet, 'YYYY-MM-DD').format().split('T')[0]}
+          Goal set: {dayjs(dateGoalSet).toISOString().split('T')[0]}
         </Typography>
+        <EditGoalModal goal={goal} />
       </Grid>
       <Grid
         item
@@ -56,10 +57,8 @@ export default function Goal(props) {
         justifyContent="space-around"
         alignItems="center"
       >
-        {/* see dateGoalSet comments */}
         <Typography>
-          Review Date:{' '}
-          {moment(goalReviewDate, 'YYYY-MM-DD').format().split('T')[0]}
+          Review Date: {dayjs(dateGoalSet).toISOString().split('T')[0]}
         </Typography>
         <Typography>Was it accomplished: {wasItAccomplished}</Typography>
       </Grid>

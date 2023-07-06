@@ -84,7 +84,11 @@ export function GoalsBox(props) {
   return (
     <Box>
       {allGoals.map((goalContent) => (
-        <Goal goal={goalContent} key={goalContent[0]} />
+        <Goal
+          goal={goalContent}
+          key={goalContent[0]}
+          onReload={() => onReload()}
+        />
       ))}
     </Box>
   );
