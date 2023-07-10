@@ -11,22 +11,27 @@ export default function Goal(props) {
   // handles API stuff
   const [goalId, setGoalId] = useState('');
   const [goalSet, setGoalSet] = useState('');
-  const [dateGoalSet, setDateGoalSet] = useState(Date);
+  const [dateGoalSet, setDateGoalSet] = useState(new Date());
   const [SEL, setSEL] = useState('');
-  const [goalReviewDate, setGoalReviewDate] = useState(Date);
+  const [goalReviewDate, setGoalReviewDate] = useState(new Date());
   const [wasItAccomplished, setWasItAccomplished] = useState('');
   const [explanation, setExplanation] = useState('');
 
   // controls how much of the explanation is shown
   const [showMore, setShowMore] = useState(true);
   useEffect(() => {
-    setGoalId(goal[0]);
-    setGoalSet(goal[1]);
-    setDateGoalSet(goal[2]);
-    setSEL(goal[3]);
-    setGoalReviewDate(goal[4]);
-    setWasItAccomplished(goal[5]);
-    setExplanation(goal[6]);
+    if (goal.id) {
+      console.log('useEffect triggered', goal);
+      setGoalId(goal.id);
+      setGoalSet(goal.goalSet ? goal.goalSet : '');
+      setDateGoalSet(goal.dateGoalSet ? goal.dateGoalSet : new Date());
+      setSEL(goal.sel ? goal.sel : '');
+      setGoalReviewDate(goal.goalReviewDate ? goal.goalReviewDate : new Date());
+      setWasItAccomplished(
+        goal.wasItAccomplished ? goal.wasItAccomplished : ''
+      );
+      setExplanation(goal.explanation ? goal.explanation : '');
+    }
   }, [goal]);
   const handleChange = () => {
     setShowMore(!showMore);
