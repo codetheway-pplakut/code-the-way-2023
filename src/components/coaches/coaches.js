@@ -100,7 +100,7 @@ const COLUMNS = [
     disablePadding: false,
     label: '',
     align: 'left',
-    render: (value, refreshTable, row) => {
+    render: (value, row, refreshTable) => {
       return (
         <EditCoachModal
           coachId={value}
