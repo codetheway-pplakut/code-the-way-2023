@@ -13,8 +13,8 @@ export function EditCoachModal(props) {
   const [email, setEmail] = useState(coach.coachEmail);
   const [phoneNumber, setPhoneNumber] = useState(coach.coachPhoneNumber);
 
-  const submitAction = () => {
-    editCoachHandler(
+  const submitAction = async () => {
+    await editCoachHandler(
       coachId,
       coach.userId,
       firstName,
