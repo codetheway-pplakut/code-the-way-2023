@@ -22,7 +22,6 @@ export default function Goal(props) {
   const [showMore, setShowMore] = useState(true);
   useEffect(() => {
     if (goal.id) {
-      console.log('useEffect triggered', goal);
       setGoalId(goal.id);
       setGoalSet(goal.goalSet ? goal.goalSet : '');
       setDateGoalSet(goal.dateGoalSet ? goal.dateGoalSet : new Date());
@@ -54,7 +53,7 @@ export default function Goal(props) {
         <Typography>
           Goal set: {dayjs(dateGoalSet).format('MMM DD, YYYY')}
         </Typography>
-        <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess()} />
+        <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
       </Grid>
       <Grid
         item

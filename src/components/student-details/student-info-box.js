@@ -87,13 +87,11 @@ export function GoalsBox(props) {
   return (
     <Box>
       <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
-      {allGoals.map((goalContent, index) => (
+      {allGoals.map((goalContent) => (
         <Goal
           goal={goalContent}
-          key={index.id}
-          onSaveSuccess={() =>
-            console.log('does this trigger infinitely', goalContent.explanation)
-          }
+          key={goalContent.id}
+          onSaveSuccess={() => fetchGoals()}
         />
       ))}
     </Box>

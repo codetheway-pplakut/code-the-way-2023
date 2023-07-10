@@ -41,8 +41,9 @@ export function EditGoalModal(props) {
       wasItAccomplished,
       explanation
     );
+    console.log('save requested');
 
-    // if (onSaveSuccess) onSaveSuccess();
+    if (onSaveSuccess) onSaveSuccess();
   };
   return (
     <GenericModal
@@ -211,6 +212,14 @@ AddGoalModal.propTypes = {
   onSaveSuccess: propTypes.func,
 };
 AddGoalModal.defaultProps = {
+  student: undefined,
+  onSaveSuccess: undefined,
+};
+EditGoalModal.propTypes = {
+  student: propTypes.func,
+  onSaveSuccess: propTypes.func,
+};
+EditGoalModal.defaultProps = {
   student: undefined,
   onSaveSuccess: undefined,
 };
