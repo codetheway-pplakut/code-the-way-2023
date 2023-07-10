@@ -8,35 +8,6 @@ import {
 } from '../../students/studentHandlers';
 import GenericModal from '../../shared/generic-modal';
 
-export function DeactivateStudentModal(props) {
-  const { studentId, onStudentDeactivate } = props;
-  const deactivateStudentAction = async () => {
-    await setStudentInactiveHandler(studentId);
-    if (onStudentDeactivate) onStudentDeactivate();
-  };
-
-  return (
-    <GenericModal
-      openModal={<DeleteIcon />}
-      modalHeadingTitle="Deactivate Student"
-      modalMessage="Are you sure you want to deactivate this student?"
-      actionButtonTitle="Deactivate"
-      cancelButtonTitle="Cancel"
-      actionButtonColor="archive"
-      cancelButtonColor="cancel"
-      onActionButtonClick={deactivateStudentAction}
-    />
-  );
-}
-DeactivateStudentModal.propTypes = {
-  studentId: PropTypes.string,
-  onStudentDeactivate: PropTypes.func.isRequired,
-};
-
-DeactivateStudentModal.defaultProps = {
-  studentId: '',
-};
-
 export function ActivateStudentModal(props) {
   const { studentId, onStudentActivate } = props;
   const activateStudentAction = async () => {
