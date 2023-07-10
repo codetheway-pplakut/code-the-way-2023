@@ -132,7 +132,7 @@ export function Coaches() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Coaches" subTitle="View all coaches.">
+          <Layout title="Coaches">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}
