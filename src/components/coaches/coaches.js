@@ -9,6 +9,7 @@ import { DeactivateCoachModal } from './de-activate-coach-modal';
 import { GenericViewModal } from '../shared/generic-view-modal';
 import { getStudentsByCoachId } from '../../services/students/students';
 import { AddCoachModal } from './add-coach-modal';
+import { EditCoachModal } from './edit-coach-modal';
 
 const STUDENTCOLUMNS = [
   {
@@ -91,6 +92,21 @@ const COLUMNS = [
             requestData={id}
           />
         </GenericViewModal>
+      );
+    },
+  },
+  {
+    id: 'id',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    render: (value, refreshTable, row) => {
+      return (
+        <EditCoachModal
+          coachId={value}
+          coach={row}
+          onCoachEdit={refreshTable}
+        />
       );
     },
   },
