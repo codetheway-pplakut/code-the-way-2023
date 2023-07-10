@@ -7,6 +7,7 @@ import Goal from './goal';
 import { altGetStudentGoalsHandler } from './goalsHandler';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
+import { AddGoalModal } from './goal-modals';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
@@ -83,6 +84,7 @@ export function GoalsBox(props) {
 
   return (
     <Box>
+      <AddGoalModal student={student} />
       {allGoals.map((goalContent) => (
         <Goal goal={goalContent} key={goalContent[0]} />
       ))}
