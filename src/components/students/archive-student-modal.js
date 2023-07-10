@@ -33,16 +33,3 @@ export function ArchiveStudentModal(props) {
   );
 }
 
-export function ActivateStudentModal() {
-  return (
-    <GenericModal
-      openModal="Accept"
-      modalHeadingTitle="Accept Student"
-      modalMessage="Are you sure you want to accept this student?"
-      actionButtonColor="submit"
-      cancelButtonColor="cancel"
-      actionButtonTitle="Accept"
-      cancelButtonTitle="Cancel"
-    />
-  );
-}

@@ -119,7 +119,7 @@ export function DynamicTable(props) {
                           align={numeric ? 'right' : 'left'}
                           key={columnId}
                         >
-                          {render ? render(value, refreshTable, row) : value}
+                          {render ? render(value, row, refreshTable) : value}
                         </TableCell>
                       );
                     })}
@@ -149,7 +149,6 @@ DynamicTable.propTypes = {
   APIrows: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node.isRequired,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  children: PropTypes.node.isRequired,
   customTableMaxHeight: PropTypes.number,
   refreshTable: PropTypes.func,
 };
