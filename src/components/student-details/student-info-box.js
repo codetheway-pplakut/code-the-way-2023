@@ -54,29 +54,31 @@ export function StudentInfoBox(props) {
   );
 }
 export function GoalsBox(props) {
-  const { student, onReload } = props;
+  const { student } = props;
 
   const [allGoals, setAllGoals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const fetchGoals = () => {
+    console.log('fetchGoals triggered');
+    setIsLoading(true);
+    setHasError(false);
+    setAllGoals([]);
+
+    // altGetStudentGoalsHandler uses callbacks
+    // I have no clue why it didn't work with the regular one.
+    altGetStudentGoalsHandler(student.id, (goals, error) => {
+      if (error) {
+        setHasError(true);
+      } else {
+        setAllGoals(goals.data);
+        console.log('FINDME', goals.data);
+      }
+      setIsLoading(false);
+    });
+  };
 
   useEffect(() => {
-    const fetchGoals = () => {
-      setIsLoading(true);
-      setHasError(false);
-
-      // altGetStudentGoalsHandler uses callbacks
-      // I have no clue why it didn't work with the regular one.
-      altGetStudentGoalsHandler(student.id, (goals, error) => {
-        if (error) {
-          setHasError(true);
-        } else {
-          setAllGoals(goals.data);
-          console.log('FINDME', goals.data);
-        }
-        setIsLoading(false);
-      });
-    };
     fetchGoals();
   }, [student.id]);
   if (isLoading) return <LayoutPreloader />;
@@ -84,9 +86,9 @@ export function GoalsBox(props) {
 
   return (
     <Box>
-      <AddGoalModal student={student} />
-      {allGoals.map((goalContent) => (
-        <Goal goal={goalContent} key={goalContent[0]} />
+      <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
+      {allGoals.map((goalContent, index) => (
+        <Goal goal={goalContent} key={index.id} onReload={() => fetchGoals()} />
       ))}
     </Box>
   );

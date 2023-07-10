@@ -6,6 +6,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Grid } from '@mui/material';
 import dayjs from 'dayjs';
 import uuid from 'react-uuid';
+import propTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { editGoalHandler, addGoalHandler } from './goalsHandler';
@@ -134,7 +135,7 @@ export function AddGoalModal(props) {
       explanation
     );
 
-    // if (onSaveSuccess) onSaveSuccess();
+    if (onSaveSuccess) onSaveSuccess();
   };
   return (
     <GenericModal
@@ -204,3 +205,12 @@ export function AddGoalModal(props) {
     </GenericModal>
   );
 }
+
+AddGoalModal.propTypes = {
+  student: propTypes.func,
+  onSaveSuccess: propTypes.func,
+};
+AddGoalModal.defaultProps = {
+  student: undefined,
+  onSaveSuccess: undefined,
+};
