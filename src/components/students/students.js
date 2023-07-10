@@ -26,7 +26,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    render: (value, refreshTable, row) => {
+    render: (value, row, refreshTable) => {
       const { id } = row;
       return (
         <React.Fragment>
