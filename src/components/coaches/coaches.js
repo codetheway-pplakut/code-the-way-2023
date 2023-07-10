@@ -9,6 +9,7 @@ import { DeactivateCoachModal } from './de-activate-coach-modal';
 import { GenericViewModal } from '../shared/generic-view-modal';
 import { getStudentsByCoachId } from '../../services/students/students';
 import { AddCoachModal } from './add-coach-modal';
+import { EditCoachModal } from './edit-coach-modal';
 
 const STUDENTCOLUMNS = [
   {
@@ -101,6 +102,21 @@ const COLUMNS = [
     align: 'left',
     render: (value, row, refreshTable) => {
       return (
+        <EditCoachModal
+          coachId={value}
+          coach={row}
+          onCoachEdit={refreshTable}
+        />
+      );
+    },
+  },
+  {
+    id: 'id',
+    disablePadding: false,
+    label: '',
+    align: 'left',
+    render: (value, row, refreshTable) => {
+      return (
         <DeactivateCoachModal
           coachId={value}
           coachEmail={row[2]}
@@ -116,7 +132,7 @@ export function Coaches() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
-          <Layout title="Coaches" subTitle="View all coaches.">
+          <Layout title="Coaches">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
                 columns={COLUMNS}
@@ -127,6 +143,7 @@ export function Coaches() {
                   'coachEmail',
                   'coachPhoneNumber',
                 ]}
+                customTableMaxHeight={520}
               >
                 <AddCoachModal />
               </DynamicTableWithRequest>
