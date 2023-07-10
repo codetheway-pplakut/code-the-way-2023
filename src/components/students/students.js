@@ -11,13 +11,15 @@ import {
   RejectStudentModal,
 } from './accept-reject-student-modal';
 import { ArchiveStudentModal } from './archive-student-modal';
-import { ChooseCoachModal } from './choose-coach-modal';
 import { AddStudentModal } from './add-student-modal';
+import { ChooseCoachModal } from './choose-coach-modal';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
+import { getActiveCoachesHandler } from '../coaches/coachHandlers';
 
+const response = await getActiveCoachesHandler();
 const COLUMNS = [
   {
     id: 'firstName',
@@ -59,14 +61,18 @@ const COLUMNS = [
     align: 'left',
   },
   {
-    id: 'coachFirstName',
+    id: 'id',
     disablePadding: false,
     label: 'Coach',
     align: 'left',
-    render: (value) => (
+    render: (value, row, refreshTable) => (
       <React.Fragment>
-        {value}
-        <ChooseCoachModal coachName={value} />
+        {row.coachFirstName}
+        <ChooseCoachModal
+          apiResponse={response}
+          studentId={value}
+          refreshTable={refreshTable}
+        />
       </React.Fragment>
     ),
   },
@@ -119,18 +125,7 @@ const OPTIONS = [
     label: 'Student Cell',
     align: 'left',
   },
-  {
-    id: 'coachFirstName',
-    disablePadding: false,
-    label: 'Coach',
-    align: 'left',
-    render: (value) => (
-      <React.Fragment>
-        {value}
-        <ChooseCoachModal coachName={value} />
-      </React.Fragment>
-    ),
-  },
+
   {
     id: 'options',
     disablePadding: false,

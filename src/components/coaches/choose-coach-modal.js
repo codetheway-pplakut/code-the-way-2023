@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { assignStudentHandler } from './studentHandlers';
-import GenericModal from '../shared/generic-modal';
+import { getActiveCoachesHandler } from './coachHandlers';
+import {
+  assignStudent,
+  getActiveStudents,
+  getStudentById,
+  unassignStudent,
+} from '../../services/students/students';
+import { assignStudentHandler } from '../students/studentHandlers';
+import GenericModal from './modal-component';
 
 export function ChooseCoachModal(props) {
   const [coaches, setCoaches] = useState([]);
+  const [student, setStudent] = useState([]);
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
 
-  const { apiResponse, studentId, refreshTable } = props;
+  const { response, studentsId } = props;
   const request = async () => {
     try {
-      const { data } = apiResponse;
+      const { data } = response;
       setCoaches(data);
     } catch (error) {
       setCoaches([]);
@@ -22,21 +30,26 @@ export function ChooseCoachModal(props) {
     request();
   }, []);
 
-  const reassignCoachHandler = async () => {
+  // const studentsId = '7fb4f1b2-3d3e-4b56-b106-08db6c1d577e'; ==> can use as sample
+
+  const reassignCoachHandler = async (coachsId) => {
     if (newCoachId !== '') {
-      if (newCoachId !== 'Unassigned') {
-        await assignStudentHandler(newCoachId, studentId);
+      console.log(studentsId);
+      // if (coachsId === 'Unassigned' && updatedStudent.coachId !== null) {
+      //   await unassignStudent({
+      //     coachId: updatedStudent.coachId,
+      //     studentId: studentsId,
+      //   });
+      // }
+      if (coachsId !== 'Unassigned') {
+        await assignStudentHandler(coachsId, studentsId);
       }
     }
-    refreshTable();
   };
 
   const handleCoachChange = (event) => {
     setValue(event.target.value);
-  };
-
-  const recordValue = () => {
-    setNewCoachId(value);
+    setNewCoachId(event.target.value);
   };
 
   const content = (
@@ -44,9 +57,8 @@ export function ChooseCoachModal(props) {
       id="coach-select"
       select
       label="Select Coach"
-      value={value}
-      onFocus={recordValue}
       onChange={handleCoachChange}
+      value={value}
       disabled={coaches.length === 0}
       style={{ width: '200px' }}
     >
@@ -70,7 +82,7 @@ export function ChooseCoachModal(props) {
       actionButtonTitle="Save"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
-      onActionButtonClick={() => reassignCoachHandler()}
+      onActionButtonClick={() => reassignCoachHandler(newCoachId)}
     />
   );
 }
