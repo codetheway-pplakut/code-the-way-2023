@@ -51,7 +51,7 @@ export default function Goal(props) {
         <Typography>{SEL}</Typography>
 
         <Typography>
-          Goal set: {dayjs(dateGoalSet).toISOString().split('T')[0]}
+          Goal set: {dayjs(dateGoalSet).format('MMM DD, YYYY')}
         </Typography>
         <EditGoalModal goal={goal} />
       </Grid>
@@ -63,7 +63,7 @@ export default function Goal(props) {
         alignItems="center"
       >
         <Typography>
-          Review Date: {dayjs(dateGoalSet).toISOString().split('T')[0]}
+          Review Date: {dayjs(goalReviewDate).format('MMM DD, YYYY')}
         </Typography>
         <Typography>Was it accomplished: {wasItAccomplished}</Typography>
       </Grid>
