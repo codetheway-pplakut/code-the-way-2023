@@ -143,6 +143,7 @@ export function Coaches() {
                   'coachEmail',
                   'coachPhoneNumber',
                 ]}
+                customTableMaxHeight={520}
               >
                 <AddCoachModal />
               </DynamicTableWithRequest>
