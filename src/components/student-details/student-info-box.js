@@ -54,7 +54,7 @@ export function StudentInfoBox(props) {
   );
 }
 export function GoalsBox(props) {
-  const { student } = props;
+  const { student, onReload } = props;
 
   const [allGoals, setAllGoals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -88,7 +88,13 @@ export function GoalsBox(props) {
     <Box>
       <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
       {allGoals.map((goalContent, index) => (
-        <Goal goal={goalContent} key={index.id} onReload={() => fetchGoals()} />
+        <Goal
+          goal={goalContent}
+          key={index.id}
+          onSaveSuccess={() =>
+            console.log('does this trigger infinitely', goalContent.explanation)
+          }
+        />
       ))}
     </Box>
   );

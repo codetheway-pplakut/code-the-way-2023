@@ -54,7 +54,7 @@ export default function Goal(props) {
         <Typography>
           Goal set: {dayjs(dateGoalSet).format('MMM DD, YYYY')}
         </Typography>
-        <EditGoalModal goal={goal} onSaveSuccess={() => onReload()} />
+        <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess()} />
       </Grid>
       <Grid
         item
