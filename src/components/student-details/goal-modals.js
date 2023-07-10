@@ -18,14 +18,14 @@ export function EditGoalModal(props) {
   const [wasItAccomplished, setWasItAccomplished] = useState('');
   const [explanation, setExplanation] = useState('');
 
-  // useEffect(() => {
-  //   setGoalSet(goal.goalSet);
-  //   setDateGoalSet(goal.dateGoalSet);
-  //   setSEL(goal.sel);
-  //   setGoalReviewDate(goal.goalReviewDate);
-  //   setWasItAccomplished(goal.wasItAccomplished);
-  //   setExplanation(goal.explanation);
-  // }, [goal]);
+  useEffect(() => {
+    setGoalSet(goal.goalSet);
+    setDateGoalSet(goal.dateGoalSet);
+    setSel(goal.sel);
+    setGoalReviewDate(goal.goalReviewDate);
+    setWasItAccomplished(goal.wasItAccomplished);
+    setExplanation(goal.explanation);
+  }, [goal]);
 
   const requestSave = async () => {
     await editGoalHandler(
