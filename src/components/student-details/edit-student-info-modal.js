@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress } from '@mui/material';
+import { CircularProgress, Grid } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
@@ -92,24 +93,30 @@ export default function EditStudentInfoModal(props) {
       cancelButtonTitle="cancel"
       modalHeadingTitle={header}
       onActionButtonClick={requestSave}
-      openModal="Edit"
+      openModal={<EditIcon />}
     >
+      <Grid container>
+        <Grid item>
+          <TextFieldWithErrorMessage
+            label="First Name"
+            onChange={(value) =>
+              isParent ? setParentFirstName(value) : setStudentFirstName(value)
+            }
+            value={isParent ? parentFirstName : studentFirstName}
+          />
+        </Grid>
+        <Grid item>
+          <TextFieldWithErrorMessage
+            label="Last Name"
+            onChange={(value) =>
+              isParent ? setParentLastName(value) : setStudentLastName(value)
+            }
+            value={isParent ? parentLastName : studentLastName}
+          />
+        </Grid>
+      </Grid>
       <TextFieldWithErrorMessage
-        label="First Name"
-        onChange={(value) =>
-          isParent ? setParentFirstName(value) : setStudentFirstName(value)
-        }
-        value={isParent ? parentFirstName : studentFirstName}
-      />
-      <TextFieldWithErrorMessage
-        label="Last Name"
-        onChange={(value) =>
-          isParent ? setParentLastName(value) : setStudentLastName(value)
-        }
-        value={isParent ? parentLastName : studentLastName}
-      />
-      <TextFieldWithErrorMessage
-        label="Phone"
+        label="Preferred Phone Number"
         onChange={(value) =>
           isParent ? setParentCellPhone(value) : setStudentCellPhone(value)
         }

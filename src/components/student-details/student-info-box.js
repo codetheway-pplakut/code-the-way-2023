@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
+import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
@@ -50,7 +51,7 @@ export function StudentInfoBox(props) {
   }, [isParent, student]);
 
   return (
-    <Grid container direction="column">
+    <Grid container direction="column" spacing="2vh">
       <Grid item>
         {!isParent && (
           <Grid item>
@@ -101,20 +102,13 @@ export function StudentInfoBox(props) {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography>City: {city}</Typography>
-      </Grid>
-      <Grid item>
-        <Typography>State: {state}</Typography>
-      </Grid>
-      <Grid item>
-        <Typography>Zip Code: {zipCode}</Typography>
-      </Grid>
-      <Grid item>
         <Typography>Apartment Number: {apartmentNumber}</Typography>
       </Grid>
       {!isParent && (
         <Grid item>
-          <Typography>Date of Birth: {studentDateOfBirth}</Typography>
+          <Typography>
+            Date of Birth: {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+          </Typography>
         </Grid>
       )}
     </Grid>
