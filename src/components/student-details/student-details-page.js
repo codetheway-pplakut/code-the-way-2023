@@ -24,7 +24,7 @@ export default function StudentDetails(props) {
 
   const boxStyle = React.useMemo(
     () => ({
-      bgcolor: '#dddddd',
+      bgcolor: '#ffffff',
       minWidth: '100%',
       color: '#000000',
       position: 'relative',
@@ -76,7 +76,7 @@ export default function StudentDetails(props) {
       sx={{ flexWrap: 'nowrap', mt: '50px' }}
     >
       <Grid item xs={6} direction="row">
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" pl="2vw">
           <Tabs
             value={tabValue}
             onChange={handleChange}
@@ -107,7 +107,7 @@ export default function StudentDetails(props) {
           }}
         /> */}
 
-        <Grid item justifyContent="center">
+        <Grid item justifyContent="center" pl="2vw">
           <Box sx={boxStyle} padding="4vh">
             {tabValue === 0 && (
               <Grid>

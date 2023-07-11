@@ -16,18 +16,40 @@ export function StudentInfoBox(props) {
   const [LastName, setLastName] = useState('');
   const [CellPhone, setCellPhone] = useState('');
   const [Email, setEmail] = useState('');
+  // Student-specific information:
+  const [StudentDateOfBirth, setStudentDateOfBirth] = useState('');
+  const [Address, setAddress] = useState('');
+  const [ApartmentNumber, setApartmentNumber] = useState('');
+  const [City, setCity] = useState('');
+  const [State, setState] = useState(''); // check if creating state var causes error
+  const [ZipCode, setZipCode] = useState('');
+  const [HomePhone, setHomePhone] = useState('');
 
   // useEffect gets names again when the student is updated
   useEffect(() => {
     if (isParent) {
       setFirstName(student.parentFirstName);
       setLastName(student.parentLastName);
+      // birthday??
+      setAddress(student.address);
+      setApartmentNumber(student.parentApartmentNumber);
+      setCity(student.parentCity);
+      setState(student.parentState);
+      setZipCode(student.parentZipCode);
       setCellPhone(student.parentCellPhone);
+      setHomePhone(student.parentHomePhone);
       setEmail(student.parentEmail);
     } else {
       setFirstName(student.studentFirstName);
       setLastName(student.studentLastName);
+      setStudentDateOfBirth(student.studentDateOfBirth);
+      setAddress(student.studentAddress);
+      setApartmentNumber(student.studentApartmentNumber);
+      setCity(student.studentCity);
+      setState(student.studentState);
+      setZipCode(student.studentZipCode);
       setCellPhone(student.studentCellPhone);
+      setHomePhone(student.studentHomePhone);
       setEmail(student.studentEmail);
     }
   }, [isParent, student]);
@@ -45,11 +67,36 @@ export function StudentInfoBox(props) {
         </Typography>
       </Grid>
       <Grid item>
-        <Typography>Cell: {CellPhone}</Typography>
+        <Typography>Cell Phone Number: {CellPhone}</Typography>
+      </Grid>
+      <Grid item>
+        <Typography>Home Phone Number: {HomePhone}</Typography>
       </Grid>
       <Grid item>
         <Typography>Email: {Email}</Typography>
       </Grid>
+      <Grid item>
+        <Typography>
+          Address: {Address} {City} {State} {ZipCode}
+        </Typography>
+      </Grid>
+      <Grid item>
+        <Typography>City: {City}</Typography>
+      </Grid>
+      <Grid item>
+        <Typography>State: {State}</Typography>
+      </Grid>
+      <Grid item>
+        <Typography>Zip Code: {ZipCode}</Typography>
+      </Grid>
+      <Grid item>
+        <Typography>Apartment Number: {ApartmentNumber}</Typography>
+      </Grid>
+      {!isParent && (
+        <Grid item>
+          <Typography>Date of Birth: {StudentDateOfBirth}</Typography>
+        </Grid>
+      )}
     </Grid>
   );
 }

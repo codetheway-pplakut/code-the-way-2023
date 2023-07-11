@@ -12,11 +12,21 @@ export default function EditStudentInfoModal(props) {
   const [studentLastName, setStudentLastName] = useState('');
   const [studentCellPhone, setStudentCellPhone] = useState('');
   const [studentEmail, setStudentEmail] = useState('');
+  const [studentAddress, setStudentAddress] = useState('');
+  const [studentApartmentNumber, setStudentApartmentNumber] = useState('');
+  const [studentCity, setStudentCity] = useState('');
+  const [studentState, setStudentState] = useState('');
+  const [studentZipCode, setStudentZipCode] = useState('');
 
   const [parentFirstName, setParentFirstName] = useState('');
   const [parentLastName, setParentLastName] = useState('');
   const [parentCellPhone, setParentCellPhone] = useState('');
   const [parentEmail, setParentEmail] = useState('');
+  const [parentAddress, setParentAddress] = useState('');
+  const [parentApartmentNumber, setParentApartmentNumber] = useState('');
+  const [parentCity, setParentCity] = useState('');
+  const [parentState, setParentState] = useState('');
+  const [parentZipCode, setParentZipCode] = useState('');
   const [header, setHeader] = useState('');
 
   useEffect(() => {
@@ -25,12 +35,22 @@ export default function EditStudentInfoModal(props) {
       setParentLastName(student.parentLastName);
       setParentCellPhone(student.parentCellPhone);
       setParentEmail(student.parentEmail);
+      setParentAddress(student.address);
+      setParentApartmentNumber(student.parentApartmentNumber);
+      setParentState(student.parentState);
+      setParentCity(student.parentCity);
+      setParentZipCode(student.parentZipCode);
       setHeader('Edit Parent Information');
     } else {
       setStudentFirstName(student.studentFirstName);
       setStudentLastName(student.studentLastName);
       setStudentCellPhone(student.studentCellPhone);
       setStudentEmail(student.studentEmail);
+      setStudentAddress(student.studentAddress);
+      setStudentApartmentNumber(student.studentApartmentNumber);
+      setStudentState(student.studentState);
+      setStudentCity(student.studentCity);
+      setStudentZipCode(student.studentZipCode);
       setHeader('Edit Student Information');
     }
   }, [student]);
@@ -42,6 +62,11 @@ export default function EditStudentInfoModal(props) {
       studentLastName,
       studentCellPhone,
       studentEmail,
+      studentAddress,
+      studentApartmentNumber,
+      studentCity,
+      studentState,
+      studentZipCode,
     };
     const updatedParent = {
       ...student,
@@ -49,6 +74,11 @@ export default function EditStudentInfoModal(props) {
       parentLastName,
       parentCellPhone,
       parentEmail,
+      parentAddress,
+      parentApartmentNumber,
+      parentCity,
+      parentState,
+      parentZipCode,
     };
 
     await editStudent(isParent ? updatedParent : updatedStudent);
@@ -91,6 +121,43 @@ export default function EditStudentInfoModal(props) {
           isParent ? setParentEmail(value) : setStudentEmail(value)
         }
         value={isParent ? parentEmail : studentEmail}
+      />
+      <TextFieldWithErrorMessage
+        label="Address"
+        onChange={(value) =>
+          isParent ? setParentAddress(value) : setStudentAddress(value)
+        }
+        value={isParent ? parentAddress : studentAddress}
+      />
+      <TextFieldWithErrorMessage
+        label="City"
+        onChange={(value) =>
+          isParent ? setParentCity(value) : setStudentCity(value)
+        }
+        value={isParent ? parentCity : studentCity}
+      />
+      <TextFieldWithErrorMessage
+        label="State"
+        onChange={(value) =>
+          isParent ? setParentState(value) : setStudentState(value)
+        }
+        value={isParent ? parentState : studentState}
+      />
+      <TextFieldWithErrorMessage
+        label="Zip Code"
+        onChange={(value) =>
+          isParent ? setParentZipCode(value) : setStudentZipCode(value)
+        }
+        value={isParent ? parentZipCode : studentZipCode}
+      />
+      <TextFieldWithErrorMessage
+        label="Apartment Number"
+        onChange={(value) =>
+          isParent
+            ? setParentApartmentNumber(value)
+            : setStudentApartmentNumber(value)
+        }
+        value={isParent ? parentApartmentNumber : studentApartmentNumber}
       />
     </GenericModal>
   );
