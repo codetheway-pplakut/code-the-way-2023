@@ -97,13 +97,18 @@ export function StudentInfoBox(props) {
       </Grid>
 
       <Grid item>
-        <Typography>
-          Address: {address} {city} {state} {zipCode}
+        <Typography>Address:</Typography>
+        <Typography color="#959595">
+          {address}{' '}
+          {apartmentNumber !== '' && (
+            <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+          )}
+        </Typography>
+        <Typography color="#959595">
+          {city} {state} {zipCode}
         </Typography>
       </Grid>
-      <Grid item>
-        <Typography>Apartment Number: {apartmentNumber}</Typography>
-      </Grid>
+
       {!isParent && (
         <Grid item>
           <Typography>

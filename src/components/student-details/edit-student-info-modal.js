@@ -95,77 +95,101 @@ export default function EditStudentInfoModal(props) {
       onActionButtonClick={requestSave}
       openModal={<EditIcon />}
     >
-      <Grid container>
-        <Grid item>
+      <Grid container spacing={1} padding={4}>
+        <Grid container item xs={12} justifyContent="center" spacing={2}>
+          <Grid item xs={6}>
+            <TextFieldWithErrorMessage
+              label="First Name"
+              onChange={(value) =>
+                isParent
+                  ? setParentFirstName(value)
+                  : setStudentFirstName(value)
+              }
+              value={isParent ? parentFirstName : studentFirstName}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextFieldWithErrorMessage
+              label="Last Name"
+              onChange={(value) =>
+                isParent ? setParentLastName(value) : setStudentLastName(value)
+              }
+              value={isParent ? parentLastName : studentLastName}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <TextFieldWithErrorMessage
-            label="First Name"
+            fullWidth
+            label="Preferred Phone Number"
             onChange={(value) =>
-              isParent ? setParentFirstName(value) : setStudentFirstName(value)
+              isParent ? setParentCellPhone(value) : setStudentCellPhone(value)
             }
-            value={isParent ? parentFirstName : studentFirstName}
+            value={isParent ? parentCellPhone : studentCellPhone}
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={12}>
           <TextFieldWithErrorMessage
-            label="Last Name"
+            label="Email"
             onChange={(value) =>
-              isParent ? setParentLastName(value) : setStudentLastName(value)
+              isParent ? setParentEmail(value) : setStudentEmail(value)
             }
-            value={isParent ? parentLastName : studentLastName}
+            value={isParent ? parentEmail : studentEmail}
           />
+        </Grid>
+        <Grid container item xs={12} justifyContent="center" spacing={2}>
+          <Grid item xs={8}>
+            <TextFieldWithErrorMessage
+              label="Address"
+              onChange={(value) =>
+                isParent ? setParentAddress(value) : setStudentAddress(value)
+              }
+              value={isParent ? parentAddress : studentAddress}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextFieldWithErrorMessage
+              label="Apartment Number"
+              onChange={(value) =>
+                isParent
+                  ? setParentApartmentNumber(value)
+                  : setStudentApartmentNumber(value)
+              }
+              value={isParent ? parentApartmentNumber : studentApartmentNumber}
+            />
+          </Grid>
+        </Grid>
+
+        <Grid container item xs={12} justifyContent="center" spacing={2}>
+          <Grid item xs={4}>
+            <TextFieldWithErrorMessage
+              label="City"
+              onChange={(value) =>
+                isParent ? setParentCity(value) : setStudentCity(value)
+              }
+              value={isParent ? parentCity : studentCity}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextFieldWithErrorMessage
+              label="State"
+              onChange={(value) =>
+                isParent ? setParentState(value) : setStudentState(value)
+              }
+              value={isParent ? parentState : studentState}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            <TextFieldWithErrorMessage
+              label="Zip Code"
+              onChange={(value) =>
+                isParent ? setParentZipCode(value) : setStudentZipCode(value)
+              }
+              value={isParent ? parentZipCode : studentZipCode}
+            />
+          </Grid>
         </Grid>
       </Grid>
-      <TextFieldWithErrorMessage
-        label="Preferred Phone Number"
-        onChange={(value) =>
-          isParent ? setParentCellPhone(value) : setStudentCellPhone(value)
-        }
-        value={isParent ? parentCellPhone : studentCellPhone}
-      />
-      <TextFieldWithErrorMessage
-        label="Email"
-        onChange={(value) =>
-          isParent ? setParentEmail(value) : setStudentEmail(value)
-        }
-        value={isParent ? parentEmail : studentEmail}
-      />
-      <TextFieldWithErrorMessage
-        label="Address"
-        onChange={(value) =>
-          isParent ? setParentAddress(value) : setStudentAddress(value)
-        }
-        value={isParent ? parentAddress : studentAddress}
-      />
-      <TextFieldWithErrorMessage
-        label="City"
-        onChange={(value) =>
-          isParent ? setParentCity(value) : setStudentCity(value)
-        }
-        value={isParent ? parentCity : studentCity}
-      />
-      <TextFieldWithErrorMessage
-        label="State"
-        onChange={(value) =>
-          isParent ? setParentState(value) : setStudentState(value)
-        }
-        value={isParent ? parentState : studentState}
-      />
-      <TextFieldWithErrorMessage
-        label="Zip Code"
-        onChange={(value) =>
-          isParent ? setParentZipCode(value) : setStudentZipCode(value)
-        }
-        value={isParent ? parentZipCode : studentZipCode}
-      />
-      <TextFieldWithErrorMessage
-        label="Apartment Number"
-        onChange={(value) =>
-          isParent
-            ? setParentApartmentNumber(value)
-            : setStudentApartmentNumber(value)
-        }
-        value={isParent ? parentApartmentNumber : studentApartmentNumber}
-      />
     </GenericModal>
   );
 }
