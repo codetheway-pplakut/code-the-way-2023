@@ -2,12 +2,16 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CircularProgress, Grid } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
 
 export default function EditStudentInfoModal(props) {
   const { student, onSaveSuccess, isParent } = props;
+  const [dateGoalSet, setDateGoalSet] = useState(new Date());
 
   const [studentFirstName, setStudentFirstName] = useState('');
   const [studentLastName, setStudentLastName] = useState('');
@@ -17,13 +21,14 @@ export default function EditStudentInfoModal(props) {
   const [studentApartmentNumber, setStudentApartmentNumber] = useState('');
   const [studentCity, setStudentCity] = useState('');
   const [studentState, setStudentState] = useState('');
+  const [studentDateOfBirth, setStudentDateOfBirth] = useState('');
   const [studentZipCode, setStudentZipCode] = useState('');
 
   const [parentFirstName, setParentFirstName] = useState('');
   const [parentLastName, setParentLastName] = useState('');
   const [parentCellPhone, setParentCellPhone] = useState('');
   const [parentEmail, setParentEmail] = useState('');
-  const [parentAddress, setParentAddress] = useState('');
+  const [address, setAddress] = useState('');
   const [parentApartmentNumber, setParentApartmentNumber] = useState('');
   const [parentCity, setParentCity] = useState('');
   const [parentState, setParentState] = useState('');
@@ -36,7 +41,7 @@ export default function EditStudentInfoModal(props) {
       setParentLastName(student.parentLastName);
       setParentCellPhone(student.parentCellPhone);
       setParentEmail(student.parentEmail);
-      setParentAddress(student.address);
+      setAddress(student.address);
       setParentApartmentNumber(student.parentApartmentNumber);
       setParentState(student.parentState);
       setParentCity(student.parentCity);
@@ -52,6 +57,7 @@ export default function EditStudentInfoModal(props) {
       setStudentState(student.studentState);
       setStudentCity(student.studentCity);
       setStudentZipCode(student.studentZipCode);
+      setStudentDateOfBirth(student.studentDateOfBirth);
       setHeader('Edit Student Information');
     }
   }, [student]);
@@ -68,6 +74,7 @@ export default function EditStudentInfoModal(props) {
       studentCity,
       studentState,
       studentZipCode,
+      studentDateOfBirth,
     };
     const updatedParent = {
       ...student,
@@ -75,7 +82,7 @@ export default function EditStudentInfoModal(props) {
       parentLastName,
       parentCellPhone,
       parentEmail,
-      parentAddress,
+      address,
       parentApartmentNumber,
       parentCity,
       parentState,
@@ -142,9 +149,9 @@ export default function EditStudentInfoModal(props) {
             <TextFieldWithErrorMessage
               label="Address"
               onChange={(value) =>
-                isParent ? setParentAddress(value) : setStudentAddress(value)
+                isParent ? setAddress(value) : setStudentAddress(value)
               }
-              value={isParent ? parentAddress : studentAddress}
+              value={isParent ? address : studentAddress}
             />
           </Grid>
           <Grid item xs={4}>
@@ -188,6 +195,20 @@ export default function EditStudentInfoModal(props) {
               value={isParent ? parentZipCode : studentZipCode}
             />
           </Grid>
+
+          {!isParent && (
+            <Grid item my={1}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  margin="normal"
+                  sx={{ width: 210 }}
+                  label="Date of Birth"
+                  value={dayjs(studentDateOfBirth)}
+                  onChange={(newValue) => setStudentDateOfBirth(newValue)}
+                />
+              </LocalizationProvider>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </GenericModal>

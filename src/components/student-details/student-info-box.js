@@ -36,6 +36,7 @@ export function StudentInfoBox(props) {
       setState(student.parentState);
       setZipCode(student.parentZipCode);
       setEmail(student.parentEmail);
+      setPreferredPhone(student.parentCellPhone);
     } else {
       setFirstName(student.studentFirstName);
       setLastName(student.studentLastName);
@@ -69,53 +70,63 @@ export function StudentInfoBox(props) {
       </Grid>
       <Grid item>
         {isParent && (
-          <React.Fragment>
-            <Grid item>
-              <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-              <Typography fontSize="30px">
-                Parent Information{' '}
-                <EditStudentInfoModal
-                  student={student}
-                  onSaveSuccess={() => onReload()}
-                  isParent={isParent}
-                />
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography fontSize="16px">
-                Parent Name: {`${firstName} ${lastName}`}
-              </Typography>
-            </Grid>
-          </React.Fragment>
+          <Grid item>
+            <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+            <Typography fontSize="30px">
+              Parent Information{' '}
+              <EditStudentInfoModal
+                student={student}
+                onSaveSuccess={() => onReload()}
+                isParent={isParent}
+              />
+            </Typography>
+          </Grid>
         )}
       </Grid>
-      <Grid item>
-        <Typography>Email: {email}</Typography>
-      </Grid>
-      <Grid item>
-        <Typography>Preferred Phone Number: {preferredPhone}</Typography>
-      </Grid>
 
-      <Grid item>
-        <Typography>Address:</Typography>
-        <Typography color="#959595">
-          {address}{' '}
-          {apartmentNumber !== '' && (
-            <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+      <Grid container xs={12} m="1vw">
+        <Grid item xs={5}>
+          {!isParent ? (
+            <Typography>
+              Date of Birth:{' '}
+              <Typography color="#959595">
+                {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+              </Typography>
+            </Typography>
+          ) : (
+            <Typography fontSize="16px">
+              Parent Name:
+              <Typography color="#959595">{`${firstName} ${lastName}`}</Typography>
+            </Typography>
           )}
-        </Typography>
-        <Typography color="#959595">
-          {city} {state} {zipCode}
-        </Typography>
+        </Grid>
+        <Grid item xs={7}>
+          <Typography>Email:</Typography>
+          <Typography color="#959595">{email}</Typography>
+        </Grid>
       </Grid>
 
-      {!isParent && (
-        <Grid item>
-          <Typography>
-            Date of Birth: {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+      <Grid container xs={12} m="1vw">
+        <Grid item xs={5}>
+          <Typography>Address:</Typography>
+          <Typography color="#959595">
+            {address}{' '}
+            {apartmentNumber !== '' && (
+              <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+            )}
+          </Typography>
+          <Typography color="#959595">
+            {city} {state} {zipCode}
           </Typography>
         </Grid>
-      )}
+
+        <Grid item xs={7}>
+          <Typography>
+            Preferred Phone Number:
+            <Typography color="#959595">{preferredPhone}</Typography>
+          </Typography>
+        </Grid>
+      </Grid>
     </Grid>
   );
 }
