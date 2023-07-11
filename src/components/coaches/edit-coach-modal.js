@@ -14,10 +14,8 @@ export function EditCoachModal(props) {
   const [phoneNumber, setPhoneNumber] = useState(coach.coachPhoneNumber);
 
   const submitAction = async () => {
-    console.log('starting request...');
-
     try {
-      const response = await editCoachHandler(
+      await editCoachHandler(
         coachId,
         coach.userId,
         firstName,
@@ -26,9 +24,8 @@ export function EditCoachModal(props) {
         phoneNumber,
         coach.active
       );
-      console.log('successful: ', response);
     } catch (error) {
-      console.log('failure: ', error);
+      console.log(error);
     }
 
     setFirstName('');
@@ -36,7 +33,6 @@ export function EditCoachModal(props) {
     setEmail('');
     setPhoneNumber('');
 
-    console.log('refresh table...');
     onCoachEdit();
   };
 

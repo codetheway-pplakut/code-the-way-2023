@@ -32,7 +32,7 @@ export function ChooseCoachModal(props) {
     <TextField
       id="coach-select"
       select
-      label="Select Coach"
+      label="Unassigned"
       value={value}
       onFocus={recordValue}
       onChange={handleCoachChange}
