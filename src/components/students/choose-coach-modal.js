@@ -3,24 +3,13 @@ import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { assignStudentHandler } from './studentHandlers';
 import GenericModal from '../shared/generic-modal';
+import { getActiveCoachesHandler } from '../coaches/coachHandlers';
 
 export function ChooseCoachModal(props) {
-  const [coaches, setCoaches] = useState([]);
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
 
-  const { apiResponse, studentId, refreshTable } = props;
-  const request = async () => {
-    try {
-      const { data } = apiResponse;
-      setCoaches(data);
-    } catch (error) {
-      setCoaches([]);
-    }
-  };
-  useEffect(() => {
-    request();
-  }, []);
+  const { studentId, refreshTable, coaches } = props;
 
   const reassignCoachHandler = async () => {
     if (newCoachId !== '') {
