@@ -133,7 +133,10 @@ export function AddStudentModal() {
           }}
           sx={{ my: 1 }}
           errorText={email.length < 1 ? 'Enter Email' : ' '}
-          error={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+          error={
+            (!email.includes('@') ? 'Must contain an @ sign.' : ' ') &&
+            emailEdit
+          }
           onBlur={() => setEmailEdit(true)}
         />
       </Grid>
