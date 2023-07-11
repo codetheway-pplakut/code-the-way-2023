@@ -33,9 +33,7 @@ const OPTIONS = [
             studentId={id}
             onStudentDeactivate={refreshTable}
           />{' '}
-          <NavLink to="/student-info" state={{ studentId: id }}>
-            {value}
-          </NavLink>
+          {value}
         </React.Fragment>
       );
     },
