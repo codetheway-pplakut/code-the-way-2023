@@ -89,8 +89,9 @@ export default function StudentDetails(props) {
             }}
           >
             <Tab sx={tabStyle} value={0} label="Student Info" />
-            <Tab sx={tabStyle} value={1} label="Goals and Careers" />
-            <Tab sx={tabStyle} value={2} label="Interview Info" />
+            <Tab sx={tabStyle} value={1} label="Goals" />
+            <Tab sx={tabStyle} value={2} label="Careers " />
+            <Tab sx={tabStyle} value={3} label="Interview Info" />
           </Tabs>
         </Grid>
 
@@ -124,7 +125,7 @@ export default function StudentDetails(props) {
               <GoalsBox student={student} onReload={() => onReload()} />
             )}
 
-            {tabValue === 2 && (
+            {tabValue === 3 && (
               <Box> Placeholder </Box>
               // TO BE DEPRECATED
               // Should be part of its own component
