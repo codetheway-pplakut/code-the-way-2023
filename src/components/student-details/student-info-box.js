@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
@@ -12,32 +12,28 @@ import { AddGoalModal } from './goal-modals';
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
 
-  const [FirstName, setFirstName] = useState('');
-  const [LastName, setLastName] = useState('');
-  const [CellPhone, setCellPhone] = useState('');
-  const [Email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [preferredPhone, setPreferredPhone] = useState('');
+  const [email, setEmail] = useState('');
   // Student-specific information:
-  const [StudentDateOfBirth, setStudentDateOfBirth] = useState('');
-  const [Address, setAddress] = useState('');
-  const [ApartmentNumber, setApartmentNumber] = useState('');
-  const [City, setCity] = useState('');
-  const [State, setState] = useState(''); // check if creating state var causes error
-  const [ZipCode, setZipCode] = useState('');
-  const [HomePhone, setHomePhone] = useState('');
+  const [studentDateOfBirth, setStudentDateOfBirth] = useState('');
+  const [address, setAddress] = useState('');
+  const [apartmentNumber, setApartmentNumber] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState(''); // check if creating state var causes error
+  const [zipCode, setZipCode] = useState('');
 
   // useEffect gets names again when the student is updated
   useEffect(() => {
     if (isParent) {
       setFirstName(student.parentFirstName);
       setLastName(student.parentLastName);
-      // birthday??
       setAddress(student.address);
       setApartmentNumber(student.parentApartmentNumber);
       setCity(student.parentCity);
       setState(student.parentState);
       setZipCode(student.parentZipCode);
-      setCellPhone(student.parentCellPhone);
-      setHomePhone(student.parentHomePhone);
       setEmail(student.parentEmail);
     } else {
       setFirstName(student.studentFirstName);
@@ -48,53 +44,77 @@ export function StudentInfoBox(props) {
       setCity(student.studentCity);
       setState(student.studentState);
       setZipCode(student.studentZipCode);
-      setCellPhone(student.studentCellPhone);
-      setHomePhone(student.studentHomePhone);
+      setPreferredPhone(student.studentCellPhone);
       setEmail(student.studentEmail);
     }
   }, [isParent, student]);
 
   return (
-    <Grid container direction="column" sx={{ my: 2 }}>
+    <Grid container direction="column">
       <Grid item>
-        <Typography fontSize="35px">
-          {`${FirstName} ${LastName}`}
-          <EditStudentInfoModal
-            student={student}
-            onSaveSuccess={() => onReload()}
-            isParent={isParent}
-          />
-        </Typography>
+        {!isParent && (
+          <Grid item>
+            <Typography fontSize="2.5vw">
+              {`${firstName} ${lastName}`}&#39;s Details{' '}
+              <EditStudentInfoModal
+                student={student}
+                onSaveSuccess={() => onReload()}
+                isParent={isParent}
+              />
+            </Typography>
+            <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+          </Grid>
+        )}
       </Grid>
       <Grid item>
-        <Typography>Cell Phone Number: {CellPhone}</Typography>
+        {isParent && (
+          <React.Fragment>
+            <Grid item>
+              <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+              <Typography fontSize="30px">
+                Parent Information{' '}
+                <EditStudentInfoModal
+                  student={student}
+                  onSaveSuccess={() => onReload()}
+                  isParent={isParent}
+                />
+              </Typography>
+            </Grid>
+            <Grid item>
+              <Typography fontSize="16px">
+                Parent Name: {`${firstName} ${lastName}`}
+              </Typography>
+            </Grid>
+          </React.Fragment>
+        )}
       </Grid>
       <Grid item>
-        <Typography>Home Phone Number: {HomePhone}</Typography>
+        <Typography>Email: {email}</Typography>
       </Grid>
       <Grid item>
-        <Typography>Email: {Email}</Typography>
+        <Typography>Preferred Phone Number: {preferredPhone}</Typography>
       </Grid>
+
       <Grid item>
         <Typography>
-          Address: {Address} {City} {State} {ZipCode}
+          Address: {address} {city} {state} {zipCode}
         </Typography>
       </Grid>
       <Grid item>
-        <Typography>City: {City}</Typography>
+        <Typography>City: {city}</Typography>
       </Grid>
       <Grid item>
-        <Typography>State: {State}</Typography>
+        <Typography>State: {state}</Typography>
       </Grid>
       <Grid item>
-        <Typography>Zip Code: {ZipCode}</Typography>
+        <Typography>Zip Code: {zipCode}</Typography>
       </Grid>
       <Grid item>
-        <Typography>Apartment Number: {ApartmentNumber}</Typography>
+        <Typography>Apartment Number: {apartmentNumber}</Typography>
       </Grid>
       {!isParent && (
         <Grid item>
-          <Typography>Date of Birth: {StudentDateOfBirth}</Typography>
+          <Typography>Date of Birth: {studentDateOfBirth}</Typography>
         </Grid>
       )}
     </Grid>

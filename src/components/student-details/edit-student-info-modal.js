@@ -92,7 +92,7 @@ export default function EditStudentInfoModal(props) {
       cancelButtonTitle="cancel"
       modalHeadingTitle={header}
       onActionButtonClick={requestSave}
-      openModal="open"
+      openModal="Edit"
     >
       <TextFieldWithErrorMessage
         label="First Name"
