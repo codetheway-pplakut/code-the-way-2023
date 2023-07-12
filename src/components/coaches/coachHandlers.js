@@ -101,9 +101,9 @@ export function deleteCoachHandler(coachId) {
  * @param {email} email
  * @author Adam Miller
  */
-export function activateCoachHandler(id, userName, email) {
+export async function activateCoachHandler(id, userName, email) {
   const data = { id, userName, email, status: 'active' };
-  activateCoach(data);
+  await activateCoach(data);
 }
 
 /**
@@ -114,7 +114,7 @@ export function activateCoachHandler(id, userName, email) {
  * @param {email} email
  * @author Adam Miller
  */
-export function deactivateCoachHandler(id, userName, email) {
+export async function deactivateCoachHandler(id, userName, email) {
   const data = { id, userName, email, status: 'inactive' };
-  deactivateCoach(data);
+  await deactivateCoach(data);
 }

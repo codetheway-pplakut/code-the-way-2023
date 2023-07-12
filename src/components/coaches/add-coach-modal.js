@@ -3,10 +3,13 @@ import React, { useState } from 'react';
 import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField } from '@mui/material';
+import PropTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
 import { addCoachHandler } from './coachHandlers';
 
-export function AddCoachModal() {
+export function AddCoachModal(props) {
+  const { onSubmit } = props;
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -82,6 +85,7 @@ export function AddCoachModal() {
       password,
       confirmPassword
     );
+    onSubmit();
     closeAction();
   };
 
@@ -184,3 +188,11 @@ export function AddCoachModal() {
     </GenericModal>
   );
 }
+
+AddCoachModal.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+AddCoachModal.defaultProps = {
+  onSubmit: null,
+};
