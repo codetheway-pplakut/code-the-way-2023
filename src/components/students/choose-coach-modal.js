@@ -54,7 +54,7 @@ export function ChooseCoachModal(props) {
   return (
     <GenericModal
       openButtonIcon={<EditIcon />}
-      modalHeadingTitle="Change Coach"
+      modalHeadingTitle="Assign Coach"
       modalMessage={content}
       actionButtonTitle="Save"
       cancelButtonTitle="Cancel"
