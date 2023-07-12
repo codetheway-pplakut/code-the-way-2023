@@ -23,7 +23,7 @@ export function altGetStudentGoalsHandler(studentId, callback) {
     });
 }
 
-export function addGoalHandler(
+export async function addGoalHandler(
   id,
   studentId,
   goalSet,
@@ -43,7 +43,7 @@ export function addGoalHandler(
     wasItAccomplished,
     explanation,
   };
-  addGoal(data);
+  await addGoal(data);
 }
 
 export async function editGoalHandler(
