@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
-import AddIcon from '@mui/icons-material/Add';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
@@ -147,7 +146,7 @@ export function AddGoalModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
-      openButtonIcon={<AddIcon />}
+      openButtonIcon={<Typography>Add Goal</Typography>}
     >
       <Grid
         container

@@ -8,6 +8,7 @@ import { GenericModal } from '../shared/generic-modal';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
+import { CommuinicationSearchBar } from './communication-search';
 import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-box';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import Goal from './goal';
@@ -26,7 +27,7 @@ export default function StudentDetails(props) {
 
   const boxStyle = React.useMemo(
     () => ({
-      bgcolor: '#dddddd',
+      bgcolor: '#ffffff',
       minWidth: '100%',
       color: '#000000',
       position: 'relative',
@@ -78,7 +79,7 @@ export default function StudentDetails(props) {
       sx={{ flexWrap: 'nowrap', mt: '50px' }}
     >
       <Grid item xs={6} direction="row">
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" pl="2vw">
           <Tabs
             value={tabValue}
             onChange={handleChange}
@@ -110,7 +111,7 @@ export default function StudentDetails(props) {
           }}
         /> */}
 
-        <Grid item justifyContent="center">
+        <Grid item justifyContent="center" pl="2vw">
           <Box sx={boxStyle} padding="4vh">
             {tabValue === 0 && (
               <Grid>
@@ -158,6 +159,9 @@ export default function StudentDetails(props) {
         </Grid>
       </Grid>
       <Grid container xs={1}>
+        <Grid item alignItems="flex-front" sx={{ pl: '510%' }}>
+          <CommuinicationSearchBar student={student.id} />
+        </Grid>
         <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
           <GenericModal
             modalHeadingTitle="Add Communication"

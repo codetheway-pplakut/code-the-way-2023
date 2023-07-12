@@ -14,9 +14,10 @@ export function TextFieldWithErrorMessage(props) {
         size="small"
         id="filled-basic"
         variant="outlined"
+        fullWidth
         label={label}
         value={value}
-        sx={{ color: 'white' }}
+        sx={{ color: 'white', my: 1 }}
         onChange={(e) => {
           onChange(e.target.value);
         }}
