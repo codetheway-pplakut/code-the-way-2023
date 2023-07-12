@@ -132,6 +132,10 @@ const COLUMNS = [
   },
 ];
 
+const manualRefresh = () => {
+  console.log('signal got to coaches.js');
+};
+
 export function Coaches() {
   return (
     <Grid container justifyContent="center">
@@ -150,7 +154,7 @@ export function Coaches() {
                 ]}
                 customTableMaxHeight={520}
               >
-                <AddCoachModal />
+                <AddCoachModal onSubmit={manualRefresh} />
               </DynamicTableWithRequest>
             </Box>
           </Layout>
