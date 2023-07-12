@@ -7,7 +7,8 @@ import dayjs from 'dayjs';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid';
+import AddIcon from '@mui/icons-material/Add';
+
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import {
@@ -153,7 +154,7 @@ export function AddGoalModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
-      openButtonIcon={<Typography>Add Goal</Typography>}
+      openButtonIcon={<AddIcon />}
     >
       <Grid
         container
