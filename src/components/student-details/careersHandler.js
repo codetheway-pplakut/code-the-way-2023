@@ -34,7 +34,7 @@ export async function addCareerHandler(
   await addCareer(data);
 }
 
-export function editCareerHandler(
+export async function editCareerHandler(
   id,
   studentId,
   collegeBound,
@@ -50,7 +50,7 @@ export function editCareerHandler(
     specificCareer,
     technicalCollegeBound,
   };
-  editCareer(data);
+  await editCareer(data);
 }
 
 export async function deleteCareerHandler(id) {
