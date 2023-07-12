@@ -35,7 +35,7 @@ export function AddCareerModal(props) {
     <GenericModal
       actionButtonTitle="Submit"
       cancelButtonTitle="Cancel"
-      modalHeadingTitle="Add Goal"
+      modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
       openButtonIcon={<AddIcon />}
     >
