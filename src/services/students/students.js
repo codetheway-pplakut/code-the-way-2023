@@ -98,11 +98,11 @@ export const deleteStudent = async (studentId) =>
  * @param {uuid} coachId  - Coach to assign to Student
  * @author Adam Miller
  */
-export const assignStudent = async (studentId, coachId) =>
+export const assignStudent = async (data) =>
   callApi({
     url: '/Students/assign-student',
     method: 'POST',
-    data: { coachId, studentId },
+    data,
   });
 
 /**
@@ -112,11 +112,11 @@ export const assignStudent = async (studentId, coachId) =>
  * @param {uuid} coachId - Id of coach; likely not actually used.
  * @author Adam Miller
  */
-export const unassignStudent = async (studentId, coachId) =>
+export const unassignStudent = async (data) =>
   callApi({
     url: '/Students/unassign-student',
     method: 'POST',
-    data: { coachId, studentId },
+    data,
   });
 
 const rejected = 'rejected';
@@ -160,7 +160,7 @@ export const setStudentInactive = async (studentId) =>
   callApi({
     url: '/Students/SetStudentState',
     method: 'POST',
-    data: { studentId, state: inactive },
+    data: { studentId, state: 'inactive' },
   });
 
 /**
@@ -173,5 +173,5 @@ export const setStudentApplied = async (studentId) =>
   callApi({
     url: '/Students/SetStudentState',
     method: 'POST',
-    data: { studentId, state: applied },
+    data: { studentId, state: 'applied' },
   });

@@ -5,6 +5,7 @@ import { Layout } from '../layout/layout';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { getActiveAdminsHandler } from './adminHandlers';
 import { DeactivateAdminModal } from './de-activate-admin-modal';
+import { AddAdminModal } from './addAdminModal';
 
 const COLUMNS = [
   {
@@ -43,7 +44,9 @@ export function Admins() {
                 columns={COLUMNS}
                 requestFunc={getActiveAdminsHandler}
                 filterBy={['email']}
-              />
+              >
+                <AddAdminModal />
+              </DynamicTableWithRequest>
             </Box>
           </Layout>
         </EntitlementRestricted>

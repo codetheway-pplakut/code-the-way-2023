@@ -8,6 +8,7 @@ import { GenericModal } from '../shared/generic-modal';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
+import { CommuinicationSearchBar } from './communication-search';
 import { GoalsBox, StudentInfoBox } from './student-info-box';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import Goal from './goal';
@@ -151,6 +152,9 @@ export default function StudentDetails(props) {
         </Grid>
       </Grid>
       <Grid container xs={1}>
+        <Grid item alignItems="flex-front" sx={{ pl: '510%' }}>
+          <CommuinicationSearchBar student={student.id} />
+        </Grid>
         <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
           <GenericModal
             modalHeadingTitle="Add Communication"

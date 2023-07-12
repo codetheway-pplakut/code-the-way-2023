@@ -42,8 +42,8 @@ export function GenericModal(props) {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const actionAndClose = () => {
-    if (onActionButtonClick) onActionButtonClick();
+  const actionAndClose = async () => {
+    if (onActionButtonClick) await onActionButtonClick();
     handleClose();
   };
 

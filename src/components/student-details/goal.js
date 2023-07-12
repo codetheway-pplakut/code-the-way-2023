@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Grid, Typography } from '@mui/material';
 import dayjs from 'dayjs';
+import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
-  const { goal, onReload } = props;
+  const { goal, onSaveSuccess } = props;
 
   // handles API stuff
   const [goalId, setGoalId] = useState('');
@@ -21,7 +22,6 @@ export default function Goal(props) {
   const [showMore, setShowMore] = useState(true);
   useEffect(() => {
     if (goal.id) {
-      console.log('useEffect triggered', goal);
       setGoalId(goal.id);
       setGoalSet(goal.goalSet ? goal.goalSet : '');
       setDateGoalSet(goal.dateGoalSet ? goal.dateGoalSet : new Date());
@@ -53,7 +53,7 @@ export default function Goal(props) {
         <Typography>
           Goal set: {dayjs(dateGoalSet).format('MMM DD, YYYY')}
         </Typography>
-        <EditGoalModal goal={goal} />
+        <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
       </Grid>
       <Grid
         item
@@ -85,3 +85,12 @@ export default function Goal(props) {
     </Grid>
   );
 }
+
+Goal.propTypes = {
+  goal: propTypes.object,
+  onSaveSuccess: propTypes.func,
+};
+Goal.defaultProps = {
+  goal: undefined,
+  onSaveSuccess: undefined,
+};
