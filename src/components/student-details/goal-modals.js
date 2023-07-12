@@ -6,9 +6,16 @@ import { Grid, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
-import { editGoalHandler, addGoalHandler } from './goalsHandler';
+import {
+  editGoalHandler,
+  addGoalHandler,
+  deleteGoalHandler,
+  altDeleteGoalHandler,
+} from './goalsHandler';
 
 export function EditGoalModal(props) {
   const { goal, onSaveSuccess } = props;
@@ -209,6 +216,39 @@ export function AddGoalModal(props) {
   );
 }
 
+export function DeleteGoalModal(props) {
+  const { goal, onSaveSuccess } = props;
+  // TODO add try catch
+  const requestDelete = async () => {
+    try {
+      await deleteGoalHandler(goal);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      if (onSaveSuccess) onSaveSuccess();
+    }
+  };
+
+  return (
+    <GenericModal
+      modalHeadingTitle="Delete Goal"
+      modalMessage="Are You Sure ?"
+      cancelButtonTitle="No"
+      actionButtonTitle="Yes"
+      onActionButtonClick={requestDelete}
+      openButtonIcon={<DeleteIcon />}
+    />
+  );
+}
+
+DeleteGoalModal.propTypes = {
+  goal: propTypes.object,
+  onSaveSuccess: propTypes.func,
+};
+DeleteGoalModal.defaultProps = {
+  goal: undefined,
+  onSaveSuccess: undefined,
+};
 AddGoalModal.propTypes = {
   student: propTypes.func,
   onSaveSuccess: propTypes.func,

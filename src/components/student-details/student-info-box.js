@@ -164,6 +164,7 @@ export function GoalsBox(props) {
         setAllGoals(goals.data);
         console.log('FINDME', goals.data);
       }
+
       setIsLoading(false);
     });
   };
