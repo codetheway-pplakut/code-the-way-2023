@@ -49,7 +49,7 @@ export function InactiveRejectedStudent() {
             <DynamicTableWithRequest
               columns={COLUMNS}
               requestFunc={requestFunc}
-              filterBy={['firstName', 'email', 'studentCellPhone', 'id']}
+              filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
             />
           </Box>
         </EntitlementRestricted>

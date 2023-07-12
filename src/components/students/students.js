@@ -25,20 +25,6 @@ const OPTIONS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    render: (value, refreshTable, row) => {
-      const { id } = row;
-      return (
-        <React.Fragment>
-          <ArchiveStudentModal
-            studentId={id}
-            onStudentDeactivate={refreshTable}
-          />{' '}
-          <NavLink to="/student-info" state={{ studentId: id }}>
-            {value}
-          </NavLink>
-        </React.Fragment>
-      );
-    },
   },
   {
     id: 'lastName',
@@ -187,7 +173,7 @@ export function Students() {
                     'coach',
                   ]}
                   requestFunc={requestActiveStudentsFunc}
-                  customTableMaxHeight={520}
+                  customTableMaxHeight={510}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>
@@ -203,7 +189,7 @@ export function Students() {
                     'coach',
                   ]}
                   requestFunc={getAppliedStudents}
-                  customTableMaxHeight={520}
+                  customTableMaxHeight={510}
                 >
                   <AddStudentModal />
                 </DynamicTableWithRequest>

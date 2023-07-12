@@ -15,7 +15,7 @@ export function getStudentCareersHandler(id) {
   return getStudentCareers(id);
 }
 
-export function addCareerHandler(
+export async function addCareerHandler(
   id,
   studentId,
   collegeBound,
@@ -31,7 +31,7 @@ export function addCareerHandler(
     specificCareer,
     technicalCollegeBound,
   };
-  addCareer(data);
+  await addCareer(data);
 }
 
 export function editCareerHandler(
