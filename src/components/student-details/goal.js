@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { DeleteGoalModal, EditGoalModal } from './goal-modals';
 import { Box } from '@mui/system';
+import { DeleteGoalModal, EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
@@ -50,7 +50,7 @@ export default function Goal(props) {
           alignItems="center"
           sx={{ px: '2vw', py: '1vh' }}
         >
-          <Grid item xs={7}>
+          <Grid item xs={6}>
             <Typography fontSize={20} fontWeight="medium" color="#505050">
               {goalSet}
             </Typography>
@@ -69,6 +69,9 @@ export default function Goal(props) {
           </Grid>
           <Grid item xs={1}>
             <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
+          </Grid>
+          <Grid item xs={1}>
+            <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
           </Grid>
         </Grid>
         <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
@@ -105,7 +108,6 @@ export default function Goal(props) {
             <Typography>Completed: {wasItAccomplished}</Typography>
           </Grid>
         </Grid>
-        <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
       </Grid>
     </Box>
   );
