@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
+
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
@@ -175,17 +176,26 @@ export function GoalsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  return (
-    <Box>
-      <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
-      {allGoals.map((goalContent) => (
+  const renderGoal = ({ index, style }) => {
+    const goalContent = allGoals[index];
+    return (
+      <Grid item style={style}>
         <Goal
           goal={goalContent}
           key={goalContent.id}
           onSaveSuccess={() => fetchGoals()}
         />
-      ))}
-    </Box>
+      </Grid>
+    );
+  };
+  // FIXME Item size must change whenever the size of the goals themselves change.
+  return (
+    <React.Fragment>
+      <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
+      <List height={850} itemCount={allGoals.length} itemSize={250}>
+        {renderGoal}
+      </List>
+    </React.Fragment>
   );
 }
 export function CareerBox(props) {
