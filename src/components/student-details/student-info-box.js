@@ -258,3 +258,21 @@ StudentInfoBox.defaultProps = {
   onReload: undefined,
   isParent: false,
 };
+
+CareerBox.propTypes = {
+  student: propTypes.func,
+  onReload: propTypes.func,
+};
+CareerBox.defaultProps = {
+  student: undefined,
+  onReload: undefined,
+};
+
+GoalsBox.propTypes = {
+  student: propTypes.func,
+  onReload: propTypes.func,
+};
+GoalsBox.defaultProps = {
+  student: undefined,
+  onReload: undefined,
+};
