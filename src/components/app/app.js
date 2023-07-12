@@ -21,7 +21,7 @@ export function App() {
           height: '100%',
         }}
       >
-        <AppBar title="Code The Way" onNavigationClick={toggleNavigation} />
+        <AppBar title="Lead2Change" onNavigationClick={toggleNavigation} />
         <Navigation active={navigationActive} onToggle={toggleNavigation} />
         <Box sx={{ flex: 1, overflowY: 'auto' }}>
           <Outlet />
