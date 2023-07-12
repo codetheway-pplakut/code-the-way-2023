@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { DeleteGoalModal, EditGoalModal } from './goal-modals';
 import { Box } from '@mui/system';
-import { EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
@@ -105,6 +105,7 @@ export default function Goal(props) {
             <Typography>Completed: {wasItAccomplished}</Typography>
           </Grid>
         </Grid>
+        <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
       </Grid>
     </Box>
   );
