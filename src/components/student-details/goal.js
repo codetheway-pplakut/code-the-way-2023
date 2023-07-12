@@ -34,6 +34,7 @@ export default function Goal(props) {
       setExplanation(goal.explanation ? goal.explanation : '');
     }
   }, [goal]);
+
   const handleChange = () => {
     setShowMore(!showMore);
   };
@@ -41,46 +42,44 @@ export default function Goal(props) {
   return (
     <Box sx={{ borderRadius: '10px', boxShadow: 2, mb: 2 }}>
       <Grid container direction="column">
-        <Box
-          sx={{
-            borderTopLeftRadius: '10px',
-            borderTopRightRadius: '10px',
-            padding: '6px',
-          }}
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="space-around"
+          alignItems="center"
+          sx={{ px: '2vw', py: '1vh' }}
         >
-          <Grid
-            item
-            container
-            direction="row"
-            justifyContent="space-around"
-            alignItems="center"
-          >
-            <Grid item xs={4}>
-              <Typography>Goal: {goalSet}</Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <Typography>{SEL}</Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography>
-                Goal set: {dayjs(dateGoalSet).format('MMM DD, YYYY')}
-              </Typography>
-            </Grid>
-            <Grid item xs={1}>
-              <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
-            </Grid>
+          <Grid item xs={7}>
+            <Typography fontSize={20} fontWeight="medium" color="#505050">
+              {goalSet}
+            </Typography>
           </Grid>
-          <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-        </Box>
-
+          <Grid item xs={2}>
+            <Typography>
+              Goal Set:
+              <br /> {dayjs(dateGoalSet).format('MMM DD, YYYY')}
+            </Typography>
+          </Grid>
+          <Grid item xs={2}>
+            <Typography>
+              Review Date: <br />
+              {dayjs(goalReviewDate).format('MMM DD, YYYY')}
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
+          </Grid>
+        </Grid>
+        <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
         <Typography
           width="95%"
-          sx={{ mx: '2.5%' }}
+          sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
           paragraph
           gutterBottom
           noWrap={showMore}
         >
-          Explanation: {explanation}
+          {explanation}
         </Typography>
         <Button
           onClick={handleChange}
@@ -88,26 +87,24 @@ export default function Goal(props) {
             showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
           }
         />
-        <Box
+        <Grid
+          container
+          alignItems="center"
           sx={{
-            borderBottomLeftRadius: '10px',
-            borderBottomRightRaidus: '10px',
+            px: '2vw',
+            py: '2vh',
             bgcolor: '#f5f5f5',
+            borderBottomLeftRadius: '10px',
+            borderBottomRightRadius: '10px',
           }}
         >
-          <Grid container>
-            <Grid item xs={6}>
-              <Typography>
-                Review Date: {dayjs(goalReviewDate).format('MMM DD, YYYY')}
-              </Typography>
-              <Grid item xs={6}>
-                <Typography>
-                  Was it accomplished: {wasItAccomplished}
-                </Typography>
-              </Grid>
-            </Grid>
+          <Grid item xs={8}>
+            <Typography>SEL: {SEL}</Typography>
           </Grid>
-        </Box>
+          <Grid item xs={4}>
+            <Typography>Completed: {wasItAccomplished}</Typography>
+          </Grid>
+        </Grid>
       </Grid>
     </Box>
   );
