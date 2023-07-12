@@ -11,6 +11,7 @@ import { CommunicationLog } from './communication-log';
 import { GoalsBox, StudentInfoBox } from './student-info-box';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import Goal from './goal';
+import { AddCareerModal } from './career-modals';
 
 // StudentDetails is meant to be a 'skeleton' that controls page layout
 // Nothing in here should be hard-coded, should be passed via props
@@ -124,6 +125,8 @@ export default function StudentDetails(props) {
             {tabValue === 1 && (
               <GoalsBox student={student} onReload={() => onReload()} />
             )}
+
+            {tabValue === 2 && <AddCareerModal student={student} />}
 
             {tabValue === 3 && (
               <Box> Placeholder </Box>
