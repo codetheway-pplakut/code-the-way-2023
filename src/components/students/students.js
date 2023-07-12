@@ -25,18 +25,6 @@ const OPTIONS = [
     disablePadding: false,
     label: 'First Name',
     align: 'left',
-    render: (value, refreshTable, row) => {
-      const { id } = row;
-      return (
-        <React.Fragment>
-          <ArchiveStudentModal
-            studentId={id}
-            onStudentDeactivate={refreshTable}
-          />{' '}
-          {value}
-        </React.Fragment>
-      );
-    },
   },
   {
     id: 'lastName',
