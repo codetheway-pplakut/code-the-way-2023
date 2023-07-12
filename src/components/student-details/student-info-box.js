@@ -9,6 +9,9 @@ import { altGetStudentGoalsHandler } from './goalsHandler';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 import { AddGoalModal } from './goal-modals';
+import { Career } from './career';
+import { getStudentCareersHandler } from './careersHandler';
+import { AddCareerModal } from './career-modals';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
@@ -179,6 +182,55 @@ export function GoalsBox(props) {
           goal={goalContent}
           key={goalContent.id}
           onSaveSuccess={() => fetchGoals()}
+        />
+      ))}
+    </Box>
+  );
+}
+export function CareerBox(props) {
+  const { student, onReload } = props;
+
+  const [allCareers, setAllCareers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const fetchCareer = async () => {
+    console.log('fetchCareer triggered');
+    setIsLoading(true);
+    setHasError(false);
+    try {
+      const response = await getStudentCareersHandler(student.id);
+      const { data } = response;
+      setAllCareers(data);
+    } catch (error) {
+      setHasError(true);
+      console.log('error in CareersBox', error);
+    }
+
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    fetchCareer();
+  }, [student.id]);
+  if (isLoading) return <LayoutPreloader />;
+  if (hasError) return <LayoutError />;
+
+  if (allCareers.length === 0)
+    return (
+      <Grid>
+        <AddCareerModal student={student} onSaveSuccess={() => fetchCareer()} />
+        <Typography>No careers</Typography>
+      </Grid>
+    );
+
+  return (
+    <Box>
+      <AddCareerModal student={student} onSaveSuccess={() => fetchCareer()} />
+      {allCareers.map((careerContent) => (
+        <Career
+          career={careerContent}
+          key={careerContent.id}
+          onSaveSuccess={() => fetchCareer()}
         />
       ))}
     </Box>
