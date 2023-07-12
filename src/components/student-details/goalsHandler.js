@@ -10,8 +10,8 @@ export function getGoalsHandler() {
   getGoals();
 }
 
-export function getStudentGoalsHandler(studentId) {
-  getStudentGoals(studentId);
+export async function getStudentGoalsHandler(studentId) {
+  await getStudentGoals(studentId);
 }
 export function altGetStudentGoalsHandler(studentId, callback) {
   getStudentGoals(studentId)
@@ -23,7 +23,7 @@ export function altGetStudentGoalsHandler(studentId, callback) {
     });
 }
 
-export function addGoalHandler(
+export async function addGoalHandler(
   id,
   studentId,
   goalSet,
@@ -43,7 +43,7 @@ export function addGoalHandler(
     wasItAccomplished,
     explanation,
   };
-  addGoal(data);
+  await addGoal(data);
 }
 
 export async function editGoalHandler(
@@ -69,6 +69,6 @@ export async function editGoalHandler(
   await editGoal(data);
 }
 
-export function deleteGoalHandler(id) {
-  deleteGoal(id);
+export async function deleteGoalHandler(id) {
+  await deleteGoal(id);
 }

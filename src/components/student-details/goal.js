@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { EditGoalModal } from './goal-modals';
+import { DeleteGoalModal, EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
@@ -53,6 +53,7 @@ export default function Goal(props) {
         <Typography>
           Goal set: {dayjs(dateGoalSet).format('MMM DD, YYYY')}
         </Typography>
+        <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
         <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
       </Grid>
       <Grid
