@@ -55,7 +55,6 @@ export function StudentInfoBox(props) {
     const birthDate = new Date(dob);
     const difference = Date.now() - birthDate.getTime();
     const age = new Date(difference);
-
     return Math.abs(age.getUTCFullYear() - 1970);
   };
 
@@ -127,7 +126,7 @@ export function StudentInfoBox(props) {
             )}
           </Typography>
           <Typography color="#959595">
-            {city} {state} {zipCode}
+            {city}, {state} {zipCode}
           </Typography>
         </Grid>
 
