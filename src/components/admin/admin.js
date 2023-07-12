@@ -21,7 +21,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Deactivate',
     align: 'left',
-    render: (value, refreshTable) => {
+    render: (value, row, refreshTable) => {
       return (
         <DeactivateAdminModal
           adminId={value}
