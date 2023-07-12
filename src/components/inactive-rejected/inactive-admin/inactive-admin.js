@@ -21,7 +21,11 @@ const COLUMNS = [
     align: 'left',
     render: (value, row, refreshTable) => {
       return (
-        <ActivateAdminModal adminId={value} onAdminActivate={refreshTable} />
+        <ActivateAdminModal
+          adminId={value}
+          adminEmail={row.userName}
+          onAdminActivate={refreshTable}
+        />
       );
     },
   },

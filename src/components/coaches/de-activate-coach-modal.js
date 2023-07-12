@@ -6,9 +6,9 @@ import { deactivateCoachHandler, activateCoachHandler } from './coachHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function DeactivateCoachModal(props) {
-  const { coachId, coachEmail, onCoachDeactivate } = props;
+  const { coachId, coach, onCoachDeactivate } = props;
   const deactivateCoachAction = async () => {
-    await deactivateCoachHandler(coachId, coachEmail, coachEmail);
+    await deactivateCoachHandler(coachId, coach.coachEmail, coach.coachEmail);
     if (onCoachDeactivate) onCoachDeactivate();
   };
 
@@ -16,7 +16,10 @@ export function DeactivateCoachModal(props) {
     <GenericModal
       openModal={<DeleteIcon />}
       modalHeadingTitle="Deactivate Coach"
-      modalMessage="Are you sure you want to deactivate this coach?"
+      modalMessage={
+        `Are you sure you want to deactivate coach ${coach.coachFirstName}` +
+        ` ${coach.coachLastName}?`
+      }
       actionButtonTitle="Deactivate"
       cancelButtonTitle="Cancel"
       actionButtonColor="archive"
@@ -27,19 +30,19 @@ export function DeactivateCoachModal(props) {
 }
 DeactivateCoachModal.propTypes = {
   coachId: PropTypes.string,
-  coachEmail: PropTypes.string,
+  coach: PropTypes.object,
   onCoachDeactivate: PropTypes.func.isRequired,
 };
 
 DeactivateCoachModal.defaultProps = {
   coachId: '',
-  coachEmail: '',
+  coach: [],
 };
 
 export function ActivateCoachModal(props) {
-  const { coachId, coachEmail, onCoachActivate } = props;
+  const { coachId, coach, onCoachActivate } = props;
   const activateCoachAction = async () => {
-    await activateCoachHandler(coachId, coachEmail, coachEmail);
+    await activateCoachHandler(coachId, coach.coachEmail, coach.coachEmail);
     if (onCoachActivate) onCoachActivate();
   };
 
@@ -47,7 +50,10 @@ export function ActivateCoachModal(props) {
     <GenericModal
       openModal={<Typography>Activate</Typography>}
       modalHeadingTitle="Activate Coach"
-      modalMessage="Are you sure you want to activate this coach?"
+      modalMessage={
+        `Are you sure you want to activate coach ${coach.coachFirstName}` +
+        ` ${coach.coachLastName}?`
+      }
       actionButtonTitle="Activate"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
@@ -58,11 +64,11 @@ export function ActivateCoachModal(props) {
 }
 ActivateCoachModal.propTypes = {
   coachId: PropTypes.string,
-  coachEmail: PropTypes.string,
+  coach: PropTypes.object,
   onCoachActivate: PropTypes.func.isRequired,
 };
 
 ActivateCoachModal.defaultProps = {
   coachId: '',
-  coachEmail: '',
+  coach: [],
 };

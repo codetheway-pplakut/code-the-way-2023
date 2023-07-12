@@ -57,8 +57,13 @@ const OPTIONS = [
           <ActivateStudentModal
             studentId={id}
             onStudentActivate={refreshTable}
+            student={row}
           />
-          <RejectStudentModal studentId={id} onStudentReject={refreshTable} />
+          <RejectStudentModal
+            studentId={id}
+            onStudentReject={refreshTable}
+            student={row}
+          />
         </React.Fragment>
       );
     },
@@ -93,15 +98,9 @@ export function Students() {
       render: (value, row, refreshTable) => {
         const { id } = row;
         return (
-          <React.Fragment>
-            <ArchiveStudentModal
-              studentId={id}
-              onStudentDeactivate={refreshTable}
-            />{' '}
-            <NavLink to="/student-info" state={{ studentId: id }}>
-              {value}
-            </NavLink>
-          </React.Fragment>
+          <NavLink to="/student-info" state={{ studentId: id }}>
+            {value}
+          </NavLink>
         );
       },
     },
@@ -140,13 +139,19 @@ export function Students() {
         </React.Fragment>
       ),
     },
-    // {
-    //   id: 'options',
-    //   disablePadding: false,
-    //   label: '',
-    //   align: 'left',
-    //   render: (value) => <ChooseCoachModal coachName={value} />,
-    // },
+    {
+      id: 'id',
+      disablePadding: false,
+      label: 'Deactivate',
+      align: 'left',
+      render: (value, row, refreshTable) => (
+        <ArchiveStudentModal
+          studentId={value}
+          student={row}
+          onStudentDeactivate={refreshTable}
+        />
+      ),
+    },
   ];
 
   console.log('activeCoaches', activeCoaches);
