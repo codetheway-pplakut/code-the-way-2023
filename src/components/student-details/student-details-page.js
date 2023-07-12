@@ -8,10 +8,11 @@ import { GenericModal } from '../shared/generic-modal';
 import InfoBox from './info-box';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communication-log';
-import { GoalsBox, StudentInfoBox } from './student-info-box';
+import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-box';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import Goal from './goal';
 import { AddCareerModal } from './career-modals';
+import { Career } from './career';
 
 // StudentDetails is meant to be a 'skeleton' that controls page layout
 // Nothing in here should be hard-coded, should be passed via props
@@ -126,7 +127,9 @@ export default function StudentDetails(props) {
               <GoalsBox student={student} onReload={() => onReload()} />
             )}
 
-            {tabValue === 2 && <AddCareerModal student={student} />}
+            {tabValue === 2 && (
+              <CareerBox student={student} onReload={() => onReload()} />
+            )}
 
             {tabValue === 3 && (
               <Box> Placeholder </Box>
