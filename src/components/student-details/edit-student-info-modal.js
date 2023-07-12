@@ -156,7 +156,7 @@ export default function EditStudentInfoModal(props) {
           </Grid>
           <Grid item xs={4}>
             <TextFieldWithErrorMessage
-              label="Apartment Number"
+              label="Apt."
               onChange={(value) =>
                 isParent
                   ? setParentApartmentNumber(value)

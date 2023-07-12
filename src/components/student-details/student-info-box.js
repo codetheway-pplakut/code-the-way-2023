@@ -51,6 +51,14 @@ export function StudentInfoBox(props) {
     }
   }, [isParent, student]);
 
+  const calculateAge = (dob) => {
+    const birthDate = new Date(dob);
+    const difference = Date.now() - birthDate.getTime();
+    const age = new Date(difference);
+
+    return Math.abs(age.getUTCFullYear() - 1970);
+  };
+
   return (
     <Grid container direction="column" spacing="2vh">
       <Grid item>
@@ -72,7 +80,7 @@ export function StudentInfoBox(props) {
         {isParent && (
           <Grid item>
             <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-            <Typography fontSize="30px">
+            <Typography fontSize="2vw">
               Parent Information{' '}
               <EditStudentInfoModal
                 student={student}
@@ -91,6 +99,9 @@ export function StudentInfoBox(props) {
               Date of Birth:{' '}
               <Typography color="#959595">
                 {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+              </Typography>
+              <Typography color="#959595">
+                Age: {calculateAge(studentDateOfBirth)}
               </Typography>
             </Typography>
           ) : (
@@ -111,7 +122,7 @@ export function StudentInfoBox(props) {
           <Typography>Address:</Typography>
           <Typography color="#959595">
             {address}{' '}
-            {apartmentNumber !== '' && (
+            {apartmentNumber !== '' && apartmentNumber !== null && (
               <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
             )}
           </Typography>
