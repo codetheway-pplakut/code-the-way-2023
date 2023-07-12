@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
+import { DeleteCareerModal } from './career-modals';
 
 export function Career(props) {
   const { career, onSaveSuccess } = props;
@@ -30,6 +31,7 @@ export function Career(props) {
         sx={{ border: '2px solid gray' }}
       >
         <Typography>Career: {specificCareer}</Typography>
+        <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} />
       </Grid>
       <Grid
         item

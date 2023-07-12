@@ -53,6 +53,6 @@ export function editCareerHandler(
   editCareer(data);
 }
 
-export function deleteCareerHandler(id) {
-  deleteCareer(id);
+export async function deleteCareerHandler(id) {
+  await deleteCareer(id);
 }

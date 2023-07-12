@@ -3,8 +3,9 @@ import AddIcon from '@mui/icons-material/Add';
 import { Grid, Menu, MenuItem, TextField } from '@mui/material';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
+import DeleteIcon from '@mui/icons-material/Delete';
 import GenericModal from '../shared/generic-modal';
-import { addCareerHandler } from './careersHandler';
+import { addCareerHandler, deleteCareerHandler } from './careersHandler';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 
 export function AddCareerModal(props) {
@@ -119,7 +120,30 @@ export function AddCareerModal(props) {
     </GenericModal>
   );
 }
+export function DeleteCareerModal(props) {
+  const { career, onSaveSuccess } = props;
+  // TODO add try catch
+  const requestDelete = async () => {
+    try {
+      await deleteCareerHandler(career);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      if (onSaveSuccess) onSaveSuccess();
+    }
+  };
 
+  return (
+    <GenericModal
+      modalHeadingTitle="Delete Career"
+      modalMessage="Are You Sure ?"
+      cancelButtonTitle="No"
+      actionButtonTitle="Yes"
+      onActionButtonClick={requestDelete}
+      openButtonIcon={<DeleteIcon />}
+    />
+  );
+}
 AddCareerModal.propTypes = {
   student: propTypes.func,
   onSaveSuccess: propTypes.func,
