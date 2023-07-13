@@ -14,7 +14,7 @@ import {
   editGoalHandler,
   addGoalHandler,
   deleteGoalHandler,
-} from './goalsHandler';
+} from './goalHandlers';
 
 export function EditGoalModal(props) {
   const { goal, onSaveSuccess } = props;

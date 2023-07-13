@@ -10,7 +10,7 @@ import {
   addCareerHandler,
   deleteCareerHandler,
   editCareerHandler,
-} from './careersHandler';
+} from './careerHandlers';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 export function AddCareerModal(props) {

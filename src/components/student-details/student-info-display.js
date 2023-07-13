@@ -5,12 +5,12 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goals/goal';
-import { altGetStudentGoalsHandler } from './goals/goalsHandler';
+import { altGetStudentGoalsHandler } from './goals/goalHandlers';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 import { AddGoalModal } from './goals/goal-modals';
 import { Career } from './careers/career';
-import { getStudentCareersHandler } from './careers/careersHandler';
+import { getStudentCareersHandler } from './careers/careerHandlers';
 import { AddCareerModal } from './careers/career-modals';
 
 /**
@@ -207,7 +207,7 @@ export function GoalsBox(props) {
         <Grid item container xs={12}>
           <Grid item xs={11}>
             <Typography fontSize="30px">
-              {student.studentFirstName} {student.studentLastName}'s Goals
+              {student.studentFirstName} {student.studentLastName}&apos;s Goals
             </Typography>
           </Grid>
           <Grid item xs={1}>
@@ -279,7 +279,8 @@ export function CareerBox(props) {
           <Grid item container xs={12}>
             <Grid item xs={11}>
               <Typography fontSize="30px">
-                {student.studentFirstName} {student.studentLastName}'s Careers
+                {student.studentFirstName} {student.studentLastName}&apos;s
+                Careers
               </Typography>
             </Grid>
             <Grid item xs={1}>
@@ -300,7 +301,8 @@ export function CareerBox(props) {
         <Grid item container xs={12}>
           <Grid item xs={11}>
             <Typography fontSize="30px">
-              {student.studentFirstName} {student.studentLastName}'s Careers
+              {student.studentFirstName} {student.studentLastName}&apos;s
+              Careers
             </Typography>
           </Grid>
           <Grid item xs={1}>
