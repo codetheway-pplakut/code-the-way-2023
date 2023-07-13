@@ -156,6 +156,9 @@ export function Students() {
 
   console.log('activeCoaches', activeCoaches);
 
+  function refreshPage() {
+    window.location.reload(false);
+  }
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
@@ -198,7 +201,7 @@ export function Students() {
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"
                 >
-                  <AddStudentModal />
+                  <AddStudentModal onSubmit={refreshPage} />
                 </DynamicTableWithRequest>
               )}
             </Box>

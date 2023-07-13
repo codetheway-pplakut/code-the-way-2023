@@ -2,6 +2,7 @@ import React from 'react';
 import { flattenDeep } from 'lodash';
 import { Grid, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PropTypes from 'prop-types';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
@@ -9,7 +10,8 @@ import { validate } from 'validate.js';
 import { addStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
-export function AddStudentModal() {
+export function AddStudentModal(props) {
+  const { onSubmit } = props;
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [dateOfBirth, setDateOfBirth] = React.useState(new Date());
@@ -61,6 +63,7 @@ export function AddStudentModal() {
   const addStudentAction = async () => {
     await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
     closeAction();
+    if (onSubmit) onSubmit();
   };
 
   const content = (
@@ -158,3 +161,10 @@ export function AddStudentModal() {
     />
   );
 }
+AddStudentModal.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+AddStudentModal.defaultProps = {
+  onSubmit: null,
+};

@@ -9,7 +9,7 @@ import {
   getInactiveCoaches,
 } from '../../services/coaches/coaches';
 
-export function getActiveCoachesHandler() {
+export async function getActiveCoachesHandler() {
   return getActiveCoaches();
 }
 
@@ -40,7 +40,7 @@ export function getCoachByIdHandler(coachId) {
  *
  * @author Adam Miller
  */
-export function addCoachHandler(
+export async function addCoachHandler(
   firstName,
   lastName,
   email,
@@ -49,7 +49,7 @@ export function addCoachHandler(
   confirmPassword
 ) {
   const data = { firstName, lastName, email, phone, password, confirmPassword };
-  addCoach(data);
+  await addCoach(data);
 }
 
 /**

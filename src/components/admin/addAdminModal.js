@@ -6,7 +6,8 @@ import { Grid, TextField } from '@mui/material';
 import { GenericModal } from '../shared/generic-modal';
 import { addAdminHandler } from './adminHandlers';
 
-export function AddAdminModal() {
+export function AddAdminModal(props) {
+  const { onSubmit } = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -56,6 +57,7 @@ export function AddAdminModal() {
   const submitAction = () => {
     addAdminHandler(email, password, confirmPassword);
     closeAction();
+    if (onSubmit) onSubmit();
   };
 
   const actionButtonDisabled = Boolean(messages.length);

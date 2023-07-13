@@ -17,8 +17,9 @@ export function LayoutBackButton() {
       size="small"
       startIcon={<ArrowBackIcon />}
       variant="outlined"
+      sx={{ m: 5, my: 0, mt: 5 }}
     >
-      Back
+      All Students
     </Button>
   );
 }

@@ -8,7 +8,6 @@ import uuid from 'react-uuid';
 import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import {
