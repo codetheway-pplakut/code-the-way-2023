@@ -47,7 +47,7 @@ export default function Goal(props) {
           direction="row"
           justifyContent="space-around"
           alignItems="center"
-          sx={{ px: '2vw', py: '1vh', bgcolor: '#f5f5f5' }}
+          sx={{ px: '2vw', py: '1vh', bgcolor: '#F0F0F0' }}
         >
           <Grid item xs={6}>
             <Typography fontSize={20} fontWeight="medium" color="#505050">

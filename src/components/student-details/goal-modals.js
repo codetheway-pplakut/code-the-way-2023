@@ -2,19 +2,18 @@ import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import dayjs from 'dayjs';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
+import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { gridColumnsTotalWidthSelector } from '@mui/x-data-grid';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import {
   editGoalHandler,
   addGoalHandler,
   deleteGoalHandler,
-  altDeleteGoalHandler,
 } from './goalsHandler';
 
 export function EditGoalModal(props) {
@@ -153,7 +152,7 @@ export function AddGoalModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
-      openButtonIcon={<Typography>Add Goal</Typography>}
+      openModal={<AddIcon />}
     >
       <Grid
         container
