@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DeleteCareerModal, EditCareerModal } from './career-modals';
-import { AspirationsCard, AspirationsCardHeader } from './aspirations-card';
+import { AspirationsCard, AspirationsCardHeader } from '../aspirations-card';
 
 export function Career(props) {
   const { career, onSaveSuccess } = props;

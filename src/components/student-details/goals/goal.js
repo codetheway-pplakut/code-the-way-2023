@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Divider, Grid, Typography, Box } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -9,7 +9,7 @@ import {
   AspirationsCard,
   AspirationsCardHeader,
   AspirationsCardFooter,
-} from './aspirations-card';
+} from '../aspirations-card';
 
 export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
@@ -92,6 +92,10 @@ export default function Goal(props) {
   );
 }
 
+Goal.propTypes = {
+  goal: propTypes.object,
+  onSaveSuccess: propTypes.func,
+};
 Goal.defaultProps = {
   goal: undefined,
   onSaveSuccess: undefined,

@@ -5,13 +5,13 @@ import uuid from 'react-uuid';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import { GenericModal } from '../shared/generic-modal';
+import { GenericModal } from '../../shared/generic-modal';
 import {
   addCareerHandler,
   deleteCareerHandler,
   editCareerHandler,
 } from './careersHandler';
-import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
+import { TextFieldWithErrorMessage } from '../../coaches/text-field-with-error-message';
 
 export function AddCareerModal(props) {
   const { student, onSaveSuccess } = props;
@@ -125,6 +125,7 @@ export function AddCareerModal(props) {
     </GenericModal>
   );
 }
+
 export function DeleteCareerModal(props) {
   const { career, onSaveSuccess } = props;
   // TODO add try catch
@@ -149,6 +150,16 @@ export function DeleteCareerModal(props) {
     />
   );
 }
+
+DeleteCareerModal.propTypes = {
+  career: propTypes.object,
+  onSaveSuccess: propTypes.func,
+};
+DeleteCareerModal.defaultProps = {
+  career: undefined,
+  onSaveSuccess: undefined,
+};
+
 export function EditCareerModal(props) {
   const { career, onSaveSuccess } = props;
 
@@ -267,6 +278,15 @@ export function EditCareerModal(props) {
     </GenericModal>
   );
 }
+
+EditCareerModal.propTypes = {
+  career: propTypes.object,
+  onSaveSuccess: propTypes.func,
+};
+EditCareerModal.defaultProps = {
+  career: undefined,
+  onSaveSuccess: undefined,
+};
 
 AddCareerModal.propTypes = {
   student: propTypes.func,

@@ -64,7 +64,7 @@ export function AddAdminModal(props) {
 
   return (
     <GenericModal
-      openModal={<AddIcon />}
+      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add an Admin"
       modalMessage="Fill out the fields below to add an admin."
       actionButtonTitle="Create"

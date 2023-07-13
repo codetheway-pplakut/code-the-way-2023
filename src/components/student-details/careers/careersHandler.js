@@ -4,7 +4,7 @@ import {
   editCareer,
   getCareerById,
   getStudentCareers,
-} from '../../services/careers/careers';
+} from '../../../services/careers/careers';
 
 export function getCareerByIdHandler(id) {
   const data = { id };

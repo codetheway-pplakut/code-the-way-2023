@@ -3,16 +3,15 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
-import { AllInbox } from '@mui/icons-material';
 import EditStudentInfoModal from './edit-student-info-modal';
-import Goal from './goal';
-import { altGetStudentGoalsHandler } from './goalsHandler';
+import Goal from './goals/goal';
+import { altGetStudentGoalsHandler } from './goals/goalsHandler';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
-import { AddGoalModal } from './goal-modals';
-import { Career } from './career';
-import { getStudentCareersHandler } from './careersHandler';
-import { AddCareerModal } from './career-modals';
+import { AddGoalModal } from './goals/goal-modals';
+import { Career } from './careers/career';
+import { getStudentCareersHandler } from './careers/careersHandler';
+import { AddCareerModal } from './careers/career-modals';
 
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
@@ -145,7 +144,7 @@ export function StudentInfoBox(props) {
   );
 }
 export function GoalsBox(props) {
-  const { student, onReload } = props;
+  const { student } = props;
 
   const [allGoals, setAllGoals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -176,7 +175,7 @@ export function GoalsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  const renderGoal = ({ index, style }) => {
+  const renderGoal = ({ index }) => {
     const goalContent = allGoals[index];
     return (
       <Grid container>
@@ -217,7 +216,7 @@ export function GoalsBox(props) {
   );
 }
 export function CareerBox(props) {
-  const { student, onReload } = props;
+  const { student } = props;
 
   const [allCareers, setAllCareers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -244,7 +243,7 @@ export function CareerBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  const renderCareer = ({ index, style }) => {
+  const renderCareer = ({ index }) => {
     const careerContent = allCareers[index];
     return (
       <Grid container>

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
-import { getStudentCommunicationsHandler } from '../communications/communicationsHandler';
+import { getStudentCommunicationsHandler } from '../../communications/communicationsHandler';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -43,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-export function CommuinicationSearchBar(props) {
+export function CommunicationSearchBar(props) {
   const { student } = props;
   // Stage 1
   const filterBy = [
@@ -119,10 +119,10 @@ export function CommuinicationSearchBar(props) {
     </Search>
   );
 }
-CommuinicationSearchBar.propTypes = {
+CommunicationSearchBar.propTypes = {
   student: PropTypes.string,
 };
 
-CommuinicationSearchBar.defaultProps = {
+CommunicationSearchBar.defaultProps = {
   student: '',
 };

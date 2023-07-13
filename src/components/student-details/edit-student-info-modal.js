@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CircularProgress, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -11,7 +11,6 @@ import { editStudent } from '../../services/students/students';
 
 export default function EditStudentInfoModal(props) {
   const { student, onSaveSuccess, isParent } = props;
-  const [dateGoalSet, setDateGoalSet] = useState(new Date());
 
   const [studentFirstName, setStudentFirstName] = useState('');
   const [studentLastName, setStudentLastName] = useState('');
