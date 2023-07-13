@@ -5,6 +5,11 @@ import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { DeleteGoalModal, EditGoalModal } from './goal-modals';
+import {
+  AspirationsCard,
+  AspirationsCardHeader,
+  AspirationsCardFooter,
+} from './aspirations-card';
 
 export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
@@ -39,75 +44,51 @@ export default function Goal(props) {
   };
 
   return (
-    <Box sx={{ borderRadius: '10px', boxShadow: 2, mb: 2 }}>
-      <Grid container direction="column">
-        <Grid
-          item
-          container
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          sx={{ px: '2vw', py: '1vh', bgcolor: '#f5f5f5' }}
-        >
-          <Grid item xs={6}>
-            <Typography fontSize={20} fontWeight="medium" color="#505050">
-              {goalSet}
-            </Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Typography>
-              Goal Set:
-              <br /> {dayjs(dateGoalSet).format('MMM DD, YYYY')}
-            </Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Typography>
-              Review Date: <br />
-              {dayjs(goalReviewDate).format('MMM DD, YYYY')}
-            </Typography>
-          </Grid>
-          <Grid item xs={1}>
-            <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
-          </Grid>
-          <Grid item xs={1}>
-            <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
-          </Grid>
+    <AspirationsCard>
+      <AspirationsCardHeader header={goalSet}>
+        <Grid item xs={2}>
+          <Typography>
+            Goal Set:
+            <br /> {dayjs(dateGoalSet).format('MMM DD, YYYY')}
+          </Typography>
         </Grid>
-        <Typography
-          width="95%"
-          sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
-          paragraph
-          gutterBottom
-          noWrap={showMore}
-        >
-          {explanation}
-        </Typography>
-        <Button
-          onClick={handleChange}
-          startIcon={
-            showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
-          }
-        />
-        <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-        <Grid
-          container
-          alignItems="center"
-          sx={{
-            px: '2vw',
-            py: '2vh',
-            borderBottomLeftRadius: '10px',
-            borderBottomRightRadius: '10px',
-          }}
-        >
-          <Grid item xs={8}>
-            <Typography>SEL: {SEL}</Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography>Completed: {wasItAccomplished}</Typography>
-          </Grid>
+        <Grid item xs={2}>
+          <Typography>
+            Review Date: <br />
+            {dayjs(goalReviewDate).format('MMM DD, YYYY')}
+          </Typography>
         </Grid>
-      </Grid>
-    </Box>
+        <Grid item xs={1}>
+          <EditGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
+        </Grid>
+        <Grid item xs={1}>
+          <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
+        </Grid>
+      </AspirationsCardHeader>
+      <Typography
+        width="95%"
+        sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
+        paragraph
+        gutterBottom
+        noWrap={showMore}
+      >
+        {explanation}
+      </Typography>
+      <Button
+        onClick={handleChange}
+        startIcon={
+          showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
+        }
+      />
+      <AspirationsCardFooter>
+        <Grid item xs={8}>
+          <Typography>SEL: {SEL}</Typography>
+        </Grid>
+        <Grid item xs={4}>
+          <Typography>Completed: {wasItAccomplished}</Typography>
+        </Grid>
+      </AspirationsCardFooter>
+    </AspirationsCard>
   );
 }
 

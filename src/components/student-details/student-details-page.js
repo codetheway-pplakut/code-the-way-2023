@@ -41,7 +41,7 @@ export default function StudentDetails(props) {
 
   const tabStyle = React.useMemo(
     () => ({
-      bgcolor: '#3E4C61',
+      bgcolor: '#72777E',
       color: '#ffffff',
       position: 'relative',
       display: 'flex',

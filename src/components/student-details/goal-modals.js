@@ -14,7 +14,6 @@ import {
   editGoalHandler,
   addGoalHandler,
   deleteGoalHandler,
-  altDeleteGoalHandler,
 } from './goalsHandler';
 
 export function EditGoalModal(props) {
