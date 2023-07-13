@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid, Menu, MenuItem, TextField } from '@mui/material';
+import { Grid, MenuItem, TextField } from '@mui/material';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import GenericModal from '../shared/generic-modal';
+import { GenericModal } from '../shared/generic-modal';
 import {
   addCareerHandler,
   deleteCareerHandler,

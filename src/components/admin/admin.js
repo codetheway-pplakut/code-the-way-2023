@@ -33,7 +33,9 @@ const COLUMNS = [
     active: false,
   },
 ];
-
+function refreshPage() {
+  window.location.reload(false);
+}
 export function Admins() {
   return (
     <Grid container justifyContent="center">
@@ -46,7 +48,7 @@ export function Admins() {
                 requestFunc={getActiveAdminsHandler}
                 filterBy={['email']}
               >
-                <AddAdminModal />
+                <AddAdminModal onSubmit={refreshPage} />
               </DynamicTableWithRequest>
             </Box>
           </Layout>

@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
+
 import { FixedSizeList as List } from 'react-window';
+import { AllInbox } from '@mui/icons-material';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
 import { altGetStudentGoalsHandler } from './goalsHandler';
@@ -175,17 +177,30 @@ export function GoalsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
+  const renderGoal = ({ index, style }) => {
+    const goalContent = allGoals[index];
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <Goal
+            sx={{ pt: '20px', maxWidth: '50%' }}
+            goal={goalContent}
+            key={goalContent.id}
+            onSaveSuccess={() => fetchGoals()}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
+
+  // FIXME Item size must change whenever the size of the goals themselves change.
   return (
-    <Box>
+    <React.Fragment>
       <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
-      {allGoals.map((goalContent) => (
-        <Goal
-          goal={goalContent}
-          key={goalContent.id}
-          onSaveSuccess={() => fetchGoals()}
-        />
-      ))}
-    </Box>
+      <List height={900} itemCount={allGoals.length} itemSize={250}>
+        {renderGoal}
+      </List>
+    </React.Fragment>
   );
 }
 export function CareerBox(props) {
@@ -216,6 +231,21 @@ export function CareerBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
+  const renderCareer = ({ index, style }) => {
+    const careerContent = allCareers[index];
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <Career
+            sx={{ pt: '20px', maxWidth: '50%' }}
+            career={careerContent}
+            key={careerContent.id}
+            onSaveSuccess={() => fetchCareer()}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
   if (allCareers.length === 0)
     return (
       <Grid>
@@ -227,13 +257,9 @@ export function CareerBox(props) {
   return (
     <Box>
       <AddCareerModal student={student} onSaveSuccess={() => fetchCareer()} />
-      {allCareers.map((careerContent) => (
-        <Career
-          career={careerContent}
-          key={careerContent.id}
-          onSaveSuccess={() => fetchCareer()}
-        />
-      ))}
+      <List height={700} itemCount={allCareers.length} itemSize={250}>
+        {renderCareer}
+      </List>
     </Box>
   );
 }
@@ -247,4 +273,22 @@ StudentInfoBox.defaultProps = {
   student: undefined,
   onReload: undefined,
   isParent: false,
+};
+
+CareerBox.propTypes = {
+  student: propTypes.func,
+  onReload: propTypes.func,
+};
+CareerBox.defaultProps = {
+  student: undefined,
+  onReload: undefined,
+};
+
+GoalsBox.propTypes = {
+  student: propTypes.func,
+  onReload: propTypes.func,
+};
+GoalsBox.defaultProps = {
+  student: undefined,
+  onReload: undefined,
 };

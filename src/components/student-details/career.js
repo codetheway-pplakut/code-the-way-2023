@@ -1,70 +1,69 @@
-import { Grid, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import { Grid, Typography, Box } from '@mui/material';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { DeleteCareerModal, EditCareerModal } from './career-modals';
 
 export function Career(props) {
   const { career, onSaveSuccess } = props;
-  const [careerId, setCareerId] = React.useState('');
-  const [collegeBound, setCollegeBound] = React.useState(false);
-  const [careerCluster, setCareerCluster] = React.useState(0);
-  const [specificCareer, setSpecificCareer] = React.useState('');
-  const [technicalCollegeBound, setTechnicalCollegeBound] =
-    React.useState(false);
-
-  useEffect(() => {
-    setCareerId(career.id);
-    setCollegeBound(career.collegeBound ? career.collegeBound : false);
-    setCareerCluster(career.careerCluster ? career.careerCluster : 0);
-    setSpecificCareer(career.specificCareer ? career.specificCareer : '');
-    setTechnicalCollegeBound(
-      career.technicalCollegeBound ? career.technicalCollegeBound : false
-    );
-  }, [career]);
 
   return (
-    <Grid container direction="column" sx={{ border: '1px solid black' }}>
-      <Grid
-        item
-        direction="row"
-        justifyContent="space-around"
-        alignItems="center"
-        sx={{ border: '2px solid gray' }}
-      >
-        <Typography>Career: {specificCareer}</Typography>
-        <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} />
-        <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} />
+    <Box sx={{ borderRadius: '10px', boxShadow: 2, mb: 2 }}>
+      <Grid container direction="column">
+        <Grid
+          item
+          container
+          direction="row"
+          justifyContent="space-around"
+          alignItems="center"
+          sx={{ px: '2vw', py: '1vh', bgcolor: '#f5f5f5' }}
+        >
+          <Grid item xs={6}>
+            <Typography fontSize={20} fontWeight="medium" color="#505050">
+              {career.specificCareer}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>{`Cluster: ${career.careerCluster}`}</Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} />
+          </Grid>
+          <Grid item xs={1}>
+            <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          alignItems="center"
+          sx={{
+            px: '2vw',
+            py: '2vh',
+            borderBottomLeftRadius: '10px',
+            borderBottomRightRadius: '10px',
+          }}
+        >
+          <Grid item xs={6}>
+            <Typography>
+              College Bound: {career.collegeBound ? 'Yes' : 'No'}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography>
+              Tech. College Bound: {career.technicalCollegeBound ? 'Yes' : 'No'}
+            </Typography>
+          </Grid>
+        </Grid>
       </Grid>
-      <Grid
-        item
-        direction="row"
-        justifyContent="space-around"
-        alignItems="center"
-        sx={{ border: '2px solid gray' }}
-      >
-        <Typography> College Bound: {collegeBound ? 'Yes' : 'No'}</Typography>
-        <Typography>
-          Technical College Bound: {technicalCollegeBound ? 'Yes' : 'No'}
-        </Typography>
-      </Grid>
-      <Grid
-        item
-        direction="row"
-        justifyContent="space-around"
-        alignItems="center"
-        sx={{ border: '2px solid gray' }}
-      >
-        {/* Career Cluster being stored as number means no description for this */}
-        <Typography> Career Cluster: {careerCluster}</Typography>
-      </Grid>
-    </Grid>
+    </Box>
   );
 }
 
 Career.propTypes = {
   career: PropTypes.object,
+  onSaveSuccess: PropTypes.func,
 };
 
 Career.defaultProps = {
   career: [],
+  onSaveSuccess: null,
 };

@@ -47,7 +47,7 @@ export default function Goal(props) {
           direction="row"
           justifyContent="space-around"
           alignItems="center"
-          sx={{ px: '2vw', py: '1vh' }}
+          sx={{ px: '2vw', py: '1vh', bgcolor: '#f5f5f5' }}
         >
           <Grid item xs={6}>
             <Typography fontSize={20} fontWeight="medium" color="#505050">
@@ -73,7 +73,6 @@ export default function Goal(props) {
             <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
           </Grid>
         </Grid>
-        <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
         <Typography
           width="95%"
           sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
@@ -89,13 +88,13 @@ export default function Goal(props) {
             showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
           }
         />
+        <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
         <Grid
           container
           alignItems="center"
           sx={{
             px: '2vw',
             py: '2vh',
-            bgcolor: '#f5f5f5',
             borderBottomLeftRadius: '10px',
             borderBottomRightRadius: '10px',
           }}
