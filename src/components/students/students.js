@@ -10,7 +10,7 @@ import {
   ActivateStudentModal,
   RejectStudentModal,
 } from './accept-reject-student-modal';
-import { ArchiveStudentModal } from './archive-student-modal';
+import { DeactivateStudentModal } from './de-activate-student-modal';
 import { AddStudentModal } from './add-student-modal';
 import { ChooseCoachModal } from './choose-coach-modal';
 import { Layout } from '../layout/layout';
@@ -146,7 +146,7 @@ export function Students() {
       label: 'Deactivate',
       align: 'left',
       render: (value, row, refreshTable) => (
-        <ArchiveStudentModal
+        <DeactivateStudentModal
           studentId={value}
           student={row}
           onStudentDeactivate={refreshTable}

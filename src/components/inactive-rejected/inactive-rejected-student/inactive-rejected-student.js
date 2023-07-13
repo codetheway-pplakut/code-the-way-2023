@@ -6,7 +6,7 @@ import {
 } from '../../../services/students/students';
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
 import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-restricted';
-import { ActivateStudentModal } from '../student-activate-button/student-activate-button';
+import { ActivateStudentModal } from '../../students/de-activate-student-modal';
 
 const COLUMNS = [
   { id: 'firstName', label: 'First Name' },
