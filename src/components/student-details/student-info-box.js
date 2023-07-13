@@ -262,14 +262,42 @@ export function CareerBox(props) {
   if (allCareers.length === 0)
     return (
       <Grid>
-        <AddCareerModal student={student} onSaveSuccess={() => fetchCareer()} />
-        <Typography>No careers</Typography>
+        <Grid container>
+          <Grid item container xs={12}>
+            <Grid item xs={11}>
+              <Typography fontSize="30px">
+                {student.studentFirstName} {student.studentLastName}'s Careers
+              </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <AddCareerModal
+                student={student}
+                onSaveSuccess={() => fetchCareer()}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Typography>No careers found</Typography>
       </Grid>
     );
 
   return (
     <Box>
-      <AddCareerModal student={student} onSaveSuccess={() => fetchCareer()} />
+      <Grid container>
+        <Grid item container xs={12}>
+          <Grid item xs={11}>
+            <Typography fontSize="30px">
+              {student.studentFirstName} {student.studentLastName}'s Careers
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <AddCareerModal
+              student={student}
+              onSaveSuccess={() => fetchCareer()}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
       <List height={700} itemCount={allCareers.length} itemSize={250}>
         {renderCareer}
       </List>
