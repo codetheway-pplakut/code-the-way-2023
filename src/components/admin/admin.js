@@ -25,6 +25,7 @@ const COLUMNS = [
       return (
         <DeactivateAdminModal
           adminId={value}
+          adminEmail={row.userName}
           onAdminDeactivate={refreshTable}
         />
       );

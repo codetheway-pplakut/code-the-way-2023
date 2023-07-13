@@ -26,6 +26,7 @@ const COLUMNS = [
       return (
         <ActivateStudentModal
           studentId={value}
+          student={row}
           onStudentActivate={refreshTable}
         />
       );

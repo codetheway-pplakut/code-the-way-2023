@@ -6,7 +6,7 @@ import { deactivateAdminHandler, activateAdminHandler } from './adminHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function DeactivateAdminModal(props) {
-  const { adminId, onAdminDeactivate } = props;
+  const { adminId, adminEmail, onAdminDeactivate } = props;
   const deactivateAdminAction = async () => {
     await deactivateAdminHandler(adminId);
     if (onAdminDeactivate) onAdminDeactivate();
@@ -16,7 +16,7 @@ export function DeactivateAdminModal(props) {
     <GenericModal
       openModal={<DeleteIcon />}
       modalHeadingTitle="Deactivate Admin"
-      modalMessage="Are you sure you want to deactivate this admin?"
+      modalMessage={`Are you sure you want to deactivate admin ${adminEmail}?`}
       actionButtonTitle="Deactivate"
       cancelButtonTitle="Cancel"
       actionButtonColor="archive"
@@ -28,14 +28,16 @@ export function DeactivateAdminModal(props) {
 DeactivateAdminModal.propTypes = {
   adminId: PropTypes.string,
   onAdminDeactivate: PropTypes.func.isRequired,
+  adminEmail: PropTypes.string,
 };
 
 DeactivateAdminModal.defaultProps = {
   adminId: '',
+  adminEmail: '',
 };
 
 export function ActivateAdminModal(props) {
-  const { adminId, onAdminActivate } = props;
+  const { adminId, adminEmail, onAdminActivate } = props;
   const activateAdminAction = async () => {
     await activateAdminHandler(adminId);
     if (onAdminActivate) onAdminActivate();
@@ -45,7 +47,7 @@ export function ActivateAdminModal(props) {
     <GenericModal
       openModal={<Typography>Activate</Typography>}
       modalHeadingTitle="Activate Admin"
-      modalMessage="Are you sure you want to activate this admin?"
+      modalMessage={`Are you sure you want to activate admin ${adminEmail}?`}
       actionButtonTitle="Activate"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
@@ -57,8 +59,10 @@ export function ActivateAdminModal(props) {
 ActivateAdminModal.propTypes = {
   adminId: PropTypes.string,
   onAdminActivate: PropTypes.func.isRequired,
+  adminEmail: PropTypes.string,
 };
 
 ActivateAdminModal.defaultProps = {
   adminId: '',
+  adminEmail: '',
 };

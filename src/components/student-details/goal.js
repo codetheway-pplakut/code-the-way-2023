@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Button, Divider, Grid, Typography, Box } from '@mui/material';
 import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Box } from '@mui/system';
 import { DeleteGoalModal, EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
