@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
-
 import { FixedSizeList as List } from 'react-window';
 import { AllInbox } from '@mui/icons-material';
 import EditStudentInfoModal from './edit-student-info-modal';
@@ -195,12 +194,26 @@ export function GoalsBox(props) {
 
   // FIXME Item size must change whenever the size of the goals themselves change.
   return (
-    <React.Fragment>
-      <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
+    <Box>
+      <Grid container>
+        <Grid item container xs={12}>
+          <Grid item xs={11}>
+            <Typography fontSize="30px">
+              {student.studentFirstName} {student.studentLastName}'s Goals
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <AddGoalModal
+              student={student}
+              onSaveSuccess={() => fetchGoals()}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
       <List height={900} itemCount={allGoals.length} itemSize={250}>
         {renderGoal}
       </List>
-    </React.Fragment>
+    </Box>
   );
 }
 export function CareerBox(props) {

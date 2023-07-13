@@ -48,8 +48,8 @@ export function getAdminByIdHandler(id) {
  * @param {string} password
  * @param {string} confirmPassword
  */
-export function addAdminHandler(email, password, confirmPassword) {
-  return addAdmin({ email, password, confirmPassword });
+export async function addAdminHandler(email, password, confirmPassword) {
+  await addAdmin({ email, password, confirmPassword });
 }
 
 /**

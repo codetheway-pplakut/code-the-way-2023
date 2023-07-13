@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Grid } from '@mui/material';
+import { Grid, Typography, Checkbox } from '@mui/material';
 import dayjs from 'dayjs';
 import uuid from 'react-uuid';
-import propTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
+import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import {
@@ -24,7 +23,7 @@ export function EditGoalModal(props) {
   const [dateGoalSet, setDateGoalSet] = useState(new Date());
   const [sel, setSel] = useState('');
   const [goalReviewDate, setGoalReviewDate] = useState(new Date());
-  const [wasItAccomplished, setWasItAccomplished] = useState('');
+  const [wasItAccomplished, setWasItAccomplished] = useState('No');
   const [explanation, setExplanation] = useState('');
 
   useEffect(() => {
@@ -56,67 +55,78 @@ export function EditGoalModal(props) {
   };
   return (
     <GenericModal
-      actionButtonTitle="Submit"
+      actionButtonTitle="Confirm"
+      actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
       onActionButtonClick={requestSave}
       openButtonIcon={<EditIcon />}
     >
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="spaceBetween"
-      >
-        <Grid item mb={2}>
+      <Grid container alignItems="center" px={4} py={2} spacing={1}>
+        <Grid item xs={12}>
           <TextFieldWithErrorMessage
-            label="Goal"
+            label="Goal Title"
             onChange={(value) => setGoalSet(value)}
             value={goalSet}
           />
         </Grid>
-        <Grid item my={1}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              margin="normal"
-              sx={{ width: 210 }}
-              label="Date Goal Set"
-              value={dayjs(dateGoalSet)}
-              onChange={(newValue) => setDateGoalSet(newValue)}
-            />
-          </LocalizationProvider>
+        <Grid item container spacing={2}>
+          <Grid item xs={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                margin="normal"
+                label="Date Goal Set"
+                value={dayjs(dateGoalSet)}
+                onChange={(newValue) => setDateGoalSet(newValue)}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                margin="normal"
+                label="Goal Review Date"
+                value={dayjs(goalReviewDate)}
+                onChange={(newValue) => setGoalReviewDate(newValue)}
+              />
+            </LocalizationProvider>
+          </Grid>
         </Grid>
-        <Grid item my={1}>
-          <TextFieldWithErrorMessage
-            label="SEL"
-            onChange={(value) => setSel(value)}
-            value={sel}
-          />
-        </Grid>
-        <Grid item my={1}>
-          <TextFieldWithErrorMessage
-            label="Accomplished?"
-            onChange={(value) => setWasItAccomplished(value)}
-            value={wasItAccomplished}
-          />
-        </Grid>
-        <Grid item my={1}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              margin="normal"
-              sx={{ width: 210 }}
-              label="Goal Review Date"
-              value={dayjs(goalReviewDate)}
-              onChange={(newValue) => setGoalReviewDate(newValue)}
-            />
-          </LocalizationProvider>
-        </Grid>
-        <Grid item my={1}>
+
+        <Grid item xs={12}>
           <TextFieldWithErrorMessage
             label="Explanation"
             onChange={(value) => setExplanation(value)}
             value={explanation}
+            minRows={3}
           />
+        </Grid>
+
+        <Grid
+          item
+          container
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid item xs={6}>
+            <TextFieldWithErrorMessage
+              label="SEL"
+              onChange={(value) => setSel(value)}
+              value={sel}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Grid container alignItems="center" marginLeft={2}>
+              <Typography>Completed</Typography>
+              <Checkbox
+                checked={wasItAccomplished === 'Yes'}
+                onChange={(event) =>
+                  setWasItAccomplished(event.target.checked ? 'Yes' : 'No')
+                }
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </GenericModal>
@@ -130,7 +140,7 @@ export function AddGoalModal(props) {
   const [dateGoalSet, setDateGoalSet] = useState(new Date());
   const [sel, setSel] = useState('');
   const [goalReviewDate, setGoalReviewDate] = useState(new Date());
-  const [wasItAccomplished, setWasItAccomplished] = useState('');
+  const [wasItAccomplished, setWasItAccomplished] = useState('No');
   const [explanation, setExplanation] = useState('');
 
   const requestSubmit = async () => {
@@ -147,69 +157,90 @@ export function AddGoalModal(props) {
 
     if (onSaveSuccess) onSaveSuccess();
   };
+
+  const iconStyle = React.useMemo(
+    () => ({
+      color: '#3E4C61',
+      minWidth: 40,
+      minHeight: 40,
+    }),
+    []
+  );
+
   return (
     <GenericModal
-      actionButtonTitle="Submit"
+      actionButtonTitle="Confirm"
+      actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
-      openModal={<AddIcon />}
+      openButtonIcon={<AddIcon sx={iconStyle} />}
     >
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="spaceBetween"
-      >
-        <Grid item mb={2}>
+      <Grid container alignItems="center" px={4} py={2} spacing={1}>
+        <Grid item xs={12}>
           <TextFieldWithErrorMessage
-            label="Goal"
+            label="Goal Title"
             onChange={(value) => setGoalSet(value)}
             value={goalSet}
           />
         </Grid>
-        <Grid item my={1}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              margin="normal"
-              sx={{ width: 210 }}
-              label="Date Goal Set"
-              value={dayjs(dateGoalSet)}
-              onChange={(newValue) => setDateGoalSet(newValue)}
-            />
-          </LocalizationProvider>
+        <Grid item container spacing={2}>
+          <Grid item xs={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                margin="normal"
+                label="Date Goal Set"
+                value={dayjs(dateGoalSet)}
+                onChange={(newValue) => setDateGoalSet(newValue)}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={6}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                margin="normal"
+                label="Goal Review Date"
+                value={dayjs(goalReviewDate)}
+                onChange={(newValue) => setGoalReviewDate(newValue)}
+              />
+            </LocalizationProvider>
+          </Grid>
         </Grid>
-        <Grid item my={1}>
-          <TextFieldWithErrorMessage
-            label="SEL"
-            onChange={(value) => setSel(value)}
-            value={sel}
-          />
-        </Grid>
-        <Grid item my={1}>
-          <TextFieldWithErrorMessage
-            label="Accomplished?"
-            onChange={(value) => setWasItAccomplished(value)}
-            value={wasItAccomplished}
-          />
-        </Grid>
-        <Grid item my={1}>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              margin="normal"
-              sx={{ width: 210 }}
-              label="Goal Review Date"
-              value={dayjs(goalReviewDate)}
-              onChange={(newValue) => setGoalReviewDate(newValue)}
-            />
-          </LocalizationProvider>
-        </Grid>
-        <Grid item my={1}>
+
+        <Grid item xs={12}>
           <TextFieldWithErrorMessage
             label="Explanation"
             onChange={(value) => setExplanation(value)}
             value={explanation}
+            minRows={3}
           />
+        </Grid>
+
+        <Grid
+          item
+          container
+          spacing={2}
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Grid item xs={6}>
+            <TextFieldWithErrorMessage
+              label="SEL"
+              onChange={(value) => setSel(value)}
+              value={sel}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <Grid container alignItems="center" marginLeft={2}>
+              <Typography>Completed</Typography>
+              <Checkbox
+                checked={wasItAccomplished === 'Yes'}
+                onChange={(event) =>
+                  setWasItAccomplished(event.target.checked ? 'Yes' : 'No')
+                }
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </GenericModal>
@@ -232,9 +263,10 @@ export function DeleteGoalModal(props) {
   return (
     <GenericModal
       modalHeadingTitle="Delete Goal"
-      modalMessage="Are You Sure ?"
-      cancelButtonTitle="No"
-      actionButtonTitle="Yes"
+      modalMessage="Are you sure you want to delete this goal?"
+      cancelButtonTitle="Cancel"
+      actionButtonTitle="Delete"
+      actionButtonColor="archive"
       onActionButtonClick={requestDelete}
       openButtonIcon={<DeleteIcon />}
     />
@@ -243,10 +275,6 @@ export function DeleteGoalModal(props) {
 
 DeleteGoalModal.propTypes = {
   goal: propTypes.object,
-  onSaveSuccess: propTypes.func,
-};
-DeleteGoalModal.defaultProps = {
-  goal: undefined,
   onSaveSuccess: undefined,
 };
 AddGoalModal.propTypes = {
