@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 
 import { FixedSizeList as List } from 'react-window';
+import { AllInbox } from '@mui/icons-material';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
 import { altGetStudentGoalsHandler } from './goalsHandler';
@@ -179,20 +180,24 @@ export function GoalsBox(props) {
   const renderGoal = ({ index, style }) => {
     const goalContent = allGoals[index];
     return (
-      <Grid item style={style}>
-        <Goal
-          goal={goalContent}
-          key={goalContent.id}
-          onSaveSuccess={() => fetchGoals()}
-        />
+      <Grid container>
+        <Grid item xs={12}>
+          <Goal
+            sx={{ pt: '20px', maxWidth: '50%' }}
+            goal={goalContent}
+            key={goalContent.id}
+            onSaveSuccess={() => fetchGoals()}
+          />
+        </Grid>
       </Grid>
     );
   };
+
   // FIXME Item size must change whenever the size of the goals themselves change.
   return (
     <React.Fragment>
       <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
-      <List height={850} itemCount={allGoals.length} itemSize={250}>
+      <List height={900} itemCount={allGoals.length} itemSize={250}>
         {renderGoal}
       </List>
     </React.Fragment>
