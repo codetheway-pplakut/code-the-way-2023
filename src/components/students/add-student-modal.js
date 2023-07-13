@@ -9,7 +9,8 @@ import { validate } from 'validate.js';
 import { addStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
-export function AddStudentModal() {
+export function AddStudentModal(props) {
+  const { onSubmit } = props;
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
   const [dateOfBirth, setDateOfBirth] = React.useState(new Date());
@@ -61,6 +62,7 @@ export function AddStudentModal() {
   const addStudentAction = async () => {
     await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
     closeAction();
+    if (onSubmit) onSubmit();
   };
 
   const content = (
