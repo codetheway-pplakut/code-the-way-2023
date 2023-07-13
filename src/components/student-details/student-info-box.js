@@ -231,6 +231,21 @@ export function CareerBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
+  const renderCareer = ({ index, style }) => {
+    const careerContent = allCareers[index];
+    return (
+      <Grid container>
+        <Grid item xs={12}>
+          <Career
+            sx={{ pt: '20px', maxWidth: '50%' }}
+            career={careerContent}
+            key={careerContent.id}
+            onSaveSuccess={() => fetchCareer()}
+          />
+        </Grid>
+      </Grid>
+    );
+  };
   if (allCareers.length === 0)
     return (
       <Grid>
@@ -242,13 +257,9 @@ export function CareerBox(props) {
   return (
     <Box>
       <AddCareerModal student={student} onSaveSuccess={() => fetchCareer()} />
-      {allCareers.map((careerContent) => (
-        <Career
-          career={careerContent}
-          key={careerContent.id}
-          onSaveSuccess={() => fetchCareer()}
-        />
-      ))}
+      <List height={700} itemCount={allCareers.length} itemSize={250}>
+        {renderCareer}
+      </List>
     </Box>
   );
 }
