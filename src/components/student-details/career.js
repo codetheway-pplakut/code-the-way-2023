@@ -1,5 +1,6 @@
 import { Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { DeleteCareerModal, EditCareerModal } from './career-modals';
 
 export function Career(props) {
@@ -59,3 +60,11 @@ export function Career(props) {
     </Grid>
   );
 }
+
+Career.propTypes = {
+  career: PropTypes.object,
+};
+
+Career.defaultProps = {
+  career: [],
+};

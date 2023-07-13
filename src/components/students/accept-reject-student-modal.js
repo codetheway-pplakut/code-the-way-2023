@@ -7,7 +7,7 @@ import {
 import { GenericModal } from '../shared/generic-modal';
 
 export function ActivateStudentModal(props) {
-  const { studentId, onStudentActivate } = props;
+  const { studentId, student, onStudentActivate } = props;
   const ActivateStudentAction = async () => {
     await setStudentActiveHandler(studentId);
     if (onStudentActivate) onStudentActivate();
@@ -16,16 +16,18 @@ export function ActivateStudentModal(props) {
   ActivateStudentModal.propTypes = {
     studentId: PropTypes.string,
     onStudentActivate: PropTypes.func.isRequired,
+    student: PropTypes.object,
   };
 
   ActivateStudentModal.defaultProps = {
     studentId: '',
+    student: [],
   };
   return (
     <GenericModal
       openModal="Accept"
       modalHeadingTitle="Accept Student"
-      modalMessage="Are you sure you want to accept this student?"
+      modalMessage={`Are you sure you want to accept student ${student.firstName} ${student.lastName}?`}
       actionButtonColor="submit"
       cancelButtonColor="cancel"
       actionButtonTitle="Accept"
@@ -36,7 +38,7 @@ export function ActivateStudentModal(props) {
 }
 
 export function RejectStudentModal(props) {
-  const { studentId, onStudentReject } = props;
+  const { studentId, student, onStudentReject } = props;
   const RejectStudentAction = async () => {
     await setStudentRejectedHandler(studentId);
     if (onStudentReject) onStudentReject();
@@ -45,16 +47,18 @@ export function RejectStudentModal(props) {
   RejectStudentModal.propTypes = {
     studentId: PropTypes.string,
     onStudentReject: PropTypes.func.isRequired,
+    student: PropTypes.object,
   };
 
   RejectStudentModal.defaultProps = {
     studentId: '',
+    student: [],
   };
   return (
     <GenericModal
       openModal="Reject"
       modalHeadingTitle="Reject Student"
-      modalMessage="Are you sure you want to reject this student?"
+      modalMessage={`Are you sure you want to reject student ${student.firstName} ${student.lastName}?`}
       actionButtonColor="archive"
       cancelButtonColor="cancel"
       actionButtonTitle="Reject"
