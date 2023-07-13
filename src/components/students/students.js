@@ -135,7 +135,7 @@ export function Students() {
             coaches={activeCoaches}
             studentId={value}
             refreshTable={refreshTable}
-            coachFullName={`${row.coachFirstName} ${row.coachLastName}`}
+            student={row}
           />
         </React.Fragment>
       ),

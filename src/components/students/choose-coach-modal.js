@@ -6,9 +6,9 @@ import { assignStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
-  const { studentId, refreshTable, coaches, coachFullName } = props;
+  const { studentId, refreshTable, coaches, student } = props;
 
-  const [value, setValue] = useState({ coachFullName });
+  const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
 
   const reassignCoachHandler = async () => {
@@ -68,11 +68,11 @@ ChooseCoachModal.propTypes = {
   studentId: PropTypes.string.isRequired,
   refreshTable: PropTypes.func,
   coaches: PropTypes.array,
-  coachFullName: PropTypes.string,
+  student: PropTypes.object,
 };
 
 ChooseCoachModal.defaultProps = {
   refreshTable: null,
   coaches: [],
-  coachFullName: '',
+  student: null,
 };
