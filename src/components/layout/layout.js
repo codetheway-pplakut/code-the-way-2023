@@ -113,7 +113,7 @@ Layout.defaultProps = {
   maxWidth: 'xl',
   scrollable: true,
   secondary: undefined,
-  showBackButton: undefined,
+  showBackButton: false,
   subTitle: undefined,
   title: undefined,
 };
