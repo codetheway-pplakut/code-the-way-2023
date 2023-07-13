@@ -4,16 +4,19 @@ import { pink } from '@mui/material/colors';
 import PropTypes from 'prop-types';
 
 export function TextFieldWithErrorMessage(props) {
-  const { value, error, label, onChange, select, errorMessage } = props;
+  const { value, error, label, onChange, select, errorMessage, minRows } =
+    props;
 
   return (
     <Grid item align="center">
       <TextField
         error={error}
         select={select}
-        size="small"
+        size="medium"
         id="filled-basic"
         variant="outlined"
+        multiline
+        minRows={minRows}
         fullWidth
         label={label}
         value={value}
@@ -38,6 +41,7 @@ TextFieldWithErrorMessage.propTypes = {
   select: PropTypes.bool,
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
+  minRows: PropTypes.number,
 };
 
 TextFieldWithErrorMessage.defaultProps = {
@@ -47,4 +51,5 @@ TextFieldWithErrorMessage.defaultProps = {
   select: false,
   onChange: () => {},
   errorMessage: '',
+  minRows: 1,
 };

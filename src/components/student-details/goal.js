@@ -15,7 +15,7 @@ export default function Goal(props) {
   const [dateGoalSet, setDateGoalSet] = useState(new Date());
   const [SEL, setSEL] = useState('');
   const [goalReviewDate, setGoalReviewDate] = useState(new Date());
-  const [wasItAccomplished, setWasItAccomplished] = useState('');
+  const [wasItAccomplished, setWasItAccomplished] = useState('No');
   const [explanation, setExplanation] = useState('');
 
   // controls how much of the explanation is shown
@@ -28,7 +28,7 @@ export default function Goal(props) {
       setSEL(goal.sel ? goal.sel : '');
       setGoalReviewDate(goal.goalReviewDate ? goal.goalReviewDate : new Date());
       setWasItAccomplished(
-        goal.wasItAccomplished ? goal.wasItAccomplished : ''
+        goal.wasItAccomplished ? goal.wasItAccomplished : 'No'
       );
       setExplanation(goal.explanation ? goal.explanation : '');
     }
@@ -111,10 +111,6 @@ export default function Goal(props) {
   );
 }
 
-Goal.propTypes = {
-  goal: propTypes.object,
-  onSaveSuccess: propTypes.func,
-};
 Goal.defaultProps = {
   goal: undefined,
   onSaveSuccess: undefined,
