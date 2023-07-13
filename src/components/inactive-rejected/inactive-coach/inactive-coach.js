@@ -43,7 +43,7 @@ const COLUMNS = [
       return (
         <ActivateCoachModal
           coachId={value}
-          coachEmail={row[2]}
+          coach={row}
           onCoachActivate={refreshTable}
         />
       );

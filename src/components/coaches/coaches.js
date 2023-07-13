@@ -81,12 +81,14 @@ const COLUMNS = [
   },
   {
     id: 'id',
-    active: false,
-    render: (id) => {
+    label: 'Students',
+    disablePadding: false,
+    align: 'left',
+    render: (value, row) => {
       return (
         <GenericViewModal
           openButtonIcon={<InfoOutlinedIcon />}
-          modalHeadingTitle="View Students"
+          modalHeadingTitle={`View ${row.coachFirstName}'s Students`}
           viewModalWidth={900}
         >
           <DynamicTableWithRequest
@@ -94,7 +96,7 @@ const COLUMNS = [
             requestFunc={getStudentsByCoachId}
             filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
             customTableMaxHeight={studentTableMaxHeight}
-            requestData={id}
+            requestData={value}
           />
         </GenericViewModal>
       );
@@ -103,7 +105,7 @@ const COLUMNS = [
   {
     id: 'id',
     disablePadding: false,
-    label: '',
+    label: 'Edit Coach',
     align: 'left',
     render: (value, row, refreshTable) => {
       return (
@@ -118,13 +120,13 @@ const COLUMNS = [
   {
     id: 'id',
     disablePadding: false,
-    label: '',
+    label: 'Deactivate',
     align: 'left',
     render: (value, row, refreshTable) => {
       return (
         <DeactivateCoachModal
           coachId={value}
-          coachEmail={row[2]}
+          coach={row}
           onCoachDeactivate={refreshTable}
         />
       );
@@ -153,6 +155,7 @@ export function Coaches() {
                   'coachPhoneNumber',
                 ]}
                 customTableMaxHeight={520}
+                defaultFilterBy="coachLastName"
               >
                 <AddCoachModal onSubmit={manualRefresh} />
               </DynamicTableWithRequest>

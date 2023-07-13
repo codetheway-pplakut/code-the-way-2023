@@ -42,7 +42,7 @@ export function ChooseCoachModal(props) {
       {coaches && coaches.length > 0 ? (
         coaches.map((coach) => (
           <MenuItem key={coach.id} value={coach.id}>
-            {coach.coachFirstName}
+            {coach.coachFirstName} {coach.coachLastName}
           </MenuItem>
         ))
       ) : (

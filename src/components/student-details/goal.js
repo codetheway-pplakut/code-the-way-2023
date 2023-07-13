@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Divider, Grid, Typography } from '@mui/material';
+import { Button, Divider, Grid, Typography, Box } from '@mui/material';
 import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { Box } from '@mui/system';
 import { DeleteGoalModal, EditGoalModal } from './goal-modals';
 
 export default function Goal(props) {
@@ -48,7 +47,7 @@ export default function Goal(props) {
           direction="row"
           justifyContent="space-around"
           alignItems="center"
-          sx={{ px: '2vw', py: '1vh' }}
+          sx={{ px: '2vw', py: '1vh', bgcolor: '#f5f5f5' }}
         >
           <Grid item xs={6}>
             <Typography fontSize={20} fontWeight="medium" color="#505050">
@@ -74,7 +73,6 @@ export default function Goal(props) {
             <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
           </Grid>
         </Grid>
-        <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
         <Typography
           width="95%"
           sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
@@ -90,13 +88,13 @@ export default function Goal(props) {
             showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
           }
         />
+        <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
         <Grid
           container
           alignItems="center"
           sx={{
             px: '2vw',
             py: '2vh',
-            bgcolor: '#f5f5f5',
             borderBottomLeftRadius: '10px',
             borderBottomRightRadius: '10px',
           }}

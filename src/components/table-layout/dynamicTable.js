@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { useState } from 'react';
-import { Box, Grid, IconButton, Toolbar } from '@mui/material';
+import { Box, Grid, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
 import { SearchBar } from './search';
 
@@ -40,10 +40,16 @@ function stableSort(array, comparator) {
 }
 
 export function DynamicTable(props) {
-  const { APIcolumns, APIrows, filterBy, customTableMaxHeight, refreshTable } =
-    props;
+  const {
+    APIcolumns,
+    APIrows,
+    filterBy,
+    customTableMaxHeight,
+    refreshTable,
+    defaultFilterBy,
+  } = props;
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('');
+  const [orderBy, setOrderBy] = React.useState(defaultFilterBy);
   const [rows, setRows] = useState(APIrows);
 
   const handleRequestSort = (event, property) => {
@@ -84,15 +90,7 @@ export function DynamicTable(props) {
           </Grid>
           <Grid item>
             <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                {props.children}
-              </IconButton>
+              {props.children}
             </Box>
           </Grid>
         </Toolbar>
