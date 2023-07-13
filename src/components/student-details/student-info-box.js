@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography, Flex } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
 import EditStudentInfoModal from './edit-student-info-modal';
 import Goal from './goal';
@@ -177,7 +177,21 @@ export function GoalsBox(props) {
 
   return (
     <Box>
-      <AddGoalModal student={student} onSaveSuccess={() => fetchGoals()} />
+      <Grid container>
+        <Grid item container xs={12}>
+          <Grid item xs={11}>
+            <Typography fontSize="30px">
+              {student.studentFirstName} {student.studentLastName}'s Goals
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <AddGoalModal
+              student={student}
+              onSaveSuccess={() => fetchGoals()}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
       {allGoals.map((goalContent) => (
         <Goal
           goal={goalContent}
