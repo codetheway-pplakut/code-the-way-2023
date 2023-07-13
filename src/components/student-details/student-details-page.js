@@ -5,7 +5,7 @@ import { Box, Tab } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import { GenericModal } from '../shared/generic-modal';
-import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
+import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
 import { CommunicationLog } from './communications/communication-log';
 import { CommunicationSearchBar } from './communications/communication-search';
 import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-display';
@@ -261,15 +261,9 @@ export default function StudentDetails(props) {
 
 StudentDetails.propTypes = {
   student: propTypes.object,
-  goals: propTypes.object,
-  careers: propTypes.object,
-  interviews: propTypes.object,
   onReload: propTypes.func,
 };
 StudentDetails.defaultProps = {
   student: undefined,
-  goals: undefined,
-  careers: undefined,
-  interviews: undefined,
   onReload: undefined,
 };

@@ -15,7 +15,6 @@ export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
 
   // handles API stuff
-  const [goalId, setGoalId] = useState('');
   const [goalSet, setGoalSet] = useState('');
   const [dateGoalSet, setDateGoalSet] = useState(new Date());
   const [SEL, setSEL] = useState('');
@@ -27,7 +26,6 @@ export default function Goal(props) {
   const [showMore, setShowMore] = useState(true);
   useEffect(() => {
     if (goal.id) {
-      setGoalId(goal.id);
       setGoalSet(goal.goalSet ? goal.goalSet : '');
       setDateGoalSet(goal.dateGoalSet ? goal.dateGoalSet : new Date());
       setSEL(goal.sel ? goal.sel : '');

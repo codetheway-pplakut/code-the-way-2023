@@ -5,7 +5,7 @@ import { Layout } from '../layout/layout';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { getActiveAdminsHandler } from './adminHandlers';
 import { DeactivateAdminModal } from './de-activate-admin-modal';
-import { AddAdminModal } from './addAdminModal';
+import { AddAdminModal } from './add-admin-modal';
 
 const COLUMNS = [
   {

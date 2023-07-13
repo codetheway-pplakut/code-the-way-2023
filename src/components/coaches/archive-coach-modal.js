@@ -1,5 +1,5 @@
 import React from 'react';
-import GenericModal from '../shared/generic-modal';
+import { GenericModal } from '../shared/generic-modal';
 
 export function ArchiveCoachModal() {
   // const archiveCoachAction = () => {

@@ -95,7 +95,7 @@ export function Students() {
       disablePadding: false,
       label: 'First Name',
       align: 'left',
-      render: (value, row, refreshTable) => {
+      render: (value, row) => {
         const { id } = row;
         return (
           <NavLink to="/student-info" state={{ studentId: id }}>
@@ -155,8 +155,6 @@ export function Students() {
     },
   ];
 
-  console.log('activeCoaches', activeCoaches);
-
   function refreshPage() {
     window.location.reload(false);
   }
@@ -202,7 +200,7 @@ export function Students() {
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"
                 >
-                  <AddStudentModal onSubmit={refreshPage} />
+                  <AddStudentModal onSubmit={() => refreshPage} />
                 </DynamicTableWithRequest>
               )}
             </Box>

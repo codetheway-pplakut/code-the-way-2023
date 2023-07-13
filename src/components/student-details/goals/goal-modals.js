@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { GenericModal } from '../../shared/generic-modal';
-import { TextFieldWithErrorMessage } from '../../coaches/text-field-with-error-message';
+import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
   editGoalHandler,
   addGoalHandler,
@@ -36,7 +36,6 @@ export function EditGoalModal(props) {
   }, [goal]);
 
   const requestSave = async () => {
-    console.log('save requested');
     try {
       await editGoalHandler(
         goal.id,

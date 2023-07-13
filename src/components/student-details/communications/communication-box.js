@@ -22,14 +22,6 @@ export default function CommunicationBox(props) {
     ml: '28px',
     fontSize: '1.2vw',
   };
-
-  const iconStyle = {
-    mt: '5px',
-    ml: '28px',
-    color: '#000000',
-    minWidth: 40,
-    minHeight: 40,
-  };
   const headerStyle = {
     mt: '0.1px',
 

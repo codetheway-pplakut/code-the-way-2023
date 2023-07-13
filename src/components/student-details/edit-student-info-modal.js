@@ -6,7 +6,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { GenericModal } from '../shared/generic-modal';
-import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
+import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
 
 export default function EditStudentInfoModal(props) {
