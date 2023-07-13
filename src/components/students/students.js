@@ -201,7 +201,7 @@ export function Students() {
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"
                 >
-                  <AddStudentModal onSubmit={() => refreshPage} />
+                  <AddStudentModal onSubmit={refreshPage} />
                 </DynamicTableWithRequest>
               )}
             </Box>

@@ -2,6 +2,7 @@ import React from 'react';
 import { flattenDeep } from 'lodash';
 import { Grid, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import PropTypes from 'prop-types';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
@@ -160,3 +161,10 @@ export function AddStudentModal(props) {
     />
   );
 }
+AddStudentModal.propTypes = {
+  onSubmit: PropTypes.func,
+};
+
+AddStudentModal.defaultProps = {
+  onSubmit: null,
+};
