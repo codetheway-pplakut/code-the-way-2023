@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Grid, MenuItem, TextField } from '@mui/material';
+import { Grid, MenuItem, TextField, Typography, Checkbox } from '@mui/material';
 import uuid from 'react-uuid';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -39,39 +39,31 @@ export function AddCareerModal(props) {
 
   return (
     <GenericModal
-      actionButtonTitle="Submit"
+      actionButtonTitle="Confirm"
+      actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
       openButtonIcon={<AddIcon />}
     >
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="spaceBetween"
-      >
-        <Grid item mb={2}>
-          <TextField
-            select
-            label="College Bound"
-            style={{ width: 200 }}
-            onChange={(event) => setCollegeBound(event.target.value)}
-            value={collegeBound}
-          >
-            <MenuItem value={Boolean(1)}>Yes</MenuItem>
-            <MenuItem value={Boolean(0)}>No</MenuItem>
-          </TextField>
+      <Grid container alignItems="center" spacing={2} px={4} py={2}>
+        <Grid item xs={12}>
+          <TextFieldWithErrorMessage
+            label="Specific Career"
+            onChange={(value) => setSpecificCareer(value)}
+            value={specificCareer}
+          />
         </Grid>
-        <Grid item mb={2}>
+
+        <Grid item xs={12}>
           <TextField
             select
             label="Career Cluster"
             onChange={handleClusterChange}
             value={careerCluster}
-            style={{ width: 200 }}
+            style={{ width: '100%' }}
           >
-            <MenuItem value={0}> No Career Selected </MenuItem>
+            <MenuItem value={0}> No Cluster Selected </MenuItem>
             <MenuItem value={1}>
               01-Agriculture, Food & Natural Resources
             </MenuItem>
@@ -102,24 +94,28 @@ export function AddCareerModal(props) {
             </MenuItem>
           </TextField>
         </Grid>
-        <Grid item mb={2}>
-          <TextFieldWithErrorMessage
-            label="Specific Career"
-            onChange={(value) => setSpecificCareer(value)}
-            value={specificCareer}
-          />
-        </Grid>
-        <Grid item mb={2}>
-          <TextField
-            select
-            label="Technical College Bound"
-            onChange={(event) => setTechnicalCollegeBound(event.target.value)}
-            style={{ width: 200 }}
-            value={technicalCollegeBound}
-          >
-            <MenuItem value={Boolean(1)}>Yes</MenuItem>
-            <MenuItem value={Boolean(0)}>No</MenuItem>
-          </TextField>
+        <Grid item container>
+          <Grid item xs={5}>
+            <Grid container alignItems="center" marginLeft={2}>
+              <Typography>College Bound</Typography>
+              <Checkbox
+                checked={collegeBound === true}
+                onChange={(event) => setCollegeBound(!!event.target.checked)}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item xs={7}>
+            <Grid container alignItems="center" marginLeft={2}>
+              <Typography>Technical College Bound</Typography>
+              <Checkbox
+                checked={technicalCollegeBound === true}
+                onChange={(event) =>
+                  setTechnicalCollegeBound(!!event.target.checked)
+                }
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </GenericModal>
@@ -142,9 +138,10 @@ export function DeleteCareerModal(props) {
   return (
     <GenericModal
       modalHeadingTitle="Delete Career"
-      modalMessage="Are You Sure ?"
-      cancelButtonTitle="No"
-      actionButtonTitle="Yes"
+      modalMessage="Are you sure you want to delete this career?"
+      cancelButtonTitle="Cancel"
+      actionButtonTitle="Delete"
+      actionButtonColor="archive"
       onActionButtonClick={requestDelete}
       openButtonIcon={<DeleteIcon />}
     />
@@ -194,37 +191,28 @@ export function EditCareerModal(props) {
     <GenericModal
       actionButtonTitle="Submit"
       cancelButtonTitle="Cancel"
-      modalHeadingTitle="Add Career"
+      modalHeadingTitle="Edit Career"
       onActionButtonClick={requestSubmit}
       openButtonIcon={<EditIcon />}
     >
-      <Grid
-        container
-        direction="column"
-        alignItems="center"
-        justifyContent="spaceBetween"
-      >
-        <Grid item mb={2}>
-          <TextField
-            select
-            label="College Bound"
-            style={{ width: 200 }}
-            onChange={(event) => setCollegeBound(event.target.value)}
-            value={collegeBound}
-          >
-            <MenuItem value={Boolean(1)}>Yes</MenuItem>
-            <MenuItem value={Boolean(0)}>No</MenuItem>
-          </TextField>
+      <Grid container alignItems="center" spacing={2} px={4} py={2}>
+        <Grid item xs={12}>
+          <TextFieldWithErrorMessage
+            label="Specific Career"
+            onChange={(value) => setSpecificCareer(value)}
+            value={specificCareer}
+          />
         </Grid>
-        <Grid item mb={2}>
+
+        <Grid item xs={12}>
           <TextField
             select
             label="Career Cluster"
             onChange={handleClusterChange}
             value={careerCluster}
-            style={{ width: 200 }}
+            style={{ width: '100%' }}
           >
-            <MenuItem value={0}> No Career Selected </MenuItem>
+            <MenuItem value={0}> No Cluster Selected </MenuItem>
             <MenuItem value={1}>
               01-Agriculture, Food & Natural Resources
             </MenuItem>
@@ -255,24 +243,28 @@ export function EditCareerModal(props) {
             </MenuItem>
           </TextField>
         </Grid>
-        <Grid item mb={2}>
-          <TextFieldWithErrorMessage
-            label="Specific Career"
-            onChange={(value) => setSpecificCareer(value)}
-            value={specificCareer}
-          />
-        </Grid>
-        <Grid item mb={2}>
-          <TextField
-            select
-            label="Technical College Bound"
-            onChange={(event) => setTechnicalCollegeBound(event.target.value)}
-            style={{ width: 200 }}
-            value={technicalCollegeBound}
-          >
-            <MenuItem value={Boolean(1)}>Yes</MenuItem>
-            <MenuItem value={Boolean(0)}>No</MenuItem>
-          </TextField>
+        <Grid item container>
+          <Grid item xs={5}>
+            <Grid container alignItems="center" marginLeft={2}>
+              <Typography>College Bound</Typography>
+              <Checkbox
+                checked={collegeBound === true}
+                onChange={(event) => setCollegeBound(!!event.target.checked)}
+              />
+            </Grid>
+          </Grid>
+
+          <Grid item xs={7}>
+            <Grid container alignItems="center" marginLeft={2}>
+              <Typography>Technical College Bound</Typography>
+              <Checkbox
+                checked={technicalCollegeBound === true}
+                onChange={(event) =>
+                  setTechnicalCollegeBound(!!event.target.checked)
+                }
+              />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </GenericModal>
