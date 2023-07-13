@@ -6,6 +6,9 @@ import { CircularProgressOverlay } from '../circular-progress-overlay/circular-p
 import { getStudentInterviews } from '../../services/interviews/interviews';
 import { LayoutError } from '../layout/layout-error/layout-error';
 
+/**
+ * StudentInfo (student-info.js) is the student details page. It handles all of the API and contains student-details-page and student-info-display.
+ */
 export function StudentInfo() {
   const [student, setStudent] = useState({});
   const [goals, setGoals] = useState({});

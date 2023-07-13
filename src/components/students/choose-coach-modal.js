@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import PropTypes from 'prop-types';
 import { assignStudentHandler } from './studentHandlers';
-import GenericModal from '../shared/generic-modal';
-import { getActiveCoachesHandler } from '../coaches/coachHandlers';
+import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
-  const [value, setValue] = useState('');
-  const [newCoachId, setNewCoachId] = useState('');
+  const { studentId, refreshTable, coaches, coachFullName } = props;
 
-  const { studentId, refreshTable, coaches } = props;
+  const [value, setValue] = useState({ coachFullName });
+  const [newCoachId, setNewCoachId] = useState('');
 
   const reassignCoachHandler = async () => {
     if (newCoachId !== '') {
@@ -63,3 +63,16 @@ export function ChooseCoachModal(props) {
     />
   );
 }
+
+ChooseCoachModal.propTypes = {
+  studentId: PropTypes.string.isRequired,
+  refreshTable: PropTypes.func,
+  coaches: PropTypes.array,
+  coachFullName: PropTypes.string,
+};
+
+ChooseCoachModal.defaultProps = {
+  refreshTable: null,
+  coaches: [],
+  coachFullName: '',
+};

@@ -13,6 +13,10 @@ import { Career } from './careers/career';
 import { getStudentCareersHandler } from './careers/careersHandler';
 import { AddCareerModal } from './careers/career-modals';
 
+/**
+ * StudentInfoBox (student-info-display.js) is in the smaller, left-most box of student info.
+ * It displays the basic student information and is the first box shown when student details are viewed.
+ */
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
 
@@ -143,6 +147,11 @@ export function StudentInfoBox(props) {
     </Grid>
   );
 }
+
+/**
+ * GoalsBox (student-info-display.js) is in the smaller, left-most box of student info.
+ * It displays goals in the student details page.
+ */
 export function GoalsBox(props) {
   const { student } = props;
 
@@ -215,6 +224,11 @@ export function GoalsBox(props) {
     </Box>
   );
 }
+
+/**
+ * CareerBox (student-info-display.js) is in the smaller, left-most box of student info.
+ * It displays careers in the student details page.
+ */
 export function CareerBox(props) {
   const { student } = props;
 

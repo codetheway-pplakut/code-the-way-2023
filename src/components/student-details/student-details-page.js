@@ -8,10 +8,13 @@ import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
 import { CommunicationLog } from './communications/communication-log';
 import { CommunicationSearchBar } from './communications/communication-search';
-import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-box';
+import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-display';
 import { LayoutBackButton } from '../layout/layout-back-button/layout-back-button';
 
-// StudentDetails is meant to be a 'skeleton' that controls page layout
+/**
+ * StudentDetails (student-details-page.js) is the framework for what the student details page will look like.
+ * It displays student info boxes (student-info-display.js) and communications.
+ */
 export default function StudentDetails(props) {
   const { student, onReload } = props;
   const [tabValue, setTabValue] = React.useState(0);
