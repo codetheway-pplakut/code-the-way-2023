@@ -138,6 +138,9 @@ const manualRefresh = () => {
   console.log('signal got to coaches.js');
 };
 
+function refreshPage() {
+  window.location.reload(false);
+}
 export function Coaches() {
   return (
     <Grid container justifyContent="center">
@@ -157,7 +160,7 @@ export function Coaches() {
                 customTableMaxHeight={520}
                 defaultFilterBy="coachLastName"
               >
-                <AddCoachModal onSubmit={manualRefresh} />
+                <AddCoachModal onSubmit={refreshPage} />
               </DynamicTableWithRequest>
             </Box>
           </Layout>
