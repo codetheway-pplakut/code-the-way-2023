@@ -173,6 +173,22 @@ export function AddGoalModal(props) {
   const [wasItAccomplished, setWasItAccomplished] = useState('No');
   const [explanation, setExplanation] = useState('');
 
+  const [goalSetEdit, setGoalSetEdit] = useState(false);
+  const [explanationEdit, setExplanationEdit] = useState(false);
+  const [selEdit, setSelEdit] = useState(false);
+
+  const validator = validate(
+    { goalSet, explanation, sel },
+    {
+      goalSet: { presence: { allowEmpty: false, message: '' } },
+      explanation: { presence: { allowEmpty: false, message: '' } },
+      sel: { presence: { allowEmpty: false, message: '' } },
+    }
+  );
+  const messages = flattenDeep(Object.values(validator || {}));
+
+  const actionButtonDisabled = Boolean(messages.length);
+
   const requestSubmit = async () => {
     await addGoalHandler(
       uuid(),
@@ -195,14 +211,19 @@ export function AddGoalModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
+      actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>
-          <TextFieldWithErrorMessage
+          <TextField
             label="Goal Title"
-            onChange={(value) => setGoalSet(value)}
+            onChange={(event) => setGoalSet(event.target.value)}
             value={goalSet}
+            errorText={goalSet.length < 1 ? 'Enter Goal' : ''}
+            error={goalSetEdit && goalSet.length < 1}
+            required
+            onBlur={() => setGoalSetEdit(true)}
           />
         </Grid>
         <Grid item container spacing={2}>
@@ -229,11 +250,15 @@ export function AddGoalModal(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <TextFieldWithErrorMessage
+          <TextField
             label="Explanation"
-            onChange={(value) => setExplanation(value)}
+            onChange={(event) => setExplanation(event.target.value)}
             value={explanation}
             minRows={3}
+            errorText={explanation.length < 1 ? 'Enter Explanation' : ''}
+            error={explanationEdit && explanation.length < 1}
+            required
+            onBlur={() => setExplanationEdit(true)}
           />
         </Grid>
 
@@ -245,10 +270,14 @@ export function AddGoalModal(props) {
           justifyContent="center"
         >
           <Grid item xs={6}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="SEL"
-              onChange={(value) => setSel(value)}
+              onChange={(event) => setSel(event.target.value)}
               value={sel}
+              errorText={sel.length < 1 ? 'Enter SEL' : ''}
+              error={selEdit && sel.length < 1}
+              required
+              onBlur={() => setSelEdit(true)}
             />
           </Grid>
           <Grid item xs={6}>
