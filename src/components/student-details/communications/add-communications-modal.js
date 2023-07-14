@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { MenuItem, TextField } from '@mui/material';
+import { MenuItem, TextField, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 // import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
@@ -57,57 +57,71 @@ export default function AddCommunicationsModal(props) {
       onActionButtonClick={requestSave}
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalMessage="Fill out the fields below to add a communication."
-      actionButtonColor="archive"
+      actionButtonColor="submit"
     >
-      <TextField
-        label="Topic"
-        select
-        value={topic}
-        onChange={(event) => {
-          setTopic(event.target.value);
-        }}
-      >
-        <MenuItem value="One-on-ne coaching session">
-          One-on-One Coaching Session
-        </MenuItem>
-        <MenuItem value="Email">Email</MenuItem>
-        <MenuItem value="Phone call">Phone Call</MenuItem>
-        <MenuItem value="Text message">Text Message</MenuItem>
-      </TextField>
-
-      <TextField
-        label="Description"
-        onChange={(event) => setDescription(event.target.value)}
-        value={description}
-      />
-
-      <TextField
-        label="Coach"
-        select
-        value={coachId}
-        onChange={(event) => setCoachId(event.target.value)}
-        disabled={activeCoaches.length === 0}
-        style={{ width: '200px' }}
-      >
-        {activeCoaches && activeCoaches.length > 0 ? (
-          activeCoaches.map((activeCoach) => (
-            <MenuItem key={activeCoach.id} value={activeCoach.id}>
-              {`${activeCoach.coachFirstName} ${activeCoach.coachLastName}`}
+      <Grid container alignItems="center" px={4} py={2} spacing={1}>
+        <Grid item xs={12}>
+          <TextField
+            label="Topic"
+            select
+            value={topic}
+            onChange={(event) => {
+              setTopic(event.target.value);
+            }}
+            fullWidth
+          >
+            <MenuItem value="One-on-One Coaching Session">
+              One-on-One Coaching Session
             </MenuItem>
-          ))
-        ) : (
-          <MenuItem disabled>No coaches available</MenuItem>
-        )}
-      </TextField>
+            <MenuItem value="Email">Email</MenuItem>
+            <MenuItem value="Phone call">Phone Call</MenuItem>
+            <MenuItem value="Text message">Text Message</MenuItem>
+          </TextField>
+        </Grid>
 
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-          margin="normal"
-          label="Date of Communication"
-          value={dayjs(created)}
-          onChange={(newValue) => setCreated(newValue)}
-        />
-      </LocalizationProvider>
+        <Grid item xs={12}>
+          <TextField
+            label="Description"
+            onChange={(event) => setDescription(event.target.value)}
+            value={description}
+            multiline
+            fullWidth
+            minRows={2}
+          />
+        </Grid>
+
+        <Grid item xs={6}>
+          <TextField
+            label="Coach"
+            select
+            value={coachId}
+            onChange={(event) => setCoachId(event.target.value)}
+            disabled={activeCoaches.length === 0}
+            style={{ width: '200px' }}
+          >
+            {activeCoaches && activeCoaches.length > 0 ? (
+              activeCoaches.map((activeCoach) => (
+                <MenuItem key={activeCoach.id} value={activeCoach.id}>
+                  {`${activeCoach.coachFirstName} ${activeCoach.coachLastName}`}
+                </MenuItem>
+              ))
+            ) : (
+              <MenuItem disabled>No coaches available</MenuItem>
+            )}
+          </TextField>
+        </Grid>
+
+        <Grid item xs={6}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              margin="normal"
+              label="Date of Communication"
+              value={dayjs(created)}
+              onChange={(newValue) => setCreated(newValue)}
+            />
+          </LocalizationProvider>
+        </Grid>
+      </Grid>
     </GenericModal>
   );
 }
