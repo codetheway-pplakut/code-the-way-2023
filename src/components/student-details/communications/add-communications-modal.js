@@ -39,7 +39,7 @@ export default function AddCommunicationsModal(props) {
   const validator = validate(
     { description },
     {
-      specificCareer: {
+      description: {
         presence: { allowEmpty: false },
       },
     }
