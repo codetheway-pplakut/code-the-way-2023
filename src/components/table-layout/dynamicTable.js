@@ -140,7 +140,7 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   customTableMaxHeight: PropTypes.number,
   refreshTable: PropTypes.func,
@@ -149,7 +149,6 @@ DynamicTable.propTypes = {
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
-  children: null,
   customTableMaxHeight: null,
   refreshTable: undefined,
 };

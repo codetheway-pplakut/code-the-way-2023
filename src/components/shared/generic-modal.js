@@ -118,8 +118,6 @@ export function GenericModal(props) {
 GenericModal.defaultProps = {
   openModal: null,
   openButtonIcon: null,
-  modalMessage: null,
-  actionButtonColor: null,
   actionButtonDisabled: null,
   onCancelButtonClick: null,
   onIconButtonClick: null,
@@ -128,17 +126,17 @@ GenericModal.defaultProps = {
 
 GenericModal.propTypes = {
   openModal: PropTypes.element,
-  openButtonIcon: PropTypes.element,
+  openButtonIcon: PropTypes.instanceOf(Icon),
   modalHeadingTitle: PropTypes.string.isRequired,
-  modalMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+  modalMessage: PropTypes.string.isRequired,
   actionButtonTitle: PropTypes.string.isRequired,
   cancelButtonTitle: PropTypes.string.isRequired,
-  actionButtonColor: PropTypes.string,
+  actionButtonColor: PropTypes.string.isRequired,
   onActionButtonClick: PropTypes.func.isRequired,
-  actionButtonDisabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
+  actionButtonDisabled: PropTypes.func,
   onCancelButtonClick: PropTypes.func,
   onIconButtonClick: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+  children: PropTypes.element,
 };
 
 export default GenericModal;
