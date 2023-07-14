@@ -9,6 +9,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
+import { validate } from 'validate.js';
+import { flattenDeep } from 'lodash';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
@@ -22,6 +24,8 @@ export default function AddCommunicationsModal(props) {
   const [activeCoaches, setActiveCoaches] = React.useState([]);
   const [created, setCreated] = React.useState(new Date());
 
+  const [descriptionEdit, setDescriptionEdit] = React.useState('');
+
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
     const { data } = response;
@@ -32,6 +36,18 @@ export default function AddCommunicationsModal(props) {
     requestActiveCoaches();
   }, []);
 
+  const validator = validate(
+    { description },
+    {
+      description: {
+        presence: { allowEmpty: false },
+      },
+    }
+  );
+
+  const messages = flattenDeep(Object.values(validator || {}));
+
+  const actionButtonDisabled = Boolean(messages.length);
   const studentId = student.id;
 
   const requestSave = async () => {
@@ -55,6 +71,7 @@ export default function AddCommunicationsModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Communication"
       onActionButtonClick={requestSave}
+      actionButtonDisabled={actionButtonDisabled}
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalMessage="Fill out the fields below to add a communication."
       actionButtonColor="submit"
@@ -80,10 +97,14 @@ export default function AddCommunicationsModal(props) {
         </Grid>
 
         <Grid item xs={12}>
-          <TextField
-            label="Description"
-            onChange={(event) => setDescription(event.target.value)}
-            value={description}
+      <TextField
+        label="Description"
+        onChange={(event) => setDescription(event.target.value)}
+        value={description}
+        errorText={description.length < 1 ? 'Enter Description' : ' '}
+        error={description.length < 1 && descriptionEdit}
+        onBlur={() => setDescriptionEdit(true)}
+        required
             multiline
             fullWidth
             minRows={2}
