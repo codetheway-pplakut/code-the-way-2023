@@ -8,13 +8,13 @@ import uuid from 'react-uuid';
 import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { GenericModal } from '../shared/generic-modal';
-import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
+import { GenericModal } from '../../shared/generic-modal';
+import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
   editGoalHandler,
   addGoalHandler,
   deleteGoalHandler,
-} from './goalsHandler';
+} from './goalHandlers';
 
 export function EditGoalModal(props) {
   const { goal, onSaveSuccess } = props;
@@ -36,7 +36,6 @@ export function EditGoalModal(props) {
   }, [goal]);
 
   const requestSave = async () => {
-    console.log('save requested');
     try {
       await editGoalHandler(
         goal.id,
@@ -158,15 +157,6 @@ export function AddGoalModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
-  const iconStyle = React.useMemo(
-    () => ({
-      color: '#3E4C61',
-      minWidth: 40,
-      minHeight: 40,
-    }),
-    []
-  );
-
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -174,7 +164,7 @@ export function AddGoalModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
-      openButtonIcon={<AddIcon sx={iconStyle} />}
+      openButtonIcon={<AddIcon />}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>
@@ -277,6 +267,10 @@ DeleteGoalModal.propTypes = {
   goal: propTypes.object,
   onSaveSuccess: undefined,
 };
+DeleteGoalModal.defaultProps = {
+  goal: [],
+  onSaveSuccess: undefined,
+};
 AddGoalModal.propTypes = {
   student: propTypes.func,
   onSaveSuccess: propTypes.func,
@@ -286,10 +280,10 @@ AddGoalModal.defaultProps = {
   onSaveSuccess: undefined,
 };
 EditGoalModal.propTypes = {
-  student: propTypes.func,
+  goal: propTypes.object,
   onSaveSuccess: propTypes.func,
 };
 EditGoalModal.defaultProps = {
-  student: undefined,
+  goal: undefined,
   onSaveSuccess: undefined,
 };

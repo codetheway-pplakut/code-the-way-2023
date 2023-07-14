@@ -1,8 +1,6 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Delete } from '@mui/icons-material';
-import { GenericModal } from '../shared/generic-modal';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
@@ -23,14 +21,6 @@ export default function CommunicationBox(props) {
     mt: '13px',
     ml: '28px',
     fontSize: '1.2vw',
-  };
-
-  const iconStyle = {
-    mt: '5px',
-    ml: '28px',
-    color: '#000000',
-    minWidth: 40,
-    minHeight: 40,
   };
   const headerStyle = {
     mt: '0.1px',

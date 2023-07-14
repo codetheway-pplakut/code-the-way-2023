@@ -2,6 +2,9 @@ import React from 'react';
 import { Grid, Box, Typography, Divider } from '@mui/material';
 import PropTypes from 'prop-types';
 
+/**
+ * AspirationsCard (aspirations-card.js) is the main box for goal and career cards.
+ */
 export function AspirationsCard(props) {
   return (
     <Box sx={{ borderRadius: '10px', boxShadow: 2, mb: 2 }}>
@@ -16,6 +19,10 @@ AspirationsCard.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
+/**
+ * AspirationsCardHeader (aspirations-card.js) is the header for AspirationsCard.
+ * It should be placed inside the AspirationsCard, and can contain more than just a header, with room for 6 more grid units of content.
+ */
 export function AspirationsCardHeader(props) {
   const { header } = props;
   return (
@@ -51,6 +58,10 @@ AspirationsCardHeader.defaultProps = {
   header: null,
 };
 
+/**
+ * AspirationsCardFooter (aspirations-card.js) is the footer for AspirationsCard.
+ * It should be placed inside the AspirationsCard, and can contain more than just one piece of information, with room for a full row (12 grid units) of content.
+ */
 export function AspirationsCardFooter(props) {
   return (
     <React.Fragment>

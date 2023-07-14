@@ -93,7 +93,7 @@ export function AddCoachModal(props) {
 
   return (
     <GenericModal
-      openModal={<AddIcon />}
+      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add a Coach"
       modalMessage="Fill out the fields below to add a coach."
       actionButtonTitle="Create"

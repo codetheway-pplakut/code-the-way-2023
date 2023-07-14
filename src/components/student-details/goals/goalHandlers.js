@@ -4,7 +4,7 @@ import {
   editGoal,
   getGoals,
   getStudentGoals,
-} from '../../services/goals/goals';
+} from '../../../services/goals/goals';
 
 export function getGoalsHandler() {
   getGoals();

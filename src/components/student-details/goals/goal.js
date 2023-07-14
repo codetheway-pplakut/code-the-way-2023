@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Divider, Grid, Typography, Box } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import dayjs from 'dayjs';
 import propTypes from 'prop-types';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -9,13 +9,12 @@ import {
   AspirationsCard,
   AspirationsCardHeader,
   AspirationsCardFooter,
-} from './aspirations-card';
+} from '../aspirations-card';
 
 export default function Goal(props) {
   const { goal, onSaveSuccess } = props;
 
   // handles API stuff
-  const [goalId, setGoalId] = useState('');
   const [goalSet, setGoalSet] = useState('');
   const [dateGoalSet, setDateGoalSet] = useState(new Date());
   const [SEL, setSEL] = useState('');
@@ -27,7 +26,6 @@ export default function Goal(props) {
   const [showMore, setShowMore] = useState(true);
   useEffect(() => {
     if (goal.id) {
-      setGoalId(goal.id);
       setGoalSet(goal.goalSet ? goal.goalSet : '');
       setDateGoalSet(goal.dateGoalSet ? goal.dateGoalSet : new Date());
       setSEL(goal.sel ? goal.sel : '');
@@ -92,6 +90,10 @@ export default function Goal(props) {
   );
 }
 
+Goal.propTypes = {
+  goal: propTypes.object,
+  onSaveSuccess: propTypes.func,
+};
 Goal.defaultProps = {
   goal: undefined,
   onSaveSuccess: undefined,

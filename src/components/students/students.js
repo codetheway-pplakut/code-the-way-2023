@@ -10,7 +10,7 @@ import {
   ActivateStudentModal,
   RejectStudentModal,
 } from './accept-reject-student-modal';
-import { ArchiveStudentModal } from './archive-student-modal';
+import { DeactivateStudentModal } from './de-activate-student-modal';
 import { AddStudentModal } from './add-student-modal';
 import { ChooseCoachModal } from './choose-coach-modal';
 import { Layout } from '../layout/layout';
@@ -95,7 +95,7 @@ export function Students() {
       disablePadding: false,
       label: 'First Name',
       align: 'left',
-      render: (value, row, refreshTable) => {
+      render: (value, row) => {
         const { id } = row;
         return (
           <NavLink to="/student-info" state={{ studentId: id }}>
@@ -135,6 +135,7 @@ export function Students() {
             coaches={activeCoaches}
             studentId={value}
             refreshTable={refreshTable}
+            student={row}
           />
         </React.Fragment>
       ),
@@ -145,7 +146,7 @@ export function Students() {
       label: 'Deactivate',
       align: 'left',
       render: (value, row, refreshTable) => (
-        <ArchiveStudentModal
+        <DeactivateStudentModal
           studentId={value}
           student={row}
           onStudentDeactivate={refreshTable}
@@ -153,8 +154,6 @@ export function Students() {
       ),
     },
   ];
-
-  console.log('activeCoaches', activeCoaches);
 
   function refreshPage() {
     window.location.reload(false);
@@ -201,7 +200,7 @@ export function Students() {
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"
                 >
-                  <AddStudentModal onSubmit={refreshPage} />
+                  <AddStudentModal onSubmit={() => refreshPage} />
                 </DynamicTableWithRequest>
               )}
             </Box>

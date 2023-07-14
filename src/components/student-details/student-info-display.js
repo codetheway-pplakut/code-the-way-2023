@@ -3,17 +3,20 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
-import { AllInbox } from '@mui/icons-material';
 import EditStudentInfoModal from './edit-student-info-modal';
-import Goal from './goal';
-import { altGetStudentGoalsHandler } from './goalsHandler';
+import Goal from './goals/goal';
+import { altGetStudentGoalsHandler } from './goals/goalHandlers';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
-import { AddGoalModal } from './goal-modals';
-import { Career } from './career';
-import { getStudentCareersHandler } from './careersHandler';
-import { AddCareerModal } from './career-modals';
+import { AddGoalModal } from './goals/goal-modals';
+import { Career } from './careers/career';
+import { getStudentCareersHandler } from './careers/careerHandlers';
+import { AddCareerModal } from './careers/career-modals';
 
+/**
+ * StudentInfoBox (student-info-display.js) is in the smaller, left-most box of student info.
+ * It displays the basic student information and is the first box shown when student details are viewed.
+ */
 export function StudentInfoBox(props) {
   const { student, onReload, isParent } = props;
 
@@ -144,8 +147,13 @@ export function StudentInfoBox(props) {
     </Grid>
   );
 }
+
+/**
+ * GoalsBox (student-info-display.js) is in the smaller, left-most box of student info.
+ * It displays goals in the student details page.
+ */
 export function GoalsBox(props) {
-  const { student, onReload } = props;
+  const { student } = props;
 
   const [allGoals, setAllGoals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -176,7 +184,7 @@ export function GoalsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  const renderGoal = ({ index, style }) => {
+  const renderGoal = ({ index }) => {
     const goalContent = allGoals[index];
     return (
       <Grid container>
@@ -199,7 +207,7 @@ export function GoalsBox(props) {
         <Grid item container xs={12}>
           <Grid item xs={11}>
             <Typography fontSize="30px">
-              {student.studentFirstName} {student.studentLastName}'s Goals
+              {student.studentFirstName} {student.studentLastName}&apos;s Goals
             </Typography>
           </Grid>
           <Grid item xs={1}>
@@ -216,8 +224,13 @@ export function GoalsBox(props) {
     </Box>
   );
 }
+
+/**
+ * CareerBox (student-info-display.js) is in the smaller, left-most box of student info.
+ * It displays careers in the student details page.
+ */
 export function CareerBox(props) {
-  const { student, onReload } = props;
+  const { student } = props;
 
   const [allCareers, setAllCareers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -244,7 +257,7 @@ export function CareerBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  const renderCareer = ({ index, style }) => {
+  const renderCareer = ({ index }) => {
     const careerContent = allCareers[index];
     return (
       <Grid container>
@@ -266,7 +279,8 @@ export function CareerBox(props) {
           <Grid item container xs={12}>
             <Grid item xs={11}>
               <Typography fontSize="30px">
-                {student.studentFirstName} {student.studentLastName}'s Careers
+                {student.studentFirstName} {student.studentLastName}&apos;s
+                Careers
               </Typography>
             </Grid>
             <Grid item xs={1}>
@@ -287,7 +301,8 @@ export function CareerBox(props) {
         <Grid item container xs={12}>
           <Grid item xs={11}>
             <Typography fontSize="30px">
-              {student.studentFirstName} {student.studentLastName}'s Careers
+              {student.studentFirstName} {student.studentLastName}&apos;s
+              Careers
             </Typography>
           </Grid>
           <Grid item xs={1}>

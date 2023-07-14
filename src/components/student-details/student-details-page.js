@@ -5,19 +5,16 @@ import { Box, Tab } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import AddIcon from '@mui/icons-material/Add';
 import { GenericModal } from '../shared/generic-modal';
-import InfoBox from './info-box';
-import { TextFieldWithErrorMessage } from '../coaches/text-field-with-error-message';
-import { CommunicationLog } from './communication-log';
-import { CommuinicationSearchBar } from './communication-search';
-import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-box';
-import DynamicTabs from '../table-layout/dynamicTabs';
-import Goal from './goal';
-import { AddCareerModal } from './career-modals';
-import { Career } from './career';
+import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
+import { CommunicationLog } from './communications/communication-log';
+import { CommunicationSearchBar } from './communications/communication-search';
+import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-display';
 import { LayoutBackButton } from '../layout/layout-back-button/layout-back-button';
 
-// StudentDetails is meant to be a 'skeleton' that controls page layout
-// Nothing in here should be hard-coded, should be passed via props
+/**
+ * StudentDetails (student-details-page.js) is the framework for what the student details page will look like.
+ * It displays student info boxes (student-info-display.js) and communications.
+ */
 export default function StudentDetails(props) {
   const { student, onReload } = props;
   const [tabValue, setTabValue] = React.useState(0);
@@ -53,21 +50,6 @@ export default function StudentDetails(props) {
         color: '#0000000',
         bgcolor: '#ffffff',
       },
-    }),
-    []
-  );
-
-  const iconStyle = React.useMemo(
-    () => ({
-      bgcolor: '#3E4C61',
-      color: '#ffffff',
-      position: 'relative',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      minWidth: 40,
-      minHeight: 40,
-      borderRadius: '5px',
     }),
     []
   );
@@ -167,14 +149,16 @@ export default function StudentDetails(props) {
         </Grid>
         <Grid container xs={1}>
           <Grid item alignItems="flex-front" sx={{ pl: '510%' }}>
-            <CommuinicationSearchBar student={student.id} />
+            <CommunicationSearchBar student={student.id} />
           </Grid>
           <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
             <GenericModal
               modalHeadingTitle="Add Communication"
               actionButtonTitle="Add"
               cancelButtonTitle="Cancel"
-              openButtonIcon={<AddIcon sx={iconStyle} />}
+              openButtonIcon={
+                <AddIcon sx={{ width: '40px', height: '40px' }} />
+              }
             >
               {/* TODO: Make Coach and Topic Dropdowns, Make Notes a large Textfield */}
               <Grid container direction="column">
@@ -277,15 +261,9 @@ export default function StudentDetails(props) {
 
 StudentDetails.propTypes = {
   student: propTypes.object,
-  goals: propTypes.object,
-  careers: propTypes.object,
-  interviews: propTypes.object,
   onReload: propTypes.func,
 };
 StudentDetails.defaultProps = {
   student: undefined,
-  goals: undefined,
-  careers: undefined,
-  interviews: undefined,
   onReload: undefined,
 };

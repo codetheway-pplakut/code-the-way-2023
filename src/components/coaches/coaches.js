@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Grid, Button, Link } from '@mui/material';
+import { Box, Grid, Link } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { NavLink } from 'react-router-dom';
 import { Layout } from '../layout/layout';
@@ -133,10 +133,6 @@ const COLUMNS = [
     },
   },
 ];
-
-const manualRefresh = () => {
-  console.log('signal got to coaches.js');
-};
 
 function refreshPage() {
   window.location.reload(false);
