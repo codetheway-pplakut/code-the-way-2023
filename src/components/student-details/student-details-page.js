@@ -55,13 +55,13 @@ export default function StudentDetails(props) {
 
   const boxStyle = React.useMemo(
     () => ({
-      bgcolor: '#dddddd',
+      bgcolor: '#ffffff',
       minWidth: '100%',
       color: '#000000',
       position: 'relative',
       minHeight: '70vh',
       borderRadius: '10px',
-      boxShadow: '0 2px 3px rgba(0, 0, 0, 0.2)',
+      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
     }),
     []
   );

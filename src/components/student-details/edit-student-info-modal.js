@@ -107,7 +107,7 @@ export default function EditStudentInfoModal(props) {
         presence: { allowEmpty: false },
       },
       studentApartmentNumber: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: true },
       },
       studentCity: {
         presence: { allowEmpty: false },
