@@ -76,6 +76,7 @@ export function EditGoalModal(props) {
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
+      modalMessage="Fill out the fields below to edit a goal."
       onActionButtonClick={requestSave}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
@@ -203,7 +204,6 @@ export function AddGoalModal(props) {
       wasItAccomplished,
       explanation
     );
-
     if (onSaveSuccess) onSaveSuccess();
   };
 
@@ -213,6 +213,7 @@ export function AddGoalModal(props) {
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
+      modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
@@ -335,7 +336,7 @@ DeleteGoalModal.defaultProps = {
   onSaveSuccess: undefined,
 };
 AddGoalModal.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onSaveSuccess: propTypes.func,
 };
 AddGoalModal.defaultProps = {

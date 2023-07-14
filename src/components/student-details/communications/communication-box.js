@@ -1,9 +1,29 @@
 import { Box, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
+import { getCoachByIdHandler } from '../../coaches/coachHandlers';
+import { AspirationsCard, AspirationsCardHeader } from '../aspirations-card';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
+  const [coachName, setCoachName] = React.useState('');
+
+  console.log(date);
+
+  const getCoach = async (id) => {
+    if (id === undefined) return;
+    const response = await getCoachByIdHandler(id);
+    const { data } = response;
+    setCoachName(data);
+  };
+
+  useEffect(() => {
+    getCoach(coach);
+  }, [coach]);
+
+  const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
+
   const boxStyle = {
     position: 'relative',
     bgcolor: '#dadada',
@@ -36,30 +56,61 @@ export default function CommunicationBox(props) {
   };
 
   return (
-    <Box sx={boxStyle}>
+    <AspirationsCard>
+      <AspirationsCardHeader header={topic}>
+        <Grid item xs={4}>
+          <Typography>{`Coach Name: ${coachFullName}`}</Typography>
+        </Grid>
+        <Grid item xs={1}>
+          {/* <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
+        </Grid>
+        <Grid item xs={1}>
+          {/* <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
+        </Grid>
+      </AspirationsCardHeader>
       <Grid
         container
-        direction="row"
+        alignItems="center"
         sx={{
-          border: 2,
-          borderTopLeftRadius: '5px',
-          borderTopRightRadius: '5px',
+          px: '2vw',
+          py: '2vh',
+          borderBottomLeftRadius: '10px',
+          borderBottomRightRadius: '10px',
         }}
       >
-        <Grid item xs={5}>
-          <Typography sx={textStyle}> Date Created: {date}</Typography>
+        <Grid item xs={6}>
+          <Typography>Description: {notes}</Typography>
         </Grid>
-        <Grid item xs={4}>
-          <Typography sx={textStyle}>Coach: {coach} </Typography>
-        </Grid>
-        <Grid item xs={9}>
-          <Typography sx={headerStyle}>{topic}</Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <Typography sx={noteStyle}>{notes}</Typography>
+        <Grid item xs={6}>
+          <Typography>Date: {dayjs(date).format('MMM DD, YYYY')}</Typography>
         </Grid>
       </Grid>
-    </Box>
+    </AspirationsCard>
+
+    // <Box sx={boxStyle}>
+    //   <Grid
+    //     container
+    //     direction="row"
+    //     sx={{
+    //       border: 2,
+    //       borderTopLeftRadius: '5px',
+    //       borderTopRightRadius: '5px',
+    //     }}
+    //   >
+    //     <Grid item xs={5}>
+    //       <Typography sx={textStyle}> Date Created: {formattedDate}</Typography>
+    //     </Grid>
+    //     <Grid item xs={4}>
+    //       <Typography sx={textStyle}>Coach: {coachFullName} </Typography>
+    //     </Grid>
+    //     <Grid item xs={9}>
+    //       <Typography sx={headerStyle}>{topic}</Typography>
+    //     </Grid>
+    //     <Grid item xs={12}>
+    //       <Typography sx={noteStyle}>{notes}</Typography>
+    //     </Grid>
+    //   </Grid>
+    // </Box>
   );
 }
 

@@ -428,6 +428,8 @@ export function EditParentModal(props) {
       actionButtonTitle="Submit"
       cancelButtonTitle="cancel"
       modalHeadingTitle={header}
+      modalMessage="Fill out the fields below to save."
+      actionButtonColor="submit"
       onActionButtonClick={requestSave}
       actionButtonDisabled={actionButtonDisabled}
       openModal={<EditIcon />}
@@ -548,7 +550,7 @@ export function EditParentModal(props) {
 }
 
 EditStudentInfoModal.propTypes = {
-  student: PropTypes.func,
+  student: PropTypes.object,
   onSaveSuccess: PropTypes.func,
   isParent: PropTypes.bool,
 };

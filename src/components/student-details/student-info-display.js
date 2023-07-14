@@ -102,7 +102,7 @@ export function StudentInfoBox(props) {
         )}
       </Grid>
 
-      <Grid container xs={12} m="1vw">
+      <Grid container m="1vw">
         <Grid item xs={5}>
           {!isParent ? (
             <Typography>
@@ -127,7 +127,7 @@ export function StudentInfoBox(props) {
         </Grid>
       </Grid>
 
-      <Grid container xs={12} m="1vw">
+      <Grid container m="1vw">
         <Grid item xs={5}>
           <Typography>Address:</Typography>
           <Typography color="#959595">
@@ -327,7 +327,7 @@ export function CareerBox(props) {
 }
 
 StudentInfoBox.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onReload: propTypes.func,
   isParent: propTypes.bool,
 };
@@ -338,7 +338,7 @@ StudentInfoBox.defaultProps = {
 };
 
 CareerBox.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onReload: propTypes.func,
 };
 CareerBox.defaultProps = {
@@ -347,7 +347,7 @@ CareerBox.defaultProps = {
 };
 
 GoalsBox.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onReload: propTypes.func,
 };
 GoalsBox.defaultProps = {
