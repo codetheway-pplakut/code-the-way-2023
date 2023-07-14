@@ -154,7 +154,6 @@ export function AddGoalModal(props) {
       wasItAccomplished,
       explanation
     );
-
     if (onSaveSuccess) onSaveSuccess();
   };
 

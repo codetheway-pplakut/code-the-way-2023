@@ -2,18 +2,26 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem, TextField } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import { GenericModal } from '../../shared/generic-modal';
-import { addCommunicationHandler } from './communicationsHandler';
-import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 // import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
+import dayjs from 'dayjs';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
+import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
+import { addCommunicationHandler } from './communicationsHandler';
+import { GenericModal } from '../../shared/generic-modal';
+
 export default function AddCommunicationsModal(props) {
-  const { student } = props;
+  const { student, onSaveSuccess } = props;
 
   const [topic, setTopic] = useState('');
   const [description, setDescription] = useState('');
   const [coachId, setCoachId] = useState('');
   const [activeCoaches, setActiveCoaches] = React.useState([]);
+  const [created, setCreated] = React.useState(new Date());
 
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
@@ -26,16 +34,20 @@ export default function AddCommunicationsModal(props) {
   }, []);
 
   const studentId = student.id;
-  const created = new Date().toJSON();
 
   const requestSave = async () => {
-    await addCommunicationHandler(
-      studentId,
-      coachId,
-      topic,
-      description,
-      created
-    );
+    try {
+      await addCommunicationHandler(
+        studentId,
+        coachId,
+        topic,
+        description,
+        created
+      );
+      if (onSaveSuccess) onSaveSuccess();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -88,6 +100,16 @@ export default function AddCommunicationsModal(props) {
           <MenuItem disabled>No coaches available</MenuItem>
         )}
       </TextField>
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DatePicker']}>
+          <DatePicker
+            label="Controlled picker"
+            value={created}
+            onChange={(newValue) => setCreated(newValue)}
+          />
+        </DemoContainer>
+      </LocalizationProvider>
     </GenericModal>
   );
 }

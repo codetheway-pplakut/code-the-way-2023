@@ -184,7 +184,10 @@ export default function StudentDetails(props) {
             </Grid>
             <Grid item alignItems="flex-front">
               <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                <AddCommunicationsModal student={student} />
+                <AddCommunicationsModal
+                  student={student}
+                  onSaveSuccess={() => requestCommunication(studentID)}
+                />
               </Box>
             </Grid>
           </Toolbar>
