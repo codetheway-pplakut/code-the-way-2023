@@ -90,6 +90,7 @@ export function EditGoalModal(props) {
             error={goalSetEdit && goalSet.length < 1}
             required
             onBlur={() => setGoalSetEdit(true)}
+            fullWidth
           />
         </Grid>
         <Grid item container spacing={2}>
@@ -118,12 +119,14 @@ export function EditGoalModal(props) {
         <Grid item xs={12}>
           <TextField
             label="Explanation"
-            onChange={(value) => setExplanation(value)}
+            onChange={(event) => setExplanation(event.target.value)}
             errorText={explanation.length < 1 ? 'Enter Explanation' : ''}
             error={explanationEdit && explanation.length < 1}
             required
             onBlur={() => setExplanationEdit(true)}
             value={explanation}
+            fullWidth
+            multiline
             minRows={3}
           />
         </Grid>
