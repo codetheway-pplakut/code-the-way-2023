@@ -6,6 +6,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
+import { flattenDeep } from 'lodash';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
@@ -27,6 +28,19 @@ export default function EditStudentInfoModal(props) {
   const [studentZipCode, setStudentZipCode] = useState('');
   const [header, setHeader] = useState('');
 
+  const [studentFirstNameEdit, setStudentFirstNameEdit] = React.useState(false);
+  const [studentLastNameEdit, setStudentLastNameEdit] = React.useState(false);
+  const [studentCellPhoneEdit, setStudentCellPhoneEdit] = React.useState(false);
+  const [studentEmailEdit, setStudentEmailEdit] = React.useState(false);
+  const [studentAddressEdit, setStudentAddressEdit] = React.useState(false);
+  const [studentApartmentNumberEdit, setStudentApartmentNumberEdit] =
+    React.useState(false);
+  const [studentCityEdit, setStudentCityEdit] = React.useState(false);
+  const [studentStateEdit, setStudentStateEdit] = React.useState(false);
+  const [studentDateOfBirthEdit, setStudentDateOfBirthEdit] =
+    React.useState(false);
+  const [studentZipCodeEdit, setStudentZipCodeEdit] = React.useState(false);
+
   useEffect(() => {
     setStudentFirstName(student.studentFirstName);
     setStudentLastName(student.studentLastName);
@@ -40,6 +54,56 @@ export default function EditStudentInfoModal(props) {
     setStudentDateOfBirth(student.studentDateOfBirth);
     setHeader('Edit Student Information');
   }, [student]);
+
+  const validator = validate(
+    {
+      studentFirstName,
+      studentLastName,
+      studentEmail,
+      studentDateOfBirth,
+      studentCellPhone,
+      studentAddress,
+      studentApartmentNumber,
+      studentCity,
+      studentState,
+      studentZipCode,
+    },
+    {
+      studentFirstName: {
+        presence: { allowEmpty: false, message: '' },
+      },
+      studentLastName: {
+        presence: { allowEmpty: false },
+      },
+      studentEmail: {
+        presence: { allowEmpty: false },
+        email: true,
+      },
+      studentCellPhone: {
+        presence: { allowEmpty: false },
+      },
+      dateOfBirth: {},
+      studentAddress: {
+        presence: { allowEmpty: false },
+      },
+      studentApartmentNumber: {
+        presence: { allowEmpty: false },
+      },
+      studentCity: {
+        presence: { allowEmpty: false },
+      },
+      studentState: {
+        presence: { allowEmpty: false },
+      },
+      studentZipCode: {
+        presence: { allowEmpty: false },
+      },
+    }
+  );
+
+  const messages = flattenDeep(Object.values(validator || {}));
+
+  const actionButtonDisabled = Boolean(messages.length);
 
   const requestSave = async () => {
     const updatedStudent = {
@@ -67,77 +131,130 @@ export default function EditStudentInfoModal(props) {
       cancelButtonTitle="cancel"
       modalHeadingTitle={header}
       onActionButtonClick={requestSave}
+      actionButtonDisabled={actionButtonDisabled}
       openModal={<EditIcon />}
     >
       <Grid container spacing={1} padding={4}>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
           <Grid item xs={6}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="First Name"
-              onChange={(value) => setStudentFirstName(value)}
+              onChange={(event) => setStudentFirstName(event.target.value)}
               value={studentFirstName}
+              errorText={
+                studentFirstName.length < 1 ? 'Enter Student First Name' : ' '
+              }
+              error={studentFirstName.length < 1 && studentFirstNameEdit}
+              onBlur={() => setStudentFirstNameEdit(true)}
+              required
             />
           </Grid>
           <Grid item xs={6}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="Last Name"
-              onChange={(value) => setStudentLastName(value)}
+              onChange={(event) => setStudentLastName(event.target.value)}
               value={studentLastName}
+              errorText={
+                studentLastName.length < 1 ? 'Enter Student Last Name' : ' '
+              }
+              error={studentLastName.length < 1 && studentLastNameEdit}
+              onBlur={() => setStudentLastNameEdit(true)}
+              required
             />
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          <TextFieldWithErrorMessage
+          <TextField
             fullWidth
             label="Preferred Phone Number"
-            onChange={(value) => setStudentCellPhone(value)}
+            onChange={(event) => setStudentCellPhone(event.target.value)}
             value={studentCellPhone}
+            errorText={
+              studentCellPhone.length < 1 ? 'Enter Student Phone Number' : ' '
+            }
+            error={studentCellPhone.length < 1 && studentCellPhoneEdit}
+            onBlur={() => setStudentCellPhoneEdit(true)}
+            required
           />
         </Grid>
         <Grid item xs={12}>
-          <TextFieldWithErrorMessage
+          <TextField
             label="Email"
-            onChange={(value) => setStudentEmail(value)}
+            onChange={(event) => setStudentEmail(event.target.value)}
             value={studentEmail}
+            errorText={studentEmail.length < 1 ? 'Enter Student Email' : ' '}
+            error={studentEmail.length < 1 && studentEmailEdit}
+            onBlur={() => setStudentEmailEdit(true)}
+            required
           />
         </Grid>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
           <Grid item xs={8}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="Address"
-              onChange={(value) => setStudentAddress(value)}
+              onChange={(event) => setStudentAddress(event.target.value)}
               value={studentAddress}
+              errorText={
+                studentAddress.length < 1 ? 'Enter Student Address' : ' '
+              }
+              error={studentAddress.length < 1 && studentAddressEdit}
+              onBlur={() => setStudentAddressEdit(true)}
+              required
             />
           </Grid>
           <Grid item xs={4}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="Apt."
-              onChange={(value) => setStudentApartmentNumber(value)}
+              onChange={(event) =>
+                setStudentApartmentNumber(event.target.value)
+              }
               value={studentApartmentNumber}
+              errorText={
+                studentApartmentNumber.length < 1
+                  ? 'Enter Student Apartment Number'
+                  : ' '
+              }
+              error={
+                studentApartmentNumber.length < 1 && studentApartmentNumberEdit
+              }
+              onBlur={() => setStudentApartmentNumberEdit(true)}
+              required
             />
           </Grid>
         </Grid>
 
         <Grid container item xs={12} justifyContent="center" spacing={2}>
           <Grid item xs={4}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="City"
-              onChange={(value) => setStudentCity(value)}
+              onChange={(event) => setStudentCity(event.target.value)}
               value={studentCity}
+              errorText={studentCity.length < 1 ? 'Enter Student City' : ' '}
+              error={studentCity.length < 1 && studentCityEdit}
+              onBlur={() => setStudentCityEdit(true)}
+              required
             />
           </Grid>
           <Grid item xs={4}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="State"
-              onChange={(value) => setStudentState(value)}
+              onChange={(event) => setStudentState(event.target.value)}
               value={studentState}
+              errorText={studentState.length < 1 ? 'Enter Student State' : ' '}
+              error={studentState.length < 1 && studentStateEdit}
+              onBlur={() => setStudentStateEdit(true)}
+              required
             />
           </Grid>
           <Grid item xs={4}>
-            <TextFieldWithErrorMessage
+            <TextField
               label="Zip Code"
-              onChange={(value) => setStudentZipCode(value)}
+              onChange={(event) => setStudentZipCode(event.target.value)}
               value={studentZipCode}
+              errorText={studentZipCode.length < 1 ? 'Enter Zip Code' : ' '}
+              error={studentZipCode.length < 1 && studentZipCodeEdit}
+              onBlur={() => setStudentZipCodeEdit(true)}
+              required
             />
           </Grid>
 
