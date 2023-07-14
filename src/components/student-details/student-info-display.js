@@ -3,7 +3,9 @@ import propTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { Box, Divider, Grid, Typography } from '@mui/material';
 import { FixedSizeList as List } from 'react-window';
-import EditStudentInfoModal from './edit-student-info-modal';
+import EditStudentInfoModal, {
+  EditParentModal,
+} from './edit-student-info-modal';
 import Goal from './goals/goal';
 import { altGetStudentGoalsHandler } from './goals/goalHandlers';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
@@ -79,7 +81,6 @@ export function StudentInfoBox(props) {
               <EditStudentInfoModal
                 student={student}
                 onSaveSuccess={() => onReload()}
-                isParent={isParent}
               />
             </Typography>
             <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
@@ -92,10 +93,9 @@ export function StudentInfoBox(props) {
             <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
             <Typography fontSize="2vw">
               Parent Information{' '}
-              <EditStudentInfoModal
+              <EditParentModal
                 student={student}
                 onSaveSuccess={() => onReload()}
-                isParent={isParent}
               />
             </Typography>
           </Grid>
