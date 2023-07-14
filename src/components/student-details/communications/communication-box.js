@@ -1,6 +1,7 @@
 import { Box, Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import dayjs from 'dayjs';
 import { getCoachByIdHandler } from '../../coaches/coachHandlers';
 import { AspirationsCard, AspirationsCardHeader } from '../aspirations-card';
 
@@ -9,8 +10,6 @@ export default function CommunicationBox(props) {
   const [coachName, setCoachName] = React.useState('');
 
   console.log(date);
-
-  const formattedDate = Date(Date.parse(date)).toString();
 
   const getCoach = async (id) => {
     if (id === undefined) return;
@@ -83,7 +82,7 @@ export default function CommunicationBox(props) {
           <Typography>Description: {notes}</Typography>
         </Grid>
         <Grid item xs={6}>
-          <Typography>Date: {formattedDate}</Typography>
+          <Typography>Date: {dayjs(date).format('MMM DD, YYYY')}</Typography>
         </Grid>
       </Grid>
     </AspirationsCard>

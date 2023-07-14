@@ -5,7 +5,6 @@ import AddIcon from '@mui/icons-material/Add';
 // import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -102,13 +101,12 @@ export default function AddCommunicationsModal(props) {
       </TextField>
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={['DatePicker']}>
-          <DatePicker
-            label="Controlled picker"
-            value={created}
-            onChange={(newValue) => setCreated(newValue)}
-          />
-        </DemoContainer>
+        <DatePicker
+          margin="normal"
+          label="Date of Communication"
+          value={dayjs(created)}
+          onChange={(newValue) => setCreated(newValue)}
+        />
       </LocalizationProvider>
     </GenericModal>
   );
