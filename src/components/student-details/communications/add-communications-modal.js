@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem, TextField } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import { GenericModal } from '../../shared/generic-modal';
 import { addCommunicationHandler } from './communicationsHandler';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
@@ -43,7 +44,9 @@ export default function AddCommunicationsModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Communication"
       onActionButtonClick={requestSave}
-      openModal="Add Communication"
+      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
+      modalMessage="Fill out the fields below to add a communication."
+      actionButtonColor="archive"
     >
       <TextField
         label="Topic"

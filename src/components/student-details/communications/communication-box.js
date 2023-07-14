@@ -1,9 +1,29 @@
 import { Box, Grid, Typography } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { getCoachByIdHandler } from '../../coaches/coachHandlers';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
+  const [coachName, setCoachName] = React.useState('');
+
+  console.log(date);
+
+  const formattedDate = Date(Date.parse(date)).toString();
+
+  const getCoach = async (id) => {
+    if (id === undefined) return;
+    const response = await getCoachByIdHandler(id);
+    const { data } = response;
+    setCoachName(data);
+  };
+
+  useEffect(() => {
+    getCoach(coach);
+  }, [coach]);
+
+  const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
+
   const boxStyle = {
     position: 'relative',
     bgcolor: '#dadada',
@@ -47,10 +67,10 @@ export default function CommunicationBox(props) {
         }}
       >
         <Grid item xs={5}>
-          <Typography sx={textStyle}> Date Created: {date}</Typography>
+          <Typography sx={textStyle}> Date Created: {formattedDate}</Typography>
         </Grid>
         <Grid item xs={4}>
-          <Typography sx={textStyle}>Coach: {coach} </Typography>
+          <Typography sx={textStyle}>Coach: {coachFullName} </Typography>
         </Grid>
         <Grid item xs={9}>
           <Typography sx={headerStyle}>{topic}</Typography>

@@ -58,6 +58,7 @@ export function EditGoalModal(props) {
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
+      modalMessage="Fill out the fields below to edit a goal."
       onActionButtonClick={requestSave}
       openButtonIcon={<EditIcon />}
     >
@@ -163,6 +164,7 @@ export function AddGoalModal(props) {
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
+      modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
       openButtonIcon={<AddIcon />}
     >

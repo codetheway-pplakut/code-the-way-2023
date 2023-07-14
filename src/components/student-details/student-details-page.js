@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import propTypes from 'prop-types';
-import { Box, MenuItem, Tab, TextField } from '@mui/material';
+import { Box, MenuItem, Tab, TextField, Toolbar } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-display';
 import { LayoutBackButton } from '../layout/layout-back-button/layout-back-button';
@@ -94,7 +94,7 @@ export default function StudentDetails(props) {
         display="flex"
         sx={{ flexWrap: 'nowrap', mt: '50px' }}
       >
-        <Grid item xs={6} direction="row">
+        <Grid item xs={6}>
           <Grid container justifyContent="center" pl="2vw">
             <Tabs
               value={tabValue}
@@ -177,13 +177,17 @@ export default function StudentDetails(props) {
             </Box>
           </Grid>
         </Grid>
-        <Grid container xs={1}>
-          <Grid item alignItems="flex-front" sx={{ pl: '510%' }}>
-            <SearchBar requestSearch={requestSearch} />
-          </Grid>
-          <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
-            <AddCommunicationsModal student={student} />
-          </Grid>
+        <Grid container>
+          <Toolbar>
+            <Grid item alignItems="flex-front" sx={{ pl: '100%' }}>
+              <SearchBar requestSearch={requestSearch} />
+            </Grid>
+            <Grid item alignItems="flex-front">
+              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                <AddCommunicationsModal student={student} />
+              </Box>
+            </Grid>
+          </Toolbar>
           {/* <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
             <TextField
               label="Topic"

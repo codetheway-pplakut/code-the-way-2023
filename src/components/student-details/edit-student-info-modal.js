@@ -98,6 +98,8 @@ export default function EditStudentInfoModal(props) {
       actionButtonTitle="Submit"
       cancelButtonTitle="cancel"
       modalHeadingTitle={header}
+      modalMessage="Fill out the fields below to save."
+      actionButtonColor="submit"
       onActionButtonClick={requestSave}
       openModal={<EditIcon />}
     >

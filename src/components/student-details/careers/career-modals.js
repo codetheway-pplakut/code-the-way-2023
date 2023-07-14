@@ -45,6 +45,7 @@ export function AddCareerModal(props) {
       modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
       openButtonIcon={<AddIcon />}
+      modalMessage="Fill out the fields below to add a career."
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12}>
@@ -190,10 +191,12 @@ export function EditCareerModal(props) {
   return (
     <GenericModal
       actionButtonTitle="Submit"
+      actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Career"
       onActionButtonClick={requestSubmit}
       openButtonIcon={<EditIcon />}
+      modalMessage="Fill out the fields below to edit a career."
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12}>

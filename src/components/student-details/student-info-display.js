@@ -98,7 +98,7 @@ export function StudentInfoBox(props) {
         )}
       </Grid>
 
-      <Grid container xs={12} m="1vw">
+      <Grid container m="1vw">
         <Grid item xs={5}>
           {!isParent ? (
             <Typography>
@@ -123,7 +123,7 @@ export function StudentInfoBox(props) {
         </Grid>
       </Grid>
 
-      <Grid container xs={12} m="1vw">
+      <Grid container m="1vw">
         <Grid item xs={5}>
           <Typography>Address:</Typography>
           <Typography color="#959595">
