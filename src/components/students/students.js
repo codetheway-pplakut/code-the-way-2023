@@ -155,9 +155,9 @@ export function Students() {
     },
   ];
 
-  function refreshPage() {
+  const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
@@ -177,7 +177,6 @@ export function Students() {
                     'lastName',
                     'email',
                     'studentCellPhone',
-                    'coach',
                   ]}
                   requestFunc={requestActiveStudentsFunc}
                   customTableMaxHeight={510}
@@ -189,12 +188,17 @@ export function Students() {
               {tabValue === 1 && (
                 <DynamicTableWithRequest
                   columns={OPTIONS}
-                  filterBy={['firstName', 'lastName', 'email']}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                  ]}
                   requestFunc={getAppliedStudents}
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"
                 >
-                  <AddStudentModal onSubmit={() => refreshPage} />
+                  <AddStudentModal onSubmit={refreshPage} />
                 </DynamicTableWithRequest>
               )}
             </Box>

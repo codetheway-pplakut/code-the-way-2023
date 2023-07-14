@@ -9,7 +9,7 @@ export function LayoutBackButton() {
 
   if (location.pathname === '/') return null;
 
-  const onClick = () => navigate(-1);
+  const onClick = () => navigate('/students');
 
   return (
     <Button

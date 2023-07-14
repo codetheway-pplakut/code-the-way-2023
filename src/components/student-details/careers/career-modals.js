@@ -5,6 +5,8 @@ import uuid from 'react-uuid';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { flattenDeep } from 'lodash';
+import { validate } from 'validate.js';
 import { GenericModal } from '../../shared/generic-modal';
 import {
   addCareerHandler,
@@ -22,6 +24,9 @@ export function AddCareerModal(props) {
   const [technicalCollegeBound, setTechnicalCollegeBound] =
     React.useState(false);
 
+  const [specificCareerEdit, setSpecificCareerEdit] = React.useState(false);
+  React.useState(false);
+
   const requestSubmit = async () => {
     await addCareerHandler(
       uuid(),
@@ -36,6 +41,18 @@ export function AddCareerModal(props) {
   const handleClusterChange = (event) => {
     setCareerCluster(event.target.value);
   };
+  const validator = validate(
+    { specificCareer },
+    {
+      specificCareer: {
+        presence: { allowEmpty: false },
+      },
+    }
+  );
+
+  const messages = flattenDeep(Object.values(validator || {}));
+
+  const actionButtonDisabled = Boolean(messages.length);
 
   return (
     <GenericModal
@@ -44,15 +61,22 @@ export function AddCareerModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
+      actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       modalMessage="Fill out the fields below to add a career."
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12}>
-          <TextFieldWithErrorMessage
+          <TextField
             label="Specific Career"
-            onChange={(value) => setSpecificCareer(value)}
+            onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
+            errorText={
+              specificCareer.length < 1 ? 'Enter Specific Career Choice' : ' '
+            }
+            error={specificCareer.length < 1 && specificCareerEdit}
+            onBlur={() => setSpecificCareerEdit(true)}
+            required
           />
         </Grid>
 
@@ -167,6 +191,8 @@ export function EditCareerModal(props) {
   const [technicalCollegeBound, setTechnicalCollegeBound] =
     React.useState(false);
 
+  const [specificCareerEdit, setSpecificCareerEdit] = React.useState(false);
+
   useEffect(() => {
     setCollegeBound(career.collegeBound);
     setCareerCluster(career.careerCluster);
@@ -188,6 +214,19 @@ export function EditCareerModal(props) {
   const handleClusterChange = (event) => {
     setCareerCluster(event.target.value);
   };
+
+  const validator = validate(
+    { specificCareer },
+    {
+      specificCareer: {
+        presence: { allowEmpty: false },
+      },
+    }
+  );
+
+  const messages = flattenDeep(Object.values(validator || {}));
+
+  const actionButtonDisabled = Boolean(messages.length);
   return (
     <GenericModal
       actionButtonTitle="Submit"
@@ -195,15 +234,23 @@ export function EditCareerModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Career"
       onActionButtonClick={requestSubmit}
+      actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
       modalMessage="Fill out the fields below to edit a career."
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12}>
-          <TextFieldWithErrorMessage
+          <TextField
             label="Specific Career"
-            onChange={(value) => setSpecificCareer(value)}
+            onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
+            errorText={
+              specificCareer.length < 1 ? 'Enter Specific Career Choice' : ' '
+            }
+            error={specificCareer.length < 1 && specificCareerEdit}
+            onBlur={() => setSpecificCareerEdit(true)}
+            required
+            fullWidth
           />
         </Grid>
 
