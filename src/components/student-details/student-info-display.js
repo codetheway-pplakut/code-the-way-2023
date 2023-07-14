@@ -35,8 +35,12 @@ export function StudentInfoBox(props) {
   // useEffect gets names again when the student is updated
   useEffect(() => {
     if (isParent) {
-      setFirstName(student.parentFirstName);
-      setLastName(student.parentLastName);
+      student.parentFirstName !== null
+        ? setFirstName(student.parentFirstName)
+        : setFirstName(' ');
+      student.parentLastName !== null
+        ? setLastName(student.parentLastName)
+        : setLastName(' ');
       setAddress(student.address);
       setApartmentNumber(student.parentApartmentNumber);
       setCity(student.parentCity);
@@ -133,7 +137,9 @@ export function StudentInfoBox(props) {
             )}
           </Typography>
           <Typography color="#959595">
-            {city}, {state} {zipCode}
+            {city == null && state == null && zipCode == null
+              ? ''
+              : `${city}, ${state} ${zipCode}`}
           </Typography>
         </Grid>
 
