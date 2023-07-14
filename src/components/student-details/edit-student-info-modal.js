@@ -42,16 +42,36 @@ export default function EditStudentInfoModal(props) {
   const [studentZipCodeEdit, setStudentZipCodeEdit] = React.useState(false);
 
   useEffect(() => {
-    setStudentFirstName(student.studentFirstName);
-    setStudentLastName(student.studentLastName);
-    setStudentCellPhone(student.studentCellPhone);
-    setStudentEmail(student.studentEmail);
-    setStudentAddress(student.studentAddress);
-    setStudentApartmentNumber(student.studentApartmentNumber);
-    setStudentState(student.studentState);
-    setStudentCity(student.studentCity);
-    setStudentZipCode(student.studentZipCode);
-    setStudentDateOfBirth(student.studentDateOfBirth);
+    if (student.studentFirstName !== null) {
+      setStudentFirstName(student.studentFirstName);
+    }
+    if (student.studentLastName !== null) {
+      setStudentLastName(student.studentLastName);
+    }
+    if (student.studentCellPhone !== null) {
+      setStudentCellPhone(student.studentCellPhone);
+    }
+    if (student.studentEmail !== null) {
+      setStudentEmail(student.studentEmail);
+    }
+    if (student.studentAddress !== null) {
+      setStudentAddress(student.studentAddress);
+    }
+    if (student.studentApartmentNumber !== null) {
+      setStudentApartmentNumber(student.studentApartmentNumber);
+    }
+    if (student.studentState !== null) {
+      setStudentState(student.studentState);
+    }
+    if (student.studentDateOfBirth !== null) {
+      setStudentDateOfBirth(student.studentDateOfBirth);
+    }
+    if (student.studentZipCode !== null) {
+      setStudentZipCode(student.studentZipCode);
+    }
+    if (student.studentCity !== null) {
+      setStudentCity(student.studentCity);
+    }
     setHeader('Edit Student Information');
   }, [student]);
 
@@ -344,15 +364,33 @@ export function EditParentModal(props) {
   const messages = flattenDeep(Object.values(validator || {}));
   const actionButtonDisabled = Boolean(messages.length);
   useEffect(() => {
-    setParentFirstName(student.parentFirstName);
-    setParentLastName(student.parentLastName);
-    setParentCellPhone(student.parentCellPhone);
-    setParentEmail(student.parentEmail);
-    setParentAddress(student.address);
-    setParentApartmentNumber(student.parentApartmentNumber);
-    setParentState(student.parentState);
-    setParentCity(student.parentCity);
-    setParentZipCode(student.parentZipCode);
+    if (student.parentFirstName !== null) {
+      setParentFirstName(student.parentFirstName);
+    }
+    if (student.parentLastName !== null) {
+      setParentLastName(student.parentLastName);
+    }
+    if (student.parentCellPhone !== null) {
+      setParentCellPhone(student.parentCellPhone);
+    }
+    if (student.parentEmail !== null) {
+      setParentEmail(student.parentEmail);
+    }
+    if (student.address !== null) {
+      setParentAddress(student.address);
+    }
+    if (student.parentApartmentNumber !== null) {
+      setParentApartmentNumber(student.parentApartmentNumber);
+    }
+    if (student.parentCity !== null) {
+      setParentCity(student.parentCity);
+    }
+    if (student.parentState !== null) {
+      setParentState(student.parentState);
+    }
+    if (student.parentZipCode !== null) {
+      setParentZipCode(student.parentZipCode);
+    }
     setHeader('Edit Parent Information');
   }, [student]);
 
