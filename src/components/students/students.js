@@ -177,7 +177,6 @@ export function Students() {
                     'lastName',
                     'email',
                     'studentCellPhone',
-                    'coach',
                   ]}
                   requestFunc={requestActiveStudentsFunc}
                   customTableMaxHeight={510}
@@ -194,7 +193,6 @@ export function Students() {
                     'lastName',
                     'email',
                     'studentCellPhone',
-                    'coach',
                   ]}
                   requestFunc={getAppliedStudents}
                   customTableMaxHeight={510}
