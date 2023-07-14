@@ -272,7 +272,7 @@ DeleteGoalModal.defaultProps = {
   onSaveSuccess: undefined,
 };
 AddGoalModal.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onSaveSuccess: propTypes.func,
 };
 AddGoalModal.defaultProps = {

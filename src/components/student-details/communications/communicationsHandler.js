@@ -1,9 +1,9 @@
-import { randomUUID } from 'crypto';
+import { v4 as uuidv4 } from 'uuid';
 import {
   addCommunication,
   getCoachCommunications,
   getStudentCommunications,
-} from '../../services/communications/communications';
+} from '../../../services/communications/communications';
 
 export function getCoachCommunicationsHandler(coachId) {
   return getCoachCommunications(coachId);
@@ -21,7 +21,7 @@ export function addCommunicationHandler(
   created
 ) {
   const communication = {
-    communicationId: randomUUID(),
+    communicationId: uuidv4(),
     studentId,
     coachId,
     topic,

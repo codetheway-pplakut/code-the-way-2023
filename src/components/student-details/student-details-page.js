@@ -1,31 +1,61 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import propTypes from 'prop-types';
-import { Box, Tab } from '@mui/material';
+import { Box, MenuItem, Tab, TextField } from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import AddIcon from '@mui/icons-material/Add';
-import { GenericModal } from '../shared/generic-modal';
-import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
-import { CommunicationLog } from './communications/communication-log';
-import { CommunicationSearchBar } from './communications/communication-search';
 import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-display';
 import { LayoutBackButton } from '../layout/layout-back-button/layout-back-button';
+import { getStudentCommunicationsHandler } from './communications/communicationsHandler';
+import { SearchBar } from '../table-layout/search';
+import AddCommunicationsModal from './communications/add-communications-modal';
+import CommunicationBox from './communications/communication-box';
 
 /**
  * StudentDetails (student-details-page.js) is the framework for what the student details page will look like.
  * It displays student info boxes (student-info-display.js) and communications.
  */
 export default function StudentDetails(props) {
-  const { student, onReload } = props;
   const [tabValue, setTabValue] = React.useState(0);
+  const [communications, setCommunications] = React.useState({});
+  const [rows, setRows] = React.useState({});
+  // const [topic, setTopic] = React.useState('');
 
-  const handleChange = React.useCallback((event, newValue) => {
+  const { student, onReload } = props;
+  const studentID = student.id;
+
+  const requestCommunication = async (id) => {
+    if (id === undefined) return;
+    const response = await getStudentCommunicationsHandler(id);
+    const { data } = response;
+    setCommunications(data);
+    setRows(data);
+  };
+
+  React.useEffect(() => {
+    requestCommunication(studentID);
+  }, [studentID]);
+
+  const requestSearch = (searchedVal) => {
+    const lowerFilterInput = String(searchedVal).toLowerCase();
+    const filteredRows = communications.filter((row) => {
+      return ['description'].some((key) => {
+        const value = row[key];
+        const lowerValue = String(value).toLowerCase();
+        return lowerValue.includes(lowerFilterInput);
+      });
+    });
+    setRows(filteredRows);
+  };
+
+  const visibleRows = React.useMemo(() => Object.values(rows), [rows]);
+
+  const handleTabChange = React.useCallback((event, newValue) => {
     setTabValue(newValue);
   }, []);
 
   const boxStyle = React.useMemo(
     () => ({
-      bgcolor: '#ffffff',
+      bgcolor: '#dddddd',
       minWidth: '100%',
       color: '#000000',
       position: 'relative',
@@ -38,7 +68,7 @@ export default function StudentDetails(props) {
 
   const tabStyle = React.useMemo(
     () => ({
-      bgcolor: '#72777E',
+      bgcolor: '#3E4C61',
       color: '#ffffff',
       position: 'relative',
       display: 'flex',
@@ -68,7 +98,7 @@ export default function StudentDetails(props) {
           <Grid container justifyContent="center" pl="2vw">
             <Tabs
               value={tabValue}
-              onChange={handleChange}
+              onChange={handleTabChange}
               variant="scrollable"
               scrollButtons="auto"
               sx={{
@@ -149,109 +179,42 @@ export default function StudentDetails(props) {
         </Grid>
         <Grid container xs={1}>
           <Grid item alignItems="flex-front" sx={{ pl: '510%' }}>
-            <CommunicationSearchBar student={student.id} />
+            <SearchBar requestSearch={requestSearch} />
           </Grid>
           <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
-            <GenericModal
-              modalHeadingTitle="Add Communication"
-              actionButtonTitle="Add"
-              cancelButtonTitle="Cancel"
-              openButtonIcon={
-                <AddIcon sx={{ width: '40px', height: '40px' }} />
-              }
-            >
-              {/* TODO: Make Coach and Topic Dropdowns, Make Notes a large Textfield */}
-              <Grid container direction="column">
-                <Grid item sx={{ py: 3 }}>
-                  <TextFieldWithErrorMessage label="Coach" />
-                </Grid>
-                <Grid item sx={{ py: 3 }}>
-                  <TextFieldWithErrorMessage label="Topic" />
-                </Grid>
-                <Grid item sx={{ py: 3 }}>
-                  <TextFieldWithErrorMessage label="Notes" />
-                </Grid>
-              </Grid>
-            </GenericModal>
+            <AddCommunicationsModal student={student} />
           </Grid>
+          {/* <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
+            <TextField
+              label="Topic"
+              select
+              value={topic}
+              onChange={(event) => {
+                setTopic(event.target.value);
+              }}
+            >
+              <MenuItem value="One-on-ne coaching session">
+                One-on-One Coaching Session
+              </MenuItem>
+              <MenuItem value="Email">Email</MenuItem>
+              <MenuItem value="Phone call">Phone Call</MenuItem>
+              <MenuItem value="Text message">Text Message</MenuItem>
+            </TextField>
+          </Grid> */}
 
           <Grid item sx={{ ml: '10%' }}>
-            {/* TEMP UNTIL API FOR COMMS ADDED */}
-            <CommunicationLog
-              data={[
-                [0, '01/24/2023', 'John', 'Intro', 'We Had Fun'],
-                [
-                  1,
-                  '01/24/2023',
-                  'John',
-                  'Consulation 1',
-                  'We talked about schools',
-                ],
-                [
-                  2,
-                  '01/25/2023',
-                  'John',
-                  'Consulation 2',
-                  'They said they liked UW Madison',
-                ],
-                [
-                  3,
-                  '01/26/2023',
-                  'John',
-                  'Consulation 3',
-                  'They said they are having trouble with Calculus',
-                ],
-                [
-                  4,
-                  '01/27/2023',
-                  'John',
-                  'Consulation 4',
-                  'They are deciding wether to pursue medicine or engineering',
-                ],
-                [
-                  5,
-                  '01/28/2023',
-                  'John',
-                  'Consulation 5',
-                  'They are thinking of doing extracurricular activities',
-                ],
-                [
-                  6,
-                  '01/29/2023',
-                  'John',
-                  'Career Talk 1',
-                  'We are talking about their careers',
-                ],
-                [
-                  7,
-                  '01/30/2023',
-                  'John',
-                  'Goal Setting 1',
-                  'We are talking about their goals',
-                ],
-                [
-                  8,
-                  '01/31/2023',
-                  'John',
-                  'Career Interest Talk',
-                  'We Had a Fun time discussing different career options',
-                ],
-                [
-                  9,
-                  '02/01/2023',
-                  'John',
-                  'Scholarships',
-                  'We discussed Scholarships',
-                ],
-                [
-                  10,
-                  '02/03/2023',
-                  'John',
-                  'Conclusion',
-                  'This was our last meeting',
-                ],
-              ]}
-            />
+            {console.log('visibleRows', visibleRows)}
+            {visibleRows.map((row) => {
+              return (
+                <CommunicationBox
+                  key={row.communicationId}
+                  coach={row.coachId}
+                  topic={row.topic}
+                  notes={row.description}
+                  date={row.created}
+                />
+              );
+            })}
           </Grid>
         </Grid>
       </Grid>

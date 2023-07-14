@@ -321,7 +321,7 @@ export function CareerBox(props) {
 }
 
 StudentInfoBox.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onReload: propTypes.func,
   isParent: propTypes.bool,
 };
@@ -332,7 +332,7 @@ StudentInfoBox.defaultProps = {
 };
 
 CareerBox.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onReload: propTypes.func,
 };
 CareerBox.defaultProps = {
@@ -341,7 +341,7 @@ CareerBox.defaultProps = {
 };
 
 GoalsBox.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onReload: propTypes.func,
 };
 GoalsBox.defaultProps = {

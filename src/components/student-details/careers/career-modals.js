@@ -281,7 +281,7 @@ EditCareerModal.defaultProps = {
 };
 
 AddCareerModal.propTypes = {
-  student: propTypes.func,
+  student: propTypes.object,
   onSaveSuccess: propTypes.func,
 };
 AddCareerModal.defaultProps = {
