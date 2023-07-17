@@ -75,10 +75,10 @@ export function EditCoachModal(props) {
   };
 
   const cancelAction = () => {
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPhone('');
+    setFirstName(coach.coachFirstName);
+    setLastName(coach.coachLastName);
+    setEmail(coach.coachEmail);
+    setPhone(coach.coachPhoneNumber);
 
     setFirstNameEdit(false);
     setLastNameEdit(false);
@@ -106,7 +106,7 @@ export function EditCoachModal(props) {
           id="outlined"
           label="Last Name"
           defaultValue={lastName}
-          errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
+          helperText={messages[1]}
           error={lastName.length < 1 && lastNameEdit}
           required
           sx={{ my: 1 }}
