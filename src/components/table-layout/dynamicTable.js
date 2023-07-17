@@ -77,18 +77,16 @@ export function DynamicTable(props) {
   );
   return (
     <div>
-      <Box sx={{ width: '100%' }} marginInline={{}}>
-        <Grid container direction="row" alignItems="center" display="flex" />
-        <Toolbar>
-          <Grid item container justifyContent="flex-start">
+      <Box>
+        <Grid container direction="row">
+          <Grid item xs={4}>
             <SearchBar requestSearch={requestSearch} />
           </Grid>
-          <Grid item container justifyContent="flex-end">
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {props.children}
-            </Box>
+          <Grid item xs={7} />
+          <Grid item xs={1}>
+            <Box>{props.children}</Box>
           </Grid>
-        </Toolbar>
+        </Grid>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer sx={{ maxHeight: 510 }}>

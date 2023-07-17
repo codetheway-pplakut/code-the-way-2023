@@ -165,7 +165,7 @@ export function AddStudentModal(props) {
   );
   return (
     <GenericModal
-      openModal={<AddIcon />}
+      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add Student"
       modalMessage={content}
       actionButtonColor="submit"
