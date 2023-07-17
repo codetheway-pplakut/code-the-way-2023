@@ -119,7 +119,7 @@ GenericModal.defaultProps = {
   openModal: null,
   openButtonIcon: null,
   modalMessage: null,
-  actionButtonColor: null,
+  actionButtonColor: 'default',
   actionButtonDisabled: null,
   onCancelButtonClick: null,
   onIconButtonClick: null,
