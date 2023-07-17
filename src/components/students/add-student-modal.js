@@ -27,30 +27,31 @@ export function AddStudentModal(props) {
     { firstName, lastName, email, dateOfBirth, cellPhone },
     {
       firstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       lastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       email: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       cellPhone: {
-        presence: { allowEmpty: true },
+        presence: { allowEmpty: true, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
+          message: 'Must be Valid Phone Number',
         },
       },
       dateOfBirth: {},
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
 
   const actionButtonDisabled = Boolean(messages.length);
 
-  const val = cellPhone.length < 1 ? 'Enter Phone Number' : ' ';
   const closeAction = () => {
     setEmail('');
     setFirstName('');
@@ -70,6 +71,13 @@ export function AddStudentModal(props) {
     if (onSubmit) onSubmit();
   };
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const content = (
     <Grid
       container
@@ -86,7 +94,7 @@ export function AddStudentModal(props) {
             setFirstName(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
+          helperText={displayErrorMessages('firstName')}
           error={firstName.length < 1 && firstNameEdit}
           onBlur={() => setFirstNameEdit(true)}
         />
@@ -100,7 +108,7 @@ export function AddStudentModal(props) {
             setLastName(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
+          helperText={displayErrorMessages('lastName')}
           error={lastName.length < 1 && lastNameEdit}
           onBlur={() => setLastNameEdit(true)}
         />
@@ -125,7 +133,7 @@ export function AddStudentModal(props) {
             setCellPhone(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={cellPhone.length < 1 ? 'Enter Phone Number' : ' '}
+          helperText={displayErrorMessages('cellPhone')}
           error={cellPhone.length < 1 && cellPhoneEdit}
           onBlur={() => setCellPhoneEdit(true)}
         />
@@ -139,7 +147,7 @@ export function AddStudentModal(props) {
             setEmail(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={email.length < 1 ? 'Enter Email' : ' '}
+          helperText={displayErrorMessages('email')}
           error={
             (!email.includes('@') ? 'Must contain an @ sign.' : ' ') &&
             emailEdit
