@@ -66,6 +66,7 @@ export function InactiveCoach() {
                 'coachEmail',
                 'coachPhoneNumber',
               ]}
+              customTableMaxHeight={510}
             />
           </Box>
         </EntitlementRestricted>
