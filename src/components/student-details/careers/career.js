@@ -8,40 +8,42 @@ export function Career(props) {
   const { career, onSaveSuccess } = props;
 
   return (
-    <AspirationsCard>
-      <AspirationsCardHeader header={career.specificCareer}>
-        <Grid item xs={4}>
-          <Typography>{`Cluster: ${career.careerCluster}`}</Typography>
+    <Grid padding="5px">
+      <AspirationsCard>
+        <AspirationsCardHeader header={career.specificCareer}>
+          <Grid item xs={4}>
+            <Typography>{`Cluster: ${career.careerCluster}`}</Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} />
+          </Grid>
+          <Grid item xs={1}>
+            <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} />
+          </Grid>
+        </AspirationsCardHeader>
+        <Grid
+          container
+          alignItems="center"
+          sx={{
+            px: '2vw',
+            py: '2vh',
+            borderBottomLeftRadius: '10px',
+            borderBottomRightRadius: '10px',
+          }}
+        >
+          <Grid item xs={6}>
+            <Typography>
+              College Bound: {career.collegeBound ? 'Yes' : 'No'}
+            </Typography>
+          </Grid>
+          <Grid item xs={6}>
+            <Typography>
+              Tech. College Bound: {career.technicalCollegeBound ? 'Yes' : 'No'}
+            </Typography>
+          </Grid>
         </Grid>
-        <Grid item xs={1}>
-          <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} />
-        </Grid>
-        <Grid item xs={1}>
-          <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} />
-        </Grid>
-      </AspirationsCardHeader>
-      <Grid
-        container
-        alignItems="center"
-        sx={{
-          px: '2vw',
-          py: '2vh',
-          borderBottomLeftRadius: '10px',
-          borderBottomRightRadius: '10px',
-        }}
-      >
-        <Grid item xs={6}>
-          <Typography>
-            College Bound: {career.collegeBound ? 'Yes' : 'No'}
-          </Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography>
-            Tech. College Bound: {career.technicalCollegeBound ? 'Yes' : 'No'}
-          </Typography>
-        </Grid>
-      </Grid>
-    </AspirationsCard>
+      </AspirationsCard>
+    </Grid>
   );
 }
 
