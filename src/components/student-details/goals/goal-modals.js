@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import EditIcon from '@mui/icons-material/Edit';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Grid, Typography, Checkbox, TextField } from '@mui/material';
+import { Grid, Typography, Checkbox, TextField, MenuItem } from '@mui/material';
 import validate from 'validate.js';
 import dayjs from 'dayjs';
 import uuid from 'react-uuid';
@@ -175,6 +175,7 @@ export function EditGoalModal(props) {
         >
           <Grid item xs={6}>
             <TextField
+              select
               label="SEL"
               onChange={(event) => setSel(event.target.value)}
               helperText={displayErrorMessages('sel')}
@@ -182,7 +183,19 @@ export function EditGoalModal(props) {
               required
               onBlur={() => setSelEdit(true)}
               value={sel}
-            />
+              fullWidth
+              sx={{ minWidth: 200 }}
+            >
+              <MenuItem value="Self-awareness">Self-awareness</MenuItem>
+              <MenuItem value="Self-management">Self-management</MenuItem>
+              <MenuItem value="Social awareness">Social Awareness</MenuItem>
+              <MenuItem value="Relationship Skills">
+                Relationship Skills
+              </MenuItem>
+              <MenuItem value="Responsible Decision-making">
+                Responsible Decision-making
+              </MenuItem>
+            </TextField>
           </Grid>
           <Grid item xs={6}>
             <Grid container alignItems="center" marginLeft={2}>
@@ -345,6 +358,7 @@ export function AddGoalModal(props) {
         >
           <Grid item xs={8}>
             <TextField
+              select
               label="SEL"
               onChange={(event) => setSel(event.target.value)}
               value={sel}
@@ -353,7 +367,18 @@ export function AddGoalModal(props) {
               required
               onBlur={() => setSelEdit(true)}
               fullWidth
-            />
+              sx={{ minWidth: 200 }}
+            >
+              <MenuItem value="Self-awareness">Self-awareness</MenuItem>
+              <MenuItem value="Self-management">Self-management</MenuItem>
+              <MenuItem value="Social awareness">Social Awareness</MenuItem>
+              <MenuItem value="Relationship Skills">
+                Relationship Skills
+              </MenuItem>
+              <MenuItem value="Responsible Decision-making">
+                Responsible Decision-making
+              </MenuItem>
+            </TextField>
           </Grid>
           <Grid item xs={4}>
             <Grid container alignItems="center" marginLeft={2}>
