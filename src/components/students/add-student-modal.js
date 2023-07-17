@@ -7,6 +7,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
+
 import { addStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
@@ -40,7 +41,7 @@ export function AddStudentModal(props) {
         presence: { allowEmpty: true, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: XXX-XXXX',
         },
       },
       dateOfBirth: {},
@@ -78,6 +79,14 @@ export function AddStudentModal(props) {
     }
     return null;
   };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const content = (
     <Grid
       container
@@ -95,7 +104,7 @@ export function AddStudentModal(props) {
           }}
           sx={{ my: 1 }}
           helperText={displayErrorMessages('firstName')}
-          error={firstName.length < 1 && firstNameEdit}
+          error={checkError('firstName') && firstNameEdit}
           onBlur={() => setFirstNameEdit(true)}
         />
       </Grid>
@@ -109,7 +118,7 @@ export function AddStudentModal(props) {
           }}
           sx={{ my: 1 }}
           helperText={displayErrorMessages('lastName')}
-          error={lastName.length < 1 && lastNameEdit}
+          error={checkError('lastName') && lastNameEdit}
           onBlur={() => setLastNameEdit(true)}
         />
       </Grid>
@@ -134,7 +143,7 @@ export function AddStudentModal(props) {
           }}
           sx={{ my: 1 }}
           helperText={displayErrorMessages('cellPhone')}
-          error={cellPhone.length < 1 && cellPhoneEdit}
+          error={checkError('cellPhone') && cellPhoneEdit}
           onBlur={() => setCellPhoneEdit(true)}
         />
       </Grid>
@@ -148,7 +157,7 @@ export function AddStudentModal(props) {
           }}
           sx={{ my: 1 }}
           helperText={displayErrorMessages('email')}
-          error={email.length < 1 && emailEdit}
+          error={checkError('email') && emailEdit}
           onBlur={() => setEmailEdit(true)}
         />
       </Grid>
