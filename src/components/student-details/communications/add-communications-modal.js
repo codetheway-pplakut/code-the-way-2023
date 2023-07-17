@@ -24,7 +24,7 @@ export default function AddCommunicationsModal(props) {
   const [activeCoaches, setActiveCoaches] = React.useState([]);
   const [created, setCreated] = React.useState(new Date());
 
-  const [descriptionEdit, setDescriptionEdit] = React.useState('');
+  const [descriptionEdit, setDescriptionEdit] = useState(false);
 
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
@@ -50,6 +50,14 @@ export default function AddCommunicationsModal(props) {
   const actionButtonDisabled = Boolean(messages.length);
   const studentId = student.id;
 
+  const closeHandler = () => {
+    setTopic('');
+    setDescription('');
+    setCoachId('');
+    setActiveCoaches([]);
+    setCreated(new Date());
+    setDescriptionEdit(false);
+  };
   const requestSave = async () => {
     try {
       await addCommunicationHandler(
@@ -63,6 +71,7 @@ export default function AddCommunicationsModal(props) {
     } catch (error) {
       console.log(error);
     }
+    closeHandler();
   };
 
   return (
@@ -75,6 +84,8 @@ export default function AddCommunicationsModal(props) {
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalMessage="Fill out the fields below to add a communication."
       actionButtonColor="submit"
+      onIconButtonClick={closeHandler}
+      onCancelButtonClick={closeHandler}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>
@@ -97,14 +108,14 @@ export default function AddCommunicationsModal(props) {
         </Grid>
 
         <Grid item xs={12}>
-      <TextField
-        label="Description"
-        onChange={(event) => setDescription(event.target.value)}
-        value={description}
-        errorText={description.length < 1 ? 'Enter Description' : ' '}
-        error={description.length < 1 && descriptionEdit}
-        onBlur={() => setDescriptionEdit(true)}
-        required
+          <TextField
+            label="Description"
+            onChange={(event) => setDescription(event.target.value)}
+            value={description}
+            errorText={description.length < 1 ? 'Enter Description' : ' '}
+            error={description.length < 1 && descriptionEdit}
+            onBlur={() => setDescriptionEdit(true)}
+            required
             multiline
             fullWidth
             minRows={2}
