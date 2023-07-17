@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Box } from '@mui/system';
 import { LayoutPreloader } from '../../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../../layout/layout-error/layout-error';
-import { getStudentResponseHandler } from './interviewsHandler';
+import { getStudentResponseHandler } from '../../interviews/interviewsHandler';
 
 export function InterviewsBox(props) {
   const { student } = props;

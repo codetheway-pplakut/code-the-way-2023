@@ -3,7 +3,7 @@ import {
   deleteQuestion,
   editQuestion,
   getQuestion,
-} from '../../../services/interviews/questions';
+} from '../../services/interviews/questions';
 
 export function getQuestionHandler(questionId) {
   return getQuestion(questionId);

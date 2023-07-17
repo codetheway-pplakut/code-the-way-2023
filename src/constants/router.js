@@ -10,6 +10,7 @@ import { Coaches } from '../components/coaches/coaches';
 import { InactiveRejected } from '../components/inactive-rejected/inactive-rejected';
 import { StudentInfo } from '../components/student-details/student-info';
 import { Admins } from '../components/admin/admin';
+import { QuestionsTable } from '../components/interviews/QuestionsTable';
 
 export const ROUTER = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ export const ROUTER = createBrowserRouter([
       { path: 'students', element: <Students /> },
       { path: 'inactive-rejected', element: <InactiveRejected /> },
       { path: 'student-info', element: <StudentInfo /> },
+      { path: 'questionsTable', element: <QuestionsTable /> },
       { path: '*', element: <Error /> },
     ],
   },

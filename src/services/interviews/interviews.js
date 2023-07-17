@@ -1,6 +1,6 @@
 import { callApi } from '../../utils/call-api/call-api';
 
-export const getInterview = (interviewId) =>
+export const getInterview = async (interviewId) =>
   callApi({ url: `/Interviews/${interviewId}` });
 
 export const getStudentResponse = (studentId) =>
