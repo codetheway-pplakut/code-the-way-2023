@@ -155,7 +155,7 @@ export function AddStudentModal(props) {
           onChange={(event) => {
             setEmail(event.target.value);
           }}
-          sx={{ my: 1 }}
+          sx={{ my: 1, maxWidth: '210px' }}
           helperText={displayErrorMessages('email')}
           error={checkError('email') && emailEdit}
           onBlur={() => setEmailEdit(true)}
