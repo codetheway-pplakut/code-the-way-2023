@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
@@ -12,8 +12,6 @@ import {
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
   const [coachName, setCoachName] = React.useState('');
-
-  console.log(date);
 
   const getCoach = async (id) => {
     if (id === undefined) return;

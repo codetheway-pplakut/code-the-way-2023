@@ -9,7 +9,7 @@ import uuid from 'react-uuid';
 import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, set } from 'lodash';
 import { GenericModal } from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
@@ -35,13 +35,25 @@ export function EditGoalModal(props) {
   const validator = validate(
     { goalSet, explanation, sel },
     {
-      goalSet: { presence: { allowEmpty: false, message: '' } },
-      explanation: { presence: { allowEmpty: false, message: '' } },
-      sel: { presence: { allowEmpty: false, message: '' } },
-    }
+      goalSet: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+      explanation: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+      sel: { presence: { allowEmpty: false, message: 'Must not be Blank' } },
+    },
+    { fullMessages: false }
   );
   const messages = flattenDeep(Object.values(validator || {}));
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const actionButtonDisabled = Boolean(messages.length);
 
   useEffect(() => {
@@ -70,6 +82,18 @@ export function EditGoalModal(props) {
       console.log(error);
     }
   };
+  const handleClose = () => {
+    setGoalSet(goal.goalSet);
+    setDateGoalSet(goal.dateGoalSet);
+    setSel(goal.sel);
+    setGoalReviewDate(goal.goalReviewDate);
+    setWasItAccomplished(goal.wasItAccomplished);
+    setExplanation(goal.explanation);
+
+    setGoalSetEdit(false);
+    setExplanationEdit(false);
+    setSelEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -78,6 +102,7 @@ export function EditGoalModal(props) {
       modalHeadingTitle="Edit Goal"
       modalMessage="Fill out the fields below to edit a goal."
       onActionButtonClick={requestSave}
+      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
     >
@@ -87,7 +112,7 @@ export function EditGoalModal(props) {
             label="Goal Title"
             onChange={(event) => setGoalSet(event.target.value)}
             value={goalSet}
-            errorText={goalSet.length < 1 ? 'Enter Goal' : ''}
+            helperText={displayErrorMessages('goalSet')}
             error={goalSetEdit && goalSet.length < 1}
             required
             onBlur={() => setGoalSetEdit(true)}
@@ -121,7 +146,7 @@ export function EditGoalModal(props) {
           <TextField
             label="Explanation"
             onChange={(event) => setExplanation(event.target.value)}
-            errorText={explanation.length < 1 ? 'Enter Explanation' : ''}
+            helperText={displayErrorMessages('explanation')}
             error={explanationEdit && explanation.length < 1}
             required
             onBlur={() => setExplanationEdit(true)}
@@ -143,7 +168,7 @@ export function EditGoalModal(props) {
             <TextField
               label="SEL"
               onChange={(event) => setSel(event.target.value)}
-              errorText={sel.length < 1 ? 'Enter SEL' : ''}
+              helperText={displayErrorMessages('sel')}
               error={selEdit && sel.length < 1}
               required
               onBlur={() => setSelEdit(true)}
@@ -184,13 +209,25 @@ export function AddGoalModal(props) {
   const validator = validate(
     { goalSet, explanation, sel },
     {
-      goalSet: { presence: { allowEmpty: false, message: '' } },
-      explanation: { presence: { allowEmpty: false, message: '' } },
-      sel: { presence: { allowEmpty: false, message: '' } },
-    }
+      goalSet: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+      explanation: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+      sel: { presence: { allowEmpty: false, message: 'Must not be Blank' } },
+    },
+    { fullMessages: false }
   );
   const messages = flattenDeep(Object.values(validator || {}));
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const actionButtonDisabled = Boolean(messages.length);
 
   const requestSubmit = async () => {
@@ -207,6 +244,18 @@ export function AddGoalModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
+  const handleClose = () => {
+    setGoalSet('');
+    setDateGoalSet(new Date());
+    setSel('');
+    setGoalReviewDate(new Date());
+    setWasItAccomplished('No');
+    setExplanation('');
+
+    setGoalSetEdit(false);
+    setExplanationEdit(false);
+    setSelEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -215,6 +264,7 @@ export function AddGoalModal(props) {
       modalHeadingTitle="Add Goal"
       modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
+      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
     >
@@ -224,10 +274,11 @@ export function AddGoalModal(props) {
             label="Goal Title"
             onChange={(event) => setGoalSet(event.target.value)}
             value={goalSet}
-            errorText={goalSet.length < 1 ? 'Enter Goal' : ''}
+            helperText={displayErrorMessages('goalSet')}
             error={goalSetEdit && goalSet.length < 1}
             required
             onBlur={() => setGoalSetEdit(true)}
+            fullWidth
           />
         </Grid>
         <Grid item container spacing={2}>
@@ -259,10 +310,12 @@ export function AddGoalModal(props) {
             onChange={(event) => setExplanation(event.target.value)}
             value={explanation}
             minRows={3}
-            errorText={explanation.length < 1 ? 'Enter Explanation' : ''}
+            helperText={displayErrorMessages('explanation')}
             error={explanationEdit && explanation.length < 1}
             required
             onBlur={() => setExplanationEdit(true)}
+            fullWidth
+            multiline
           />
         </Grid>
 
@@ -273,18 +326,19 @@ export function AddGoalModal(props) {
           alignItems="center"
           justifyContent="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <TextField
               label="SEL"
               onChange={(event) => setSel(event.target.value)}
               value={sel}
-              errorText={sel.length < 1 ? 'Enter SEL' : ''}
+              helperText={displayErrorMessages('sel')}
               error={selEdit && sel.length < 1}
               required
               onBlur={() => setSelEdit(true)}
+              fullWidth
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Grid container alignItems="center" marginLeft={2}>
               <Typography>Completed</Typography>
               <Checkbox
