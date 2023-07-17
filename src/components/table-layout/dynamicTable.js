@@ -91,7 +91,7 @@ export function DynamicTable(props) {
         </Toolbar>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer sx={{ maxHeight: 33% }}>
+        <TableContainer sx={{ maxHeight: 510 }}>
           <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
