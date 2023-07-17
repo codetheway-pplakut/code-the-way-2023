@@ -37,7 +37,7 @@ export function EditCoachModal(props) {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
-          message: 'Must be Valid Phone Number',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
     },
