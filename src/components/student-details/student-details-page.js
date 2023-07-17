@@ -69,7 +69,7 @@ export default function StudentDetails(props) {
 
   const tabStyle = React.useMemo(
     () => ({
-      bgcolor: '#3E4C61',
+      bgcolor: '#72777e',
       color: '#ffffff',
       position: 'relative',
       display: 'flex',
@@ -89,9 +89,9 @@ export default function StudentDetails(props) {
     <React.Fragment>
       <LayoutBackButton />
 
-      <Grid container direction="row" sx={{ mt: '50px' }}>
+      <Grid container direction="row" sx={{ mt: '50px', mx: '2vw' }}>
         <Grid item container xs={6} direction="column" alignItems="center">
-          <Grid item position="absolute">
+          <Grid item position="relative">
             <Tabs
               value={tabValue}
               onChange={handleTabChange}
@@ -110,11 +110,17 @@ export default function StudentDetails(props) {
             </Tabs>
           </Grid>
 
-          <Grid item justifyContent="center" position="relative" mt="48px">
+          <Grid
+            item
+            justifyContent="center"
+            position="relative"
+            boxShadow={5}
+            borderRadius="10px"
+          >
             {' '}
             <Box sx={boxStyle} padding="4vh">
               {tabValue === 0 && (
-                <Grid width="45vw">
+                <Grid width="42vw">
                   <StudentInfoBox
                     student={student}
                     onReload={() => onReload()}
@@ -128,19 +134,19 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 1 && (
-                <Grid width="45vw">
+                <Grid width="42vw">
                   <GoalsBox student={student} onReload={() => onReload()} />
                 </Grid>
               )}
 
               {tabValue === 2 && (
-                <Grid width="45vw">
+                <Grid width="42vw">
                   <CareerBox student={student} onReload={() => onReload()} />
                 </Grid>
               )}
 
               {tabValue === 3 && (
-                <Grid width="45vw">
+                <Grid width="42vw">
                   <Box> Placeholder </Box>
                 </Grid>
                 // TO BE DEPRECATED
