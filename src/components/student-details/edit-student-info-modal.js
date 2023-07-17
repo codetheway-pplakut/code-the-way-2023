@@ -193,6 +193,7 @@ export default function EditStudentInfoModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       onCancelButtonClick={handleClose}
       openModal={<EditIcon />}
+      actionButtonColor="submit"
     >
       <Grid container spacing={1} padding={4}>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
@@ -240,6 +241,7 @@ export default function EditStudentInfoModal(props) {
             error={studentEmail.length < 1 && studentEmailEdit}
             onBlur={() => setStudentEmailEdit(true)}
             required
+            fullWidth
           />
         </Grid>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
@@ -252,6 +254,7 @@ export default function EditStudentInfoModal(props) {
               error={studentAddress.length < 1 && studentAddressEdit}
               onBlur={() => setStudentAddressEdit(true)}
               required
+              fullWidth
             />
           </Grid>
           <Grid item xs={4}>
@@ -544,6 +547,7 @@ export function EditParentModal(props) {
             error={parentEmail.length < 1 && parentEmailEdit}
             required
             onBlur={() => setParentEmailEdit(true)}
+            fullWidth
           />
         </Grid>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
@@ -556,6 +560,7 @@ export function EditParentModal(props) {
               error={parentAddress.length < 1 && parentAddressEdit}
               required
               onBlur={() => setParentAddressEdit(true)}
+              fullWidth
             />
           </Grid>
           <Grid item xs={4}>

@@ -278,6 +278,7 @@ export function AddGoalModal(props) {
             error={goalSetEdit && goalSet.length < 1}
             required
             onBlur={() => setGoalSetEdit(true)}
+            fullWidth
           />
         </Grid>
         <Grid item container spacing={2}>
@@ -313,6 +314,8 @@ export function AddGoalModal(props) {
             error={explanationEdit && explanation.length < 1}
             required
             onBlur={() => setExplanationEdit(true)}
+            fullWidth
+            multiline
           />
         </Grid>
 
@@ -323,7 +326,7 @@ export function AddGoalModal(props) {
           alignItems="center"
           justifyContent="center"
         >
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <TextField
               label="SEL"
               onChange={(event) => setSel(event.target.value)}
@@ -332,9 +335,10 @@ export function AddGoalModal(props) {
               error={selEdit && sel.length < 1}
               required
               onBlur={() => setSelEdit(true)}
+              fullWidth
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Grid container alignItems="center" marginLeft={2}>
               <Typography>Completed</Typography>
               <Checkbox

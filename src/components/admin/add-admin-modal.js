@@ -62,8 +62,8 @@ export function AddAdminModal(props) {
     setConfirmPasswordEdit(false);
   };
 
-  const submitAction = () => {
-    addAdminHandler(email, password, confirmPassword);
+  const submitAction = async () => {
+    await addAdminHandler(email, password, confirmPassword);
     closeAction();
     if (onSubmit) onSubmit();
   };

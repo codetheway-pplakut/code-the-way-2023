@@ -58,6 +58,14 @@ export default function AddCommunicationsModal(props) {
   const actionButtonDisabled = Boolean(messages.length);
   const studentId = student.id;
 
+  const closeHandler = () => {
+    setTopic('');
+    setDescription('');
+    setCoachId('');
+    setActiveCoaches([]);
+    setCreated(new Date());
+    setDescriptionEdit(false);
+  };
   const requestSave = async () => {
     try {
       await addCommunicationHandler(
@@ -71,6 +79,7 @@ export default function AddCommunicationsModal(props) {
     } catch (error) {
       console.log(error);
     }
+    closeHandler();
   };
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
@@ -89,6 +98,8 @@ export default function AddCommunicationsModal(props) {
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalMessage="Fill out the fields below to add a communication."
       actionButtonColor="submit"
+      onIconButtonClick={closeHandler}
+      onCancelButtonClick={closeHandler}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>

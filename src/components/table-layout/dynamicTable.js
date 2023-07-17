@@ -91,7 +91,7 @@ export function DynamicTable(props) {
         </Toolbar>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
+        <TableContainer sx={{ maxHeight: 510 }}>
           <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
@@ -140,7 +140,7 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   customTableMaxHeight: PropTypes.number,
   refreshTable: PropTypes.func,
@@ -149,6 +149,7 @@ DynamicTable.propTypes = {
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
+  children: null,
   customTableMaxHeight: null,
   refreshTable: undefined,
 };

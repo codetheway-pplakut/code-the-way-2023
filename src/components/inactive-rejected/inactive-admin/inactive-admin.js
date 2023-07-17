@@ -41,6 +41,7 @@ export function InactiveAdmin() {
               columns={COLUMNS}
               requestFunc={getInactiveAdmins}
               filterBy={['email']}
+              customTableMaxHeight={510}
             />
           </Box>
         </EntitlementRestricted>
