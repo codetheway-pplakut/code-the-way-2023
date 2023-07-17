@@ -62,6 +62,7 @@ DynamicTableWithRequest.propTypes = {
   children: PropTypes.node.isRequired,
   customTableMaxHeight: PropTypes.number,
   requestData: PropTypes.string,
+  defaultFilterBy: PropTypes.string,
 };
 
 DynamicTableWithRequest.defaultProps = {
@@ -70,4 +71,5 @@ DynamicTableWithRequest.defaultProps = {
   filterBy: [],
   customTableMaxHeight: null,
   requestData: null,
+  defaultFilterBy: null,
 };
