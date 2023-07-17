@@ -58,8 +58,11 @@ export default function CommunicationBox(props) {
   return (
     <AspirationsCard>
       <AspirationsCardHeader header={topic}>
-        <Grid item xs={4}>
+        <Grid item xs={2}>
           <Typography>{`Coach Name: ${coachFullName}`}</Typography>
+        </Grid>
+        <Grid item xs={2}>
+          <Typography>Date: {dayjs(date).format('MMM DD, YYYY')}</Typography>
         </Grid>
         <Grid item xs={1}>
           {/* <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
@@ -78,11 +81,8 @@ export default function CommunicationBox(props) {
           borderBottomRightRadius: '10px',
         }}
       >
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <Typography>Description: {notes}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography>Date: {dayjs(date).format('MMM DD, YYYY')}</Typography>
         </Grid>
       </Grid>
     </AspirationsCard>
