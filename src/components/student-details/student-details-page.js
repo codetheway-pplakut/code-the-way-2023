@@ -57,11 +57,12 @@ export default function StudentDetails(props) {
     () => ({
       bgcolor: '#ffffff',
       minWidth: '100%',
+
       color: '#000000',
       position: 'relative',
       minHeight: '70vh',
       borderRadius: '10px',
-      boxShadow: '0 2px 5px rgba(0, 0, 0, 0.2)',
+      boxShadow: '0 px 5px rgba(0, 0, 0, 0.2)',
     }),
     []
   );
@@ -75,7 +76,7 @@ export default function StudentDetails(props) {
       borderTopLeftRadius: '5px',
       borderTopRightRadius: '5px',
       minWidth: '10vw',
-      margin: '0 10px',
+      mx: '10px',
       '&.Mui-selected': {
         color: '#0000000',
         bgcolor: '#ffffff',
@@ -88,14 +89,9 @@ export default function StudentDetails(props) {
     <React.Fragment>
       <LayoutBackButton />
 
-      <Grid
-        container
-        direction="row"
-        display="flex"
-        sx={{ flexWrap: 'nowrap', mt: '50px' }}
-      >
-        <Grid item xs={6}>
-          <Grid container justifyContent="center" pl="2vw">
+      <Grid container direction="row" sx={{ mt: '50px' }}>
+        <Grid item container xs={6} direction="column" alignItems="center">
+          <Grid item position="absolute">
             <Tabs
               value={tabValue}
               onChange={handleTabChange}
@@ -114,23 +110,11 @@ export default function StudentDetails(props) {
             </Tabs>
           </Grid>
 
-          {/* <DynamicTabs
-          tabNames={['Student Info', 'Goals and Careers', 'Interview Info']}
-          tabValue={tabValue}
-          handleTabChange={setTabValue}
-          variant="scrollable"
-          scrollButtons="auto"
-          sx={{
-            [`& .${tabsClasses.scrollButtons}`]: {
-              '&.Mui-disabled': { opacity: 0.3 },
-            },
-          }}
-        /> */}
-
-          <Grid item justifyContent="center" pl="2vw">
+          <Grid item justifyContent="center" position="relative" mt="48px">
+            {' '}
             <Box sx={boxStyle} padding="4vh">
               {tabValue === 0 && (
-                <Grid>
+                <Grid width="45vw">
                   <StudentInfoBox
                     student={student}
                     onReload={() => onReload()}
@@ -144,15 +128,21 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 1 && (
-                <GoalsBox student={student} onReload={() => onReload()} />
+                <Grid width="45vw">
+                  <GoalsBox student={student} onReload={() => onReload()} />
+                </Grid>
               )}
 
               {tabValue === 2 && (
-                <CareerBox student={student} onReload={() => onReload()} />
+                <Grid width="45vw">
+                  <CareerBox student={student} onReload={() => onReload()} />
+                </Grid>
               )}
 
               {tabValue === 3 && (
-                <Box> Placeholder </Box>
+                <Grid width="45vw">
+                  <Box> Placeholder </Box>
+                </Grid>
                 // TO BE DEPRECATED
                 // Should be part of its own component
 
@@ -177,7 +167,7 @@ export default function StudentDetails(props) {
             </Box>
           </Grid>
         </Grid>
-        <Grid container>
+        <Grid item container xs={6}>
           <Toolbar>
             <Grid item alignItems="flex-front" sx={{ pl: '100%' }}>
               <SearchBar requestSearch={requestSearch} />
