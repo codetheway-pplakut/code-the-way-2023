@@ -24,19 +24,20 @@ export function EditCoachModal(props) {
     { firstName, lastName, email, phone },
     {
       firstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       lastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       email: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       phone: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          message: 'Must be Valid Phone Number',
         },
       },
     },
@@ -46,6 +47,13 @@ export function EditCoachModal(props) {
   const messages = flattenDeep(Object.values(validator || {}));
   const actionButtonDisabled = Boolean(messages.length);
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const submitAction = async () => {
     try {
       await editCoachHandler(
@@ -93,7 +101,7 @@ export function EditCoachModal(props) {
           id="outlined"
           label="First Name"
           defaultValue={firstName}
-          errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
+          helperText={displayErrorMessages('firstName')}
           error={firstName.length < 1 && firstNameEdit}
           required
           sx={{ my: 1 }}
@@ -106,7 +114,7 @@ export function EditCoachModal(props) {
           id="outlined"
           label="Last Name"
           defaultValue={lastName}
-          helperText={messages[1]}
+          helperText={displayErrorMessages('lastName')}
           error={lastName.length < 1 && lastNameEdit}
           required
           sx={{ my: 1 }}
@@ -119,7 +127,7 @@ export function EditCoachModal(props) {
           id="outlined"
           label="Email"
           error={!email.includes('@') && emailEdit}
-          errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+          helperText={displayErrorMessages('email')}
           required
           defaultValue={email}
           sx={{ my: 1 }}
@@ -133,7 +141,7 @@ export function EditCoachModal(props) {
           label="Phone Number"
           required
           error={phone.length < 1 && phoneEdit}
-          errorText={phone.length < 1 ? 'Enter Phone Number' : ' '}
+          helperText={displayErrorMessages('phone')}
           defaultValue={phone}
           sx={{ my: 1 }}
           onChange={(event) => {
