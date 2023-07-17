@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
@@ -8,8 +8,6 @@ import { AspirationsCard, AspirationsCardHeader } from '../aspirations-card';
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
   const [coachName, setCoachName] = React.useState('');
-
-  console.log(date);
 
   const getCoach = async (id) => {
     if (id === undefined) return;
@@ -23,37 +21,6 @@ export default function CommunicationBox(props) {
   }, [coach]);
 
   const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
-
-  const boxStyle = {
-    position: 'relative',
-    bgcolor: '#dadada',
-    color: '#000000',
-    borderColor: '#000000',
-    ml: '2%',
-    // height: 'auto',
-    width: '43.3vw',
-    minHeight: '250px',
-    // flexShrink: 1,
-    display: 'flex',
-    // gridColumn: '1 / -1',
-  };
-  const textStyle = {
-    mt: '13px',
-    ml: '28px',
-    fontSize: '1.2vw',
-  };
-  const headerStyle = {
-    mt: '0.1px',
-
-    ml: '28px',
-    fontSize: '2.2vw',
-    position: 'relative',
-  };
-  const noteStyle = {
-    mb: '10px',
-    mx: '30px',
-    fontSize: '0.9vw',
-  };
 
   return (
     <AspirationsCard>
@@ -82,7 +49,7 @@ export default function CommunicationBox(props) {
         }}
       >
         <Grid item xs={12}>
-          <Typography>Description: {notes}</Typography>
+          <Typography>{notes}</Typography>
         </Grid>
       </Grid>
     </AspirationsCard>

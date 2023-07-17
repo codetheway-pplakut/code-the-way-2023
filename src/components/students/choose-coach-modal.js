@@ -6,7 +6,7 @@ import { assignStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
-  const { studentId, refreshTable, coaches, student } = props;
+  const { studentId, refreshTable, coaches, student, coach } = props;
 
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
@@ -28,11 +28,16 @@ export function ChooseCoachModal(props) {
     setNewCoachId(value);
   };
 
+  let labelText = 'Unassigned';
+  if (student.coachFirstName !== null) {
+    labelText = `${student.coachFirstName} ${student.coachLastName}`;
+  }
+
   const content = (
     <TextField
       id="coach-select"
       select
-      label="Unassigned"
+      label={labelText}
       value={value}
       onFocus={recordValue}
       onChange={handleCoachChange}
@@ -40,9 +45,9 @@ export function ChooseCoachModal(props) {
       style={{ width: '200px' }}
     >
       {coaches && coaches.length > 0 ? (
-        coaches.map((coach) => (
-          <MenuItem key={coach.id} value={coach.id}>
-            {coach.coachFirstName} {coach.coachLastName}
+        coaches.map((coaches) => (
+          <MenuItem key={coaches.id} value={coaches.id}>
+            {coaches.coachFirstName} {coaches.coachLastName}
           </MenuItem>
         ))
       ) : (
