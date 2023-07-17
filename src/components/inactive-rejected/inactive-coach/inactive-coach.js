@@ -66,6 +66,7 @@ export function InactiveCoach() {
                 'coachEmail',
                 'coachPhoneNumber',
               ]}
+              defaultFilterBy="coachLastName"
               customTableMaxHeight={510}
             />
           </Box>
