@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { flattenDeep } from 'lodash';
 import { validate } from 'validate.js';
+import { display } from '@mui/system';
 import { GenericModal } from '../../shared/generic-modal';
 import {
   addCareerHandler,
@@ -45,16 +46,28 @@ export function AddCareerModal(props) {
     { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       careerCluster: {
-        numericality: { onlyInteger: true, greaterThan: 0 },
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          message: 'Must Select a Career Cluster',
+        },
       },
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const actionButtonDisabled = Boolean(messages.length);
   const closeAction = () => {
     setCollegeBound('');
@@ -83,12 +96,11 @@ export function AddCareerModal(props) {
             label="Specific Career"
             onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
-            errorText={
-              specificCareer.length < 1 ? 'Enter Specific Career Choice' : ' '
-            }
+            helperText={displayErrorMessages('specificCareer')}
             error={specificCareer.length < 1 && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
+            fullWidth
           />
         </Grid>
 
@@ -99,6 +111,7 @@ export function AddCareerModal(props) {
             onChange={handleClusterChange}
             value={careerCluster}
             error={careerCluster === 0 && careerClusterEdit}
+            helperText={displayErrorMessages('careerCluster')}
             style={{ width: '100%' }}
             onBlur={() => setCareerClusterEdit(true)}
           >
@@ -234,16 +247,28 @@ export function EditCareerModal(props) {
     { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       careerCluster: {
-        numericality: { onlyInteger: true, greaterThan: 0 },
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          message: 'Must Select a Career Cluster',
+        },
       },
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const closeAction = () => {
     setCollegeBound(career.collegeBound);
     setCareerCluster(career.careerCluster);
@@ -273,9 +298,7 @@ export function EditCareerModal(props) {
             label="Specific Career"
             onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
-            errorText={
-              specificCareer.length < 1 ? 'Enter Specific Career Choice' : ' '
-            }
+            helperText={displayErrorMessages('specificCareer')}
             error={specificCareer.length < 1 && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
@@ -290,6 +313,7 @@ export function EditCareerModal(props) {
             onChange={handleClusterChange}
             value={careerCluster}
             error={careerCluster === 0 && careerClusterEdit}
+            helperText={displayErrorMessages('careerCluster')}
             style={{ width: '100%' }}
             onBlur={() => setCareerClusterEdit(true)}
           >
