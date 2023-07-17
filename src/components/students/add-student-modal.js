@@ -53,7 +53,7 @@ export function AddStudentModal(props) {
 
   const actionButtonDisabled = Boolean(messages.length);
 
-  const closeAction = () => {
+  const reset = () => {
     setEmail('');
     setFirstName('');
     setLastName('');
@@ -68,7 +68,6 @@ export function AddStudentModal(props) {
 
   const addStudentAction = async () => {
     await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
-    closeAction();
     if (onSubmit) onSubmit();
   };
 
@@ -174,8 +173,7 @@ export function AddStudentModal(props) {
       cancelButtonTitle="Cancel"
       onActionButtonClick={addStudentAction}
       actionButtonDisabled={actionButtonDisabled}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     />
   );
 }

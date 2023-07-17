@@ -59,7 +59,8 @@ export function AddAdminModal(props) {
     }
     return false;
   };
-  const closeAction = () => {
+
+  const reset = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
@@ -71,7 +72,6 @@ export function AddAdminModal(props) {
 
   const submitAction = async () => {
     await addAdminHandler(email, password, confirmPassword);
-    closeAction();
     if (onSubmit) onSubmit();
   };
 
@@ -87,8 +87,7 @@ export function AddAdminModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     >
       <Grid container justifyContent="center">
         <Grid item xs={9}>

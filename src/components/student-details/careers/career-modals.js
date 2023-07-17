@@ -59,6 +59,14 @@ export function AddCareerModal(props) {
     { fullMessages: false }
   );
 
+  const reset = () => {
+    setCollegeBound(false);
+    setCareerCluster(0);
+    setSpecificCareer('');
+    setTechnicalCollegeBound(false);
+    setSpecificCareerEdit(false);
+  };
+
   const messages = flattenDeep(Object.values(validator || {}));
 
   const displayErrorMessages = (field) => {
@@ -97,6 +105,7 @@ export function AddCareerModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       modalMessage="Fill out the fields below to add a career."
+      onModalOpen={reset}
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12}>

@@ -274,7 +274,7 @@ export function AddGoalModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
-  const handleClose = () => {
+  const reset = () => {
     setGoalSet('');
     setDateGoalSet(new Date());
     setSel('');
@@ -286,6 +286,7 @@ export function AddGoalModal(props) {
     setExplanationEdit(false);
     setSelEdit(false);
   };
+
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -294,9 +295,9 @@ export function AddGoalModal(props) {
       modalHeadingTitle="Add Goal"
       modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
-      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
+      onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>
