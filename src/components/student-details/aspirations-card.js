@@ -31,13 +31,12 @@ AspirationsCard.propTypes = {
  * It should be placed inside the AspirationsCard, and can contain more than just a header, with room for 6 more grid units of content.
  */
 export function AspirationsCardHeader(props) {
-  const { header } = props;
+  const { header, backgroundColor } = props;
   return (
     <Grid
       item
       container
       direction="row"
-      justifyContent="space-around"
       alignItems="center"
       sx={{
         px: '2vw',
