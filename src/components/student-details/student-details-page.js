@@ -9,6 +9,7 @@ import { getStudentCommunicationsHandler } from './communications/communications
 import { SearchBar } from '../table-layout/search';
 import AddCommunicationsModal from './communications/add-communications-modal';
 import CommunicationBox from './communications/communication-box';
+import { InterviewsBox } from './interviews/interviewsBox';
 
 /**
  * StudentDetails (student-details-page.js) is the framework for what the student details page will look like.
@@ -151,29 +152,7 @@ export default function StudentDetails(props) {
                 <CareerBox student={student} onReload={() => onReload()} />
               )}
 
-              {tabValue === 3 && (
-                <Box> Placeholder </Box>
-                // TO BE DEPRECATED
-                // Should be part of its own component
-
-                // <React.Fragment>
-                //   <h1>Interviews</h1>
-                //   <Grid>
-                //     {(interviews === null ||
-                //       interviews === undefined ||
-                //       interviews === {}) && <h6>No Interviews</h6>}
-                //     {interviews !== null &&
-                //       interviews !== undefined &&
-                //       [interviews].map((interview) => {
-                //         return (
-                //           <h6 key={interview.id}>
-                //             Interview: {interview.goalSet}
-                //           </h6>
-                //         );
-                //       })}
-                //   </Grid>
-                // </React.Fragment>
-              )}
+              {tabValue === 3 && <InterviewsBox student={student} />}
             </Box>
           </Grid>
         </Grid>
