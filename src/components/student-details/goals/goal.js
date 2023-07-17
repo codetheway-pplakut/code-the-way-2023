@@ -44,7 +44,7 @@ export default function Goal(props) {
   return (
     <Grid padding="5px">
       <AspirationsCard>
-        <AspirationsCardHeader header={goalSet}>
+        <AspirationsCardHeader header={goalSet} backgroundColor="#f2f2f2">
           <Grid item xs={2}>
             <Typography>
               Goal Set:

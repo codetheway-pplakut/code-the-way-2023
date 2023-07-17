@@ -1,7 +1,14 @@
 import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import propTypes from 'prop-types';
-import { Box, MenuItem, Tab, TextField, Toolbar } from '@mui/material';
+import {
+  Box,
+  MenuItem,
+  Tab,
+  TextField,
+  Toolbar,
+  Typography,
+} from '@mui/material';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import { CareerBox, GoalsBox, StudentInfoBox } from './student-info-display';
 import { LayoutBackButton } from '../layout/layout-back-button/layout-back-button';
@@ -37,7 +44,7 @@ export default function StudentDetails(props) {
   const requestSearch = (searchedVal) => {
     const lowerFilterInput = String(searchedVal).toLowerCase();
     const filteredRows = communications.filter((row) => {
-      return ['description'].some((key) => {
+      return ['topic'].some((key) => {
         const value = row[key];
         const lowerValue = String(value).toLowerCase();
         return lowerValue.includes(lowerFilterInput);
@@ -87,7 +94,7 @@ export default function StudentDetails(props) {
     <React.Fragment>
       <LayoutBackButton />
 
-      <Grid container direction="row" sx={{ mt: '50px', mx: '2vw' }}>
+      <Grid container direction="row" sx={{ mt: '50px', px: '1vw' }}>
         <Grid item container xs={6} direction="column" alignItems="center">
           <Grid item position="relative">
             <Tabs
@@ -151,42 +158,51 @@ export default function StudentDetails(props) {
             </Box>
           </Grid>
         </Grid>
-        <Grid item container xs={6}>
-          <Toolbar>
-            <Grid item alignItems="flex-front" sx={{ pl: '100%' }}>
-              <SearchBar requestSearch={requestSearch} />
+        <Grid item container xs={6} direction="column">
+          <Grid item container position="relative">
+            <Grid item container direction="row">
+              <Grid item xs={6} pl="2vw">
+                <Typography fontSize={35}>Communication Log</Typography>
+              </Grid>
+              <Grid item xs={6}>
+                <Toolbar>
+                  <Grid item alignItems="flex-front" sx={{}}>
+                    <SearchBar requestSearch={requestSearch} />
+                  </Grid>
+                  <Grid item alignItems="flex-front">
+                    <Box>
+                      <AddCommunicationsModal
+                        student={student}
+                        onSaveSuccess={() => requestCommunication(studentID)}
+                      />
+                    </Box>
+                  </Grid>
+                </Toolbar>
+              </Grid>
             </Grid>
-            <Grid item alignItems="flex-front">
-              <Box>
-                <AddCommunicationsModal
-                  student={student}
-                  onSaveSuccess={() => requestCommunication(studentID)}
-                />
-              </Box>
-            </Grid>
-          </Toolbar>
-
-          <Box
-            sx={{
-              maxHeight: '70vh',
-              overflowY: 'auto',
-              px: '7px',
-              width: '45vw',
-            }}
-          >
-            {console.log('visibleRows', visibleRows)}
-            {visibleRows.map((row) => {
-              return (
-                <CommunicationBox
-                  key={row.communicationId}
-                  coach={row.coachId}
-                  topic={row.topic}
-                  notes={row.description}
-                  date={row.created}
-                />
-              );
-            })}
-          </Box>
+          </Grid>
+          <Grid item position="relative">
+            <Box
+              sx={{
+                maxHeight: '70vh',
+                overflowY: 'auto',
+                pl: '2vw',
+                width: '45vw',
+              }}
+            >
+              {visibleRows.map((row) => {
+                return (
+                  <CommunicationBox
+                    key={row.communicationId}
+                    coach={row.coachId}
+                    topic={row.topic}
+                    notes={row.description}
+                    date={row.created}
+                  />
+                );
+              })}
+            </Box>
+          </Grid>
         </Grid>
       </Grid>
     </React.Fragment>
