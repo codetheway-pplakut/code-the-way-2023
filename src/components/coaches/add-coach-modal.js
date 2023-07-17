@@ -76,8 +76,8 @@ export function AddCoachModal(props) {
     setPasswordEdit(false);
   };
 
-  const submitAction = () => {
-    addCoachHandler(
+  const submitAction = async () => {
+    await addCoachHandler(
       firstName,
       lastName,
       email,
