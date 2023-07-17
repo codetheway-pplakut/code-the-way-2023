@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { flattenDeep } from 'lodash';
 import { validate } from 'validate.js';
+import { display } from '@mui/system';
 import { GenericModal } from '../../shared/generic-modal';
 import {
   addCareerHandler,
@@ -24,6 +25,7 @@ export function AddCareerModal(props) {
     React.useState(false);
 
   const [specificCareerEdit, setSpecificCareerEdit] = React.useState(false);
+  const [careerClusterEdit, setCareerClusterEdit] = React.useState(false);
   React.useState(false);
 
   const requestSubmit = async () => {
@@ -41,12 +43,20 @@ export function AddCareerModal(props) {
     setCareerCluster(event.target.value);
   };
   const validator = validate(
-    { specificCareer },
+    { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
-    }
+      careerCluster: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          message: 'Must Select a Career Cluster',
+        },
+      },
+    },
+    { fullMessages: false }
   );
 
   const reset = () => {
@@ -59,8 +69,31 @@ export function AddCareerModal(props) {
 
   const messages = flattenDeep(Object.values(validator || {}));
 
-  const actionButtonDisabled = Boolean(messages.length);
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
 
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
+  const actionButtonDisabled = Boolean(messages.length);
+  const closeAction = () => {
+    setCollegeBound('');
+    setCareerCluster(0);
+    setSpecificCareer('');
+    setTechnicalCollegeBound('');
+
+    setSpecificCareerEdit(false);
+    setCareerClusterEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -68,6 +101,7 @@ export function AddCareerModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
+      onCancelButtonClick={closeAction}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       modalMessage="Fill out the fields below to add a career."
@@ -79,10 +113,8 @@ export function AddCareerModal(props) {
             label="Specific Career"
             onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
-            errorText={
-              specificCareer.length < 1 ? 'Enter Specific Career Choice' : ' '
-            }
-            error={specificCareer.length < 1 && specificCareerEdit}
+            helperText={displayErrorMessages('specificCareer')}
+            error={checkError('specificCareer') && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
             fullWidth
@@ -95,9 +127,11 @@ export function AddCareerModal(props) {
             label="Career Cluster"
             onChange={handleClusterChange}
             value={careerCluster}
+            error={checkError('careerCluster') && careerClusterEdit}
+            helperText={displayErrorMessages('careerCluster')}
             style={{ width: '100%' }}
+            onBlur={() => setCareerClusterEdit(true)}
           >
-            <MenuItem value={0}> No Cluster Selected </MenuItem>
             <MenuItem value={1}>
               01-Agriculture, Food & Natural Resources
             </MenuItem>
@@ -202,6 +236,7 @@ export function EditCareerModal(props) {
     React.useState(false);
 
   const [specificCareerEdit, setSpecificCareerEdit] = React.useState(false);
+  const [careerClusterEdit, setCareerClusterEdit] = React.useState(false);
 
   useEffect(() => {
     setCollegeBound(career.collegeBound);
@@ -226,15 +261,47 @@ export function EditCareerModal(props) {
   };
 
   const validator = validate(
-    { specificCareer },
+    { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
-    }
+      careerCluster: {
+        numericality: {
+          onlyInteger: true,
+          greaterThan: 0,
+          message: 'Must Select a Career Cluster',
+        },
+      },
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
+
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
+  const closeAction = () => {
+    setCollegeBound(career.collegeBound);
+    setCareerCluster(career.careerCluster);
+    setSpecificCareer(career.specificCareer);
+    setTechnicalCollegeBound(career.technicalCollegeBound);
+
+    setSpecificCareerEdit(false);
+    setCareerClusterEdit(false);
+  };
 
   const actionButtonDisabled = Boolean(messages.length);
   return (
@@ -244,6 +311,7 @@ export function EditCareerModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Career"
       onActionButtonClick={requestSubmit}
+      onCancelButtonClick={closeAction}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
       modalMessage="Fill out the fields below to edit a career."
@@ -254,10 +322,8 @@ export function EditCareerModal(props) {
             label="Specific Career"
             onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
-            errorText={
-              specificCareer.length < 1 ? 'Enter Specific Career Choice' : ' '
-            }
-            error={specificCareer.length < 1 && specificCareerEdit}
+            helperText={displayErrorMessages('specificCareer')}
+            error={checkError('specificCareer') && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
             fullWidth
@@ -270,9 +336,11 @@ export function EditCareerModal(props) {
             label="Career Cluster"
             onChange={handleClusterChange}
             value={careerCluster}
+            error={checkError('careerCluster') && careerClusterEdit}
+            helperText={displayErrorMessages('careerCluster')}
             style={{ width: '100%' }}
+            onBlur={() => setCareerClusterEdit(true)}
           >
-            <MenuItem value={0}> No Cluster Selected </MenuItem>
             <MenuItem value={1}>
               01-Agriculture, Food & Natural Resources
             </MenuItem>

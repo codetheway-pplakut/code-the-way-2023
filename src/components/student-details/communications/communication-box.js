@@ -1,9 +1,13 @@
-import { Grid, Typography } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { getCoachByIdHandler } from '../../coaches/coachHandlers';
-import { AspirationsCard, AspirationsCardHeader } from '../aspirations-card';
+import {
+  AspirationsCard,
+  AspirationsCardHeader,
+  AspirationsCardFooter,
+} from '../aspirations-card';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
@@ -23,37 +27,34 @@ export default function CommunicationBox(props) {
   const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
 
   return (
-    <AspirationsCard>
-      <AspirationsCardHeader header={topic}>
-        <Grid item xs={2}>
-          <Typography>{`Coach Name: ${coachFullName}`}</Typography>
-        </Grid>
-        <Grid item xs={2}>
-          <Typography>Date: {dayjs(date).format('MMM DD, YYYY')}</Typography>
-        </Grid>
-        <Grid item xs={1}>
-          {/* <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
-        </Grid>
-        <Grid item xs={1}>
-          {/* <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
-        </Grid>
-      </AspirationsCardHeader>
-      <Grid
-        container
-        alignItems="center"
-        sx={{
-          px: '2vw',
-          py: '2vh',
-          borderBottomLeftRadius: '10px',
-          borderBottomRightRadius: '10px',
-        }}
-      >
-        <Grid item xs={12}>
+    <Box py="3px">
+      <AspirationsCard>
+        <AspirationsCardHeader header={topic} />
+        <Grid container direction="row" />
+        <Grid
+          container
+          sx={{
+            px: '2vw',
+            py: '2vh',
+            minHeight: '10vh',
+          }}
+        >
           <Typography>{notes}</Typography>
         </Grid>
-      </Grid>
-    </AspirationsCard>
-
+        <AspirationsCardFooter>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography>{`Coach Name: ${coachFullName}`}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                Date: {dayjs(date).format('MMM DD, YYYY')}
+              </Typography>
+            </Grid>
+          </Grid>
+        </AspirationsCardFooter>
+      </AspirationsCard>
+    </Box>
     // <Box sx={boxStyle}>
     //   <Grid
     //     container

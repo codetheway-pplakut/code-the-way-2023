@@ -7,6 +7,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
+import { HdrAutoOutlined } from '@mui/icons-material';
+
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
@@ -90,45 +92,64 @@ export default function EditStudentInfoModal(props) {
     },
     {
       studentFirstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       studentLastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       studentEmail: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       studentCellPhone: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
-          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
       dateOfBirth: {},
       studentAddress: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       studentApartmentNumber: {
-        presence: { allowEmpty: true },
+        // presence: { allowEmpty: true },
       },
       studentCity: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       studentState: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       studentZipCode: {
-        presence: { allowEmpty: false },
-        format: { pattern: '^([0-9]{5}){1}', message: 'must be 5 digits' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        format: {
+          pattern: '^([0-9]{5}){1}',
+          message: 'Must be Valid Zip Code',
+        },
       },
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
 
   const actionButtonDisabled = Boolean(messages.length);
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const requestSave = async () => {
     const updatedStudent = {
       ...student,
@@ -149,6 +170,28 @@ export default function EditStudentInfoModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
+  const handleClose = () => {
+    setStudentFirstName(student.studentFirstName);
+    setStudentLastName(student.studentLastName);
+    setStudentCellPhone(student.studentCellPhone);
+    setStudentEmail(student.studentEmail);
+    setStudentAddress(student.studentAddress);
+    setStudentApartmentNumber(student.studentApartmentNumber);
+    setStudentCity(student.studentCity);
+    setStudentState(student.studentState);
+    setStudentZipCode(student.studentZipCode);
+
+    setStudentFirstNameEdit(false);
+    setStudentLastNameEdit(false);
+    setStudentCellPhoneEdit(false);
+    setStudentEmailEdit(false);
+    setStudentAddressEdit(false);
+    setStudentApartmentNumberEdit(false);
+    setStudentCityEdit(false);
+    setStudentStateEdit(false);
+    setStudentZipCodeEdit(false);
+    setStudentDateOfBirthEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Submit"
@@ -156,6 +199,7 @@ export default function EditStudentInfoModal(props) {
       modalHeadingTitle={header}
       onActionButtonClick={requestSave}
       actionButtonDisabled={actionButtonDisabled}
+      onCancelButtonClick={handleClose}
       openModal={<EditIcon />}
       actionButtonColor="submit"
     >
@@ -166,10 +210,8 @@ export default function EditStudentInfoModal(props) {
               label="First Name"
               onChange={(event) => setStudentFirstName(event.target.value)}
               value={studentFirstName}
-              errorText={
-                studentFirstName.length < 1 ? 'Enter Student First Name' : ' '
-              }
-              error={studentFirstName.length < 1 && studentFirstNameEdit}
+              helperText={displayErrorMessages('studentFirstName')}
+              error={checkError('studentFirstName') && studentFirstNameEdit}
               onBlur={() => setStudentFirstNameEdit(true)}
               required
             />
@@ -179,10 +221,8 @@ export default function EditStudentInfoModal(props) {
               label="Last Name"
               onChange={(event) => setStudentLastName(event.target.value)}
               value={studentLastName}
-              errorText={
-                studentLastName.length < 1 ? 'Enter Student Last Name' : ' '
-              }
-              error={studentLastName.length < 1 && studentLastNameEdit}
+              helperText={displayErrorMessages('studentLastName')}
+              error={checkError('studentLastName') && studentLastNameEdit}
               onBlur={() => setStudentLastNameEdit(true)}
               required
             />
@@ -194,10 +234,8 @@ export default function EditStudentInfoModal(props) {
             label="Preferred Phone Number"
             onChange={(event) => setStudentCellPhone(event.target.value)}
             value={studentCellPhone}
-            errorText={
-              studentCellPhone.length < 1 ? 'Enter Student Phone Number' : ' '
-            }
-            error={studentCellPhone.length < 1 && studentCellPhoneEdit}
+            helperText={displayErrorMessages('studentCellPhone')}
+            error={checkError('studentCellPhone') && studentCellPhoneEdit}
             onBlur={() => setStudentCellPhoneEdit(true)}
             required
           />
@@ -207,8 +245,8 @@ export default function EditStudentInfoModal(props) {
             label="Email"
             onChange={(event) => setStudentEmail(event.target.value)}
             value={studentEmail}
-            errorText={studentEmail.length < 1 ? 'Enter Student Email' : ' '}
-            error={studentEmail.length < 1 && studentEmailEdit}
+            helperText={displayErrorMessages('studentEmail')}
+            error={checkError('studentEmail') && studentEmailEdit}
             onBlur={() => setStudentEmailEdit(true)}
             required
             fullWidth
@@ -220,10 +258,8 @@ export default function EditStudentInfoModal(props) {
               label="Address"
               onChange={(event) => setStudentAddress(event.target.value)}
               value={studentAddress}
-              errorText={
-                studentAddress.length < 1 ? 'Enter Student Address' : ' '
-              }
-              error={studentAddress.length < 1 && studentAddressEdit}
+              helperText={displayErrorMessages('studentAddress')}
+              error={checkError('studentAddress') && studentAddressEdit}
               onBlur={() => setStudentAddressEdit(true)}
               required
               fullWidth
@@ -236,16 +272,7 @@ export default function EditStudentInfoModal(props) {
                 setStudentApartmentNumber(event.target.value)
               }
               value={studentApartmentNumber}
-              errorText={
-                studentApartmentNumber.length < 1
-                  ? 'Enter Student Apartment Number'
-                  : ' '
-              }
-              error={
-                studentApartmentNumber.length < 1 && studentApartmentNumberEdit
-              }
               onBlur={() => setStudentApartmentNumberEdit(true)}
-              required
             />
           </Grid>
         </Grid>
@@ -256,8 +283,8 @@ export default function EditStudentInfoModal(props) {
               label="City"
               onChange={(event) => setStudentCity(event.target.value)}
               value={studentCity}
-              errorText={studentCity.length < 1 ? 'Enter Student City' : ' '}
-              error={studentCity.length < 1 && studentCityEdit}
+              helperText={displayErrorMessages('studentCity')}
+              error={checkError('studentCity') && studentCityEdit}
               onBlur={() => setStudentCityEdit(true)}
               required
             />
@@ -267,8 +294,8 @@ export default function EditStudentInfoModal(props) {
               label="State"
               onChange={(event) => setStudentState(event.target.value)}
               value={studentState}
-              errorText={studentState.length < 1 ? 'Enter Student State' : ' '}
-              error={studentState.length < 1 && studentStateEdit}
+              helperText={displayErrorMessages('studentState')}
+              error={checkError('studentState') && studentStateEdit}
               onBlur={() => setStudentStateEdit(true)}
               required
             />
@@ -278,8 +305,8 @@ export default function EditStudentInfoModal(props) {
               label="Zip Code"
               onChange={(event) => setStudentZipCode(event.target.value)}
               value={studentZipCode}
-              errorText={studentZipCode.length < 1 ? 'Enter Zip Code' : ' '}
-              error={studentZipCode.length < 1 && studentZipCodeEdit}
+              helperText={displayErrorMessages('studentZipCode')}
+              error={checkError('studentZipCode') && studentZipCodeEdit}
               onBlur={() => setStudentZipCodeEdit(true)}
               required
             />
@@ -341,34 +368,60 @@ export function EditParentModal(props) {
     },
     {
       parentFirstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       parentLastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       parentEmail: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       parentCellPhone: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
-          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
-      parentAddress: { presence: { allowEmpty: false, message: '' } },
-      parentApartmentNumber: { presence: { allowEmpty: false, message: '' } },
-      parentCity: { presence: { allowEmpty: false, message: '' } },
-      parentState: { presence: { allowEmpty: false, message: '' } },
+      parentAddress: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+
+      parentCity: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+      parentState: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
       parentZipCode: {
-        presence: { allowEmpty: false, message: '' },
-        format: { pattern: '^([0-9]{5}){1}', message: 'must be 5 digits' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        format: {
+          pattern: '^([0-9]{5}){1}',
+          message: 'Must be Valid Zip Code',
+        },
       },
     },
     { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
+
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const actionButtonDisabled = Boolean(messages.length);
   useEffect(() => {
     if (student.parentFirstName !== null) {
@@ -430,6 +483,28 @@ export function EditParentModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
+  const handleClose = () => {
+    setParentFirstName(student.parentFirstName);
+    setParentLastName(student.parentLastName);
+    setParentCellPhone(student.parentCellPhone);
+    setParentEmail(student.parentEmail);
+    setParentAddress(student.address);
+    setParentApartmentNumber(student.parentApartmentNumber);
+    setParentCity(student.parentCity);
+    setParentState(student.parentState);
+    setParentZipCode(student.parentZipCode);
+
+    setParentFirstNameEdit(false);
+    setParentLastNameEdit(false);
+    setParentCellPhoneEdit(false);
+    setParentEmailEdit(false);
+    setParentAddressEdit(false);
+    setParentApartmentNumberEdit(false);
+    setParentCityEdit(false);
+    setParentStateEdit(false);
+    setParentZipCodeEdit(false);
+  };
+
   return (
     <GenericModal
       actionButtonTitle="Submit"
@@ -438,6 +513,7 @@ export function EditParentModal(props) {
       modalMessage="Fill out the fields below to save."
       actionButtonColor="submit"
       onActionButtonClick={requestSave}
+      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openModal={<EditIcon />}
     >
@@ -448,8 +524,8 @@ export function EditParentModal(props) {
               label="First Name"
               onChange={(event) => setParentFirstName(event.target.value)}
               value={parentFirstName}
-              errorText={parentFirstName.length < 1 ? 'Enter First Name' : ' '}
-              error={parentFirstName.length < 1 && parentFirstNameEdit}
+              helperText={displayErrorMessages('parentFirstName')}
+              error={checkError('parentFirstName') && parentFirstNameEdit}
               required
               onBlur={() => setParentFirstNameEdit(true)}
             />
@@ -459,8 +535,8 @@ export function EditParentModal(props) {
               label="Last Name"
               onChange={(event) => setParentLastName(event.target.value)}
               value={parentLastName}
-              errorText={parentLastName.length < 1 ? 'Enter Last Name' : ' '}
-              error={parentLastName.length < 1 && parentLastNameEdit}
+              helperText={displayErrorMessages('parentLastName')}
+              error={checkError('parentLastName') && parentLastNameEdit}
               required
               onBlur={() => setParentLastNameEdit(true)}
             />
@@ -472,8 +548,8 @@ export function EditParentModal(props) {
             label="Preferred Phone Number"
             onChange={(event) => setParentCellPhone(event.target.value)}
             value={parentCellPhone}
-            errorText={parentCellPhone.length < 1 ? 'Enter Phone Number' : ' '}
-            error={parentCellPhone.length < 1 && parentCellPhoneEdit}
+            helperText={displayErrorMessages('parentCellPhone')}
+            error={checkError('parentCellPhone') && parentCellPhoneEdit}
             required
             onBlur={() => setParentCellPhoneEdit(true)}
           />
@@ -483,8 +559,8 @@ export function EditParentModal(props) {
             label="Email"
             onChange={(event) => setParentEmail(event.target.value)}
             value={parentEmail}
-            errorText={parentEmail.length < 1 ? 'Enter Email' : ' '}
-            error={parentEmail.length < 1 && parentEmailEdit}
+            helperText={displayErrorMessages('parentEmail')}
+            error={checkError('parentEmail') && parentEmailEdit}
             required
             onBlur={() => setParentEmailEdit(true)}
             fullWidth
@@ -496,8 +572,8 @@ export function EditParentModal(props) {
               label="Address"
               onChange={(event) => setParentAddress(event.target.value)}
               value={parentAddress}
-              errorText={parentAddress.length < 1 ? 'Enter Address' : ' '}
-              error={parentAddress.length < 1 && parentAddressEdit}
+              helperText={displayErrorMessages('parentAddress')}
+              error={checkError('parentAddress') && parentAddressEdit}
               required
               onBlur={() => setParentAddressEdit(true)}
               fullWidth
@@ -508,11 +584,6 @@ export function EditParentModal(props) {
               label="Apt."
               onChange={(event) => setParentApartmentNumber(event.target.value)}
               value={parentApartmentNumber}
-              errorText={parentApartmentNumber.length < 1 ? 'Enter Apt.' : ' '}
-              error={
-                parentApartmentNumber.length < 1 && parentApartmentNumberEdit
-              }
-              required
               onBlur={() => setParentApartmentNumberEdit(true)}
             />
           </Grid>
@@ -524,8 +595,8 @@ export function EditParentModal(props) {
               label="City"
               onChange={(event) => setParentCity(event.target.value)}
               value={parentCity}
-              errorText={parentCity.length < 1 ? 'Enter City' : ' '}
-              error={parentCity.length < 1 && parentCityEdit}
+              helperText={displayErrorMessages('parentCity')}
+              error={checkError('parentCity') && parentCityEdit}
               required
               onBlur={() => setParentCityEdit(true)}
             />
@@ -535,8 +606,8 @@ export function EditParentModal(props) {
               label="State"
               onChange={(event) => setParentState(event.target.value)}
               value={parentState}
-              errorText={parentState.length < 1 ? 'Enter State' : ' '}
-              error={parentState.length < 1 && parentStateEdit}
+              helperText={displayErrorMessages('parentState')}
+              error={checkError('parentState') && parentStateEdit}
               required
               onBlur={() => setParentStateEdit(true)}
             />
@@ -546,8 +617,8 @@ export function EditParentModal(props) {
               label="Zip Code"
               onChange={(event) => setParentZipCode(event.target.value)}
               value={parentZipCode}
-              errorText={parentZipCode.length < 1 ? 'Enter Zip Code' : ' '}
-              error={parentZipCode.length < 1 && parentZipCodeEdit}
+              helperText={displayErrorMessages('parentZipCode')}
+              error={checkError('parentZipCode') && parentZipCodeEdit}
               required
               onBlur={() => setParentZipCodeEdit(true)}
             />
