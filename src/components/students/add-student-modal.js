@@ -38,6 +38,9 @@ export function AddStudentModal(props) {
       },
       cellPhone: {
         presence: { allowEmpty: true },
+        format: {
+          pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
+        },
       },
       dateOfBirth: {},
     }
@@ -47,6 +50,7 @@ export function AddStudentModal(props) {
 
   const actionButtonDisabled = Boolean(messages.length);
 
+  const val = cellPhone.length < 1 ? 'Enter Phone Number' : ' ';
   const closeAction = () => {
     setEmail('');
     setFirstName('');
@@ -147,7 +151,7 @@ export function AddStudentModal(props) {
   );
   return (
     <GenericModal
-      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
+      openModal={<AddIcon />}
       modalHeadingTitle="Add Student"
       modalMessage={content}
       actionButtonColor="submit"

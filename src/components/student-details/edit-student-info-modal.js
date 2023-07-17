@@ -102,7 +102,7 @@ export default function EditStudentInfoModal(props) {
       studentCellPhone: {
         presence: { allowEmpty: false },
         format: {
-          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
         },
       },
       dateOfBirth: {},
@@ -110,7 +110,7 @@ export default function EditStudentInfoModal(props) {
         presence: { allowEmpty: false },
       },
       studentApartmentNumber: {
-        presence: { allowEmpty: false },
+        // presence: { allowEmpty: true },
       },
       studentCity: {
         presence: { allowEmpty: false },
@@ -233,16 +233,7 @@ export default function EditStudentInfoModal(props) {
                 setStudentApartmentNumber(event.target.value)
               }
               value={studentApartmentNumber}
-              errorText={
-                studentApartmentNumber.length < 1
-                  ? 'Enter Student Apartment Number'
-                  : ' '
-              }
-              error={
-                studentApartmentNumber.length < 1 && studentApartmentNumberEdit
-              }
               onBlur={() => setStudentApartmentNumberEdit(true)}
-              required
             />
           </Grid>
         </Grid>
