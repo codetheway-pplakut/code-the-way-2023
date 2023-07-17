@@ -21,11 +21,11 @@ export function AddAdminModal(props) {
     { email, password, confirmPassword },
     {
       email: {
-        presence: true,
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       password: {
-        presence: true,
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
@@ -37,14 +37,21 @@ export function AddAdminModal(props) {
         },
       },
       confirmPassword: {
-        presence: true,
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         equality: 'password',
       },
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
-
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
   const closeAction = () => {
     setEmail('');
     setPassword('');
@@ -84,7 +91,7 @@ export function AddAdminModal(props) {
             label="Email"
             value={email}
             error={!email.includes('@') && emailEdit}
-            errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+            helperText={displayErrorMessages('email')}
             required
             type="email"
             sx={{ my: 1 }}
@@ -96,7 +103,7 @@ export function AddAdminModal(props) {
             label="Password"
             value={password}
             error={password.length < 1 && passwordEdit}
-            errorText={!password.length < 1}
+            helperText={displayErrorMessages('password')}
             required
             type="password"
             sx={{ my: 1 }}
@@ -112,9 +119,7 @@ export function AddAdminModal(props) {
               confirmPassword !== password ||
               (confirmPassword.length < 1 && confirmPasswordEdit)
             }
-            errorText={
-              confirmPassword !== password ? 'Passwords must match.' : ' '
-            }
+            helperText={displayErrorMessages('confirmPassword')}
             required
             sx={{ my: 1 }}
             onBlur={() => setConfirmPasswordEdit(true)}
