@@ -98,6 +98,14 @@ export function AddCoachModal(props) {
 
   const actionButtonDisabled = Boolean(messages.length);
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+
   return (
     <GenericModal
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
@@ -118,7 +126,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setFirstName(event.target.value)}
             label="First Name"
             value={firstName}
-            helperText={firstName.length < 1 ? 'Must not be Blank' : ''}
+            helperText={displayErrorMessages('firstName')}
             error={firstName.length < 1 && firstNameEdit}
             required
             type="text"
@@ -130,7 +138,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setLastName(event.target.value)}
             label="Last Name"
             value={lastName}
-            helperText={lastName.length < 1 ? 'Must not be Blank' : ''}
+            helperText={displayErrorMessages('lastName')}
             error={lastName.length < 1 && lastNameEdit}
             required
             type="text"
@@ -143,7 +151,7 @@ export function AddCoachModal(props) {
             label="Email"
             value={email}
             error={!email.includes('@') && emailEdit}
-            helperText={!email.includes('@') ? 'Must not be Blank' : ''}
+            helperText={displayErrorMessages('email')}
             required
             type="email"
             sx={{ my: 1 }}
@@ -156,7 +164,7 @@ export function AddCoachModal(props) {
             value={phone}
             required
             error={phone.length < 1 && phoneEdit}
-            helperText={phone.length < 1 ? 'Must not be Blank' : ''}
+            helperText={displayErrorMessages('phone')}
             type="text"
             sx={{ my: 1 }}
             onBlur={() => setPhoneEdit(true)}
@@ -167,7 +175,7 @@ export function AddCoachModal(props) {
             label="Password"
             value={password}
             error={password.length < 1 && passwordEdit}
-            helperText={password.length < 1 ? 'Must not be Blank' : ''}
+            helperText={displayErrorMessages('password')}
             required
             type="password"
             sx={{ my: 1 }}
@@ -182,7 +190,7 @@ export function AddCoachModal(props) {
               confirmPassword !== password ||
               (confirmPassword.length < 1 && confirmPasswordEdit)
             }
-            helperText={confirmPassword.length < 1 ? 'Must not be Blank' : ''}
+            helperText={displayErrorMessages('confirmPassword')}
             required
             type="password"
             sx={{ my: 1 }}
