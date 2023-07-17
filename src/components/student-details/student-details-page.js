@@ -18,7 +18,6 @@ export default function StudentDetails(props) {
   const [tabValue, setTabValue] = React.useState(0);
   const [communications, setCommunications] = React.useState({});
   const [rows, setRows] = React.useState({});
-  // const [topic, setTopic] = React.useState('');
 
   const { student, onReload } = props;
   const studentID = student.id;
@@ -57,7 +56,6 @@ export default function StudentDetails(props) {
     () => ({
       bgcolor: '#ffffff',
       minWidth: '100%',
-
       color: '#000000',
       position: 'relative',
       minHeight: '70vh',
@@ -149,26 +147,6 @@ export default function StudentDetails(props) {
                 <Grid width="42vw">
                   <Box> Placeholder </Box>
                 </Grid>
-                // TO BE DEPRECATED
-                // Should be part of its own component
-
-                // <React.Fragment>
-                //   <h1>Interviews</h1>
-                //   <Grid>
-                //     {(interviews === null ||
-                //       interviews === undefined ||
-                //       interviews === {}) && <h6>No Interviews</h6>}
-                //     {interviews !== null &&
-                //       interviews !== undefined &&
-                //       [interviews].map((interview) => {
-                //         return (
-                //           <h6 key={interview.id}>
-                //             Interview: {interview.goalSet}
-                //           </h6>
-                //         );
-                //       })}
-                //   </Grid>
-                // </React.Fragment>
               )}
             </Box>
           </Grid>
@@ -179,7 +157,7 @@ export default function StudentDetails(props) {
               <SearchBar requestSearch={requestSearch} />
             </Grid>
             <Grid item alignItems="flex-front">
-              <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+              <Box>
                 <AddCommunicationsModal
                   student={student}
                   onSaveSuccess={() => requestCommunication(studentID)}
@@ -187,25 +165,15 @@ export default function StudentDetails(props) {
               </Box>
             </Grid>
           </Toolbar>
-          {/* <Grid item alignItems="flex-end" sx={{ pl: '510%' }}>
-            <TextField
-              label="Topic"
-              select
-              value={topic}
-              onChange={(event) => {
-                setTopic(event.target.value);
-              }}
-            >
-              <MenuItem value="One-on-ne coaching session">
-                One-on-One Coaching Session
-              </MenuItem>
-              <MenuItem value="Email">Email</MenuItem>
-              <MenuItem value="Phone call">Phone Call</MenuItem>
-              <MenuItem value="Text message">Text Message</MenuItem>
-            </TextField>
-          </Grid> */}
 
-          <Grid item sx={{ ml: '10%' }}>
+          <Box
+            sx={{
+              maxHeight: '70vh',
+              overflowY: 'auto',
+              px: '7px',
+              width: '45vw',
+            }}
+          >
             {console.log('visibleRows', visibleRows)}
             {visibleRows.map((row) => {
               return (
@@ -218,7 +186,7 @@ export default function StudentDetails(props) {
                 />
               );
             })}
-          </Grid>
+          </Box>
         </Grid>
       </Grid>
     </React.Fragment>

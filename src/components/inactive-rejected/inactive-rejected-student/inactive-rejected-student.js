@@ -51,6 +51,8 @@ export function InactiveRejectedStudent() {
               columns={COLUMNS}
               requestFunc={requestFunc}
               filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+              defaultFilterBy="lastName"
+              customTableMaxHeight={510}
             />
           </Box>
         </EntitlementRestricted>
