@@ -29,29 +29,36 @@ export function AddCoachModal(props) {
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       lastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       email: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
-      phone: {},
+      phone: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        format: {
+          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          message: 'Must be a valid phone number',
+        },
+      },
       password: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
-            'must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
+            'Must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
         },
         length: {
           minimum: 12,
-          message: 'must be at least 12 characters',
+          message: 'Must be at least 12 characters',
         },
       },
+
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'is required' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         equality: 'password',
       },
     },
@@ -67,7 +74,7 @@ export function AddCoachModal(props) {
     setPhone('');
     setConfirmPassword('');
     setPassword('');
-
+    console.log(messages);
     setFirstNameEdit(false);
     setLastNameEdit(false);
     setEmailEdit(false);
@@ -111,7 +118,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setFirstName(event.target.value)}
             label="First Name"
             value={firstName}
-            errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
+            helperText={firstName.length < 1 ? 'Must not be Blank' : ''}
             error={firstName.length < 1 && firstNameEdit}
             required
             type="text"
@@ -123,7 +130,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setLastName(event.target.value)}
             label="Last Name"
             value={lastName}
-            errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
+            helperText={lastName.length < 1 ? 'Must not be Blank' : ''}
             error={lastName.length < 1 && lastNameEdit}
             required
             type="text"
@@ -136,7 +143,7 @@ export function AddCoachModal(props) {
             label="Email"
             value={email}
             error={!email.includes('@') && emailEdit}
-            errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+            helperText={!email.includes('@') ? 'Must not be Blank' : ''}
             required
             type="email"
             sx={{ my: 1 }}
@@ -149,7 +156,7 @@ export function AddCoachModal(props) {
             value={phone}
             required
             error={phone.length < 1 && phoneEdit}
-            errorText={phone.length < 1 ? 'Enter Phone Number' : ' '}
+            helperText={phone.length < 1 ? 'Must not be Blank' : ''}
             type="text"
             sx={{ my: 1 }}
             onBlur={() => setPhoneEdit(true)}
@@ -160,7 +167,7 @@ export function AddCoachModal(props) {
             label="Password"
             value={password}
             error={password.length < 1 && passwordEdit}
-            errorText={password.length < 1}
+            helperText={password.length < 1 ? 'Must not be Blank' : ''}
             required
             type="password"
             sx={{ my: 1 }}
@@ -175,9 +182,7 @@ export function AddCoachModal(props) {
               confirmPassword !== password ||
               (confirmPassword.length < 1 && confirmPasswordEdit)
             }
-            errorText={
-              confirmPassword !== password ? 'Passwords must match.' : ' '
-            }
+            helperText={confirmPassword.length < 1 ? 'Must not be Blank' : ''}
             required
             type="password"
             sx={{ my: 1 }}
