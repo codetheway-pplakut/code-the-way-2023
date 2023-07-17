@@ -196,7 +196,7 @@ export function GoalsBox(props) {
       <Grid container>
         <Grid item xs={12}>
           <Goal
-            sx={{ pt: '20px', maxWidth: '50%' }}
+            sx={{ pt: '20px' }}
             goal={goalContent}
             key={goalContent.id}
             onSaveSuccess={() => fetchGoals()}

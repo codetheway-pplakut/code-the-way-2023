@@ -29,7 +29,7 @@ export default function CommunicationBox(props) {
     bgcolor: '#dadada',
     color: '#000000',
     borderColor: '#000000',
-    ml: '2%',
+    ml: '20vw',
     // height: 'auto',
     width: '43.3vw',
     minHeight: '250px',
