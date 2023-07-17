@@ -9,7 +9,7 @@ import uuid from 'react-uuid';
 import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, set } from 'lodash';
 import { GenericModal } from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
@@ -70,6 +70,18 @@ export function EditGoalModal(props) {
       console.log(error);
     }
   };
+  const handleClose = () => {
+    setGoalSet(goal.goalSet);
+    setDateGoalSet(goal.dateGoalSet);
+    setSel(goal.sel);
+    setGoalReviewDate(goal.goalReviewDate);
+    setWasItAccomplished(goal.wasItAccomplished);
+    setExplanation(goal.explanation);
+
+    setGoalSetEdit(false);
+    setExplanationEdit(false);
+    setSelEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -78,6 +90,7 @@ export function EditGoalModal(props) {
       modalHeadingTitle="Edit Goal"
       modalMessage="Fill out the fields below to edit a goal."
       onActionButtonClick={requestSave}
+      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
     >
@@ -207,6 +220,18 @@ export function AddGoalModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
+  const handleClose = () => {
+    setGoalSet('');
+    setDateGoalSet(new Date());
+    setSel('');
+    setGoalReviewDate(new Date());
+    setWasItAccomplished('No');
+    setExplanation('');
+
+    setGoalSetEdit(false);
+    setExplanationEdit(false);
+    setSelEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -215,6 +240,7 @@ export function AddGoalModal(props) {
       modalHeadingTitle="Add Goal"
       modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
+      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
     >
