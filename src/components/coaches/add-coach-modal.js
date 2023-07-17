@@ -60,7 +60,7 @@ export function AddCoachModal(props) {
 
   const messages = flattenDeep(Object.values(validator || {}));
 
-  const closeAction = () => {
+  const reset = () => {
     setFirstName('');
     setLastName('');
     setEmail('');
@@ -86,7 +86,6 @@ export function AddCoachModal(props) {
       confirmPassword
     );
     onSubmit();
-    closeAction();
   };
 
   const actionButtonDisabled = Boolean(messages.length);
@@ -101,8 +100,7 @@ export function AddCoachModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     >
       <Grid container justifyContent="center">
         <Grid item xs={9}>
