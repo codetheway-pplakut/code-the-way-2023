@@ -29,7 +29,7 @@ export default function CommunicationBox(props) {
   const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
 
   return (
-    <Box padding="1vh">
+    <Box py="3px">
       <AspirationsCard>
         <AspirationsCardHeader header={topic} />
         <Grid container direction="row" />
