@@ -10,7 +10,10 @@ export function Career(props) {
   return (
     <Grid padding="5px">
       <AspirationsCard>
-        <AspirationsCardHeader header={career.specificCareer}>
+        <AspirationsCardHeader
+          header={career.specificCareer}
+          backgroundColor="#f2f2f2"
+        >
           <Grid item xs={4}>
             <Typography>{`Cluster: ${career.careerCluster}`}</Typography>
           </Grid>
