@@ -40,7 +40,7 @@ export function AddStudentModal(props) {
         presence: { allowEmpty: true, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Must be Valid Phone Number',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
       dateOfBirth: {},
@@ -148,10 +148,7 @@ export function AddStudentModal(props) {
           }}
           sx={{ my: 1 }}
           helperText={displayErrorMessages('email')}
-          error={
-            (!email.includes('@') ? 'Must contain an @ sign.' : ' ') &&
-            emailEdit
-          }
+          error={email.length < 1 && emailEdit}
           onBlur={() => setEmailEdit(true)}
         />
       </Grid>
