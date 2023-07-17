@@ -37,7 +37,7 @@ export default function StudentDetails(props) {
   const requestSearch = (searchedVal) => {
     const lowerFilterInput = String(searchedVal).toLowerCase();
     const filteredRows = communications.filter((row) => {
-      return ['description'].some((key) => {
+      return ['topic'].some((key) => {
         const value = row[key];
         const lowerValue = String(value).toLowerCase();
         return lowerValue.includes(lowerFilterInput);
