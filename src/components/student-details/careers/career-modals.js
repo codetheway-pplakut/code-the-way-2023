@@ -76,6 +76,7 @@ export function AddCareerModal(props) {
             error={specificCareer.length < 1 && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
+            fullWidth
           />
         </Grid>
 
