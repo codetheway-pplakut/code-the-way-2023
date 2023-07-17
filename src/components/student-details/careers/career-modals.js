@@ -13,7 +13,6 @@ import {
   deleteCareerHandler,
   editCareerHandler,
 } from './careerHandlers';
-import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 export function AddCareerModal(props) {
   const { student, onSaveSuccess } = props;
@@ -117,6 +116,7 @@ export function AddCareerModal(props) {
             <MenuItem value={16}>
               16-Transportation, Distribution & Logistics
             </MenuItem>
+            <MenuItem value={17}>Other</MenuItem>
           </TextField>
         </Grid>
         <Grid item container>
@@ -291,6 +291,7 @@ export function EditCareerModal(props) {
             <MenuItem value={16}>
               16-Transportation, Distribution & Logistics
             </MenuItem>
+            <MenuItem value={17}>Other</MenuItem>
           </TextField>
         </Grid>
         <Grid item container>
