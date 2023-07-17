@@ -295,7 +295,6 @@ export function AddGoalModal(props) {
       modalHeadingTitle="Add Goal"
       modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
-      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       onModalOpen={reset}
