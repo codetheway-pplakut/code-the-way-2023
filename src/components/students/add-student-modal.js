@@ -41,7 +41,7 @@ export function AddStudentModal(props) {
         presence: { allowEmpty: true, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Format: XXX-XXXX',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
       dateOfBirth: {},
@@ -53,7 +53,7 @@ export function AddStudentModal(props) {
 
   const actionButtonDisabled = Boolean(messages.length);
 
-  const closeAction = () => {
+  const reset = () => {
     setEmail('');
     setFirstName('');
     setLastName('');
@@ -68,7 +68,6 @@ export function AddStudentModal(props) {
 
   const addStudentAction = async () => {
     await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
-    closeAction();
     if (onSubmit) onSubmit();
   };
 
@@ -174,8 +173,7 @@ export function AddStudentModal(props) {
       cancelButtonTitle="Cancel"
       onActionButtonClick={addStudentAction}
       actionButtonDisabled={actionButtonDisabled}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     />
   );
 }
