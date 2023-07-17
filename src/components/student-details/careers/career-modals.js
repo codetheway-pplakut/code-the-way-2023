@@ -68,6 +68,14 @@ export function AddCareerModal(props) {
     }
     return null;
   };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const actionButtonDisabled = Boolean(messages.length);
   const closeAction = () => {
     setCollegeBound('');
@@ -97,7 +105,7 @@ export function AddCareerModal(props) {
             onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
             helperText={displayErrorMessages('specificCareer')}
-            error={specificCareer.length < 1 && specificCareerEdit}
+            error={checkError('specificCareer') && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
             fullWidth
@@ -110,7 +118,7 @@ export function AddCareerModal(props) {
             label="Career Cluster"
             onChange={handleClusterChange}
             value={careerCluster}
-            error={careerCluster === 0 && careerClusterEdit}
+            error={checkError('careerCluster') && careerClusterEdit}
             helperText={displayErrorMessages('careerCluster')}
             style={{ width: '100%' }}
             onBlur={() => setCareerClusterEdit(true)}
@@ -269,6 +277,13 @@ export function EditCareerModal(props) {
     }
     return null;
   };
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const closeAction = () => {
     setCollegeBound(career.collegeBound);
     setCareerCluster(career.careerCluster);
@@ -299,7 +314,7 @@ export function EditCareerModal(props) {
             onChange={(event) => setSpecificCareer(event.target.value)}
             value={specificCareer}
             helperText={displayErrorMessages('specificCareer')}
-            error={specificCareer.length < 1 && specificCareerEdit}
+            error={checkError('specificCareer') && specificCareerEdit}
             onBlur={() => setSpecificCareerEdit(true)}
             required
             fullWidth
@@ -312,7 +327,7 @@ export function EditCareerModal(props) {
             label="Career Cluster"
             onChange={handleClusterChange}
             value={careerCluster}
-            error={careerCluster === 0 && careerClusterEdit}
+            error={checkError('careerCluster') && careerClusterEdit}
             helperText={displayErrorMessages('careerCluster')}
             style={{ width: '100%' }}
             onBlur={() => setCareerClusterEdit(true)}

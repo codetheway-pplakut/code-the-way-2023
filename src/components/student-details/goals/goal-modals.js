@@ -10,6 +10,7 @@ import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { flattenDeep, set } from 'lodash';
+
 import { GenericModal } from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
@@ -53,6 +54,14 @@ export function EditGoalModal(props) {
       return errors.join(', '); // Concatenate error messages with a comma and space
     }
     return null;
+  };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
   };
   const actionButtonDisabled = Boolean(messages.length);
 
@@ -113,7 +122,7 @@ export function EditGoalModal(props) {
             onChange={(event) => setGoalSet(event.target.value)}
             value={goalSet}
             helperText={displayErrorMessages('goalSet')}
-            error={goalSetEdit && goalSet.length < 1}
+            error={checkError('goalSet') && goalSetEdit}
             required
             onBlur={() => setGoalSetEdit(true)}
             fullWidth
@@ -147,7 +156,7 @@ export function EditGoalModal(props) {
             label="Explanation"
             onChange={(event) => setExplanation(event.target.value)}
             helperText={displayErrorMessages('explanation')}
-            error={explanationEdit && explanation.length < 1}
+            error={checkError('explanation') && explanationEdit}
             required
             onBlur={() => setExplanationEdit(true)}
             value={explanation}
@@ -170,7 +179,7 @@ export function EditGoalModal(props) {
               label="SEL"
               onChange={(event) => setSel(event.target.value)}
               helperText={displayErrorMessages('sel')}
-              error={selEdit && sel.length < 1}
+              error={checkError('sel') && selEdit}
               required
               onBlur={() => setSelEdit(true)}
               value={sel}
@@ -241,6 +250,14 @@ export function AddGoalModal(props) {
     }
     return null;
   };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const actionButtonDisabled = Boolean(messages.length);
 
   const requestSubmit = async () => {
@@ -288,7 +305,7 @@ export function AddGoalModal(props) {
             onChange={(event) => setGoalSet(event.target.value)}
             value={goalSet}
             helperText={displayErrorMessages('goalSet')}
-            error={goalSetEdit && goalSet.length < 1}
+            error={checkError('goalSet') && goalSetEdit}
             required
             onBlur={() => setGoalSetEdit(true)}
             fullWidth
@@ -324,7 +341,7 @@ export function AddGoalModal(props) {
             value={explanation}
             minRows={3}
             helperText={displayErrorMessages('explanation')}
-            error={explanationEdit && explanation.length < 1}
+            error={checkError('explanation') && explanationEdit}
             required
             onBlur={() => setExplanationEdit(true)}
             fullWidth
@@ -346,7 +363,7 @@ export function AddGoalModal(props) {
               onChange={(event) => setSel(event.target.value)}
               value={sel}
               helperText={displayErrorMessages('sel')}
-              error={selEdit && sel.length < 1}
+              error={checkError('sel') && selEdit}
               required
               onBlur={() => setSelEdit(true)}
               fullWidth

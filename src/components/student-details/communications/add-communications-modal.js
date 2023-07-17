@@ -10,7 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { validate } from 'validate.js';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, set } from 'lodash';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
@@ -65,6 +65,10 @@ export default function AddCommunicationsModal(props) {
     setActiveCoaches([]);
     setCreated(new Date());
     setDescriptionEdit(false);
+
+    setTopicEdit(false);
+    setDescriptionEdit(false);
+    setCoachIdEdit(false);
   };
   const requestSave = async () => {
     try {
@@ -87,6 +91,14 @@ export default function AddCommunicationsModal(props) {
       return errors.join(', '); // Concatenate error messages with a comma and space
     }
     return null;
+  };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
   };
   return (
     <GenericModal
@@ -111,7 +123,7 @@ export default function AddCommunicationsModal(props) {
               setTopic(event.target.value);
             }}
             helperText={displayErrorMessages('topic')}
-            error={topic.length < 1 && topicEdit}
+            error={checkError('topic') && topicEdit}
             onBlur={() => setTopicEdit(true)}
             fullWidth
           >
@@ -130,7 +142,7 @@ export default function AddCommunicationsModal(props) {
             onChange={(event) => setDescription(event.target.value)}
             value={description}
             helperText={displayErrorMessages('description')}
-            error={description.length < 1 && descriptionEdit}
+            error={checkError('description') && descriptionEdit}
             onBlur={() => setDescriptionEdit(true)}
             required
             multiline
@@ -148,7 +160,7 @@ export default function AddCommunicationsModal(props) {
             disabled={activeCoaches.length === 0}
             style={{ width: '200px' }}
             helperText={displayErrorMessages('coachId')}
-            error={coachId.length < 1 && coachIdEdit}
+            error={checkError('coachId') && coachIdEdit}
           >
             {activeCoaches && activeCoaches.length > 0 ? (
               activeCoaches.map((activeCoach) => (

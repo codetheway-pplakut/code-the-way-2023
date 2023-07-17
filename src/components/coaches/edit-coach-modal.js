@@ -37,7 +37,7 @@ export function EditCoachModal(props) {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
-          message: 'Must be Valid Phone Number',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
     },
@@ -53,6 +53,14 @@ export function EditCoachModal(props) {
       return errors.join(', '); // Concatenate error messages with a comma and space
     }
     return null;
+  };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
   };
   const submitAction = async () => {
     try {
@@ -102,7 +110,7 @@ export function EditCoachModal(props) {
           label="First Name"
           defaultValue={firstName}
           helperText={displayErrorMessages('firstName')}
-          error={firstName.length < 1 && firstNameEdit}
+          error={checkError('firstName') && firstNameEdit}
           required
           sx={{ my: 1 }}
           onChange={(event) => {
@@ -115,7 +123,7 @@ export function EditCoachModal(props) {
           label="Last Name"
           defaultValue={lastName}
           helperText={displayErrorMessages('lastName')}
-          error={lastName.length < 1 && lastNameEdit}
+          error={checkError('lastName') && lastNameEdit}
           required
           sx={{ my: 1 }}
           onChange={(event) => {
@@ -126,7 +134,7 @@ export function EditCoachModal(props) {
         <TextField
           id="outlined"
           label="Email"
-          error={!email.includes('@') && emailEdit}
+          error={checkError('email') && emailEdit}
           helperText={displayErrorMessages('email')}
           required
           defaultValue={email}
@@ -140,7 +148,7 @@ export function EditCoachModal(props) {
           id="outlined"
           label="Phone Number"
           required
-          error={phone.length < 1 && phoneEdit}
+          error={checkError('phone') && phoneEdit}
           helperText={displayErrorMessages('phone')}
           defaultValue={phone}
           sx={{ my: 1 }}

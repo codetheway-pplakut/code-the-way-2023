@@ -36,12 +36,13 @@ export function AddCoachModal(props) {
       },
       email: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
+        email: true,
       },
       phone: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
-          message: 'Must be a valid phone number',
+          message: 'Format: XXX-XXX-XXXX',
         },
       },
       password: {
@@ -106,6 +107,14 @@ export function AddCoachModal(props) {
     return null;
   };
 
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <GenericModal
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
@@ -127,7 +136,7 @@ export function AddCoachModal(props) {
             label="First Name"
             value={firstName}
             helperText={displayErrorMessages('firstName')}
-            error={firstName.length < 1 && firstNameEdit}
+            error={checkError('firstName') && firstNameEdit}
             required
             type="text"
             sx={{ my: 1 }}
@@ -139,7 +148,7 @@ export function AddCoachModal(props) {
             label="Last Name"
             value={lastName}
             helperText={displayErrorMessages('lastName')}
-            error={lastName.length < 1 && lastNameEdit}
+            error={checkError('lastName') && lastNameEdit}
             required
             type="text"
             sx={{ my: 1 }}
@@ -150,7 +159,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setEmail(event.target.value)}
             label="Email"
             value={email}
-            error={!email.includes('@') && emailEdit}
+            error={checkError('email') && emailEdit}
             helperText={displayErrorMessages('email')}
             required
             type="email"
@@ -163,7 +172,7 @@ export function AddCoachModal(props) {
             label="Phone Number"
             value={phone}
             required
-            error={phone.length < 1 && phoneEdit}
+            error={checkError('phone') && phoneEdit}
             helperText={displayErrorMessages('phone')}
             type="text"
             sx={{ my: 1 }}
@@ -174,7 +183,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setPassword(event.target.value)}
             label="Password"
             value={password}
-            error={password.length < 1 && passwordEdit}
+            error={checkError('password') && passwordEdit}
             helperText={displayErrorMessages('password')}
             required
             type="password"
@@ -186,11 +195,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setConfirmPassword(event.target.value)}
             label="Confirm Password"
             value={confirmPassword}
-            error={
-              confirmPassword !== password ||
-              (confirmPassword.length < 1 && confirmPasswordEdit)
-            }
-            helperText={displayErrorMessages('confirmPassword')}
+            error={checkError('confirmPassword') && confirmPasswordEdit}
             required
             type="password"
             sx={{ my: 1 }}
