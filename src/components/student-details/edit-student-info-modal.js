@@ -101,6 +101,9 @@ export default function EditStudentInfoModal(props) {
       },
       studentCellPhone: {
         presence: { allowEmpty: false },
+        format: {
+          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+        },
       },
       dateOfBirth: {},
       studentAddress: {
@@ -117,6 +120,7 @@ export default function EditStudentInfoModal(props) {
       },
       studentZipCode: {
         presence: { allowEmpty: false },
+        format: { pattern: '^([0-9]{5}){1}', message: 'must be 5 digits' },
       },
     }
   );

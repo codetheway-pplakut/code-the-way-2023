@@ -116,6 +116,7 @@ export function AddCareerModal(props) {
             <MenuItem value={16}>
               16-Transportation, Distribution & Logistics
             </MenuItem>
+            <MenuItem value={17}>Other</MenuItem>
           </TextField>
         </Grid>
         <Grid item container>
@@ -290,6 +291,7 @@ export function EditCareerModal(props) {
             <MenuItem value={16}>
               16-Transportation, Distribution & Logistics
             </MenuItem>
+            <MenuItem value={17}>Other</MenuItem>
           </TextField>
         </Grid>
         <Grid item container>

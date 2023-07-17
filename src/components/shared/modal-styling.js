@@ -56,6 +56,10 @@ export const buttonTheme = createTheme({
       main: '#6DBB7A',
       contrastText: '#fff',
     },
+    default: {
+      main: '#1565C0',
+      contrastText: '#fff',
+    },
   },
 });
 
