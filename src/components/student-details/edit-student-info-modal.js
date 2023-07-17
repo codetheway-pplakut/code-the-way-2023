@@ -7,6 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
+import { HdrAutoOutlined } from '@mui/icons-material';
 import { GenericModal } from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
@@ -149,6 +150,28 @@ export default function EditStudentInfoModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
+  const handleClose = () => {
+    setStudentFirstName(student.studentFirstName);
+    setStudentLastName(student.studentLastName);
+    setStudentCellPhone(student.studentCellPhone);
+    setStudentEmail(student.studentEmail);
+    setStudentAddress(student.studentAddress);
+    setStudentApartmentNumber(student.studentApartmentNumber);
+    setStudentCity(student.studentCity);
+    setStudentState(student.studentState);
+    setStudentZipCode(student.studentZipCode);
+
+    setStudentFirstNameEdit(false);
+    setStudentLastNameEdit(false);
+    setStudentCellPhoneEdit(false);
+    setStudentEmailEdit(false);
+    setStudentAddressEdit(false);
+    setStudentApartmentNumberEdit(false);
+    setStudentCityEdit(false);
+    setStudentStateEdit(false);
+    setStudentZipCodeEdit(false);
+    setStudentDateOfBirthEdit(false);
+  };
   return (
     <GenericModal
       actionButtonTitle="Submit"
@@ -156,6 +179,7 @@ export default function EditStudentInfoModal(props) {
       modalHeadingTitle={header}
       onActionButtonClick={requestSave}
       actionButtonDisabled={actionButtonDisabled}
+      onCancelButtonClick={handleClose}
       openModal={<EditIcon />}
     >
       <Grid container spacing={1} padding={4}>
@@ -345,7 +369,7 @@ export function EditParentModal(props) {
         },
       },
       parentAddress: { presence: { allowEmpty: false, message: '' } },
-      parentApartmentNumber: { presence: { allowEmpty: false, message: '' } },
+
       parentCity: { presence: { allowEmpty: false, message: '' } },
       parentState: { presence: { allowEmpty: false, message: '' } },
       parentZipCode: {
@@ -418,6 +442,28 @@ export function EditParentModal(props) {
     if (onSaveSuccess) onSaveSuccess();
   };
 
+  const handleClose = () => {
+    setParentFirstName(student.parentFirstName);
+    setParentLastName(student.parentLastName);
+    setParentCellPhone(student.parentCellPhone);
+    setParentEmail(student.parentEmail);
+    setParentAddress(student.address);
+    setParentApartmentNumber(student.parentApartmentNumber);
+    setParentCity(student.parentCity);
+    setParentState(student.parentState);
+    setParentZipCode(student.parentZipCode);
+
+    setParentFirstNameEdit(false);
+    setParentLastNameEdit(false);
+    setParentCellPhoneEdit(false);
+    setParentEmailEdit(false);
+    setParentAddressEdit(false);
+    setParentApartmentNumberEdit(false);
+    setParentCityEdit(false);
+    setParentStateEdit(false);
+    setParentZipCodeEdit(false);
+  };
+
   return (
     <GenericModal
       actionButtonTitle="Submit"
@@ -426,6 +472,7 @@ export function EditParentModal(props) {
       modalMessage="Fill out the fields below to save."
       actionButtonColor="submit"
       onActionButtonClick={requestSave}
+      onCancelButtonClick={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openModal={<EditIcon />}
     >
@@ -494,11 +541,6 @@ export function EditParentModal(props) {
               label="Apt."
               onChange={(event) => setParentApartmentNumber(event.target.value)}
               value={parentApartmentNumber}
-              errorText={parentApartmentNumber.length < 1 ? 'Enter Apt.' : ' '}
-              error={
-                parentApartmentNumber.length < 1 && parentApartmentNumberEdit
-              }
-              required
               onBlur={() => setParentApartmentNumberEdit(true)}
             />
           </Grid>
