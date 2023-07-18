@@ -71,7 +71,6 @@ export default function AddCommunicationsModal(props) {
     setTopicEdit(false);
     setDescriptionEdit(false);
     setCoachIdEdit(false);
-    console.log('reset triggered in add-comms');
   };
   const requestSave = async () => {
     try {
