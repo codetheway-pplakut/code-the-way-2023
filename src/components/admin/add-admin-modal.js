@@ -6,6 +6,12 @@ import { Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
 import { addAdminHandler } from './adminHandlers';
+import {
+  lowercaseLetter,
+  uppercaseLetter,
+  number,
+  specialCharacter,
+} from '../shared/validation-regexes';
 
 export function AddAdminModal(props) {
   const { onSubmit } = props;
@@ -17,6 +23,11 @@ export function AddAdminModal(props) {
   const [passwordEdit, setPasswordEdit] = useState(false);
   const [confirmPasswordEdit, setConfirmPasswordEdit] = useState(false);
 
+  validate.validators.uppercaseLetter = uppercaseLetter;
+  validate.validators.lowercaseLetter = lowercaseLetter;
+  validate.validators.number = number;
+  validate.validators.specialCharacter = specialCharacter;
+
   const validator = validate(
     { email, password, confirmPassword },
     {
@@ -25,12 +36,11 @@ export function AddAdminModal(props) {
         email: true,
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be blank.' },
-        format: {
-          pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
-          message:
-            'Must contain a number, a lowercase and an uppercase letter, and a special character.',
-        },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        lowercaseLetter: {},
+        specialCharacter: {},
+        uppercaseLetter: {},
+        number: {},
         length: {
           minimum: 12,
           message: 'Must be at least 12 characters.',

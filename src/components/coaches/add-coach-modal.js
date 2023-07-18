@@ -6,6 +6,12 @@ import { Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
 import { addCoachHandler } from './coachHandlers';
+import {
+  uppercaseLetter,
+  lowercaseLetter,
+  number,
+  specialCharacter,
+} from '../shared/validation-regexes';
 
 export function AddCoachModal(props) {
   const { onSubmit } = props;
@@ -24,6 +30,11 @@ export function AddCoachModal(props) {
   const [phoneEdit, setPhoneEdit] = useState(false);
   const [confirmPasswordEdit, setConfirmPasswordEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
+
+  validate.validators.lowercaseLetter = lowercaseLetter;
+  validate.validators.specialCharacter = specialCharacter;
+  validate.validators.number = number;
+  validate.validators.uppercaseLetter = uppercaseLetter;
 
   const validator = validate(
     { firstName, lastName, email, phone, password, confirmPassword },
@@ -46,16 +57,12 @@ export function AddCoachModal(props) {
         },
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be blank.' },
-        format: {
-          pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
-          message:
-            'Must contain a number, a lowercase and an uppercase letter, and a special character.',
-        },
-        length: {
-          minimum: 12,
-          message: 'Must be at least 12 characters.',
-        },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
+        length: { minimum: 12, message: 'must be at least 12 characters' },
+        lowercaseLetter: {},
+        specialCharacter: {},
+        uppercaseLetter: {},
+        number: {},
       },
 
       confirmPassword: {
