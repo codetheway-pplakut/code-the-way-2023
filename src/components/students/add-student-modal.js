@@ -93,7 +93,7 @@ export function AddStudentModal(props) {
       justifyContent="center"
       alignItems="center"
     >
-      <Grid item container direction="row">
+      <Grid item container direction="row" xs={12} spacing={2}>
         <Grid item xs={6}>
           <TextField
             label="First Name"
@@ -123,46 +123,44 @@ export function AddStudentModal(props) {
           />
         </Grid>
       </Grid>
-      <Grid item container direction="row">
+      <Grid item container direction="row" xs={12}>
         <Grid item xs={12}>
           <TextField
             label="Email"
-            margin="normal"
-            size="large"
             onChange={(event) => {
               setEmail(event.target.value);
             }}
-            sx={{ my: 1, maxWidth: '210px' }}
             helperText={displayErrorMessages('email')}
             error={checkError('email') && emailEdit}
             onBlur={() => setEmailEdit(true)}
+            fullWidth
           />
         </Grid>
       </Grid>
-      <Grid item>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DesktopDatePicker
-            label="Date of Birth"
+      <Grid item container direction="row" xs={12} spacing={2}>
+        <Grid item xs={6} mt="8px">
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DesktopDatePicker
+              label="Date of Birth"
+              margin="normal"
+              value={dayjs(dateOfBirth)}
+              onChange={(newValue) => setDateOfBirth(newValue)}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            label="Phone"
             margin="normal"
-            sx={{ width: 210, my: 1 }}
-            value={dayjs(dateOfBirth)}
-            onChange={(newValue) => setDateOfBirth(newValue)}
+            onChange={(event) => {
+              setCellPhone(event.target.value);
+            }}
+            sx={{ my: 1 }}
+            helperText={displayErrorMessages('cellPhone')}
+            error={checkError('cellPhone') && cellPhoneEdit}
+            onBlur={() => setCellPhoneEdit(true)}
           />
-        </LocalizationProvider>
-      </Grid>
-      <Grid item>
-        <TextField
-          label="Phone"
-          margin="normal"
-          size="large"
-          onChange={(event) => {
-            setCellPhone(event.target.value);
-          }}
-          sx={{ my: 1 }}
-          helperText={displayErrorMessages('cellPhone')}
-          error={checkError('cellPhone') && cellPhoneEdit}
-          onBlur={() => setCellPhoneEdit(true)}
-        />
+        </Grid>
       </Grid>
     </Grid>
   );

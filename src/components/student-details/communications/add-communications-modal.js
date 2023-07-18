@@ -172,7 +172,7 @@ export default function AddCommunicationsModal(props) {
           </TextField>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={6} mb="22px">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               margin="normal"
