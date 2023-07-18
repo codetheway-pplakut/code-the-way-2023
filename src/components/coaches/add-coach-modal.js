@@ -25,6 +25,11 @@ export function AddCoachModal(props) {
   const [confirmPasswordEdit, setConfirmPasswordEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
 
+  function uppercaseLetter(value, options) {
+    if (/.*[A-Z].*/.test(value)) return null;
+    return options.message || 'must have an uppercase letter';
+  }
+
   const validator = validate(
     { firstName, lastName, email, phone, password, confirmPassword },
     {
@@ -48,14 +53,16 @@ export function AddCoachModal(props) {
       password: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
-          pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
-          message:
-            'Must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
+          pattern: '(?=.*[a-z])',
+          message: 'Must contain at least one lowercase letter',
         },
-        length: {
-          minimum: 12,
-          message: 'Must be at least 12 characters',
+        uppercaseLetter: {
+          message: 'Must have at least one uppercase letter',
         },
+      },
+      length: {
+        minimum: 12,
+        message: 'Must be at least 12 characters',
       },
 
       confirmPassword: {
