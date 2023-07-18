@@ -28,16 +28,10 @@ export function ChooseCoachModal(props) {
     setNewCoachId(value);
   };
 
-  let labelText = 'Unassigned';
-  if (student.coachFirstName !== null) {
-    labelText = `${student.coachFirstName} ${student.coachLastName}`;
-  }
-
   const content = (
     <TextField
       id="coach-select"
       select
-      label={labelText}
       value={value}
       onFocus={recordValue}
       onChange={handleCoachChange}
