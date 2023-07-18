@@ -37,7 +37,7 @@ export function EditCoachModal(props) {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
     },
@@ -104,60 +104,68 @@ export function EditCoachModal(props) {
 
   const content = (
     <Grid container spacing={2} justifyContent="center">
-      <div>
+      <Grid item container direction="row" spacing={2}>
+        <Grid item xs={6}>
+          <TextField
+            id="outlined"
+            label="First Name"
+            defaultValue={firstName}
+            helperText={displayErrorMessages('firstName')}
+            error={checkError('firstName') && firstNameEdit}
+            required
+            sx={{ my: 1 }}
+            onChange={(event) => {
+              setFirstName(event.target.value);
+            }}
+            onBlur={() => setFirstNameEdit(true)}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            id="outlined"
+            label="Last Name"
+            defaultValue={lastName}
+            helperText={displayErrorMessages('lastName')}
+            error={checkError('lastName') && lastNameEdit}
+            required
+            sx={{ my: 1 }}
+            onChange={(event) => {
+              setLastName(event.target.value);
+            }}
+            onBlur={() => setLastNameEdit(true)}
+          />
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
         <TextField
-          id="outlined"
-          label="First Name"
-          defaultValue={firstName}
-          helperText={displayErrorMessages('firstName')}
-          error={checkError('firstName') && firstNameEdit}
-          required
-          sx={{ my: 1 }}
-          onChange={(event) => {
-            setFirstName(event.target.value);
-          }}
-          onBlur={() => setFirstNameEdit(true)}
-        />
-        <TextField
-          id="outlined"
-          label="Last Name"
-          defaultValue={lastName}
-          helperText={displayErrorMessages('lastName')}
-          error={checkError('lastName') && lastNameEdit}
-          required
-          sx={{ my: 1 }}
-          onChange={(event) => {
-            setLastName(event.target.value);
-          }}
-          onBlur={() => setLastNameEdit(true)}
-        />
-        <TextField
+          fullWidth
           id="outlined"
           label="Email"
           error={checkError('email') && emailEdit}
           helperText={displayErrorMessages('email')}
           required
           defaultValue={email}
-          sx={{ my: 1 }}
           onChange={(event) => {
             setEmail(event.target.value);
           }}
           onBlur={() => setEmailEdit(true)}
         />
+      </Grid>
+      <Grid item xs={12}>
         <TextField
+          fullWidth
           id="outlined"
           label="Phone Number"
           required
           error={checkError('phone') && phoneEdit}
           helperText={displayErrorMessages('phone')}
           defaultValue={phone}
-          sx={{ my: 1 }}
           onChange={(event) => {
             setPhone(event.target.value);
           }}
           onBlur={() => setPhoneEdit(true)}
         />
-      </div>
+      </Grid>
     </Grid>
   );
   return (

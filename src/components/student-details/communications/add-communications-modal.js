@@ -44,13 +44,13 @@ export default function AddCommunicationsModal(props) {
     { description, topic, coachId },
     {
       description: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       topic: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       coachId: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
     },
     { fullMessages: false }
@@ -91,7 +91,7 @@ export default function AddCommunicationsModal(props) {
     if (errors && errors.length > 0) {
       return errors.join(', '); // Concatenate error messages with a comma and space
     }
-    return null;
+    return ' ';
   };
 
   const checkError = (field) => {
@@ -174,7 +174,7 @@ export default function AddCommunicationsModal(props) {
           </TextField>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={6} mb="22px">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               margin="normal"
