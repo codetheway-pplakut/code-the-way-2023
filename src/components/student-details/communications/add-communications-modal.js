@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem, TextField, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-// import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -14,6 +13,8 @@ import { flattenDeep, set } from 'lodash';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
+
+// import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 export default function AddCommunicationsModal(props) {
   const { student, onSaveSuccess } = props;
@@ -27,6 +28,7 @@ export default function AddCommunicationsModal(props) {
   const [descriptionEdit, setDescriptionEdit] = React.useState('');
   const [topicEdit, setTopicEdit] = React.useState('');
   const [coachIdEdit, setCoachIdEdit] = React.useState('');
+
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
     const { data } = response;
@@ -62,7 +64,7 @@ export default function AddCommunicationsModal(props) {
     setTopic('');
     setDescription('');
     setCoachId('');
-    setActiveCoaches([]);
+
     setCreated(new Date());
     setDescriptionEdit(false);
 
@@ -193,6 +195,6 @@ AddCommunicationsModal.propTypes = {
 };
 
 AddCommunicationsModal.defaultProps = {
-  student: PropTypes.func,
+  student: undefined,
   onSaveSuccess: undefined,
 };
