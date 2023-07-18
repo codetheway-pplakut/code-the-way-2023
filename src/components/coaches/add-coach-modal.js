@@ -118,7 +118,6 @@ export function AddCoachModal(props) {
     <GenericModal
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add a Coach"
-      modalMessage="Fill out the fields below to add a coach."
       actionButtonTitle="Create"
       cancelButtonTitle="Cancel"
       actionButtonDisabled={actionButtonDisabled}
@@ -126,32 +125,36 @@ export function AddCoachModal(props) {
       onActionButtonClick={submitAction}
       onModalOpen={reset}
     >
-      <Grid container justifyContent="center">
-        <Grid item xs={9}>
-          <TextField
-            fullWidth
-            onChange={(event) => setFirstName(event.target.value)}
-            label="First Name"
-            value={firstName}
-            helperText={displayErrorMessages('firstName')}
-            error={checkError('firstName') && firstNameEdit}
-            required
-            type="text"
-            sx={{ my: 1 }}
-            onBlur={() => setFirstNameEdit(true)}
-          />
-          <TextField
-            fullWidth
-            onChange={(event) => setLastName(event.target.value)}
-            label="Last Name"
-            value={lastName}
-            helperText={displayErrorMessages('lastName')}
-            error={checkError('lastName') && lastNameEdit}
-            required
-            type="text"
-            sx={{ my: 1 }}
-            onBlur={() => setLastNameEdit(true)}
-          />
+      <Grid container justifyContent="center" padding={4}>
+        <Grid item container direction="row" xs={12} spacing={2}>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              onChange={(event) => setFirstName(event.target.value)}
+              label="First Name"
+              value={firstName}
+              helperText={displayErrorMessages('firstName')}
+              error={checkError('firstName') && firstNameEdit}
+              required
+              type="text"
+              onBlur={() => setFirstNameEdit(true)}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              onChange={(event) => setLastName(event.target.value)}
+              label="Last Name"
+              value={lastName}
+              helperText={displayErrorMessages('lastName')}
+              error={checkError('lastName') && lastNameEdit}
+              required
+              type="text"
+              onBlur={() => setLastNameEdit(true)}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setEmail(event.target.value)}
@@ -164,6 +167,8 @@ export function AddCoachModal(props) {
             sx={{ my: 1 }}
             onBlur={() => setEmailEdit(true)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setPhone(event.target.value)}
@@ -176,6 +181,8 @@ export function AddCoachModal(props) {
             sx={{ my: 1 }}
             onBlur={() => setPhoneEdit(true)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setPassword(event.target.value)}
@@ -188,6 +195,8 @@ export function AddCoachModal(props) {
             sx={{ my: 1 }}
             onBlur={() => setPasswordEdit(true)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setConfirmPassword(event.target.value)}
