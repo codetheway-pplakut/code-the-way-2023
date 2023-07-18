@@ -24,6 +24,8 @@ export function AddStudentModal(props) {
   const [emailEdit, setEmailEdit] = React.useState(false);
   const [cellPhoneEdit, setCellPhoneEdit] = React.useState(false);
 
+  const [dateOfBirthError, setDateofBirthError] = React.useState(false);
+
   const validator = validate(
     { firstName, lastName, email, dateOfBirth, cellPhone },
     {
@@ -51,7 +53,7 @@ export function AddStudentModal(props) {
 
   const messages = flattenDeep(Object.values(validator || {}));
 
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(messages.length || dateOfBirthError);
 
   const reset = () => {
     setEmail('');
@@ -129,6 +131,10 @@ export function AddStudentModal(props) {
             sx={{ width: 210, my: 1 }}
             value={dayjs(dateOfBirth)}
             onChange={(newValue) => setDateOfBirth(newValue)}
+            disableFuture
+            onError={(error) => {
+              setDateofBirthError(error !== null);
+            }}
           />
         </LocalizationProvider>
       </Grid>

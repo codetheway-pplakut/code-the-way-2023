@@ -303,8 +303,6 @@ export function AddGoalModal(props) {
     setSelEdit(false);
   };
 
-  const today = new Date();
-
   return (
     <GenericModal
       actionButtonTitle="Confirm"
