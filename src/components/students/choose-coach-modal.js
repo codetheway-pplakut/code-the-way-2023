@@ -10,6 +10,9 @@ export function ChooseCoachModal(props) {
 
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
+  const [labelText, setLabelText] = useState(
+    student.coachId ? student.coachFirstName : 'Unassigned'
+  );
 
   const reassignCoachHandler = async () => {
     if (newCoachId !== '') {
@@ -22,6 +25,7 @@ export function ChooseCoachModal(props) {
 
   const handleCoachChange = (event) => {
     setValue(event.target.value);
+    setLabelText('');
   };
 
   const recordValue = () => {
@@ -32,6 +36,7 @@ export function ChooseCoachModal(props) {
     <TextField
       id="coach-select"
       select
+      label={labelText}
       value={value}
       onFocus={recordValue}
       onChange={handleCoachChange}
