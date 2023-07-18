@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import StudentDetails from './student-details-page';
 import { getStudentById } from '../../services/students/students';
 import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
-import { getStudentInterviews } from '../../services/interviews/interviews';
 import { LayoutError } from '../layout/layout-error/layout-error';
 
 /**
@@ -13,7 +12,6 @@ export function StudentInfo() {
   const [student, setStudent] = useState({});
   const [goals, setGoals] = useState({});
   const [careers, setCareers] = useState({});
-  const [interviews, setInterviews] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -36,10 +34,6 @@ export function StudentInfo() {
         careerDeclaration: data.student.careerDeclaration,
       };
       setCareers(careerData);
-
-      const interviewResponse = await getStudentInterviews(id);
-      const { interviewData } = interviewResponse;
-      setInterviews(interviewData);
     } catch (error) {
       setHasError(true);
     }
@@ -57,7 +51,6 @@ export function StudentInfo() {
         student={student}
         goals={goals}
         careers={careers}
-        interviews={interviews}
         onReload={() => requestStudent(studentId)}
       />
     ),
