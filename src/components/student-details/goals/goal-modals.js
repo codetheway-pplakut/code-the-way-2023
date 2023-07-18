@@ -68,7 +68,7 @@ export function EditGoalModal(props) {
     return false;
   };
   const actionButtonDisabled = Boolean(
-    messages.length && goalReviewDateError && goalSetDateError
+    messages.length || goalReviewDateError || goalSetDateError
   );
 
   useEffect(() => {
@@ -142,8 +142,6 @@ export function EditGoalModal(props) {
                 label="Date Goal Set"
                 value={dayjs(dateGoalSet)}
                 onChange={(newValue) => setDateGoalSet(newValue)}
-                disablePast
-                defaultValue={Today}
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
@@ -157,8 +155,6 @@ export function EditGoalModal(props) {
                 label="Goal Review Date"
                 value={dayjs(goalReviewDate)}
                 onChange={(newValue) => setGoalReviewDate(newValue)}
-                disablePast
-                defaultValue={Today}
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
@@ -275,7 +271,7 @@ export function AddGoalModal(props) {
     return false;
   };
   const actionButtonDisabled = Boolean(
-    messages.length && goalReviewDateError && goalSetDateError
+    messages.length || goalReviewDateError || goalSetDateError
   );
 
   const requestSubmit = async () => {

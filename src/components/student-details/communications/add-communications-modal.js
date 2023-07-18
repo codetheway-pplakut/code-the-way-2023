@@ -56,7 +56,7 @@ export default function AddCommunicationsModal(props) {
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
-  const actionButtonDisabled = Boolean(messages.length && dateError);
+  const actionButtonDisabled = Boolean(messages.length || dateError);
   const studentId = student.id;
 
   const closeHandler = () => {
