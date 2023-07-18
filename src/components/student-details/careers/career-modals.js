@@ -101,7 +101,7 @@ export function AddCareerModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
-      onCancelButtonClick={closeAction}
+      onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       modalMessage="Fill out the fields below to add a career."
@@ -311,7 +311,7 @@ export function EditCareerModal(props) {
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Career"
       onActionButtonClick={requestSubmit}
-      onCancelButtonClick={closeAction}
+      onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
       modalMessage="Fill out the fields below to edit a career."
