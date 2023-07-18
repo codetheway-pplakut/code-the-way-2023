@@ -94,7 +94,7 @@ const COLUMNS = [
           <DynamicTableWithRequest
             columns={STUDENTCOLUMNS}
             requestFunc={getStudentsByCoachId}
-            filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+            filterBy={['firstName', 'lastName', 'email']}
             customTableMaxHeight={studentTableMaxHeight}
             requestData={value}
           />
@@ -137,6 +137,7 @@ const COLUMNS = [
 function refreshPage() {
   window.location.reload(false);
 }
+
 export function Coaches() {
   return (
     <Grid container justifyContent="center">
@@ -151,7 +152,6 @@ export function Coaches() {
                   'coachFirstName',
                   'coachLastName',
                   'coachEmail',
-                  'coachPhoneNumber',
                 ]}
                 customTableMaxHeight="50vh"
                 defaultFilterBy="coachLastName"

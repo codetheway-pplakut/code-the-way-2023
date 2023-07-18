@@ -50,7 +50,7 @@ export function InactiveRejectedStudent() {
             <DynamicTableWithRequest
               columns={COLUMNS}
               requestFunc={requestFunc}
-              filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+              filterBy={['firstName', 'lastName', 'email']}
               defaultFilterBy="lastName"
               customTableMaxHeight={510}
             />

@@ -1,11 +1,19 @@
 import { flattenDeep } from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
-import { addCoachHandler } from './coachHandlers';
+import {
+  addCoachHandler,
+  getActiveCoachesHandler,
+  getInactiveCoachesHandler,
+} from './coachHandlers';
+import {
+  getActiveAdminsHandler,
+  getInactiveAdminsHandler,
+} from '../admin/adminHandlers';
 import {
   uppercaseLetter,
   lowercaseLetter,
@@ -31,6 +39,50 @@ export function AddCoachModal(props) {
   const [phoneEdit, setPhoneEdit] = useState(false);
   const [confirmPasswordEdit, setConfirmPasswordEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
+  const [activeCoach, setActiveCoach] = useState([]);
+  const [inactiveCoach, setInactiveCoach] = useState([]);
+  const [activeAdmin, setActiveAdmin] = useState([]);
+  const [inactiveAdmin, setInactiveAdmin] = useState([]);
+
+  const requestActiveCoaches = async () => {
+    const response = await getActiveCoachesHandler();
+    const { data } = response;
+    setActiveCoach(data);
+  };
+
+  const requestInactiveCoaches = async () => {
+    const response = await getInactiveCoachesHandler();
+    const { data } = response;
+    setInactiveCoach(data);
+  };
+
+  const requestActiveAdmins = async () => {
+    const response = await getActiveAdminsHandler();
+    const { data } = response;
+    setActiveAdmin(data);
+  };
+
+  const requestInactiveAdmins = async () => {
+    const response = await getInactiveAdminsHandler();
+    const { data } = response;
+    setInactiveAdmin(data);
+  };
+
+  useEffect(() => {
+    requestActiveCoaches();
+    requestInactiveCoaches();
+    requestActiveAdmins();
+    requestInactiveAdmins();
+  }, []);
+
+  const coachEmailList = (arr1, arr2, arr3, arr4) => {
+    const value1 = arr1.map((val) => val.coachEmail);
+    const value2 = arr2.map((val) => val.coachEmail);
+    const value3 = arr3.map((val) => val.email);
+    const value4 = arr4.map((val) => val.email);
+    const finalValue = flattenDeep([value1, value2, value3, value4]);
+    return finalValue;
+  };
 
   validate.validators.lowercaseLetter = lowercaseLetter;
   validate.validators.specialCharacter = specialCharacter;
@@ -50,14 +102,23 @@ export function AddCoachModal(props) {
         firstIsCapital: {},
       },
       email: {
-        presence: { allowEmpty: false, message: 'Must not be blank,' },
+        exclusion: {
+          within: coachEmailList(
+            activeCoach,
+            inactiveCoach,
+            activeAdmin,
+            inactiveAdmin
+          ),
+          message: 'This email is used',
+        },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       phone: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       password: {
