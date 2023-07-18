@@ -81,6 +81,8 @@ export function AddStudentModal(props) {
     return null;
   };
 
+  const minDate = dayjs().subtract(20, 'year');
+
   const checkError = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
@@ -132,6 +134,7 @@ export function AddStudentModal(props) {
             value={dayjs(dateOfBirth)}
             onChange={(newValue) => setDateOfBirth(newValue)}
             disableFuture
+            minDate={minDate}
             onError={(error) => {
               setDateofBirthError(error !== null);
             }}
