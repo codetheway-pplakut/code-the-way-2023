@@ -91,7 +91,7 @@ export default function AddCommunicationsModal(props) {
     if (errors && errors.length > 0) {
       return errors.join(', '); // Concatenate error messages with a comma and space
     }
-    return null;
+    return ' ';
   };
 
   const checkError = (field) => {
