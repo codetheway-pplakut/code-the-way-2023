@@ -11,6 +11,7 @@ import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { flattenDeep, set } from 'lodash';
 
+import { Today } from '@mui/icons-material';
 import { GenericModal } from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
@@ -32,6 +33,9 @@ export function EditGoalModal(props) {
   const [goalSetEdit, setGoalSetEdit] = useState(false);
   const [explanationEdit, setExplanationEdit] = useState(false);
   const [selEdit, setSelEdit] = useState(false);
+
+  const [goalReviewDateError, setGoalReviewDateError] = useState(false);
+  const [goalSetDateError, setGoalSetDateError] = useState(false);
 
   const validator = validate(
     { goalSet, explanation, sel },
@@ -63,7 +67,9 @@ export function EditGoalModal(props) {
     }
     return false;
   };
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(
+    messages.length && goalReviewDateError && goalSetDateError
+  );
 
   useEffect(() => {
     setGoalSet(goal.goalSet);
@@ -136,6 +142,11 @@ export function EditGoalModal(props) {
                 label="Date Goal Set"
                 value={dayjs(dateGoalSet)}
                 onChange={(newValue) => setDateGoalSet(newValue)}
+                disablePast
+                defaultValue={Today}
+                onError={(error) => {
+                  setGoalSetDateError(error !== null);
+                }}
               />
             </LocalizationProvider>
           </Grid>
@@ -146,6 +157,11 @@ export function EditGoalModal(props) {
                 label="Goal Review Date"
                 value={dayjs(goalReviewDate)}
                 onChange={(newValue) => setGoalReviewDate(newValue)}
+                disablePast
+                defaultValue={Today}
+                onError={(error) => {
+                  setGoalReviewDateError(error !== null);
+                }}
               />
             </LocalizationProvider>
           </Grid>
@@ -228,12 +244,12 @@ export function AddGoalModal(props) {
   const [explanationEdit, setExplanationEdit] = useState(false);
   const [selEdit, setSelEdit] = useState(false);
 
+  const [goalReviewDateError, setGoalReviewDateError] = useState(false);
+  const [goalSetDateError, setGoalSetDateError] = useState(false);
+
   const validator = validate(
-    { goalSet, explanation, sel },
+    { explanation, sel },
     {
-      goalSet: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
-      },
       explanation: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
@@ -258,7 +274,9 @@ export function AddGoalModal(props) {
     }
     return false;
   };
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(
+    messages.length && goalReviewDateError && goalSetDateError
+  );
 
   const requestSubmit = async () => {
     await addGoalHandler(
@@ -319,6 +337,11 @@ export function AddGoalModal(props) {
                 label="Date Goal Set"
                 value={dayjs(dateGoalSet)}
                 onChange={(newValue) => setDateGoalSet(newValue)}
+                disablePast
+                defaultValue={Today}
+                onError={(error) => {
+                  setGoalSetDateError(error !== null);
+                }}
               />
             </LocalizationProvider>
           </Grid>
@@ -329,6 +352,11 @@ export function AddGoalModal(props) {
                 label="Goal Review Date"
                 value={dayjs(goalReviewDate)}
                 onChange={(newValue) => setGoalReviewDate(newValue)}
+                disablePast
+                defaultValue={Today}
+                onError={(error) => {
+                  setGoalReviewDateError(error !== null);
+                }}
               />
             </LocalizationProvider>
           </Grid>
