@@ -10,6 +10,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { validate } from 'validate.js';
 import { flattenDeep, set } from 'lodash';
+import { Today } from '@mui/icons-material';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
@@ -28,7 +29,7 @@ export default function AddCommunicationsModal(props) {
   const [descriptionEdit, setDescriptionEdit] = React.useState(false);
   const [topicEdit, setTopicEdit] = React.useState(false);
   const [coachIdEdit, setCoachIdEdit] = React.useState(false);
-
+  const [dateError, setDateError] = React.useState(false);
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
     const { data } = response;
@@ -56,8 +57,7 @@ export default function AddCommunicationsModal(props) {
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
-
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(messages.length || dateError);
   const studentId = student.id;
 
   const reset = () => {
@@ -181,6 +181,11 @@ export default function AddCommunicationsModal(props) {
               label="Date of Communication"
               value={dayjs(created)}
               onChange={(newValue) => setCreated(newValue)}
+              disableFuture
+              defaultValue={Today}
+              onError={(error) => {
+                setDateError(error !== null);
+              }}
             />
           </LocalizationProvider>
         </Grid>
