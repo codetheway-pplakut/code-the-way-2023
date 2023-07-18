@@ -91,13 +91,15 @@ const COLUMNS = [
           modalHeadingTitle={`View ${row.coachFirstName}'s Students`}
           viewModalWidth={900}
         >
-          <DynamicTableWithRequest
-            columns={STUDENTCOLUMNS}
-            requestFunc={getStudentsByCoachId}
-            filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
-            customTableMaxHeight={studentTableMaxHeight}
-            requestData={value}
-          />
+          {row.length > 0 && (
+            <DynamicTableWithRequest
+              columns={STUDENTCOLUMNS}
+              requestFunc={getStudentsByCoachId}
+              filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+              customTableMaxHeight={studentTableMaxHeight}
+              requestData={value}
+            />
+          )}
         </GenericViewModal>
       );
     },
