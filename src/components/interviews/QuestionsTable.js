@@ -7,6 +7,7 @@ import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { EditQuestionModal } from './editQuestionModal';
 
 const interviewId = '92ad7555-1de2-4c82-9cbb-1e24117f0626';
 
@@ -16,6 +17,21 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Question',
     align: 'left',
+  },
+  {
+    id: 'questionInInterviews[0]',
+    disablePadding: false,
+    label: 'Order',
+    align: 'left',
+    render: (value, row, refreshTable) =>
+      row.questionInInterviews[0].questionOrder,
+  },
+  {
+    id: 'id',
+    disablePadding: false,
+    label: 'Options',
+    align: 'left',
+    render: (value, row, refreshTable) => <EditQuestionModal question={row} />,
   },
 ];
 
@@ -58,8 +74,8 @@ export function QuestionsTable() {
                 APIcolumns={COLUMNS}
                 APIrows={rows}
                 refreshTable={request}
-                filterBy={['id']}
-                defaultFilterBy="id"
+                filterBy={['questionInInterviews[0].questionOrder']}
+                defaultFilterBy="questionInInterviews[0].questionOrder"
               />
             </Box>
           </Layout>
