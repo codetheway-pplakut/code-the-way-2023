@@ -25,6 +25,8 @@ export function AddStudentModal(props) {
   const [emailEdit, setEmailEdit] = React.useState(false);
   const [cellPhoneEdit, setCellPhoneEdit] = React.useState(false);
 
+  const [dateOfBirthError, setDateofBirthError] = React.useState(false);
+
   validate.validators.firstIsCapital = firstIsCapital;
 
   const validator = validate(
@@ -56,7 +58,7 @@ export function AddStudentModal(props) {
 
   const messages = flattenDeep(Object.values(validator || {}));
 
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(messages.length || dateOfBirthError);
 
   const reset = () => {
     setEmail('');
@@ -83,6 +85,8 @@ export function AddStudentModal(props) {
     }
     return null;
   };
+
+  const minDate = dayjs().subtract(30, 'year');
 
   const checkError = (field) => {
     const errors = validator && validator[field];
@@ -148,8 +152,14 @@ export function AddStudentModal(props) {
             <DesktopDatePicker
               label="Date of Birth"
               margin="normal"
+              sx={{ width: 210, my: 1 }}
               value={dayjs(dateOfBirth)}
               onChange={(newValue) => setDateOfBirth(newValue)}
+              disableFuture
+              minDate={minDate}
+              onError={(error) => {
+                setDateofBirthError(error !== null);
+              }}
             />
           </LocalizationProvider>
         </Grid>
