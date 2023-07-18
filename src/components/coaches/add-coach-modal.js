@@ -14,6 +14,12 @@ import {
   getActiveAdminsHandler,
   getInactiveAdminsHandler,
 } from '../admin/adminHandlers';
+import {
+  uppercaseLetter,
+  lowercaseLetter,
+  number,
+  specialCharacter,
+} from '../shared/validation-regexes';
 
 export function AddCoachModal(props) {
   const { onSubmit } = props;
@@ -77,14 +83,19 @@ export function AddCoachModal(props) {
     return finalValue;
   };
 
+  validate.validators.lowercaseLetter = lowercaseLetter;
+  validate.validators.specialCharacter = specialCharacter;
+  validate.validators.number = number;
+  validate.validators.uppercaseLetter = uppercaseLetter;
+
   const validator = validate(
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
       },
       lastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
       },
       email: {
         exclusion: {
@@ -100,27 +111,23 @@ export function AddCoachModal(props) {
         email: true,
       },
       phone: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
           message: 'Format: ###-###-####',
         },
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
-        format: {
-          pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
-          message:
-            'Must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
-        },
-        length: {
-          minimum: 12,
-          message: 'Must be at least 12 characters',
-        },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
+        length: { minimum: 12, message: 'must be at least 12 characters' },
+        lowercaseLetter: {},
+        specialCharacter: {},
+        uppercaseLetter: {},
+        number: {},
       },
 
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
         equality: 'password',
       },
     },
@@ -162,7 +169,7 @@ export function AddCoachModal(props) {
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
-      return errors.join(', '); // Concatenate error messages with a comma and space
+      return errors.join(' '); // Concatenate error messages with a space
     }
     return null;
   };
@@ -179,7 +186,6 @@ export function AddCoachModal(props) {
     <GenericModal
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add a Coach"
-      modalMessage="Fill out the fields below to add a coach."
       actionButtonTitle="Create"
       cancelButtonTitle="Cancel"
       actionButtonDisabled={actionButtonDisabled}
@@ -187,32 +193,36 @@ export function AddCoachModal(props) {
       onActionButtonClick={submitAction}
       onModalOpen={reset}
     >
-      <Grid container justifyContent="center">
-        <Grid item xs={9}>
-          <TextField
-            fullWidth
-            onChange={(event) => setFirstName(event.target.value)}
-            label="First Name"
-            value={firstName}
-            helperText={displayErrorMessages('firstName')}
-            error={checkError('firstName') && firstNameEdit}
-            required
-            type="text"
-            sx={{ my: 1 }}
-            onBlur={() => setFirstNameEdit(true)}
-          />
-          <TextField
-            fullWidth
-            onChange={(event) => setLastName(event.target.value)}
-            label="Last Name"
-            value={lastName}
-            helperText={displayErrorMessages('lastName')}
-            error={checkError('lastName') && lastNameEdit}
-            required
-            type="text"
-            sx={{ my: 1 }}
-            onBlur={() => setLastNameEdit(true)}
-          />
+      <Grid container justifyContent="center" padding={4}>
+        <Grid item container direction="row" xs={12} spacing={2}>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              onChange={(event) => setFirstName(event.target.value)}
+              label="First Name"
+              value={firstName}
+              helperText={displayErrorMessages('firstName')}
+              error={checkError('firstName') && firstNameEdit}
+              required
+              type="text"
+              onBlur={() => setFirstNameEdit(true)}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              fullWidth
+              onChange={(event) => setLastName(event.target.value)}
+              label="Last Name"
+              value={lastName}
+              helperText={displayErrorMessages('lastName')}
+              error={checkError('lastName') && lastNameEdit}
+              required
+              type="text"
+              onBlur={() => setLastNameEdit(true)}
+            />
+          </Grid>
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setEmail(event.target.value)}
@@ -225,6 +235,8 @@ export function AddCoachModal(props) {
             sx={{ my: 1 }}
             onBlur={() => setEmailEdit(true)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setPhone(event.target.value)}
@@ -237,6 +249,8 @@ export function AddCoachModal(props) {
             sx={{ my: 1 }}
             onBlur={() => setPhoneEdit(true)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setPassword(event.target.value)}
@@ -249,6 +263,8 @@ export function AddCoachModal(props) {
             sx={{ my: 1 }}
             onBlur={() => setPasswordEdit(true)}
           />
+        </Grid>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             onChange={(event) => setConfirmPassword(event.target.value)}

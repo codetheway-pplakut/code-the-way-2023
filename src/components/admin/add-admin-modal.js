@@ -6,6 +6,12 @@ import { Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
 import {
+  lowercaseLetter,
+  uppercaseLetter,
+  number,
+  specialCharacter,
+} from '../shared/validation-regexes';
+import {
   addAdminHandler,
   getActiveAdminsHandler,
   getInactiveAdminsHandler,
@@ -70,6 +76,11 @@ export function AddAdminModal(props) {
     return finalValue;
   };
 
+  validate.validators.uppercaseLetter = uppercaseLetter;
+  validate.validators.lowercaseLetter = lowercaseLetter;
+  validate.validators.number = number;
+  validate.validators.specialCharacter = specialCharacter;
+
   const validator = validate(
     { email, password, confirmPassword },
     {
@@ -88,18 +99,17 @@ export function AddAdminModal(props) {
       },
       password: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
-        format: {
-          pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
-          message:
-            'Must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
-        },
+        lowercaseLetter: {},
+        specialCharacter: {},
+        uppercaseLetter: {},
+        number: {},
         length: {
           minimum: 12,
-          message: 'Must be at least 12 characters',
+          message: 'Must be at least 12 characters.',
         },
       },
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
         equality: 'password',
       },
     },
@@ -110,7 +120,7 @@ export function AddAdminModal(props) {
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
-      return errors.join(', '); // Concatenate error messages with a comma and space
+      return errors.join(' '); // Concatenate error messages with a space
     }
     return null;
   };

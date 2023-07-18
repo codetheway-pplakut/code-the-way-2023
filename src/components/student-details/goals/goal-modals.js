@@ -41,12 +41,12 @@ export function EditGoalModal(props) {
     { goalSet, explanation, sel },
     {
       goalSet: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       explanation: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
-      sel: { presence: { allowEmpty: false, message: 'Must not be Blank' } },
+      sel: { presence: { allowEmpty: false, message: 'Must not be blank' } },
     },
     { fullMessages: false }
   );
@@ -247,9 +247,9 @@ export function AddGoalModal(props) {
     { explanation, sel },
     {
       explanation: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
-      sel: { presence: { allowEmpty: false, message: 'Must not be Blank' } },
+      sel: { presence: { allowEmpty: false, message: 'Must not be blank' } },
     },
     { fullMessages: false }
   );

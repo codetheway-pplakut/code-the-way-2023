@@ -92,17 +92,17 @@ export default function EditStudentInfoModal(props) {
     },
     {
       studentFirstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentLastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentEmail: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       studentCellPhone: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
           message: 'Format: ###-###-####',
@@ -110,19 +110,19 @@ export default function EditStudentInfoModal(props) {
       },
       dateOfBirth: {},
       studentAddress: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentApartmentNumber: {
         // presence: { allowEmpty: true },
       },
       studentCity: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentState: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentZipCode: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{5}){1}',
           message: 'Must be Valid Zip Code',
@@ -368,34 +368,34 @@ export function EditParentModal(props) {
     },
     {
       parentFirstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentLastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentEmail: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       parentCellPhone: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
           message: 'Format: ###-###-####',
         },
       },
       parentAddress: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
 
       parentCity: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentState: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentZipCode: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{5}){1}',
           message: 'Must be Valid Zip Code',
