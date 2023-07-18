@@ -32,7 +32,7 @@ export function AddAdminModal(props) {
     { email, password, confirmPassword },
     {
       email: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank,' },
         email: true,
       },
       password: {
@@ -43,11 +43,11 @@ export function AddAdminModal(props) {
         number: {},
         length: {
           minimum: 12,
-          message: 'must be at least 12 characters',
+          message: 'Must be at least 12 characters.',
         },
       },
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
         equality: 'password',
       },
     },
@@ -58,7 +58,7 @@ export function AddAdminModal(props) {
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
-      return errors.join(', '); // Concatenate error messages with a comma and space
+      return errors.join(' '); // Concatenate error messages with a space
     }
     return null;
   };

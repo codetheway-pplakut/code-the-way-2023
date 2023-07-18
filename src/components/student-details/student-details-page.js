@@ -44,7 +44,7 @@ export default function StudentDetails(props) {
   const requestSearch = (searchedVal) => {
     const lowerFilterInput = String(searchedVal).toLowerCase();
     const filteredRows = communications.filter((row) => {
-      return ['topic'].some((key) => {
+      return ['topic', 'coachName'].some((key) => {
         const value = row[key];
         const lowerValue = String(value).toLowerCase();
         return lowerValue.includes(lowerFilterInput);
@@ -94,7 +94,7 @@ export default function StudentDetails(props) {
     <React.Fragment>
       <LayoutBackButton />
 
-      <Grid container direction="row" sx={{ mt: '50px', px: '1vw' }}>
+      <Grid container direction="row" sx={{ mt: '25px', px: '1vw', pl: '2vw' }}>
         <Grid item container xs={6} direction="column" alignItems="center">
           <Grid item position="relative">
             <Tabs
