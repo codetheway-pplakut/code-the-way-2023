@@ -137,6 +137,7 @@ const COLUMNS = [
 function refreshPage() {
   window.location.reload(false);
 }
+
 export function Coaches() {
   return (
     <Grid container justifyContent="center">
