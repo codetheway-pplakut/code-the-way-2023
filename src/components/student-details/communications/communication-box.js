@@ -1,8 +1,7 @@
 import { Grid, Typography, Box } from '@mui/material';
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
-import { getCoachByIdHandler } from '../../coaches/coachHandlers';
 import {
   AspirationsCard,
   AspirationsCardHeader,
@@ -10,21 +9,7 @@ import {
 } from '../aspirations-card';
 
 export default function CommunicationBox(props) {
-  const { date, coach, topic, notes } = props;
-  const [coachName, setCoachName] = React.useState('');
-
-  const getCoach = async (id) => {
-    if (id === undefined) return;
-    const response = await getCoachByIdHandler(id);
-    const { data } = response;
-    setCoachName(data);
-  };
-
-  useEffect(() => {
-    getCoach(coach);
-  }, [coach]);
-
-  const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
+  const { coachName, topic, description, created } = props;
 
   return (
     <Box py="3px">
@@ -39,59 +24,35 @@ export default function CommunicationBox(props) {
             minHeight: '10vh',
           }}
         >
-          <Typography>{notes}</Typography>
+          <Typography>{description}</Typography>
         </Grid>
         <AspirationsCardFooter>
           <Grid container>
             <Grid item xs={6}>
-              <Typography>{`Coach Name: ${coachFullName}`}</Typography>
+              <Typography>{`Coach Name: ${coachName}`}</Typography>
             </Grid>
             <Grid item xs={6}>
               <Typography>
-                Date: {dayjs(date).format('MMM DD, YYYY')}
+                Date: {dayjs(created).format('MMM DD, YYYY')}
               </Typography>
             </Grid>
           </Grid>
         </AspirationsCardFooter>
       </AspirationsCard>
     </Box>
-    // <Box sx={boxStyle}>
-    //   <Grid
-    //     container
-    //     direction="row"
-    //     sx={{
-    //       border: 2,
-    //       borderTopLeftRadius: '5px',
-    //       borderTopRightRadius: '5px',
-    //     }}
-    //   >
-    //     <Grid item xs={5}>
-    //       <Typography sx={textStyle}> Date Created: {formattedDate}</Typography>
-    //     </Grid>
-    //     <Grid item xs={4}>
-    //       <Typography sx={textStyle}>Coach: {coachFullName} </Typography>
-    //     </Grid>
-    //     <Grid item xs={9}>
-    //       <Typography sx={headerStyle}>{topic}</Typography>
-    //     </Grid>
-    //     <Grid item xs={12}>
-    //       <Typography sx={noteStyle}>{notes}</Typography>
-    //     </Grid>
-    //   </Grid>
-    // </Box>
   );
 }
 
 CommunicationBox.defaultProps = {
-  date: null,
-  coach: null,
+  created: null,
+  coachName: null,
   topic: null,
-  notes: null,
+  description: null,
 };
 
 CommunicationBox.propTypes = {
-  date: PropTypes.string,
-  coach: PropTypes.string,
+  created: PropTypes.string,
+  coachName: PropTypes.string,
   topic: PropTypes.string,
-  notes: PropTypes.string,
+  description: PropTypes.string,
 };
