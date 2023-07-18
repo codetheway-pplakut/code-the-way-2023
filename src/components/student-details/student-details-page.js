@@ -95,7 +95,7 @@ export default function StudentDetails(props) {
     <React.Fragment>
       <LayoutBackButton />
 
-      <Grid container direction="row" sx={{ mt: '50px', px: '1vw' }}>
+      <Grid container direction="row" sx={{ mt: '50px', px: '1vw', pl: '2vw' }}>
         <Grid item container xs={6} direction="column" alignItems="center">
           <Grid item position="relative">
             <Tabs
@@ -195,10 +195,10 @@ export default function StudentDetails(props) {
                 return (
                   <CommunicationBox
                     key={row.communicationId}
-                    coach={row.coachId}
+                    coachName={row.coachName}
                     topic={row.topic}
-                    notes={row.description}
-                    date={row.created}
+                    description={row.description}
+                    created={row.created}
                   />
                 );
               })}

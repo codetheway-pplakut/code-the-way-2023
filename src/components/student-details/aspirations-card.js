@@ -56,11 +56,12 @@ export function AspirationsCardHeader(props) {
 }
 
 AspirationsCardHeader.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   header: PropTypes.string,
 };
 
 AspirationsCardHeader.defaultProps = {
+  children: null,
   header: null,
 };
 
@@ -88,6 +89,9 @@ export function AspirationsCardFooter(props) {
   );
 }
 
+AspirationsCardFooter.defaultProps = {
+  children: null,
+};
 AspirationsCardFooter.propTypes = {
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
 };

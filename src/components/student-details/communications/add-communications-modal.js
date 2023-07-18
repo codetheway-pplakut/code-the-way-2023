@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem, TextField, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-// import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -11,9 +10,12 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { validate } from 'validate.js';
 import { flattenDeep, set } from 'lodash';
+import { Today } from '@mui/icons-material';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
+
+// import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 export default function AddCommunicationsModal(props) {
   const { student, onSaveSuccess } = props;
@@ -24,9 +26,10 @@ export default function AddCommunicationsModal(props) {
   const [activeCoaches, setActiveCoaches] = React.useState([]);
   const [created, setCreated] = React.useState(new Date());
 
-  const [descriptionEdit, setDescriptionEdit] = React.useState('');
-  const [topicEdit, setTopicEdit] = React.useState('');
-  const [coachIdEdit, setCoachIdEdit] = React.useState('');
+  const [descriptionEdit, setDescriptionEdit] = React.useState(false);
+  const [topicEdit, setTopicEdit] = React.useState(false);
+  const [coachIdEdit, setCoachIdEdit] = React.useState(false);
+  const [dateError, setDateError] = React.useState(false);
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
     const { data } = response;
@@ -54,15 +57,14 @@ export default function AddCommunicationsModal(props) {
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
-
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(messages.length || dateError);
   const studentId = student.id;
 
   const reset = () => {
     setTopic('');
     setDescription('');
     setCoachId('');
-    setActiveCoaches([]);
+
     setCreated(new Date());
     setDescriptionEdit(false);
 
@@ -89,7 +91,7 @@ export default function AddCommunicationsModal(props) {
     if (errors && errors.length > 0) {
       return errors.join(', '); // Concatenate error messages with a comma and space
     }
-    return null;
+    return ' ';
   };
 
   const checkError = (field) => {
@@ -172,13 +174,18 @@ export default function AddCommunicationsModal(props) {
           </TextField>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={6} mb="22px">
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
               margin="normal"
               label="Date of Communication"
               value={dayjs(created)}
               onChange={(newValue) => setCreated(newValue)}
+              disableFuture
+              defaultValue={Today}
+              onError={(error) => {
+                setDateError(error !== null);
+              }}
             />
           </LocalizationProvider>
         </Grid>
@@ -193,6 +200,6 @@ AddCommunicationsModal.propTypes = {
 };
 
 AddCommunicationsModal.defaultProps = {
-  student: PropTypes.func,
+  student: undefined,
   onSaveSuccess: undefined,
 };
