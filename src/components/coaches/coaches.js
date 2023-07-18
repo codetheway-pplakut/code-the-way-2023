@@ -94,7 +94,7 @@ const COLUMNS = [
           <DynamicTableWithRequest
             columns={STUDENTCOLUMNS}
             requestFunc={getStudentsByCoachId}
-            filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+            filterBy={['firstName', 'lastName', 'email']}
             customTableMaxHeight={studentTableMaxHeight}
             requestData={value}
           />
@@ -148,12 +148,7 @@ export function Coaches() {
               <DynamicTableWithRequest
                 columns={COLUMNS}
                 requestFunc={getActiveCoaches}
-                filterBy={[
-                  'coachFirstName',
-                  'coachLastName',
-                  'coachEmail',
-                  'coachPhoneNumber',
-                ]}
+                filterBy={['coachFirstName', 'coachLastName', 'coachEmail']}
                 customTableMaxHeight={520}
                 defaultFilterBy="coachLastName"
               >
