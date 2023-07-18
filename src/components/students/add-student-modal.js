@@ -41,7 +41,7 @@ export function AddStudentModal(props) {
         presence: { allowEmpty: true, message: 'Must not be Blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       dateOfBirth: {},

@@ -10,6 +10,10 @@ import {
   getActiveAdminsHandler,
   getInactiveAdminsHandler,
 } from './adminHandlers';
+import {
+  getActiveCoachesHandler,
+  getInactiveCoachesHandler,
+} from '../coaches/coachHandlers';
 
 export function AddAdminModal(props) {
   const { onSubmit } = props;
@@ -21,30 +25,49 @@ export function AddAdminModal(props) {
   const [passwordEdit, setPasswordEdit] = useState(false);
   const [confirmPasswordEdit, setConfirmPasswordEdit] = useState(false);
 
-  const [adminActive, setAdminActive] = useState([]);
-  const [adminInactive, setAdminInactive] = useState([]);
+  const [activeCoach, setActiveCoach] = useState([]);
+  const [inactiveCoach, setInactiveCoach] = useState([]);
+  const [activeAdmin, setActiveAdmin] = useState([]);
+  const [inactiveAdmin, setInactiveAdmin] = useState([]);
 
-  const requestAdmins = async () => {
-    const activeAdminResponse = await getActiveAdminsHandler();
-    // const inactiveAdminResponse = await getInactiveAdminsHandler();
-    const { dataActiveAdmin } = activeAdminResponse;
-    // const { dataInactiveAdmin } = inactiveAdminResponse;
-    setAdminActive(dataActiveAdmin);
-    // setAdminInactive(dataInactiveAdmin);
+  const requestActiveCoaches = async () => {
+    const response = await getActiveCoachesHandler();
+    const { data } = response;
+    setActiveCoach(data);
   };
-  // console.log(
-  //   'admin inactive emails&&&&&&&',
-  //   adminInactive.map((val) => val.email)
-  // );
+
+  const requestInactiveCoaches = async () => {
+    const response = await getInactiveCoachesHandler();
+    const { data } = response;
+    setInactiveCoach(data);
+  };
+
+  const requestActiveAdmins = async () => {
+    const response = await getActiveAdminsHandler();
+    const { data } = response;
+    setActiveAdmin(data);
+  };
+
+  const requestInactiveAdmins = async () => {
+    const response = await getInactiveAdminsHandler();
+    const { data } = response;
+    setInactiveAdmin(data);
+  };
 
   useEffect(() => {
-    requestAdmins();
+    requestActiveCoaches();
+    requestInactiveCoaches();
+    requestActiveAdmins();
+    requestInactiveAdmins();
   }, []);
 
-  console.log('admin emails&&&&&&&', adminActive);
-
-  const listAdmin = () => {
-    return adminActive.map((val) => val.email);
+  const coachEmailList = (arr1, arr2, arr3, arr4) => {
+    const value1 = arr1.map((val) => val.coachEmail);
+    const value2 = arr2.map((val) => val.coachEmail);
+    const value3 = arr3.map((val) => val.email);
+    const value4 = arr4.map((val) => val.email);
+    const finalValue = flattenDeep([value1, value2, value3, value4]);
+    return finalValue;
   };
 
   const validator = validate(
@@ -52,6 +75,15 @@ export function AddAdminModal(props) {
     {
       email: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
+        exclusion: {
+          within: coachEmailList(
+            activeCoach,
+            inactiveCoach,
+            activeAdmin,
+            inactiveAdmin
+          ),
+          message: 'This email is used',
+        },
         email: true,
       },
       password: {
@@ -59,11 +91,11 @@ export function AddAdminModal(props) {
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
-            'must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
+            'Must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
         },
         length: {
           minimum: 12,
-          message: 'must be at least 12 characters',
+          message: 'Must be at least 12 characters',
         },
       },
       confirmPassword: {
