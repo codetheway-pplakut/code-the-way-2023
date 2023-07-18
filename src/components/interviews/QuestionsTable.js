@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Box } from '@mui/system';
+import { Grid } from '@mui/material';
 import { getInterviewHandler } from './interviewsHandler';
 import { DynamicTable } from '../table-layout/dynamicTable';
+import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
+import { LayoutError } from '../layout/layout-error/layout-error';
+import { Layout } from '../layout/layout';
+import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 
 const interviewId = '92ad7555-1de2-4c82-9cbb-1e24117f0626';
 
@@ -23,11 +29,10 @@ export function QuestionsTable() {
     setHasError(false);
 
     try {
-      const response = await getInterviewHandler(interviewId).questions;
-      console.log(response);
+      const response = await getInterviewHandler(interviewId);
       const { data } = response;
-      setRows(data);
-      console.log(rows);
+      console.log(data.questions);
+      setRows(data.questions);
     } catch (error) {
       setRows([]);
       setHasError(true);
@@ -40,14 +45,26 @@ export function QuestionsTable() {
     request();
   }, []);
 
+  if (isLoading) return <LayoutPreloader />;
+  if (hasError) return <LayoutError />;
+
   return (
-    <React.Fragment>
-      <h1>Interview</h1>
-      <DynamicTable
-        APIcolumns={COLUMNS}
-        APIrows={rows}
-        refreshTable={request}
-      />
-    </React.Fragment>
+    <Grid container justifyContent="center">
+      <Grid item xs={10}>
+        <EntitlementRestricted>
+          <Layout title="Interviews">
+            <Box sx={{ width: '100%' }}>
+              <DynamicTable
+                APIcolumns={COLUMNS}
+                APIrows={rows}
+                refreshTable={request}
+                filterBy={['id']}
+                defaultFilterBy="id"
+              />
+            </Box>
+          </Layout>
+        </EntitlementRestricted>
+      </Grid>
+    </Grid>
   );
 }

@@ -5,7 +5,7 @@ import {
 } from '../../services/interviews/interviews';
 
 export function getInterviewHandler(interviewId) {
-  return getInterview(interviewId).questions;
+  return getInterview(interviewId);
 }
 
 export function getStudentResponseHandler(studentId) {
