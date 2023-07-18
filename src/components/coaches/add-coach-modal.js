@@ -29,24 +29,24 @@ export function AddCoachModal(props) {
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       lastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       email: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       phone: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
           message: 'Format: XXX-XXX-XXXX',
         },
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
@@ -59,7 +59,7 @@ export function AddCoachModal(props) {
       },
 
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         equality: 'password',
       },
     },

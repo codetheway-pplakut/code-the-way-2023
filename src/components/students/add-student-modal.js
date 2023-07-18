@@ -28,17 +28,17 @@ export function AddStudentModal(props) {
     { firstName, lastName, email, dateOfBirth, cellPhone },
     {
       firstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       lastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       email: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       cellPhone: {
-        presence: { allowEmpty: true, message: 'Must not be Blank' },
+        presence: { allowEmpty: true, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
           message: 'Format: XXX-XXX-XXXX',

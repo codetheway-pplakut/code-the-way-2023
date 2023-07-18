@@ -41,13 +41,13 @@ export default function AddCommunicationsModal(props) {
     { description, topic, coachId },
     {
       description: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       topic: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       coachId: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
     },
     { fullMessages: false }

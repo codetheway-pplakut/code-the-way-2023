@@ -21,11 +21,11 @@ export function AddAdminModal(props) {
     { email, password, confirmPassword },
     {
       email: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
@@ -37,7 +37,7 @@ export function AddAdminModal(props) {
         },
       },
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         equality: 'password',
       },
     },
