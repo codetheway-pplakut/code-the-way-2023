@@ -89,7 +89,7 @@ export function DynamicTable(props) {
         </Grid>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer sx={{ maxHeight: 510 }}>
+        <TableContainer sx={{ maxHeight: '60vh' }}>
           <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}

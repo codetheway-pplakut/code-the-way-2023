@@ -153,7 +153,7 @@ export function Coaches() {
                   'coachEmail',
                   'coachPhoneNumber',
                 ]}
-                customTableMaxHeight={520}
+                customTableMaxHeight="50vh"
                 defaultFilterBy="coachLastName"
               >
                 <AddCoachModal onSubmit={refreshPage} />
