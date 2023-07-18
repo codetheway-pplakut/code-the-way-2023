@@ -21,23 +21,23 @@ export function AddAdminModal(props) {
     { email, password, confirmPassword },
     {
       email: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank,' },
         email: true,
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
-            'must contain at least one lowercase letter, one uppercase letter, one number, and one special character',
+            'Must contain a number, a lowercase and an uppercase letter, and a special character.',
         },
         length: {
           minimum: 12,
-          message: 'must be at least 12 characters',
+          message: 'Must be at least 12 characters.',
         },
       },
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank.' },
         equality: 'password',
       },
     },
@@ -48,7 +48,7 @@ export function AddAdminModal(props) {
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
-      return errors.join(', '); // Concatenate error messages with a comma and space
+      return errors.join(' '); // Concatenate error messages with a space
     }
     return null;
   };

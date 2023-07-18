@@ -46,7 +46,7 @@ export function AddCareerModal(props) {
     { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       careerCluster: {
         numericality: {
@@ -264,7 +264,7 @@ export function EditCareerModal(props) {
     { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       careerCluster: {
         numericality: {
