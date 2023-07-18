@@ -145,6 +145,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
+                disableFuture="true"
               />
             </LocalizationProvider>
           </Grid>
@@ -158,6 +159,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
+                minDate={dateGoalSet}
               />
             </LocalizationProvider>
           </Grid>
@@ -301,6 +303,8 @@ export function AddGoalModal(props) {
     setSelEdit(false);
   };
 
+  const today = new Date();
+
   return (
     <GenericModal
       actionButtonTitle="Confirm"
@@ -334,7 +338,7 @@ export function AddGoalModal(props) {
                 label="Date Goal Set"
                 value={dayjs(dateGoalSet)}
                 onChange={(newValue) => setDateGoalSet(newValue)}
-                disablePast
+                disableFuture
                 defaultValue={Today}
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
@@ -349,8 +353,8 @@ export function AddGoalModal(props) {
                 label="Goal Review Date"
                 value={dayjs(goalReviewDate)}
                 onChange={(newValue) => setGoalReviewDate(newValue)}
-                disablePast
-                defaultValue={Today}
+                minDate={dateGoalSet}
+                defaultValue={Today + 1}
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
