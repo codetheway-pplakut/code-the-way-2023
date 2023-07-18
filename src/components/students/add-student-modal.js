@@ -81,7 +81,7 @@ export function AddStudentModal(props) {
     return null;
   };
 
-  const minDate = dayjs().subtract(20, 'year');
+  const minDate = dayjs().subtract(30, 'year');
 
   const checkError = (field) => {
     const errors = validator && validator[field];
