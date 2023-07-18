@@ -190,21 +190,13 @@ export function GoalsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  const renderGoal = ({ index }) => {
-    const goalContent = allGoals[index];
-    return (
-      <Grid container>
-        <Grid item xs={12}>
-          <Goal
-            sx={{ pt: '20px', maxWidth: '50%' }}
-            goal={goalContent}
-            key={goalContent.id}
-            onSaveSuccess={() => fetchGoals()}
-          />
-        </Grid>
-      </Grid>
-    );
-  };
+  const goalData = allGoals.map((goalContent) => (
+    <Goal
+      key={goalContent.id}
+      goal={goalContent}
+      onSaveSuccess={() => fetchGoals()}
+    />
+  ));
 
   // FIXME Item size must change whenever the size of the goals themselves change.
   return (
@@ -224,9 +216,15 @@ export function GoalsBox(props) {
           </Grid>
         </Grid>
       </Grid>
-      <List height={900} itemCount={allGoals.length} itemSize={250}>
-        {renderGoal}
-      </List>
+      <Box
+        sx={{
+          maxHeight: '55vh',
+          overflowY: 'auto',
+          width: '43vw',
+        }}
+      >
+        {goalData}
+      </Box>
     </Box>
   );
 }
@@ -241,6 +239,7 @@ export function CareerBox(props) {
   const [allCareers, setAllCareers] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
+
   const fetchCareer = async () => {
     console.log('fetchCareer triggered');
     setIsLoading(true);
@@ -260,25 +259,19 @@ export function CareerBox(props) {
   useEffect(() => {
     fetchCareer();
   }, [student.id]);
+
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  const renderCareer = ({ index }) => {
-    const careerContent = allCareers[index];
-    return (
-      <Grid container>
-        <Grid item xs={12}>
-          <Career
-            sx={{ pt: '20px', maxWidth: '50%' }}
-            career={careerContent}
-            key={careerContent.id}
-            onSaveSuccess={() => fetchCareer()}
-          />
-        </Grid>
-      </Grid>
-    );
-  };
-  if (allCareers.length === 0)
+  const careerContent = allCareers.map((career) => (
+    <Career
+      key={career.id}
+      career={career}
+      onSaveSuccess={() => fetchCareer()}
+    />
+  ));
+
+  if (allCareers.length === 0) {
     return (
       <Grid>
         <Grid container>
@@ -300,6 +293,7 @@ export function CareerBox(props) {
         <Typography>No careers found</Typography>
       </Grid>
     );
+  }
 
   return (
     <Box>
@@ -319,9 +313,19 @@ export function CareerBox(props) {
           </Grid>
         </Grid>
       </Grid>
-      <List height={700} itemCount={allCareers.length} itemSize={250}>
-        {renderCareer}
-      </List>
+      <Box
+        sx={{
+          maxHeight: '55vh',
+          overflowY: 'auto',
+          width: '43vw',
+        }}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            {careerContent}
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   );
 }

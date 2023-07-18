@@ -7,7 +7,14 @@ import PropTypes from 'prop-types';
  */
 export function AspirationsCard(props) {
   return (
-    <Box sx={{ borderRadius: '10px', boxShadow: 2, mb: 2 }}>
+    <Box
+      sx={{
+        borderRadius: '10px',
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+        mb: 1,
+        bgcolor: '#ffffff',
+      }}
+    >
       <Grid container direction="column">
         {props.children}
       </Grid>
@@ -24,19 +31,18 @@ AspirationsCard.propTypes = {
  * It should be placed inside the AspirationsCard, and can contain more than just a header, with room for 6 more grid units of content.
  */
 export function AspirationsCardHeader(props) {
-  const { header } = props;
+  const { header, backgroundColor } = props;
   return (
     <Grid
       item
       container
       direction="row"
-      justifyContent="space-around"
       alignItems="center"
       sx={{
         px: '2vw',
         py: '1vh',
-        bgcolor: '#F0F0F0',
         borderRadius: '10px 10px 0px 0px',
+        bgcolor: '#f2f2f2',
       }}
     >
       <Grid item xs={6}>

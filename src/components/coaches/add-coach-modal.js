@@ -29,29 +29,37 @@ export function AddCoachModal(props) {
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       lastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       email: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        email: true,
       },
-      phone: {},
+      phone: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        format: {
+          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          message: 'Format: XXX-XXX-XXXX',
+        },
+      },
       password: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
-            'must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
+            'Must contain at least one number, one lowercase letter, one uppercase letter, and one special character',
         },
         length: {
           minimum: 12,
-          message: 'must be at least 12 characters',
+          message: 'Must be at least 12 characters',
         },
       },
+
       confirmPassword: {
-        presence: { allowEmpty: false, message: 'is required' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         equality: 'password',
       },
     },
@@ -60,14 +68,14 @@ export function AddCoachModal(props) {
 
   const messages = flattenDeep(Object.values(validator || {}));
 
-  const closeAction = () => {
+  const reset = () => {
     setFirstName('');
     setLastName('');
     setEmail('');
     setPhone('');
     setConfirmPassword('');
     setPassword('');
-
+    console.log(messages);
     setFirstNameEdit(false);
     setLastNameEdit(false);
     setEmailEdit(false);
@@ -86,10 +94,25 @@ export function AddCoachModal(props) {
       confirmPassword
     );
     onSubmit();
-    closeAction();
   };
 
   const actionButtonDisabled = Boolean(messages.length);
+
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
 
   return (
     <GenericModal
@@ -101,8 +124,7 @@ export function AddCoachModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     >
       <Grid container justifyContent="center">
         <Grid item xs={9}>
@@ -111,8 +133,8 @@ export function AddCoachModal(props) {
             onChange={(event) => setFirstName(event.target.value)}
             label="First Name"
             value={firstName}
-            errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
-            error={firstName.length < 1 && firstNameEdit}
+            helperText={displayErrorMessages('firstName')}
+            error={checkError('firstName') && firstNameEdit}
             required
             type="text"
             sx={{ my: 1 }}
@@ -123,8 +145,8 @@ export function AddCoachModal(props) {
             onChange={(event) => setLastName(event.target.value)}
             label="Last Name"
             value={lastName}
-            errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
-            error={lastName.length < 1 && lastNameEdit}
+            helperText={displayErrorMessages('lastName')}
+            error={checkError('lastName') && lastNameEdit}
             required
             type="text"
             sx={{ my: 1 }}
@@ -135,8 +157,8 @@ export function AddCoachModal(props) {
             onChange={(event) => setEmail(event.target.value)}
             label="Email"
             value={email}
-            error={!email.includes('@') && emailEdit}
-            errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+            error={checkError('email') && emailEdit}
+            helperText={displayErrorMessages('email')}
             required
             type="email"
             sx={{ my: 1 }}
@@ -148,8 +170,8 @@ export function AddCoachModal(props) {
             label="Phone Number"
             value={phone}
             required
-            error={phone.length < 1 && phoneEdit}
-            errorText={phone.length < 1 ? 'Enter Phone Number' : ' '}
+            error={checkError('phone') && phoneEdit}
+            helperText={displayErrorMessages('phone')}
             type="text"
             sx={{ my: 1 }}
             onBlur={() => setPhoneEdit(true)}
@@ -159,8 +181,8 @@ export function AddCoachModal(props) {
             onChange={(event) => setPassword(event.target.value)}
             label="Password"
             value={password}
-            error={password.length < 1 && passwordEdit}
-            errorText={password.length < 1}
+            error={checkError('password') && passwordEdit}
+            helperText={displayErrorMessages('password')}
             required
             type="password"
             sx={{ my: 1 }}
@@ -171,13 +193,7 @@ export function AddCoachModal(props) {
             onChange={(event) => setConfirmPassword(event.target.value)}
             label="Confirm Password"
             value={confirmPassword}
-            error={
-              confirmPassword !== password ||
-              (confirmPassword.length < 1 && confirmPasswordEdit)
-            }
-            errorText={
-              confirmPassword !== password ? 'Passwords must match.' : ' '
-            }
+            error={checkError('confirmPassword') && confirmPasswordEdit}
             required
             type="password"
             sx={{ my: 1 }}

@@ -1,15 +1,17 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 import { getCoachByIdHandler } from '../../coaches/coachHandlers';
-import { AspirationsCard, AspirationsCardHeader } from '../aspirations-card';
+import {
+  AspirationsCard,
+  AspirationsCardHeader,
+  AspirationsCardFooter,
+} from '../aspirations-card';
 
 export default function CommunicationBox(props) {
   const { date, coach, topic, notes } = props;
   const [coachName, setCoachName] = React.useState('');
-
-  console.log(date);
 
   const getCoach = async (id) => {
     if (id === undefined) return;
@@ -24,69 +26,35 @@ export default function CommunicationBox(props) {
 
   const coachFullName = `${coachName.coachFirstName} ${coachName.coachLastName}`;
 
-  const boxStyle = {
-    position: 'relative',
-    bgcolor: '#dadada',
-    color: '#000000',
-    borderColor: '#000000',
-    ml: '2%',
-    // height: 'auto',
-    width: '43.3vw',
-    minHeight: '250px',
-    // flexShrink: 1,
-    display: 'flex',
-    // gridColumn: '1 / -1',
-  };
-  const textStyle = {
-    mt: '13px',
-    ml: '28px',
-    fontSize: '1.2vw',
-  };
-  const headerStyle = {
-    mt: '0.1px',
-
-    ml: '28px',
-    fontSize: '2.2vw',
-    position: 'relative',
-  };
-  const noteStyle = {
-    mb: '10px',
-    mx: '30px',
-    fontSize: '0.9vw',
-  };
-
   return (
-    <AspirationsCard>
-      <AspirationsCardHeader header={topic}>
-        <Grid item xs={4}>
-          <Typography>{`Coach Name: ${coachFullName}`}</Typography>
+    <Box py="3px">
+      <AspirationsCard>
+        <AspirationsCardHeader header={topic} />
+        <Grid container direction="row" />
+        <Grid
+          container
+          sx={{
+            px: '2vw',
+            py: '2vh',
+            minHeight: '10vh',
+          }}
+        >
+          <Typography>{notes}</Typography>
         </Grid>
-        <Grid item xs={1}>
-          {/* <EditCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
-        </Grid>
-        <Grid item xs={1}>
-          {/* <DeleteCareerModal career={career} onSaveSuccess={onSaveSuccess} /> */}
-        </Grid>
-      </AspirationsCardHeader>
-      <Grid
-        container
-        alignItems="center"
-        sx={{
-          px: '2vw',
-          py: '2vh',
-          borderBottomLeftRadius: '10px',
-          borderBottomRightRadius: '10px',
-        }}
-      >
-        <Grid item xs={6}>
-          <Typography>Description: {notes}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography>Date: {dayjs(date).format('MMM DD, YYYY')}</Typography>
-        </Grid>
-      </Grid>
-    </AspirationsCard>
-
+        <AspirationsCardFooter>
+          <Grid container>
+            <Grid item xs={6}>
+              <Typography>{`Coach Name: ${coachFullName}`}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                Date: {dayjs(date).format('MMM DD, YYYY')}
+              </Typography>
+            </Grid>
+          </Grid>
+        </AspirationsCardFooter>
+      </AspirationsCard>
+    </Box>
     // <Box sx={boxStyle}>
     //   <Grid
     //     container

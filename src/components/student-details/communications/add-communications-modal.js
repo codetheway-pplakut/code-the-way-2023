@@ -10,7 +10,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { validate } from 'validate.js';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, set } from 'lodash';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
@@ -25,7 +25,8 @@ export default function AddCommunicationsModal(props) {
   const [created, setCreated] = React.useState(new Date());
 
   const [descriptionEdit, setDescriptionEdit] = React.useState('');
-
+  const [topicEdit, setTopicEdit] = React.useState('');
+  const [coachIdEdit, setCoachIdEdit] = React.useState('');
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
     const { data } = response;
@@ -37,12 +38,19 @@ export default function AddCommunicationsModal(props) {
   }, []);
 
   const validator = validate(
-    { description },
+    { description, topic, coachId },
     {
       description: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
-    }
+      topic: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+      coachId: {
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      },
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
@@ -50,6 +58,18 @@ export default function AddCommunicationsModal(props) {
   const actionButtonDisabled = Boolean(messages.length);
   const studentId = student.id;
 
+  const reset = () => {
+    setTopic('');
+    setDescription('');
+    setCoachId('');
+    setActiveCoaches([]);
+    setCreated(new Date());
+    setDescriptionEdit(false);
+
+    setTopicEdit(false);
+    setDescriptionEdit(false);
+    setCoachIdEdit(false);
+  };
   const requestSave = async () => {
     try {
       await addCommunicationHandler(
@@ -64,7 +84,21 @@ export default function AddCommunicationsModal(props) {
       console.log(error);
     }
   };
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
 
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   return (
     <GenericModal
       actionButtonTitle="Submit"
@@ -75,6 +109,7 @@ export default function AddCommunicationsModal(props) {
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalMessage="Fill out the fields below to add a communication."
       actionButtonColor="submit"
+      onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>
@@ -85,6 +120,9 @@ export default function AddCommunicationsModal(props) {
             onChange={(event) => {
               setTopic(event.target.value);
             }}
+            helperText={displayErrorMessages('topic')}
+            error={checkError('topic') && topicEdit}
+            onBlur={() => setTopicEdit(true)}
             fullWidth
           >
             <MenuItem value="One-on-One Coaching Session">
@@ -97,14 +135,14 @@ export default function AddCommunicationsModal(props) {
         </Grid>
 
         <Grid item xs={12}>
-      <TextField
-        label="Description"
-        onChange={(event) => setDescription(event.target.value)}
-        value={description}
-        errorText={description.length < 1 ? 'Enter Description' : ' '}
-        error={description.length < 1 && descriptionEdit}
-        onBlur={() => setDescriptionEdit(true)}
-        required
+          <TextField
+            label="Description"
+            onChange={(event) => setDescription(event.target.value)}
+            value={description}
+            helperText={displayErrorMessages('description')}
+            error={checkError('description') && descriptionEdit}
+            onBlur={() => setDescriptionEdit(true)}
+            required
             multiline
             fullWidth
             minRows={2}
@@ -119,6 +157,8 @@ export default function AddCommunicationsModal(props) {
             onChange={(event) => setCoachId(event.target.value)}
             disabled={activeCoaches.length === 0}
             style={{ width: '200px' }}
+            helperText={displayErrorMessages('coachId')}
+            error={checkError('coachId') && coachIdEdit}
           >
             {activeCoaches && activeCoaches.length > 0 ? (
               activeCoaches.map((activeCoach) => (

@@ -77,21 +77,19 @@ export function DynamicTable(props) {
   );
   return (
     <div>
-      <Box sx={{ width: '100%' }} marginInline={{}}>
-        <Grid container direction="row" alignItems="center" display="flex" />
-        <Toolbar>
-          <Grid item container justifyContent="flex-start">
+      <Box>
+        <Grid container direction="row">
+          <Grid item xs={4}>
             <SearchBar requestSearch={requestSearch} />
           </Grid>
-          <Grid item container justifyContent="flex-end">
-            <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-              {props.children}
-            </Box>
+          <Grid item xs={7} />
+          <Grid item xs={1}>
+            <Box>{props.children}</Box>
           </Grid>
-        </Toolbar>
+        </Grid>
       </Box>
       <Paper sx={{ width: '100%', mb: 2 }}>
-        <TableContainer sx={{ maxHeight: customTableMaxHeight }}>
+        <TableContainer sx={{ maxHeight: 510 }}>
           <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
             <EnhancedTableHead
               columns={APIcolumns}
@@ -140,7 +138,7 @@ export function DynamicTable(props) {
 DynamicTable.propTypes = {
   APIcolumns: PropTypes.arrayOf(PropTypes.object),
   APIrows: PropTypes.arrayOf(PropTypes.object),
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   customTableMaxHeight: PropTypes.number,
   refreshTable: PropTypes.func,
@@ -149,6 +147,7 @@ DynamicTable.propTypes = {
 DynamicTable.defaultProps = {
   APIcolumns: [],
   APIrows: [],
+  children: null,
   customTableMaxHeight: null,
   refreshTable: undefined,
 };

@@ -21,11 +21,11 @@ export function AddAdminModal(props) {
     { email, password, confirmPassword },
     {
       email: {
-        presence: true,
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       password: {
-        presence: true,
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
           pattern: '^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).*',
           message:
@@ -37,15 +37,30 @@ export function AddAdminModal(props) {
         },
       },
       confirmPassword: {
-        presence: true,
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         equality: 'password',
       },
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
 
-  const closeAction = () => {
+  const reset = () => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
@@ -57,7 +72,6 @@ export function AddAdminModal(props) {
 
   const submitAction = async () => {
     await addAdminHandler(email, password, confirmPassword);
-    closeAction();
     if (onSubmit) onSubmit();
   };
 
@@ -73,8 +87,7 @@ export function AddAdminModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     >
       <Grid container justifyContent="center">
         <Grid item xs={9}>
@@ -83,8 +96,8 @@ export function AddAdminModal(props) {
             onChange={(event) => setEmail(event.target.value)}
             label="Email"
             value={email}
-            error={!email.includes('@') && emailEdit}
-            errorText={!email.includes('@') ? 'Must contain an @ sign.' : ' '}
+            error={checkError('email') && emailEdit}
+            helperText={displayErrorMessages('email')}
             required
             type="email"
             sx={{ my: 1 }}
@@ -95,8 +108,8 @@ export function AddAdminModal(props) {
             onChange={(event) => setPassword(event.target.value)}
             label="Password"
             value={password}
-            error={password.length < 1 && passwordEdit}
-            errorText={!password.length < 1}
+            error={checkError('password') && passwordEdit}
+            helperText={displayErrorMessages('password')}
             required
             type="password"
             sx={{ my: 1 }}
@@ -108,13 +121,7 @@ export function AddAdminModal(props) {
             label="Confirm Password"
             value={confirmPassword}
             type="password"
-            error={
-              confirmPassword !== password ||
-              (confirmPassword.length < 1 && confirmPasswordEdit)
-            }
-            errorText={
-              confirmPassword !== password ? 'Passwords must match.' : ' '
-            }
+            error={checkError('confirmPassword') && confirmPasswordEdit}
             required
             sx={{ my: 1 }}
             onBlur={() => setConfirmPasswordEdit(true)}

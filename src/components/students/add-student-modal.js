@@ -7,6 +7,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
+
 import { addStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
@@ -27,27 +28,32 @@ export function AddStudentModal(props) {
     { firstName, lastName, email, dateOfBirth, cellPhone },
     {
       firstName: {
-        presence: { allowEmpty: false, message: '' },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       lastName: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
       },
       email: {
-        presence: { allowEmpty: false },
+        presence: { allowEmpty: false, message: 'Must not be Blank' },
         email: true,
       },
       cellPhone: {
-        presence: { allowEmpty: true },
+        presence: { allowEmpty: true, message: 'Must not be Blank' },
+        format: {
+          pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
+          message: 'Format: XXX-XXX-XXXX',
+        },
       },
       dateOfBirth: {},
-    }
+    },
+    { fullMessages: false }
   );
 
   const messages = flattenDeep(Object.values(validator || {}));
 
   const actionButtonDisabled = Boolean(messages.length);
 
-  const closeAction = () => {
+  const reset = () => {
     setEmail('');
     setFirstName('');
     setLastName('');
@@ -62,10 +68,24 @@ export function AddStudentModal(props) {
 
   const addStudentAction = async () => {
     await addStudentHandler(firstName, lastName, dateOfBirth, cellPhone, email);
-    closeAction();
     if (onSubmit) onSubmit();
   };
 
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(', '); // Concatenate error messages with a comma and space
+    }
+    return null;
+  };
+
+  const checkError = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return true;
+    }
+    return false;
+  };
   const content = (
     <Grid
       container
@@ -82,8 +102,8 @@ export function AddStudentModal(props) {
             setFirstName(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={firstName.length < 1 ? 'Enter First Name' : ' '}
-          error={firstName.length < 1 && firstNameEdit}
+          helperText={displayErrorMessages('firstName')}
+          error={checkError('firstName') && firstNameEdit}
           onBlur={() => setFirstNameEdit(true)}
         />
       </Grid>
@@ -96,8 +116,8 @@ export function AddStudentModal(props) {
             setLastName(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={lastName.length < 1 ? 'Enter Last Name' : ' '}
-          error={lastName.length < 1 && lastNameEdit}
+          helperText={displayErrorMessages('lastName')}
+          error={checkError('lastName') && lastNameEdit}
           onBlur={() => setLastNameEdit(true)}
         />
       </Grid>
@@ -121,8 +141,8 @@ export function AddStudentModal(props) {
             setCellPhone(event.target.value);
           }}
           sx={{ my: 1 }}
-          errorText={cellPhone.length < 1 ? 'Enter Phone Number' : ' '}
-          error={cellPhone.length < 1 && cellPhoneEdit}
+          helperText={displayErrorMessages('cellPhone')}
+          error={checkError('cellPhone') && cellPhoneEdit}
           onBlur={() => setCellPhoneEdit(true)}
         />
       </Grid>
@@ -134,12 +154,9 @@ export function AddStudentModal(props) {
           onChange={(event) => {
             setEmail(event.target.value);
           }}
-          sx={{ my: 1 }}
-          errorText={email.length < 1 ? 'Enter Email' : ' '}
-          error={
-            (!email.includes('@') ? 'Must contain an @ sign.' : ' ') &&
-            emailEdit
-          }
+          sx={{ my: 1, maxWidth: '210px' }}
+          helperText={displayErrorMessages('email')}
+          error={checkError('email') && emailEdit}
           onBlur={() => setEmailEdit(true)}
         />
       </Grid>
@@ -156,8 +173,7 @@ export function AddStudentModal(props) {
       cancelButtonTitle="Cancel"
       onActionButtonClick={addStudentAction}
       actionButtonDisabled={actionButtonDisabled}
-      onCancelButtonClick={closeAction}
-      onIconButtonClick={closeAction}
+      onModalOpen={reset}
     />
   );
 }
