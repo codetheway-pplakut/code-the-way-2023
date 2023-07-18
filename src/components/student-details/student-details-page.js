@@ -93,8 +93,7 @@ export default function StudentDetails(props) {
   return (
     <React.Fragment>
       <LayoutBackButton />
-
-      <Grid container direction="row" sx={{ mt: '50px', px: '1vw' }}>
+      <Grid container direction="row" sx={{ mt: '25px', px: '1vw' }}>
         <Grid item container xs={6} direction="column" alignItems="center">
           <Grid item position="relative">
             <Tabs
