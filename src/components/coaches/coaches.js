@@ -87,7 +87,7 @@ const COLUMNS = [
     render: (value, row) => {
       return (
         <GenericViewModal
-          openButtonIcon={<InfoOutlinedIcon />}
+          openModal={<InfoOutlinedIcon />}
           modalHeadingTitle={`View ${row.coachFirstName}'s Students`}
           viewModalWidth={900}
         >
