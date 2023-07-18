@@ -1,11 +1,15 @@
 import { flattenDeep } from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { GenericModal } from '../shared/generic-modal';
-import { addAdminHandler } from './adminHandlers';
+import {
+  addAdminHandler,
+  getActiveAdminsHandler,
+  getInactiveAdminsHandler,
+} from './adminHandlers';
 
 export function AddAdminModal(props) {
   const { onSubmit } = props;
@@ -16,6 +20,32 @@ export function AddAdminModal(props) {
   const [emailEdit, setEmailEdit] = useState(false);
   const [passwordEdit, setPasswordEdit] = useState(false);
   const [confirmPasswordEdit, setConfirmPasswordEdit] = useState(false);
+
+  const [adminActive, setAdminActive] = useState([]);
+  const [adminInactive, setAdminInactive] = useState([]);
+
+  const requestAdmins = async () => {
+    const activeAdminResponse = await getActiveAdminsHandler();
+    // const inactiveAdminResponse = await getInactiveAdminsHandler();
+    const { dataActiveAdmin } = activeAdminResponse;
+    // const { dataInactiveAdmin } = inactiveAdminResponse;
+    setAdminActive(dataActiveAdmin);
+    // setAdminInactive(dataInactiveAdmin);
+  };
+  // console.log(
+  //   'admin inactive emails&&&&&&&',
+  //   adminInactive.map((val) => val.email)
+  // );
+
+  useEffect(() => {
+    requestAdmins();
+  }, []);
+
+  console.log('admin emails&&&&&&&', adminActive);
+
+  const listAdmin = () => {
+    return adminActive.map((val) => val.email);
+  };
 
   const validator = validate(
     { email, password, confirmPassword },
