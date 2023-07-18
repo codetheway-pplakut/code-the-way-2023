@@ -91,7 +91,7 @@ export function StudentInfoBox(props) {
         {isParent && (
           <Grid item>
             <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-            <Typography fontSize="2vw">
+            <Typography component="span" fontSize="2vw">
               Parent Information{' '}
               <EditParentModal
                 student={student}
@@ -105,7 +105,7 @@ export function StudentInfoBox(props) {
       <Grid container m="1vw">
         <Grid item xs={5}>
           {!isParent ? (
-            <Typography>
+            <Typography component="span">
               Date of Birth:{' '}
               <Typography color="#959595">
                 {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
@@ -115,14 +115,14 @@ export function StudentInfoBox(props) {
               </Typography>
             </Typography>
           ) : (
-            <Typography fontSize="16px">
+            <Typography component="span" fontSize="16px">
               Parent Name:
               <Typography color="#959595">{`${firstName} ${lastName}`}</Typography>
             </Typography>
           )}
         </Grid>
         <Grid item xs={7}>
-          <Typography>Email:</Typography>
+          <Typography component="span">Email:</Typography>
           <Typography color="#959595">{email}</Typography>
         </Grid>
       </Grid>
@@ -144,7 +144,7 @@ export function StudentInfoBox(props) {
         </Grid>
 
         <Grid item xs={7}>
-          <Typography>
+          <Typography component="span">
             Preferred Phone Number:
             <Typography color="#959595">{preferredPhone}</Typography>
           </Typography>

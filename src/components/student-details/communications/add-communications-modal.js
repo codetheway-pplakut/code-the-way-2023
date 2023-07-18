@@ -25,9 +25,9 @@ export default function AddCommunicationsModal(props) {
   const [activeCoaches, setActiveCoaches] = React.useState([]);
   const [created, setCreated] = React.useState(new Date());
 
-  const [descriptionEdit, setDescriptionEdit] = React.useState('');
-  const [topicEdit, setTopicEdit] = React.useState('');
-  const [coachIdEdit, setCoachIdEdit] = React.useState('');
+  const [descriptionEdit, setDescriptionEdit] = React.useState(false);
+  const [topicEdit, setTopicEdit] = React.useState(false);
+  const [coachIdEdit, setCoachIdEdit] = React.useState(false);
 
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();

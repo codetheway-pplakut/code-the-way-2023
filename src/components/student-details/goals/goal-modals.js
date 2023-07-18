@@ -426,7 +426,7 @@ export function DeleteGoalModal(props) {
 
 DeleteGoalModal.propTypes = {
   goal: propTypes.object,
-  onSaveSuccess: undefined,
+  onSaveSuccess: propTypes.func,
 };
 DeleteGoalModal.defaultProps = {
   goal: [],
