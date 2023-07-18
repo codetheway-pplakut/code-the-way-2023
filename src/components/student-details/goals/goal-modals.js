@@ -111,7 +111,7 @@ export function EditGoalModal(props) {
       modalHeadingTitle="Edit Goal"
       modalMessage="Fill out the fields below to edit a goal."
       onActionButtonClick={requestSave}
-      onCancelButtonClick={handleClose}
+      onModalOpen={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
     >
