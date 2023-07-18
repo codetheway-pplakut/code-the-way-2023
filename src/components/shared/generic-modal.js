@@ -7,7 +7,6 @@ import {
   Grid,
   IconButton,
   Stack,
-  Icon,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import PropTypes from 'prop-types';
@@ -33,8 +32,7 @@ export function GenericModal(props) {
     actionButtonColor,
     actionButtonDisabled,
     onActionButtonClick,
-    onCancelButtonClick,
-    onIconButtonClick,
+    onModalOpen,
     children,
   } = props;
 
@@ -47,19 +45,14 @@ export function GenericModal(props) {
     handleClose();
   };
 
-  const cancelAndClose = () => {
-    if (onCancelButtonClick) onCancelButtonClick();
-    handleClose();
-  };
-
-  const iconAndClose = () => {
-    if (onIconButtonClick) onIconButtonClick();
-    handleClose();
+  const actionAndOpen = () => {
+    if (onModalOpen) onModalOpen();
+    handleOpen();
   };
 
   return (
     <React.Fragment>
-      <Button onClick={handleOpen} startIcon={openButtonIcon}>
+      <Button onClick={actionAndOpen} startIcon={openButtonIcon}>
         {openModal}
       </Button>
       <Modal open={open} onClose={handleClose}>
@@ -68,7 +61,7 @@ export function GenericModal(props) {
             <Typography padding={2} align="center" sx={headingText}>
               {modalHeadingTitle}
             </Typography>
-            <IconButton size="small" onClick={iconAndClose} sx={closeIconStyle}>
+            <IconButton size="small" onClick={handleClose} sx={closeIconStyle}>
               <CloseIcon fontSize="large" sx={closeIconStyle} />
             </IconButton>
           </Grid>
@@ -89,7 +82,7 @@ export function GenericModal(props) {
             >
               <Button
                 variant="text"
-                onClick={cancelAndClose}
+                onClick={handleClose}
                 spacing={2}
                 sx={buttonBackground}
                 theme={buttonTheme}
@@ -121,8 +114,7 @@ GenericModal.defaultProps = {
   modalMessage: null,
   actionButtonColor: 'default',
   actionButtonDisabled: null,
-  onCancelButtonClick: null,
-  onIconButtonClick: null,
+  onModalOpen: null,
   children: null,
 };
 
@@ -136,8 +128,7 @@ GenericModal.propTypes = {
   actionButtonColor: PropTypes.string,
   onActionButtonClick: PropTypes.func.isRequired,
   actionButtonDisabled: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]),
-  onCancelButtonClick: PropTypes.func,
-  onIconButtonClick: PropTypes.func,
+  onModalOpen: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
 };
 

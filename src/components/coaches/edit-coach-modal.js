@@ -170,7 +170,7 @@ export function EditCoachModal(props) {
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
       actionButtonDisabled={actionButtonDisabled}
-      onCancelButtonClick={cancelAction}
+      onModalOpen={cancelAction}
     />
   );
 }

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { MenuItem, TextField, Grid } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-// import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 import dayjs from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -16,6 +15,8 @@ import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
 import { GenericModal } from '../../shared/generic-modal';
 
+// import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
+
 export default function AddCommunicationsModal(props) {
   const { student, onSaveSuccess } = props;
 
@@ -25,9 +26,9 @@ export default function AddCommunicationsModal(props) {
   const [activeCoaches, setActiveCoaches] = React.useState([]);
   const [created, setCreated] = React.useState(new Date());
 
-  const [descriptionEdit, setDescriptionEdit] = React.useState('');
-  const [topicEdit, setTopicEdit] = React.useState('');
-  const [coachIdEdit, setCoachIdEdit] = React.useState('');
+  const [descriptionEdit, setDescriptionEdit] = React.useState(false);
+  const [topicEdit, setTopicEdit] = React.useState(false);
+  const [coachIdEdit, setCoachIdEdit] = React.useState(false);
   const [dateError, setDateError] = React.useState(false);
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
@@ -59,11 +60,11 @@ export default function AddCommunicationsModal(props) {
   const actionButtonDisabled = Boolean(messages.length || dateError);
   const studentId = student.id;
 
-  const closeHandler = () => {
+  const reset = () => {
     setTopic('');
     setDescription('');
     setCoachId('');
-    setActiveCoaches([]);
+
     setCreated(new Date());
     setDescriptionEdit(false);
 
@@ -84,7 +85,6 @@ export default function AddCommunicationsModal(props) {
     } catch (error) {
       console.log(error);
     }
-    closeHandler();
   };
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
@@ -111,8 +111,7 @@ export default function AddCommunicationsModal(props) {
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalMessage="Fill out the fields below to add a communication."
       actionButtonColor="submit"
-      onIconButtonClick={closeHandler}
-      onCancelButtonClick={closeHandler}
+      onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12}>
@@ -201,6 +200,6 @@ AddCommunicationsModal.propTypes = {
 };
 
 AddCommunicationsModal.defaultProps = {
-  student: PropTypes.func,
+  student: undefined,
   onSaveSuccess: undefined,
 };
