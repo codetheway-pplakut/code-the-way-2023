@@ -16,8 +16,13 @@ export function number(value, options) {
   if (/.*[0-9].*/.test(value)) return undefined;
   return options.message || 'must have a number';
 }
-
+export function firstIsCapital(value, options) {
+  if (/^[A-Z]/.test(value)) return undefined;
+  return options.message || 'must begin with capital letter';
+}
+// If you use any of these, be sure to use the corresponding line found below.
 validate.validators.lowercaseLetter = lowercaseLetter;
 validate.validators.specialCharacter = specialCharacter;
 validate.validators.number = number;
 validate.validators.uppercaseLetter = uppercaseLetter;
+validate.validators.firstIsCapital = firstIsCapital;
