@@ -214,7 +214,7 @@ export function EditGoalModal(props) {
           </Grid>
           <Grid item xs={6}>
             <Grid container alignItems="center" marginLeft={2}>
-              <Typography>Completed</Typography>
+              <Typography fontSize="15px">Goal Complete</Typography>
               <Checkbox
                 checked={wasItAccomplished === 'Yes'}
                 onChange={(event) =>
@@ -417,7 +417,7 @@ export function AddGoalModal(props) {
           </Grid>
           <Grid item xs={4}>
             <Grid container alignItems="center" marginLeft={2}>
-              <Typography>Completed</Typography>
+              <Typography fontSize="15px">Goal Complete</Typography>
               <Checkbox
                 checked={wasItAccomplished === 'Yes'}
                 onChange={(event) =>
