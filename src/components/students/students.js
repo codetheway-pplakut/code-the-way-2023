@@ -19,7 +19,7 @@ import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { getActiveCoachesHandler } from '../coaches/coachHandlers';
 
-const OPTIONS = [
+const APPLICANTS = [
   {
     id: 'firstName',
     disablePadding: false,
@@ -37,6 +37,7 @@ const OPTIONS = [
     disablePadding: false,
     label: 'Email',
     align: 'left',
+    hideOrder: true,
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
   },
   {
@@ -44,12 +45,14 @@ const OPTIONS = [
     disablePadding: false,
     label: 'Student Cell',
     align: 'left',
+    hideOrder: true,
   },
 
   {
-    id: 'options',
+    id: 'applicants',
     disablePadding: false,
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       const { id } = row;
       return (
@@ -115,6 +118,7 @@ export function Students() {
       disablePadding: false,
       label: 'Email',
       align: 'left',
+      hideOrder: true,
       render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
     },
     {
@@ -122,6 +126,7 @@ export function Students() {
       disablePadding: false,
       label: 'Student Cell',
       align: 'left',
+      hideOrder: true,
     },
     {
       id: 'id',
@@ -145,6 +150,7 @@ export function Students() {
       disablePadding: false,
       label: 'Deactivate',
       align: 'left',
+      hideOrder: true,
       render: (value, row, refreshTable) => (
         <DeactivateStudentModal
           studentId={value}
@@ -182,8 +188,13 @@ export function Students() {
               )}
               {tabValue === 1 && (
                 <DynamicTableWithRequest
-                  columns={OPTIONS}
-                  filterBy={['firstName', 'lastName', 'email']}
+                  columns={APPLICANTS}
+                  filterBy={[
+                    'firstName',
+                    'lastName',
+                    'email',
+                    'studentCellPhone',
+                  ]}
                   requestFunc={getAppliedStudents}
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"

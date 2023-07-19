@@ -66,7 +66,6 @@ export default function AddCommunicationsModal(props) {
     setCoachId('');
 
     setCreated(new Date());
-    setDescriptionEdit(false);
 
     setTopicEdit(false);
     setDescriptionEdit(false);
@@ -161,6 +160,7 @@ export default function AddCommunicationsModal(props) {
             style={{ width: '200px' }}
             helperText={displayErrorMessages('coachId')}
             error={checkError('coachId') && coachIdEdit}
+            onBlur={() => setCoachIdEdit(true)}
           >
             {activeCoaches && activeCoaches.length > 0 ? (
               activeCoaches.map((activeCoach) => (
