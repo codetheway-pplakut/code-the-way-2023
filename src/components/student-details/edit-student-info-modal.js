@@ -318,9 +318,11 @@ export default function EditStudentInfoModal(props) {
                 margin="normal"
                 sx={{ width: 210 }}
                 label="Date of Birth"
-                value={dayjs(studentDateOfBirth)}
+                value={dayjs(studentDateOfBirth).startOf('day')}
                 minDate={minDate}
-                onChange={(newValue) => setStudentDateOfBirth(newValue)}
+                onChange={(newValue) =>
+                  setStudentDateOfBirth(newValue.startOf('day'))
+                }
               />
             </LocalizationProvider>
           </Grid>
