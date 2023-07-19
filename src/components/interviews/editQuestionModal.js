@@ -36,10 +36,13 @@ export function EditQuestionModal(props) {
   const content = (
     <Grid container spacing={2} justifyContent="center">
       <Grid item container direction="row" spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12}>
           <TextField
+            fullWidth
             id="outlined"
-            label="First Name"
+            minRows={4}
+            multiline
+            label="Question"
             defaultValue={questionString}
             helperText={displayErrorMessages('firstName')}
             required
@@ -53,8 +56,9 @@ export function EditQuestionModal(props) {
           <TextField
             fullWidth
             id="outlined"
-            label="number"
+            label="Question Number"
             required
+            defaultValue={questionOrder}
             onChange={(event) => {
               setQuestionOrder(event.target.value);
             }}
@@ -67,7 +71,7 @@ export function EditQuestionModal(props) {
   return (
     <GenericModal
       openModal={<EditIcon />}
-      modalHeadingTitle="Edit Coach"
+      modalHeadingTitle="Edit Question"
       modalMessage={content}
       actionButtonTitle="Save"
       cancelButtonTitle="Cancel"
@@ -76,3 +80,6 @@ export function EditQuestionModal(props) {
     />
   );
 }
+PropTypes.EditQuestionModal = {
+  question: PropTypes.object.isRequired,
+};

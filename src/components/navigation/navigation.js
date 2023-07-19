@@ -33,11 +33,7 @@ export function Navigation(props) {
         <NavigationItem label="Admins" onClick={onToggle} to="/admins" />
         <NavigationItem label="Coaches" onClick={onToggle} to="/coaches" />
         <NavigationItem label="Students" onClick={onToggle} to="/students" />
-        <NavigationItem
-          label="Interview"
-          onClick={onToggle}
-          to="/questionsTable"
-        />
+        <NavigationItem label="Interview" onClick={onToggle} to="/interviews" />
         <NavigationItem
           label="Inactive/Rejected"
           onClick={onToggle}

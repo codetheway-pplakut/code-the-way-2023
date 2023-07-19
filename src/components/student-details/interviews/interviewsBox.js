@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Box } from '@mui/system';
 import { LayoutPreloader } from '../../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../../layout/layout-error/layout-error';
-import { getStudentResponseHandler } from '../../interviews/interviewsHandler';
+import { getStudentInterviewResponsesHandler } from '../../interviews/interviewsHandler';
 
 export function InterviewsBox(props) {
   const { student } = props;
@@ -18,7 +18,7 @@ export function InterviewsBox(props) {
       setIsLoading(true);
       setHasError(false);
 
-      getStudentResponseHandler(studentId).then((response) => {
+      getStudentInterviewResponsesHandler(studentId).then((response) => {
         setQuestions(response.data.questions);
         setInterviewName(response.data.interviewName);
         setIsLoading(false);
