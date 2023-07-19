@@ -10,6 +10,9 @@ export function ChooseCoachModal(props) {
 
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
+  const [labelText, setLabelText] = useState(
+    student.coachId ? student.coachFirstName : 'Unassigned'
+  );
 
   const reassignCoachHandler = async () => {
     if (newCoachId !== '') {
@@ -22,16 +25,12 @@ export function ChooseCoachModal(props) {
 
   const handleCoachChange = (event) => {
     setValue(event.target.value);
+    setLabelText('');
   };
 
   const recordValue = () => {
     setNewCoachId(value);
   };
-
-  let labelText = 'Unassigned';
-  if (student.coachFirstName !== null) {
-    labelText = `${student.coachFirstName} ${student.coachLastName}`;
-  }
 
   const content = (
     <TextField

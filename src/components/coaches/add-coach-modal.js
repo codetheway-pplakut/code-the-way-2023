@@ -19,6 +19,7 @@ import {
   lowercaseLetter,
   number,
   specialCharacter,
+  firstIsCapital,
 } from '../shared/validation-regexes';
 
 export function AddCoachModal(props) {
@@ -87,15 +88,18 @@ export function AddCoachModal(props) {
   validate.validators.specialCharacter = specialCharacter;
   validate.validators.number = number;
   validate.validators.uppercaseLetter = uppercaseLetter;
+  validate.validators.firstIsCapital = firstIsCapital;
 
   const validator = validate(
     { firstName, lastName, email, phone, password, confirmPassword },
     {
       firstName: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
+        firstIsCapital: {},
       },
       lastName: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
+        firstIsCapital: {},
       },
       email: {
         exclusion: {

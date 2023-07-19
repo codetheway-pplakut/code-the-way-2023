@@ -7,6 +7,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
+import { firstIsCapital } from '../shared/validation-regexes';
 
 import { addStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
@@ -26,14 +27,18 @@ export function AddStudentModal(props) {
 
   const [dateOfBirthError, setDateofBirthError] = React.useState(false);
 
+  validate.validators.firstIsCapital = firstIsCapital;
+
   const validator = validate(
     { firstName, lastName, email, dateOfBirth, cellPhone },
     {
       firstName: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
+        firstIsCapital: {},
       },
       lastName: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
+        firstIsCapital: {},
       },
       email: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
