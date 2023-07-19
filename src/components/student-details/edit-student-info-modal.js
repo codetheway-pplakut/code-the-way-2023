@@ -92,37 +92,37 @@ export default function EditStudentInfoModal(props) {
     },
     {
       studentFirstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentLastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentEmail: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       studentCellPhone: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       dateOfBirth: {},
       studentAddress: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentApartmentNumber: {
         // presence: { allowEmpty: true },
       },
       studentCity: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentState: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentZipCode: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{5}){1}',
           message: 'Must be Valid Zip Code',
@@ -135,7 +135,7 @@ export default function EditStudentInfoModal(props) {
   const messages = flattenDeep(Object.values(validator || {}));
 
   const actionButtonDisabled = Boolean(messages.length);
-
+  const minDate = dayjs().subtract(30, 'year');
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
@@ -318,8 +318,11 @@ export default function EditStudentInfoModal(props) {
                 margin="normal"
                 sx={{ width: 210 }}
                 label="Date of Birth"
-                value={dayjs(studentDateOfBirth)}
-                onChange={(newValue) => setStudentDateOfBirth(newValue)}
+                value={dayjs(studentDateOfBirth).startOf('day')}
+                minDate={minDate}
+                onChange={(newValue) =>
+                  setStudentDateOfBirth(newValue.startOf('day'))
+                }
               />
             </LocalizationProvider>
           </Grid>
@@ -368,34 +371,34 @@ export function EditParentModal(props) {
     },
     {
       parentFirstName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentLastName: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentEmail: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         email: true,
       },
       parentCellPhone: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       parentAddress: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
 
       parentCity: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentState: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentZipCode: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{5}){1}',
           message: 'Must be Valid Zip Code',

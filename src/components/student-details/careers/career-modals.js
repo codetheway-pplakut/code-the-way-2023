@@ -46,7 +46,7 @@ export function AddCareerModal(props) {
     { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       careerCluster: {
         numericality: {
@@ -105,7 +105,6 @@ export function AddCareerModal(props) {
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       modalMessage="Fill out the fields below to add a career."
-      onModalOpen={reset}
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12}>
@@ -264,7 +263,7 @@ export function EditCareerModal(props) {
     { specificCareer, careerCluster },
     {
       specificCareer: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       careerCluster: {
         numericality: {

@@ -44,13 +44,13 @@ export default function AddCommunicationsModal(props) {
     { description, topic, coachId },
     {
       description: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       topic: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       coachId: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
     },
     { fullMessages: false }
@@ -66,7 +66,6 @@ export default function AddCommunicationsModal(props) {
     setCoachId('');
 
     setCreated(new Date());
-    setDescriptionEdit(false);
 
     setTopicEdit(false);
     setDescriptionEdit(false);
@@ -161,6 +160,7 @@ export default function AddCommunicationsModal(props) {
             style={{ width: '200px' }}
             helperText={displayErrorMessages('coachId')}
             error={checkError('coachId') && coachIdEdit}
+            onBlur={() => setCoachIdEdit(true)}
           >
             {activeCoaches && activeCoaches.length > 0 ? (
               activeCoaches.map((activeCoach) => (

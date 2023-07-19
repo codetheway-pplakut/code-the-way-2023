@@ -2,7 +2,6 @@ import { Divider, Drawer, IconButton, Toolbar, List } from '@mui/material';
 import React from 'react';
 import PropTypes from 'prop-types';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ApiIcon from '@mui/icons-material/Api';
 import { NavigationItem } from './navigation-item/navigation-item';
 
 const DRAWER_WIDTH = '320px';
@@ -38,14 +37,6 @@ export function Navigation(props) {
           label="Inactive/Rejected"
           onClick={onToggle}
           to="/inactive-rejected"
-        />
-        <NavigationItem
-          LinkComponent="a"
-          href="https://api-dev-lead2change-ctw.azurewebsites.net/swagger/index.html"
-          icon={<ApiIcon />}
-          label="Swagger"
-          onClick={onToggle}
-          sx={{ pl: 3 }}
         />
       </List>
     </Drawer>

@@ -39,6 +39,7 @@ const STUDENTCOLUMNS = [
     align: 'left',
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
     active: false,
+    hideOrder: true,
   },
   {
     id: 'studentCellPhone',
@@ -46,6 +47,7 @@ const STUDENTCOLUMNS = [
     label: 'Student Cell',
     align: 'left',
     active: false,
+    hideOrder: true,
   },
 ];
 const studentTableMaxHeight = 440;
@@ -71,6 +73,7 @@ const COLUMNS = [
     label: 'Email',
     align: 'left',
     active: false,
+    hideOrder: true,
   },
   {
     id: 'coachPhoneNumber',
@@ -78,12 +81,14 @@ const COLUMNS = [
     label: 'Phone',
     align: 'left',
     active: false,
+    hideOrder: true,
   },
   {
     id: 'id',
     label: 'Students',
     disablePadding: false,
     align: 'left',
+    hideOrder: true,
     render: (value, row) => {
       return (
         <GenericViewModal
@@ -94,7 +99,7 @@ const COLUMNS = [
           <DynamicTableWithRequest
             columns={STUDENTCOLUMNS}
             requestFunc={getStudentsByCoachId}
-            filterBy={['firstName', 'lastName', 'email', 'studentCellPhone']}
+            filterBy={['firstName', 'lastName', 'email']}
             customTableMaxHeight={studentTableMaxHeight}
             requestData={value}
           />
@@ -107,6 +112,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Edit Coach',
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
         <EditCoachModal
@@ -122,6 +128,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Deactivate',
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
         <DeactivateCoachModal
@@ -137,6 +144,7 @@ const COLUMNS = [
 function refreshPage() {
   window.location.reload(false);
 }
+
 export function Coaches() {
   return (
     <Grid container justifyContent="center">
@@ -151,9 +159,8 @@ export function Coaches() {
                   'coachFirstName',
                   'coachLastName',
                   'coachEmail',
-                  'coachPhoneNumber',
                 ]}
-                customTableMaxHeight={520}
+                customTableMaxHeight="50vh"
                 defaultFilterBy="coachLastName"
               >
                 <AddCoachModal onSubmit={refreshPage} />

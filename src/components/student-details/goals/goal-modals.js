@@ -41,12 +41,12 @@ export function EditGoalModal(props) {
     { goalSet, explanation, sel },
     {
       goalSet: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       explanation: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
-      sel: { presence: { allowEmpty: false, message: 'Must not be Blank' } },
+      sel: { presence: { allowEmpty: false, message: 'Must not be blank' } },
     },
     { fullMessages: false }
   );
@@ -145,6 +145,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
+                disableFuture="true"
               />
             </LocalizationProvider>
           </Grid>
@@ -158,6 +159,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
+                minDate={dateGoalSet}
               />
             </LocalizationProvider>
           </Grid>
@@ -244,12 +246,15 @@ export function AddGoalModal(props) {
   const [goalSetDateError, setGoalSetDateError] = useState(false);
 
   const validator = validate(
-    { explanation, sel },
+    { goalSet, explanation, sel },
     {
-      explanation: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+      goalSet: {
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
-      sel: { presence: { allowEmpty: false, message: 'Must not be Blank' } },
+      explanation: {
+        presence: { allowEmpty: false, message: 'Must not be blank' },
+      },
+      sel: { presence: { allowEmpty: false, message: 'Must not be blank' } },
     },
     { fullMessages: false }
   );
@@ -262,6 +267,8 @@ export function AddGoalModal(props) {
     }
     return null;
   };
+
+  const minDate = dayjs().subtract(1, 'month');
 
   const checkError = (field) => {
     const errors = validator && validator[field];
@@ -292,7 +299,7 @@ export function AddGoalModal(props) {
     setGoalSet('');
     setDateGoalSet(new Date());
     setSel('');
-    setGoalReviewDate(new Date());
+    setGoalReviewDate(dayjs(new Date()).add(1, 'day'));
     setWasItAccomplished('No');
     setExplanation('');
 
@@ -334,8 +341,9 @@ export function AddGoalModal(props) {
                 label="Date Goal Set"
                 value={dayjs(dateGoalSet)}
                 onChange={(newValue) => setDateGoalSet(newValue)}
-                disablePast
+                disableFuture
                 defaultValue={Today}
+                minDate={minDate}
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
@@ -349,8 +357,9 @@ export function AddGoalModal(props) {
                 label="Goal Review Date"
                 value={dayjs(goalReviewDate)}
                 onChange={(newValue) => setGoalReviewDate(newValue)}
+                maxDate={dayjs().add(5, 'year')}
+                defaultValue={minDate.add(1, 'day')}
                 disablePast
-                defaultValue={Today}
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
