@@ -36,14 +36,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '47.5ch',
     },
   },
 }));
 export function SearchBar(props) {
   const { requestSearch } = props;
   return (
-    <Search sx={{ border: 1.5 }}>
+    <Search sx={{ border: 1.5, mb: 2 }}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>

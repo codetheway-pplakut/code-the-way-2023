@@ -76,18 +76,16 @@ export function DynamicTable(props) {
     [rows, order, orderBy]
   );
   return (
-    <div>
-      <Box>
-        <Grid container direction="row">
-          <Grid item xs={4}>
-            <SearchBar requestSearch={requestSearch} />
-          </Grid>
-          <Grid item xs={7} />
-          <Grid item xs={1}>
-            <Box>{props.children}</Box>
-          </Grid>
+    <React.Fragment>
+      <Grid container direction="row">
+        <Grid item xs={4}>
+          <SearchBar requestSearch={requestSearch} />
         </Grid>
-      </Box>
+        <Grid item xs={7} />
+        <Grid item xs={1}>
+          <Box>{props.children}</Box>
+        </Grid>
+      </Grid>
       <Paper sx={{ width: '100%', mb: 2 }}>
         <TableContainer sx={{ maxHeight: '60vh' }}>
           <Table stickyHeader sx={{ minWidth: 750 }} size="medium">
@@ -131,7 +129,7 @@ export function DynamicTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-    </div>
+    </React.Fragment>
   );
 }
 
