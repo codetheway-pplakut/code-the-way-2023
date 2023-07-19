@@ -86,10 +86,10 @@ export function AddCareerModal(props) {
   };
   const actionButtonDisabled = Boolean(messages.length);
   const closeAction = () => {
-    setCollegeBound('');
+    setCollegeBound(false);
     setCareerCluster(0);
     setSpecificCareer('');
-    setTechnicalCollegeBound('');
+    setTechnicalCollegeBound(false);
 
     setSpecificCareerEdit(false);
     setCareerClusterEdit(false);
