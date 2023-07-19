@@ -14,14 +14,16 @@ const COLUMNS = [
   {
     id: 'email',
     label: 'Email',
+    hideOrder: true,
   },
-  { id: 'studentCellPhone', label: 'Phone', align: 'right' },
+  { id: 'studentCellPhone', label: 'Phone', align: 'right', hideOrder: true },
   { id: 'state', label: 'State' },
   {
     id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
         <ActivateStudentModal

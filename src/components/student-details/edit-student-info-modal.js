@@ -135,7 +135,7 @@ export default function EditStudentInfoModal(props) {
   const messages = flattenDeep(Object.values(validator || {}));
 
   const actionButtonDisabled = Boolean(messages.length);
-
+  const minDate = dayjs().subtract(30, 'year');
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
@@ -318,8 +318,11 @@ export default function EditStudentInfoModal(props) {
                 margin="normal"
                 sx={{ width: 210 }}
                 label="Date of Birth"
-                value={dayjs(studentDateOfBirth)}
-                onChange={(newValue) => setStudentDateOfBirth(newValue)}
+                value={dayjs(studentDateOfBirth).startOf('day')}
+                minDate={minDate}
+                onChange={(newValue) =>
+                  setStudentDateOfBirth(newValue.startOf('day'))
+                }
               />
             </LocalizationProvider>
           </Grid>
