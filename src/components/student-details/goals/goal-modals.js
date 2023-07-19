@@ -115,14 +115,13 @@ export function EditGoalModal(props) {
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
-      modalMessage="Fill out the fields below to edit a goal."
       onActionButtonClick={requestSave}
       onModalOpen={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
-        <Grid item xs={12}>
+        <Grid item xs={12} mt={2} height={90}>
           <TextField
             label="Goal Title"
             onChange={(event) => setGoalSet(event.target.value)}
@@ -134,7 +133,7 @@ export function EditGoalModal(props) {
             fullWidth
           />
         </Grid>
-        <Grid item container spacing={2}>
+        <Grid item container spacing={2} height={100}>
           <Grid item xs={6}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -165,7 +164,7 @@ export function EditGoalModal(props) {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} height={130}>
           <TextField
             label="Explanation"
             onChange={(event) => setExplanation(event.target.value)}
@@ -321,7 +320,7 @@ export function AddGoalModal(props) {
       onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             label="Goal Title"
             onChange={(event) => setGoalSet(event.target.value)}
@@ -333,7 +332,7 @@ export function AddGoalModal(props) {
             fullWidth
           />
         </Grid>
-        <Grid item container spacing={2}>
+        <Grid item container spacing={2} height={90}>
           <Grid item xs={6}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
@@ -368,7 +367,7 @@ export function AddGoalModal(props) {
           </Grid>
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} height={130}>
           <TextField
             label="Explanation"
             onChange={(event) => setExplanation(event.target.value)}
@@ -390,7 +389,7 @@ export function AddGoalModal(props) {
           alignItems="center"
           justifyContent="center"
         >
-          <Grid item xs={8}>
+          <Grid item xs={8} height={90}>
             <TextField
               select
               label="SEL"
@@ -414,7 +413,7 @@ export function AddGoalModal(props) {
               </MenuItem>
             </TextField>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={4} height={80}>
             <Grid container alignItems="center" marginLeft={2}>
               <Typography>Completed</Typography>
               <Checkbox
