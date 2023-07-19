@@ -313,14 +313,13 @@ export function AddGoalModal(props) {
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
-      modalMessage="Fill out the fields below to add a goal."
       onActionButtonClick={requestSubmit}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
       onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
-        <Grid item xs={12} height={90}>
+        <Grid item xs={12} height={90} mt={2}>
           <TextField
             label="Goal Title"
             onChange={(event) => setGoalSet(event.target.value)}
