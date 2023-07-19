@@ -299,7 +299,7 @@ export function AddGoalModal(props) {
     setGoalSet('');
     setDateGoalSet(new Date());
     setSel('');
-    setGoalReviewDate(new Date());
+    setGoalReviewDate(dayjs(new Date()).add(1, 'day'));
     setWasItAccomplished('No');
     setExplanation('');
 
@@ -358,7 +358,8 @@ export function AddGoalModal(props) {
                 value={dayjs(goalReviewDate)}
                 onChange={(newValue) => setGoalReviewDate(newValue)}
                 maxDate={dayjs().add(5, 'year')}
-                defaultValue={dayjs().add(1, 'day')}
+                defaultValue={minDate.add(1, 'day')}
+                disablePast
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
