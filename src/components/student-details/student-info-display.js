@@ -214,7 +214,7 @@ export function GoalsBox(props) {
             <Grid item xs={1}>
               <AddGoalModal
                 student={student}
-                onSaveSuccess={() => fetchGoal()}
+                onSaveSuccess={() => fetchGoals()}
               />
             </Grid>
           </Grid>
