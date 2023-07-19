@@ -246,8 +246,11 @@ export function AddGoalModal(props) {
   const [goalSetDateError, setGoalSetDateError] = useState(false);
 
   const validator = validate(
-    { explanation, sel },
+    { goalSet, explanation, sel },
     {
+      goalSet: {
+        presence: { allowEmpty: false, message: 'Must not be blank' },
+      },
       explanation: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
       },
