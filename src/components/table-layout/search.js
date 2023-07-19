@@ -43,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export function SearchBar(props) {
   const { requestSearch } = props;
   return (
-    <Search sx={{ border: 1.5 }}>
+    <Search sx={{ border: 1.5, mb: 2 }}>
       <SearchIconWrapper>
         <SearchIcon />
       </SearchIconWrapper>
