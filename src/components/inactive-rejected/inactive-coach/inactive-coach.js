@@ -26,6 +26,7 @@ const COLUMNS = [
     label: 'Email',
     align: 'left',
     active: false,
+    hideOrder: true,
   },
   {
     id: 'coachPhoneNumber',
@@ -33,12 +34,14 @@ const COLUMNS = [
     label: 'Phone',
     align: 'left',
     active: false,
+    hideOrder: true,
   },
   {
     id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
         <ActivateCoachModal

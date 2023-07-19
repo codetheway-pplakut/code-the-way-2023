@@ -13,6 +13,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Email',
     align: 'left',
+    hideOrder: true,
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
     active: false,
   },
@@ -21,6 +22,7 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Deactivate',
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
         <DeactivateAdminModal
