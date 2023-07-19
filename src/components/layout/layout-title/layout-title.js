@@ -12,7 +12,11 @@ export function LayoutTitle(props) {
 
   return (
     <Box sx={{ my: 2 }}>
-      {hasTitle && <Typography variant="h2">{title}</Typography>}
+      {hasTitle && (
+        <Typography variant="h2" sx={{ fontSize: '7vh' }}>
+          {title}
+        </Typography>
+      )}
       {hasSubTitle && (
         <Typography variant="h6" color="text.secondary">
           {subTitle}

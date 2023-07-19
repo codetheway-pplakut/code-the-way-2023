@@ -105,7 +105,7 @@ export default function EditStudentInfoModal(props) {
         presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       dateOfBirth: {},
@@ -381,7 +381,7 @@ export function EditParentModal(props) {
         presence: { allowEmpty: false, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       parentAddress: {

@@ -7,6 +7,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { validate } from 'validate.js';
+import { firstIsCapital } from '../shared/validation-regexes';
 
 import { addStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
@@ -24,14 +25,20 @@ export function AddStudentModal(props) {
   const [emailEdit, setEmailEdit] = React.useState(false);
   const [cellPhoneEdit, setCellPhoneEdit] = React.useState(false);
 
+  const [dateOfBirthError, setDateofBirthError] = React.useState(false);
+
+  validate.validators.firstIsCapital = firstIsCapital;
+
   const validator = validate(
     { firstName, lastName, email, dateOfBirth, cellPhone },
     {
       firstName: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
+        firstIsCapital: {},
       },
       lastName: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
+        firstIsCapital: {},
       },
       email: {
         presence: { allowEmpty: false, message: 'Must not be blank' },
@@ -41,7 +48,7 @@ export function AddStudentModal(props) {
         presence: { allowEmpty: true, message: 'Must not be blank' },
         format: {
           pattern: '^([0-9]{3}){1}[-]([0-9]{3}){1}[-]([0-9]{4}){1}',
-          message: 'Format: XXX-XXX-XXXX',
+          message: 'Format: ###-###-####',
         },
       },
       dateOfBirth: {},
@@ -51,7 +58,7 @@ export function AddStudentModal(props) {
 
   const messages = flattenDeep(Object.values(validator || {}));
 
-  const actionButtonDisabled = Boolean(messages.length);
+  const actionButtonDisabled = Boolean(messages.length || dateOfBirthError);
 
   const reset = () => {
     setEmail('');
@@ -78,6 +85,8 @@ export function AddStudentModal(props) {
     }
     return null;
   };
+
+  const minDate = dayjs().subtract(30, 'year');
 
   const checkError = (field) => {
     const errors = validator && validator[field];
@@ -143,8 +152,14 @@ export function AddStudentModal(props) {
             <DesktopDatePicker
               label="Date of Birth"
               margin="normal"
+              sx={{ width: 210, my: 1 }}
               value={dayjs(dateOfBirth)}
               onChange={(newValue) => setDateOfBirth(newValue)}
+              disableFuture
+              minDate={minDate}
+              onError={(error) => {
+                setDateofBirthError(error !== null);
+              }}
             />
           </LocalizationProvider>
         </Grid>

@@ -178,12 +178,7 @@ export function Students() {
               {tabValue === 0 && (
                 <DynamicTableWithRequest
                   columns={COLUMNS}
-                  filterBy={[
-                    'firstName',
-                    'lastName',
-                    'email',
-                    'studentCellPhone',
-                  ]}
+                  filterBy={['firstName', 'lastName', 'email']}
                   requestFunc={requestActiveStudentsFunc}
                   customTableMaxHeight={510}
                   defaultFilterBy="lastName"

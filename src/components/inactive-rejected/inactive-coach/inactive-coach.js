@@ -63,12 +63,7 @@ export function InactiveCoach() {
             <DynamicTableWithRequest
               columns={COLUMNS}
               requestFunc={getInactiveCoaches}
-              filterBy={[
-                'coachFirstName',
-                'coachLastName',
-                'coachEmail',
-                'coachPhoneNumber',
-              ]}
+              filterBy={['coachFirstName', 'coachLastName', 'coachEmail']}
               defaultFilterBy="coachLastName"
               customTableMaxHeight={510}
             />
