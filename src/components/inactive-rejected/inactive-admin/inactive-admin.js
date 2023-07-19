@@ -13,12 +13,14 @@ const COLUMNS = [
     align: 'left',
     render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
     active: false,
+    hideOrder: true,
   },
   {
     id: 'id',
     disablePadding: false,
     label: '',
     align: 'left',
+    hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
         <ActivateAdminModal
