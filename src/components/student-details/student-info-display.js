@@ -212,7 +212,7 @@ export function GoalsBox(props) {
               </Typography>
             </Grid>
             <Grid item xs={1}>
-              <AddCareerModal
+              <AddGoalModal
                 student={student}
                 onSaveSuccess={() => fetchGoal()}
               />
