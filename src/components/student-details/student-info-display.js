@@ -199,6 +199,31 @@ export function GoalsBox(props) {
   ));
 
   // FIXME Item size must change whenever the size of the goals themselves change.
+
+  if (allGoals.length === 0) {
+    return (
+      <Grid>
+        <Grid container>
+          <Grid item container xs={12}>
+            <Grid item xs={11}>
+              <Typography fontSize="30px">
+                {student.studentFirstName} {student.studentLastName}&apos;s
+                Goals
+              </Typography>
+            </Grid>
+            <Grid item xs={1}>
+              <AddCareerModal
+                student={student}
+                onSaveSuccess={() => fetchGoal()}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+        <Typography>No goals found</Typography>
+      </Grid>
+    );
+  }
+
   return (
     <Box>
       <Grid container>

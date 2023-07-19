@@ -190,8 +190,8 @@ export default function StudentDetails(props) {
                 width: '45vw',
               }}
             >
-              {visibleRows.map((row) => {
-                return (
+              {visibleRows && visibleRows.length > 0 ? (
+                visibleRows.map((row) => (
                   <CommunicationBox
                     key={row.communicationId}
                     coachName={row.coachName}
@@ -199,8 +199,10 @@ export default function StudentDetails(props) {
                     description={row.description}
                     created={row.created}
                   />
-                );
-              })}
+                ))
+              ) : (
+                <Typography>No communications found</Typography>
+              )}
             </Box>
           </Grid>
         </Grid>
