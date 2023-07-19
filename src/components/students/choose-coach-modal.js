@@ -6,7 +6,7 @@ import { assignStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
-  const { studentId, refreshTable, coaches, student, coach } = props;
+  const { studentId, refreshTable, coaches, student } = props;
 
   const [value, setValue] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
@@ -25,7 +25,6 @@ export function ChooseCoachModal(props) {
 
   const handleCoachChange = (event) => {
     setValue(event.target.value);
-    setLabelText('');
   };
 
   const recordValue = () => {
@@ -44,9 +43,9 @@ export function ChooseCoachModal(props) {
       style={{ width: '200px' }}
     >
       {coaches && coaches.length > 0 ? (
-        coaches.map((coaches) => (
-          <MenuItem key={coaches.id} value={coaches.id}>
-            {coaches.coachFirstName} {coaches.coachLastName}
+        coaches.map((val) => (
+          <MenuItem key={val.id} value={val.id}>
+            {val.coachFirstName} {val.coachLastName}
           </MenuItem>
         ))
       ) : (
@@ -64,6 +63,10 @@ export function ChooseCoachModal(props) {
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
       onActionButtonClick={() => reassignCoachHandler()}
+      onModalOpen={() => {
+        setLabelText(student.coachId ? student.coachFirstName : 'Unassigned');
+        setValue(student.coachId ? student.coachId : '');
+      }}
     />
   );
 }
