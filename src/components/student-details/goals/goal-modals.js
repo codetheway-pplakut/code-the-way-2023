@@ -331,7 +331,7 @@ export function AddGoalModal(props) {
             fullWidth
           />
         </Grid>
-        <Grid item container spacing={2} height={90}>
+        <Grid item container spacing={2} height={100}>
           <Grid item xs={6}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
