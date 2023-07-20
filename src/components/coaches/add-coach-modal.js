@@ -199,7 +199,7 @@ export function AddCoachModal(props) {
     >
       <Grid container justifyContent="center" padding={4}>
         <Grid item container direction="row" xs={12} spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={6} height={90}>
             <TextField
               fullWidth
               onChange={(event) => setFirstName(event.target.value)}
@@ -226,7 +226,7 @@ export function AddCoachModal(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             fullWidth
             onChange={(event) => setEmail(event.target.value)}
@@ -240,7 +240,7 @@ export function AddCoachModal(props) {
             onBlur={() => setEmailEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             fullWidth
             onChange={(event) => setPhone(event.target.value)}
@@ -254,7 +254,7 @@ export function AddCoachModal(props) {
             onBlur={() => setPhoneEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={125}>
           <TextField
             fullWidth
             onChange={(event) => setPassword(event.target.value)}
@@ -268,7 +268,7 @@ export function AddCoachModal(props) {
             onBlur={() => setPasswordEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={50}>
           <TextField
             fullWidth
             onChange={(event) => setConfirmPassword(event.target.value)}
