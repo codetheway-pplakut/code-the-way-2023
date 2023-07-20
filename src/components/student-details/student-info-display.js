@@ -187,7 +187,12 @@ export function GoalsBox(props) {
   useEffect(() => {
     fetchGoals();
   }, [student.id]);
-  if (isLoading) return <LayoutPreloader />;
+  if (isLoading)
+    return (
+      <Grid width={{ xs: '44vw' }}>
+        <LayoutPreloader />
+      </Grid>
+    );
   if (hasError) return <LayoutError />;
 
   const goalData = allGoals.map((goalContent) => (
@@ -245,7 +250,6 @@ export function GoalsBox(props) {
         sx={{
           maxHeight: '55vh',
           overflowY: 'auto',
-          width: '43vw',
         }}
       >
         {goalData}
@@ -285,7 +289,12 @@ export function CareerBox(props) {
     fetchCareer();
   }, [student.id]);
 
-  if (isLoading) return <LayoutPreloader />;
+  if (isLoading)
+    return (
+      <Grid width={{ xs: '44vw' }}>
+        <LayoutPreloader />
+      </Grid>
+    );
   if (hasError) return <LayoutError />;
 
   const careerContent = allCareers.map((career) => (
@@ -342,7 +351,6 @@ export function CareerBox(props) {
         sx={{
           maxHeight: '55vh',
           overflowY: 'auto',
-          width: '43vw',
         }}
       >
         <Grid container>

@@ -14,6 +14,7 @@ export function AspirationsCard(props) {
         mb: 1,
         bgcolor: '#ffffff',
       }}
+      minWidth={{ xs: '85vw', md: '43vw' }}
     >
       <Grid container direction="column">
         {props.children}
@@ -31,7 +32,7 @@ AspirationsCard.propTypes = {
  * It should be placed inside the AspirationsCard, and can contain more than just a header, with room for 6 more grid units of content.
  */
 export function AspirationsCardHeader(props) {
-  const { header, backgroundColor } = props;
+  const { header } = props;
   return (
     <Grid
       item
