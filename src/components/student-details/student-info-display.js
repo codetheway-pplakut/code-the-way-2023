@@ -213,7 +213,7 @@ export function GoalsBox(props) {
   if (allGoals.length === 0) {
     return (
       <Grid>
-        <Grid container>
+        <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
             <Grid item xs={11}>
               <Typography fontSize="30px">
@@ -313,7 +313,7 @@ export function CareerBox(props) {
   if (allCareers.length === 0) {
     return (
       <Grid>
-        <Grid container>
+        <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
             <Grid item xs={11}>
               <Typography fontSize="30px">
