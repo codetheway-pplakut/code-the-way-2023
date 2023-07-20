@@ -132,7 +132,7 @@ export default function StudentDetails(props) {
             {' '}
             <Box sx={boxStyle} padding="4vh">
               {tabValue === 0 && (
-                <Grid width="42vw">
+                <Grid>
                   <StudentInfoBox
                     student={student}
                     onReload={() => onReload()}
@@ -146,19 +146,19 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 1 && (
-                <Grid width="42vw">
+                <Grid>
                   <GoalsBox student={student} onReload={() => onReload()} />
                 </Grid>
               )}
 
               {tabValue === 2 && (
-                <Grid width="42vw">
+                <Grid>
                   <CareerBox student={student} onReload={() => onReload()} />
                 </Grid>
               )}
 
               {tabValue === 3 && (
-                <Grid width="42vw">
+                <Grid>
                   <Box> Placeholder </Box>
                 </Grid>
               )}
@@ -168,12 +168,12 @@ export default function StudentDetails(props) {
         <Grid item container md={6} xs={12} direction="column">
           <Grid item container position="relative">
             <Grid item container direction="row">
-              <Grid item xs={6} pl="2vw">
+              <Grid item xs={12} md={6} pl="2vw">
                 <Typography fontSize={35}>Communication Log</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item xs={12} md={6}>
                 <Toolbar>
-                  <Grid item alignItems="flex-front" sx={{}}>
+                  <Grid item alignItems="flex-front">
                     <SearchBar requestSearch={requestSearch} />
                   </Grid>
                   <Grid item alignItems="flex-front">
@@ -194,8 +194,9 @@ export default function StudentDetails(props) {
                 maxHeight: '70vh',
                 overflowY: 'auto',
                 pl: '2vw',
-                width: '45vw',
               }}
+              xs={12}
+              md={6}
             >
               {visibleRows && visibleRows.length > 0 ? (
                 visibleRows.map((row) => (
