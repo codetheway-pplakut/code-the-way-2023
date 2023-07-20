@@ -68,6 +68,8 @@ export default function StudentDetails(props) {
       minHeight: '70vh',
       borderRadius: '10px',
       boxShadow: '0 px 5px rgba(0, 0, 0, 0.2)',
+      maxHeight: '70vh',
+      overflowY: 'auto',
     }),
     []
   );
@@ -191,7 +193,7 @@ export default function StudentDetails(props) {
           <Grid item position="relative">
             <Box
               sx={{
-                maxHeight: '70vh',
+                maxHeight: '68vh',
                 overflowY: 'auto',
                 pl: '2vw',
               }}
