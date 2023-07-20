@@ -129,16 +129,16 @@ export function Students() {
       hideOrder: true,
     },
     {
-      id: 'id',
+      id: 'coachFirstName',
       disablePadding: false,
       label: 'Coach',
       align: 'left',
       render: (value, row, refreshTable) => (
         <React.Fragment>
-          {row.coachFirstName}
+          {value}
           <ChooseCoachModal
             coaches={activeCoaches}
-            studentId={value}
+            studentId={row.id}
             refreshTable={refreshTable}
             student={row}
           />

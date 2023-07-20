@@ -138,7 +138,7 @@ DynamicTable.propTypes = {
   APIrows: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  customTableMaxHeight: PropTypes.number,
+  customTableMaxHeight: PropTypes.string,
   refreshTable: PropTypes.func,
 };
 

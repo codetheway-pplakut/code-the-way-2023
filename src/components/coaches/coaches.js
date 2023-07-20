@@ -50,7 +50,7 @@ const STUDENTCOLUMNS = [
     hideOrder: true,
   },
 ];
-const studentTableMaxHeight = 440;
+const studentTableMaxHeight = '440';
 
 const COLUMNS = [
   {
@@ -84,7 +84,7 @@ const COLUMNS = [
     hideOrder: true,
   },
   {
-    id: 'id',
+    id: 'userId',
     label: 'Students',
     disablePadding: false,
     align: 'left',
@@ -101,7 +101,7 @@ const COLUMNS = [
             requestFunc={getStudentsByCoachId}
             filterBy={['firstName', 'lastName', 'email']}
             customTableMaxHeight={studentTableMaxHeight}
-            requestData={value}
+            requestData={row.id}
           />
         </GenericViewModal>
       );
@@ -124,18 +124,14 @@ const COLUMNS = [
     },
   },
   {
-    id: 'id',
+    id: 'active',
     disablePadding: false,
     label: 'Deactivate',
     align: 'left',
     hideOrder: true,
     render: (value, row, refreshTable) => {
       return (
-        <DeactivateCoachModal
-          coachId={value}
-          coach={row}
-          onCoachDeactivate={refreshTable}
-        />
+        <DeactivateCoachModal coach={row} onCoachDeactivate={refreshTable} />
       );
     },
   },
