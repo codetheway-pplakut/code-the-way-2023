@@ -86,10 +86,10 @@ export function AddCareerModal(props) {
   };
   const actionButtonDisabled = Boolean(messages.length);
   const closeAction = () => {
-    setCollegeBound('');
+    setCollegeBound(false);
     setCareerCluster(0);
     setSpecificCareer('');
-    setTechnicalCollegeBound('');
+    setTechnicalCollegeBound(false);
 
     setSpecificCareerEdit(false);
     setCareerClusterEdit(false);
@@ -104,10 +104,9 @@ export function AddCareerModal(props) {
       onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<AddIcon />}
-      modalMessage="Fill out the fields below to add a career."
     >
-      <Grid container alignItems="center" spacing={2} px={4} py={2}>
-        <Grid item xs={12}>
+      <Grid container alignItems="center" spacing={1} px={4} py={2}>
+        <Grid item xs={12} height={100} mt={2}>
           <TextField
             label="Specific Career"
             onChange={(event) => setSpecificCareer(event.target.value)}
@@ -120,7 +119,7 @@ export function AddCareerModal(props) {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} height={100}>
           <TextField
             select
             label="Career Cluster"
@@ -313,10 +312,9 @@ export function EditCareerModal(props) {
       onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
       openButtonIcon={<EditIcon />}
-      modalMessage="Fill out the fields below to edit a career."
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={100} mt={2}>
           <TextField
             label="Specific Career"
             onChange={(event) => setSpecificCareer(event.target.value)}
@@ -329,7 +327,7 @@ export function EditCareerModal(props) {
           />
         </Grid>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} height={100}>
           <TextField
             select
             label="Career Cluster"

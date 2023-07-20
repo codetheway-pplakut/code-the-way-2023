@@ -12,7 +12,7 @@ export default function DynamicTabs(props) {
   };
 
   return (
-    <Box>
+    <Box sx={{ mb: 2 }}>
       <Tabs
         value={tabValue}
         onChange={handleTabChange}

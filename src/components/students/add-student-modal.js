@@ -152,7 +152,6 @@ export function AddStudentModal(props) {
             <DesktopDatePicker
               label="Date of Birth"
               margin="normal"
-              sx={{ width: 210, my: 1 }}
               value={dayjs(dateOfBirth)}
               onChange={(newValue) => setDateOfBirth(newValue)}
               disableFuture
