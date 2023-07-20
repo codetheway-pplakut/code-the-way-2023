@@ -19,9 +19,9 @@ export function InactiveRejected() {
         <Box sx={{ width: '83%' }} style={{ align: 'center' }}>
           <Layout title="Inactive/Rejected">
             <Tabs value={tab} onChange={handleTabChange} sx={{ mb: 2 }}>
-              <Tab value={0} label="Student" />
-              <Tab value={1} label="Coach" />
-              <Tab value={2} label="Admin" />
+              <Tab value={0} label="Student" sx={{ borderBottom: 2 }} />
+              <Tab value={1} label="Coach" sx={{ borderBottom: 2 }} />
+              <Tab value={2} label="Admin" sx={{ borderBottom: 2 }} />
             </Tabs>
             {tab === 0 && <InactiveRejectedStudent />}
             {tab === 1 && <InactiveCoach />}
