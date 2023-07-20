@@ -160,7 +160,7 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 3 && (
-                <Grid width={{ xs: '44vw' }}>
+                <Grid width={{ xs: '85vw', md: '45vw' }}>
                   <Box> Placeholder </Box>
                 </Grid>
               )}

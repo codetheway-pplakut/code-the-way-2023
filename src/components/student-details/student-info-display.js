@@ -72,7 +72,12 @@ export function StudentInfoBox(props) {
   };
 
   return (
-    <Grid container direction="column" spacing="2vh">
+    <Grid
+      container
+      direction="column"
+      spacing="2vh"
+      width={{ xs: '85vw', md: '45.2vw' }}
+    >
       <Grid item>
         {!isParent && (
           <Grid item>
@@ -189,7 +194,7 @@ export function GoalsBox(props) {
   }, [student.id]);
   if (isLoading)
     return (
-      <Grid width={{ xs: '44vw' }}>
+      <Grid width={{ xs: '85vw', md: '45vw' }}>
         <LayoutPreloader />
       </Grid>
     );
@@ -291,7 +296,7 @@ export function CareerBox(props) {
 
   if (isLoading)
     return (
-      <Grid width={{ xs: '44vw' }}>
+      <Grid width={{ xs: '85vw', md: '45vw' }}>
         <LayoutPreloader />
       </Grid>
     );
