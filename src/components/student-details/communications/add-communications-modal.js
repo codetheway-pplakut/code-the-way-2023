@@ -125,9 +125,7 @@ export default function AddCommunicationsModal(props) {
             onBlur={() => setTopicEdit(true)}
             fullWidth
           >
-            <MenuItem value="One-on-One Coaching Session">
-              One-on-One Coaching Session
-            </MenuItem>
+            <MenuItem value="One-on-One Coaching">One-on-One Coaching</MenuItem>
             <MenuItem value="Email">Email</MenuItem>
             <MenuItem value="Phone call">Phone Call</MenuItem>
             <MenuItem value="Text message">Text Message</MenuItem>
