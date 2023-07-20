@@ -179,7 +179,7 @@ export default function StudentDetails(props) {
                     <SearchBar requestSearch={requestSearch} />
                   </Grid>
                   <Grid item alignItems="flex-front">
-                    <Box>
+                    <Box sx={{ mb: 2.5 }}>
                       <AddCommunicationsModal
                         student={student}
                         onSaveSuccess={() => requestCommunication(studentID)}
