@@ -22,6 +22,9 @@ export function ForgotPasswordModal() {
   const [inactiveCoach, setInactiveCoach] = useState([]);
   const [activeAdmin, setActiveAdmin] = useState([]);
   const [inactiveAdmin, setInactiveAdmin] = useState([]);
+  // eslint-disable-next-line global-require
+  const sgMail = require('@sendgrid/mail');
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const requestActiveCoaches = async () => {
     const response = await getActiveCoachesHandler();
@@ -105,7 +108,24 @@ export function ForgotPasswordModal() {
     localStorage.setItem('token', token);
     console.log(token);
     console.log('http://localhost:8080/reset-password');
+    const msg = {
+      to: 'test@example.com',
+      from: 'email', // Use the email address or domain you verified above
+      subject: 'Reset Password',
+      text: `${token} http://localhost:8080/reset-password`,
+    };
     setOpen(true);
+    (async () => {
+      try {
+        await sgMail.send(msg);
+      } catch (error) {
+        console.error(error);
+
+        if (error.response) {
+          console.error(error.response.body);
+        }
+      }
+    })();
   };
   const messages = flattenDeep(Object.values(validator || {}));
   const actionButtonDisabled = Boolean(messages.length);
