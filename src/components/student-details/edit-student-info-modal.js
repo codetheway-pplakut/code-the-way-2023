@@ -458,7 +458,7 @@ export function EditParentModal(props) {
         presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       parentZipCode: {
-        presence: { allowEmpty: false, message: 'Must not be blank' },
+        presence: { allowEmpty: false, message: ' ' },
         format: {
           pattern: '^([0-9]{5}){1}',
           message: 'Must be Valid Zip Code',
@@ -575,16 +575,15 @@ export function EditParentModal(props) {
       actionButtonTitle="Submit"
       cancelButtonTitle="cancel"
       modalHeadingTitle={header}
-      modalMessage="Fill out the fields below to save."
       actionButtonColor="submit"
       onActionButtonClick={requestSave}
       onModalOpen={handleClose}
       actionButtonDisabled={actionButtonDisabled}
       openModal={<EditIcon />}
     >
-      <Grid container spacing={1} padding={4}>
+      <Grid container spacing={1} px={4} pt={4}>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={6} height={100}>
             <TextField
               label="First Name"
               onChange={(event) => setParentFirstName(event.target.value)}
@@ -607,7 +606,7 @@ export function EditParentModal(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             fullWidth
             label="Preferred Phone Number"
@@ -619,7 +618,7 @@ export function EditParentModal(props) {
             onBlur={() => setParentCellPhoneEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             label="Email"
             onChange={(event) => setParentEmail(event.target.value)}
@@ -632,7 +631,7 @@ export function EditParentModal(props) {
           />
         </Grid>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={8} height={100}>
             <TextField
               label="Address"
               onChange={(event) => setParentAddress(event.target.value)}
@@ -655,7 +654,7 @@ export function EditParentModal(props) {
         </Grid>
 
         <Grid container item xs={12} justifyContent="center" spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={4} height={120}>
             <TextField
               label="City"
               onChange={(event) => setParentCity(event.target.value)}
