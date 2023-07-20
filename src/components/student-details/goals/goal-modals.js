@@ -316,7 +316,7 @@ export function AddGoalModal(props) {
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<AddIcon />}
+      openButtonIcon={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>

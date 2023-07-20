@@ -7,7 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { flattenDeep } from 'lodash';
 import { validate } from 'validate.js';
-import { display } from '@mui/system';
 import { GenericModal } from '../../shared/generic-modal';
 import {
   addCareerHandler,
@@ -103,7 +102,7 @@ export function AddCareerModal(props) {
       onActionButtonClick={requestSubmit}
       onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<AddIcon />}
+      openButtonIcon={<AddIcon sx={{ width: '40px', height: '40px' }} />}
     >
       <Grid container alignItems="center" spacing={1} px={4} py={2}>
         <Grid item xs={12} height={100} mt={2}>
