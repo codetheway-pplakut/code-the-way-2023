@@ -253,7 +253,7 @@ export function GoalsBox(props) {
       </Grid>
       <Box
         sx={{
-          maxHeight: '55vh',
+          maxHeight: '54vh',
           overflowY: 'auto',
         }}
       >
@@ -354,7 +354,7 @@ export function CareerBox(props) {
       </Grid>
       <Box
         sx={{
-          maxHeight: '55vh',
+          maxHeight: '54vh',
           overflowY: 'auto',
         }}
       >
