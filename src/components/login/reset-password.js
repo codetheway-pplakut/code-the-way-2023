@@ -21,7 +21,8 @@ export function ResetPassword() {
   const [passwordEdit, setPasswordEdit] = React.useState(false);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [confirmPasswordEdit, setConfirmPasswordEdit] = React.useState(false);
-  const token = localStorage.getItem('token');
+  const [token, setToken] = React.useState('');
+  const [tokenEdit, setTokenEdit] = React.useState(false);
 
   validate.validators.lowercaseLetter = lowercaseLetter;
   validate.validators.specialCharacter = specialCharacter;
@@ -30,8 +31,11 @@ export function ResetPassword() {
   validate.validators.firstIsCapital = firstIsCapital;
 
   const validator = validate(
-    { password, confirmPassword, email },
+    { password, confirmPassword, email, token },
     {
+      token: {
+        presence: { allowEmpty: false, message: ' ' },
+      },
       password: {
         presence: { allowEmpty: false, message: ' ' },
         length: { minimum: 12, message: 'must be at least 12 characters' },
@@ -78,6 +82,16 @@ export function ResetPassword() {
   return (
     <Layout title="Reset Password">
       <Box sx={{ width: '100%' }}>
+        <TextField
+          sx={{ margin: 5, width: '85%' }}
+          onChange={(event) => setToken(event.target.value)}
+          helperText={displayErrorMessages('token')}
+          error={checkError('token') && tokenEdit}
+          label="Token"
+          value={token}
+          type="text"
+          onBlur={() => setTokenEdit(true)}
+        />
         <TextField
           sx={{ margin: 5, width: '85%' }}
           onChange={(event) => setEmail(event.target.value)}

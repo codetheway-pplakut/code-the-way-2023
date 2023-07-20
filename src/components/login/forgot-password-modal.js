@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, TextField } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
 import GenericModal from '../shared/generic-modal';
@@ -9,6 +9,7 @@ export function ForgotPasswordModal() {
   const [email, setEmail] = React.useState('');
   const [emailEdit, setEmailEdit] = React.useState(false);
   const [token, setToken] = React.useState('');
+  const [open, setOpen] = React.useState(false);
 
   const validator = validate(
     { email },
@@ -41,30 +42,39 @@ export function ForgotPasswordModal() {
     localStorage.setItem('token', token);
     console.log(token);
     console.log('http://localhost:8080/reset-password');
+    setOpen(true);
   };
   const messages = flattenDeep(Object.values(validator || {}));
   const actionButtonDisabled = Boolean(messages.length);
 
   return (
-    <GenericModal
-      openModal={<Button variant="contained">Forgot Password</Button>}
-      modalHeadingTitle="Forgot Password"
-      actionButtonTitle="Send Email"
-      cancelButtonTitle="Cancel"
-      actionButtonColor="submit"
-      actionButtonDisabled={actionButtonDisabled}
-      onActionButtonClick={submitAction}
-    >
-      <TextField
-        sx={{ margin: 5, width: '85%' }}
-        onChange={(event) => setEmail(event.target.value)}
-        helperText={displayErrorMessages('email')}
-        error={checkError('email') && emailEdit}
-        label="Email"
-        value={email}
-        type="text"
-        onBlur={() => setEmailEdit(true)}
-      />
-    </GenericModal>
+    <React.Fragment>
+      <GenericModal
+        openModal={<Button variant="contained">Forgot Password</Button>}
+        modalHeadingTitle="Forgot Password"
+        actionButtonTitle="Send Email"
+        cancelButtonTitle="Cancel"
+        actionButtonColor="submit"
+        actionButtonDisabled={actionButtonDisabled}
+        onActionButtonClick={submitAction}
+      >
+        <TextField
+          sx={{ margin: 5, width: '85%' }}
+          onChange={(event) => setEmail(event.target.value)}
+          helperText={displayErrorMessages('email')}
+          error={checkError('email') && emailEdit}
+          label="Email"
+          value={email}
+          type="text"
+          onBlur={() => setEmailEdit(true)}
+        />
+      </GenericModal>
+      <Grid>
+        <Grid item xs={1}>
+          {' '}
+          <Typography>{token}</Typography>
+        </Grid>
+      </Grid>
+    </React.Fragment>
   );
 }
