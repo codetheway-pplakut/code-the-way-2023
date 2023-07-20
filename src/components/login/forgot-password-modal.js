@@ -1,11 +1,14 @@
 import React from 'react';
 import { Button, TextField } from '@mui/material';
 import { validate } from 'validate.js';
+import { flattenDeep } from 'lodash';
 import GenericModal from '../shared/generic-modal';
+import { requestPasswordReset } from '../../services/users/users';
 
 export function ForgotPasswordModal() {
   const [email, setEmail] = React.useState('');
   const [emailEdit, setEmailEdit] = React.useState(false);
+  const [token, setToken] = React.useState('');
 
   const validator = validate(
     { email },
@@ -30,6 +33,17 @@ export function ForgotPasswordModal() {
     }
     return false;
   };
+  const submitAction = async () => {
+    const data = { email };
+    const response = await requestPasswordReset(data);
+    const unslicedToken = response.data['Return URL'];
+    setToken(unslicedToken.slice('51'));
+    localStorage.setItem('token', token);
+    console.log(token);
+    console.log('http://localhost:8080/reset-password');
+  };
+  const messages = flattenDeep(Object.values(validator || {}));
+  const actionButtonDisabled = Boolean(messages.length);
 
   return (
     <GenericModal
@@ -38,6 +52,8 @@ export function ForgotPasswordModal() {
       actionButtonTitle="Send Email"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
+      actionButtonDisabled={actionButtonDisabled}
+      onActionButtonClick={submitAction}
     >
       <TextField
         sx={{ margin: 5, width: '85%' }}

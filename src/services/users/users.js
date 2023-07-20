@@ -15,7 +15,7 @@ export const authenticate = ({ username, password }) => {
 // This is for initiating the password reset process.
 export const requestPasswordReset = (data) => {
   return callApi({
-    url: '/users/reset-password-reset',
+    url: '/users/request-password-reset',
     method: 'post',
     data,
   });
