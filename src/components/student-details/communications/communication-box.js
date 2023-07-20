@@ -51,15 +51,13 @@ export default function CommunicationBox(props) {
           }}
         >
           <Typography noWrap={showMore}>{description}</Typography>
-          <Grid justifyContent="center">
-            {' '}
-            <Button
-              onClick={handleChange}
-              startIcon={
-                showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
-              }
-            />
-          </Grid>
+          <Button
+            fullWidth
+            onClick={handleChange}
+            startIcon={
+              showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
+            }
+          />
         </Grid>
       </AspirationsCard>
     </Box>
