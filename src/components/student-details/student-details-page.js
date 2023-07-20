@@ -95,7 +95,14 @@ export default function StudentDetails(props) {
       <LayoutBackButton />
 
       <Grid container direction="row" sx={{ mt: '25px', px: '1vw', pl: '2vw' }}>
-        <Grid item container xs={6} direction="column" alignItems="center">
+        <Grid
+          item
+          container
+          md={6}
+          xs={12}
+          direction="column"
+          alignItems="center"
+        >
           <Grid item position="relative">
             <Tabs
               value={tabValue}
@@ -158,7 +165,7 @@ export default function StudentDetails(props) {
             </Box>
           </Grid>
         </Grid>
-        <Grid item container xs={6} direction="column">
+        <Grid item container md={6} xs={12} direction="column">
           <Grid item container position="relative">
             <Grid item container direction="row">
               <Grid item xs={6} pl="2vw">
