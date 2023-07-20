@@ -181,16 +181,18 @@ export default function StudentDetails(props) {
               </Grid>
               <Grid item md={6}>
                 <Toolbar>
-                  <Grid item alignItems="flex-front" xs={8}>
-                    <SearchBar requestSearch={requestSearch} />
-                  </Grid>
-                  <Grid item alignItems="flex-front">
-                    <Box sx={{ mb: 2.5 }}>
-                      <AddCommunicationsModal
-                        student={student}
-                        onSaveSuccess={() => requestCommunication(studentID)}
-                      />
-                    </Box>
+                  <Grid container>
+                    <Grid item alignItems="flex-front" xs={8}>
+                      <SearchBar requestSearch={requestSearch} />
+                    </Grid>
+                    <Grid item alignItems="flex-front" xs={4}>
+                      <Box sx={{ mb: 2.5 }}>
+                        <AddCommunicationsModal
+                          student={student}
+                          onSaveSuccess={() => requestCommunication(studentID)}
+                        />
+                      </Box>
+                    </Grid>
                   </Grid>
                 </Toolbar>
               </Grid>

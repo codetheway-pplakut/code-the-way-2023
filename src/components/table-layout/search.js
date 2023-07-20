@@ -12,9 +12,6 @@ const Search = styled('div')(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    width: '37ch',
-  },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
@@ -35,9 +32,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '30.5ch',
-    },
+    // [theme.breakpoints.up('md')]: {
+    // width: '30.5ch',
+    // },
   },
 }));
 export function SearchBar(props) {
