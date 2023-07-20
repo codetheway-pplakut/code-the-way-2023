@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
+import sgMail from '@sendgrid/mail';
 import GenericModal from '../shared/generic-modal';
 import { requestPasswordReset } from '../../services/users/users';
 import {
@@ -22,8 +23,7 @@ export function ForgotPasswordModal() {
   const [inactiveCoach, setInactiveCoach] = useState([]);
   const [activeAdmin, setActiveAdmin] = useState([]);
   const [inactiveAdmin, setInactiveAdmin] = useState([]);
-  // eslint-disable-next-line global-require
-  const sgMail = require('@sendgrid/mail');
+
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const requestActiveCoaches = async () => {
