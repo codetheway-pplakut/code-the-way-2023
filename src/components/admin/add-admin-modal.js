@@ -98,15 +98,16 @@ export function AddAdminModal(props) {
         email: true,
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
-        lowercaseLetter: {},
-        specialCharacter: {},
-        uppercaseLetter: {},
-        number: {},
+        presence: { allowEmpty: false, message: ' ' },
         length: {
           minimum: 12,
-          message: 'Must be at least 12 characters.',
+          message: 'Must be at least 12 characters,',
         },
+        uppercaseLetter: {},
+        lowercaseLetter: {},
+        specialCharacter: {},
+
+        number: {},
       },
       confirmPassword: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
@@ -176,7 +177,7 @@ export function AddAdminModal(props) {
               onBlur={() => setEmailEdit(true)}
             />
           </Grid>
-          <Grid item height={120}>
+          <Grid item height={100}>
             <TextField
               fullWidth
               onChange={(event) => setPassword(event.target.value)}
