@@ -24,7 +24,7 @@ export default function DynamicTabs(props) {
               value={index}
               label={tabName}
               key={tabName}
-              sx={{ borderBottom: 1.5 }}
+              sx={{ borderBottom: 2 }}
             />
           );
         })}

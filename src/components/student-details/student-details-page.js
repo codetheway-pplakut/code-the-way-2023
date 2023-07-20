@@ -166,11 +166,11 @@ export default function StudentDetails(props) {
               </Grid>
               <Grid item xs={6}>
                 <Toolbar>
-                  <Grid item alignItems="flex-front" sx={{}}>
+                  <Grid item alignItems="flex-front" xs={8}>
                     <SearchBar requestSearch={requestSearch} />
                   </Grid>
                   <Grid item alignItems="flex-front">
-                    <Box>
+                    <Box sx={{ mb: 2.5 }}>
                       <AddCommunicationsModal
                         student={student}
                         onSaveSuccess={() => requestCommunication(studentID)}
