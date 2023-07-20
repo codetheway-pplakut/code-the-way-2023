@@ -162,10 +162,10 @@ export function GoalsBox(props) {
   const { student } = props;
 
   const [allGoals, setAllGoals] = useState([]);
+  const [newGoals, setNewGoals] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const fetchGoals = () => {
-    console.log('fetchGoals triggered');
     setIsLoading(true);
     setHasError(false);
     setAllGoals([]);
@@ -177,7 +177,6 @@ export function GoalsBox(props) {
         setHasError(true);
       } else {
         setAllGoals(goals.data);
-        console.log('FINDME', goals.data);
       }
 
       setIsLoading(false);
@@ -189,6 +188,22 @@ export function GoalsBox(props) {
   }, [student.id]);
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
+
+  console.log('FINDME', allGoals);
+  const goalsDate = allGoals.map((goal) => goal.goalReviewDate);
+  const sortedGoalsDate = goalsDate.sort();
+  console.log('FINDME&&&&&&&&&&&&&&', sortedGoalsDate);
+
+  const compareDates = (a, b) => {
+    const aIndex = sortedGoalsDate.indexOf(a.goalReviewDate);
+    const bIndex = sortedGoalsDate.indexOf(b.goalReviewDate);
+
+    return aIndex - bIndex;
+  };
+
+  const reorderedArray = allGoals.sort(compareDates);
+
+  console.log('reordered arrays', reorderedArray);
 
   const goalData = allGoals.map((goalContent) => (
     <Goal
