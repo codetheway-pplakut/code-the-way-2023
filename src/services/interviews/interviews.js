@@ -23,6 +23,11 @@ export const getStudentInterviewResponses = (studentId, interviewId) =>
     url: `/Interviews/GetStudentInterviewResponses/${studentId}/${interviewId}`,
   });
 
+export const getAllStudentInterviewResponses = (studentId) =>
+  callApi({
+    url: `/Interviews/GetStudentInterviews/${studentId}`,
+  });
+
 export const CreateStudentAnswers = (answer) =>
   callApi({
     url: '/Interviews/CreateStudentAnswers',

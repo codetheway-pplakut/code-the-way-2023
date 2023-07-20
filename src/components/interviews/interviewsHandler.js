@@ -5,6 +5,7 @@ import {
   deleteInterview,
   editAnswer,
   editInterview,
+  getAllStudentInterviewResponses,
   getInterview,
   getInterviews,
   getStudentInterviewResponses,
@@ -38,6 +39,10 @@ export function deleteInterviewHandler(interviewId) {
 
 export function getStudentInterviewResponsesHandler(studentId, interviewId) {
   return getStudentInterviewResponses(studentId, interviewId);
+}
+
+export function getStudentInterviewsHandler(studentId) {
+  return getAllStudentInterviewResponses(studentId);
 }
 
 export function CreateStudentAnswersHandler(

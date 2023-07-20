@@ -9,7 +9,10 @@ export const getAnswerToQuestion = (studentId, questionId) =>
   });
 
 export const addAnswer = (answer) =>
-  callApi({ url: '/Answers', data: answer, method: 'POST' });
+  callApi({ url: '/Answers/CreateAnswer', data: answer, method: 'POST' });
+
+export const addAnswers = (answers) =>
+  callApi({ url: '/Answers/CreateAnswers', data: answers, method: 'POST' });
 
 export const editAnswer = (answer) =>
   callApi({ url: '/Answers', data: answer, method: 'PUT' });

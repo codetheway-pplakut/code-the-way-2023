@@ -1,5 +1,6 @@
 import {
   addAnswer,
+  addAnswers,
   deleteAnswer,
   editAnswer,
   getAnswer,
@@ -16,6 +17,10 @@ export function getAnswerToQuestionHandler(studentId, questionId) {
 
 export function addAnswerHandler(answer) {
   return addAnswer(answer);
+}
+
+export function addAnswersHandler(...answers) {
+  return addAnswers(answers);
 }
 
 export function editAnswerHandler(answer) {

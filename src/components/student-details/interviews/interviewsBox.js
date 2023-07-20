@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Box } from '@mui/system';
+import { Grid, Typography } from '@mui/material';
 import { LayoutPreloader } from '../../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../../layout/layout-error/layout-error';
-import { getStudentInterviewResponsesHandler } from '../../interviews/interviewsHandler';
+import {
+  getStudentInterviewResponsesHandler,
+  getStudentInterviewsHandler,
+} from '../../interviews/interviewsHandler';
 
 export function InterviewsBox(props) {
   const { student } = props;
   const studentId = student.id;
-  const [questions, setQuestions] = useState([{}]);
-  const [interviewName, setInterviewName] = useState('');
+  const [interviews, setInterviews] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
@@ -18,11 +21,10 @@ export function InterviewsBox(props) {
       setIsLoading(true);
       setHasError(false);
 
-      getStudentInterviewResponsesHandler(studentId).then((response) => {
-        setQuestions(response.data.questions);
-        setInterviewName(response.data.interviewName);
-        setIsLoading(false);
+      getStudentInterviewsHandler(studentId).then((response) => {
+        setInterviews(response.data);
       });
+      setIsLoading(false);
     };
     fetchGoals();
   }, [studentId]);
@@ -30,19 +32,56 @@ export function InterviewsBox(props) {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
+  if (interviews.length === 0) {
+    return (
+      <Grid>
+        <Grid container>
+          <Grid item container xs={12}>
+            <Grid item xs={11}>
+              <Typography fontSize="30px">
+                {student.studentFirstName} {student.studentLastName}&apos;s
+                Interviews
+              </Typography>
+            </Grid>
+            <Grid item xs={1} TODO />
+          </Grid>
+        </Grid>
+        <Typography>Interviews</Typography>
+      </Grid>
+    );
+  }
+
   return (
     <Box>
-      <h1>{interviewName}</h1>
-      {questions !== null &&
-        questions.length > 0 &&
-        questions.map((question) => {
-          return (
-            <React.Fragment key={question.id}>
-              <h6>Question: {question.questionString}</h6>
-              <h6>Answer: {question.answerString}</h6>
-            </React.Fragment>
-          );
-        })}
+      <Grid container>
+        <Grid item container xs={12}>
+          <Grid item xs={11}>
+            <Typography fontSize="30px">
+              {student.studentFirstName} {student.studentLastName}&apos;s
+              Careers
+            </Typography>
+          </Grid>
+          <Grid item xs={1}>
+            <AddCareerModal
+              student={student}
+              onSaveSuccess={() => fetchCareer()}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+      <Box
+        sx={{
+          maxHeight: '55vh',
+          overflowY: 'auto',
+          width: '43vw',
+        }}
+      >
+        <Grid container>
+          <Grid item xs={12}>
+            {careerContent}
+          </Grid>
+        </Grid>
+      </Box>
     </Box>
   );
 }
