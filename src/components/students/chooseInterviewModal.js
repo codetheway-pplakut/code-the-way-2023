@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 import { GenericModal } from '../shared/generic-modal';
 import { getInterviewsHandler } from '../interviews/interviewsHandler';
 
@@ -9,6 +10,7 @@ export function ChooseInterviewModal(props) {
   const [interviews, setInterviews] = useState([]);
   const [value, setValue] = useState('');
 
+  const navigate = useNavigate();
   const onSubmit = async () => {};
 
   const handleInterviewChange = (event) => {
@@ -55,7 +57,16 @@ export function ChooseInterviewModal(props) {
       actionButtonTitle="Start Interview"
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
-      onActionButtonClick={() => onSubmit()}
+      onActionButtonClick={() =>
+        navigate('/AnswerInterview', {
+          state: {
+            interviewId: value,
+            interviewName: interviews.find(
+              (interview) => interview.id === value
+            ).interviewName,
+          },
+        })
+      }
       onModalOpen={() => {
         setValue();
       }}

@@ -12,6 +12,7 @@ import { StudentInfo } from '../components/student-details/student-info';
 import { Admins } from '../components/admin/admin';
 import { QuestionsTable } from '../components/interviews/QuestionsTable';
 import { Interviews } from '../components/interviews/interviews';
+import { AnswerInterview } from '../components/interviews/answerInterview';
 
 export const ROUTER = createBrowserRouter([
   {
@@ -27,6 +28,7 @@ export const ROUTER = createBrowserRouter([
       { path: 'student-info', element: <StudentInfo /> },
       { path: 'interviews', element: <Interviews /> },
       { path: 'interview', element: <QuestionsTable /> },
+      { path: 'AnswerInterview', element: <AnswerInterview /> },
       { path: '*', element: <Error /> },
     ],
   },
