@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Typography } from '@mui/material';
 import {
   setStudentActiveHandler,
   setStudentRejectedHandler,
@@ -25,7 +26,7 @@ export function ActivateStudentModal(props) {
   };
   return (
     <GenericModal
-      openModal="Accept"
+      openModal={<Typography>Accept</Typography>}
       modalHeadingTitle="Accept Student"
       modalMessage={`Are you sure you want to accept student ${student.firstName} ${student.lastName}?`}
       actionButtonColor="submit"

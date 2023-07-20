@@ -180,7 +180,7 @@ export function Students() {
                   columns={COLUMNS}
                   filterBy={['firstName', 'lastName', 'email']}
                   requestFunc={requestActiveStudentsFunc}
-                  customTableMaxHeight={510}
+                  customTableMaxHeight="510"
                   defaultFilterBy="lastName"
                 >
                   <AddStudentModal />
@@ -191,7 +191,7 @@ export function Students() {
                   columns={APPLICANTS}
                   filterBy={['firstName', 'lastName', 'email']}
                   requestFunc={getAppliedStudents}
-                  customTableMaxHeight={510}
+                  customTableMaxHeight="510"
                   defaultFilterBy="lastName"
                 >
                   <AddStudentModal onSubmit={refreshPage} />
