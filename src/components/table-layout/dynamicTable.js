@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { Box, Grid, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
-import { SearchBar } from './search';
+import { SearchBar } from './searchTable';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {

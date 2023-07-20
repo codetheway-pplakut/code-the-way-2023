@@ -1,6 +1,8 @@
-import { Grid, Typography, Box } from '@mui/material';
-import React from 'react';
+import { Grid, Typography, Box, Button } from '@mui/material';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import dayjs from 'dayjs';
 import {
   AspirationsCard,
@@ -10,11 +12,35 @@ import {
 
 export default function CommunicationBox(props) {
   const { coachName, topic, description, created } = props;
+  const [showMore, setShowMore] = useState(true);
+
+  const handleChange = () => {
+    setShowMore(!showMore);
+  };
 
   return (
     <Box py="3px">
       <AspirationsCard>
-        <AspirationsCardHeader header={topic} />
+        <AspirationsCardHeader>
+          <Grid container>
+            <Grid item xs={5}>
+              <Typography fontSize={17} fontWeight="fontWeightMedium">
+                {topic}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography
+                fontSize={17}
+                fontWeight="fontWeightMedium"
+              >{`Coach: ${coachName}`}</Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Typography fontSize={17} fontWeight="fontWeightMedium">
+                {dayjs(created).format('MMM DD, YYYY')}
+              </Typography>
+            </Grid>
+          </Grid>
+        </AspirationsCardHeader>
         <Grid container direction="row" />
         <Grid
           container
@@ -24,20 +50,15 @@ export default function CommunicationBox(props) {
             minHeight: '10vh',
           }}
         >
-          <Typography>{description}</Typography>
+          <Typography noWrap={showMore}>{description}</Typography>
+          <Button
+            fullWidth
+            onClick={handleChange}
+            startIcon={
+              showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
+            }
+          />
         </Grid>
-        <AspirationsCardFooter>
-          <Grid container>
-            <Grid item xs={6}>
-              <Typography>{`Coach Name: ${coachName}`}</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography>
-                Date: {dayjs(created).format('MMM DD, YYYY')}
-              </Typography>
-            </Grid>
-          </Grid>
-        </AspirationsCardFooter>
       </AspirationsCard>
     </Box>
   );
