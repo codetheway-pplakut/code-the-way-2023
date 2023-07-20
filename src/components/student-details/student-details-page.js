@@ -177,7 +177,7 @@ export default function StudentDetails(props) {
           <Grid item container position="relative">
             <Grid item container direction="row">
               <Grid item md={6} pl="2vw">
-                <Typography fontSize={35}>Communication Log</Typography>
+                <Typography fontSize={35}>Communications</Typography>
               </Grid>
               <Grid item md={6}>
                 <Toolbar>

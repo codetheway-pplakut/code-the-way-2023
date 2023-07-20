@@ -72,87 +72,84 @@ export function StudentInfoBox(props) {
   };
 
   return (
-    <Grid
-      container
-      direction="column"
-      spacing="2vh"
-      width={{ xs: '85vw', md: '45.2vw' }}
-    >
-      <Grid item>
-        {!isParent && (
-          <Grid item>
-            <Typography fontSize="2.5vw">
-              {`${firstName} ${lastName}`}&#39;s Details{' '}
-              <EditStudentInfoModal
-                student={student}
-                onSaveSuccess={() => onReload()}
-              />
-            </Typography>
-            <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-          </Grid>
-        )}
-      </Grid>
-      <Grid item>
-        {isParent && (
-          <Grid item>
-            <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-            <Typography component="span" fontSize="2vw">
-              Parent Information{' '}
-              <EditParentModal
-                student={student}
-                onSaveSuccess={() => onReload()}
-              />
-            </Typography>
-          </Grid>
-        )}
-      </Grid>
-
-      <Grid container m="1vw">
-        <Grid item xs={5}>
-          {!isParent ? (
-            <Typography component="span">
-              Date of Birth:{' '}
-              <Typography color="#959595">
-                {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+    <Grid>
+      <Grid container direction="column" width={{ xs: '85vw', md: '45vw' }}>
+        <Grid item>
+          {!isParent && (
+            <Grid item>
+              <Typography fontSize="2.5vw">
+                {`${firstName} ${lastName}`}&#39;s Details{' '}
+                <EditStudentInfoModal
+                  student={student}
+                  onSaveSuccess={() => onReload()}
+                />
               </Typography>
-              <Typography color="#959595">
-                Age: {calculateAge(studentDateOfBirth)}
-              </Typography>
-            </Typography>
-          ) : (
-            <Typography component="span" fontSize="16px">
-              Parent Name:
-              <Typography color="#959595">{`${firstName} ${lastName}`}</Typography>
-            </Typography>
+              <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+            </Grid>
           )}
         </Grid>
-        <Grid item xs={7}>
-          <Typography component="span">Email:</Typography>
-          <Typography color="#959595">{email}</Typography>
+        <Grid item>
+          {isParent && (
+            <Grid item>
+              <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+              <Typography component="span" fontSize="2vw">
+                Parent Information{' '}
+                <EditParentModal
+                  student={student}
+                  onSaveSuccess={() => onReload()}
+                />
+              </Typography>
+            </Grid>
+          )}
         </Grid>
-      </Grid>
 
-      <Grid container m="1vw">
-        <Grid item xs={5}>
-          <Typography>Address:</Typography>
-          <Typography color="#959595">
-            {address}{' '}
-            {apartmentNumber !== '' && apartmentNumber !== null && (
-              <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+        <Grid container m="1vw">
+          <Grid item xs={5}>
+            {!isParent ? (
+              <Typography component="span">
+                Date of Birth:{' '}
+                <Typography color="#959595">
+                  {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+                </Typography>
+                <Typography color="#959595">
+                  Age: {calculateAge(studentDateOfBirth)}
+                </Typography>
+              </Typography>
+            ) : (
+              <Typography component="span" fontSize="16px">
+                Parent Name:
+                <Typography color="#959595">{`${firstName} ${lastName}`}</Typography>
+              </Typography>
             )}
-          </Typography>
-          <Typography color="#959595">
-            {city == null && state == null && zipCode == null
-              ? ''
-              : `${city}, ${state} ${zipCode}`}
-          </Typography>
+          </Grid>
+          <Grid item xs={7}>
+            <Typography component="span">Email:</Typography>
+            <Typography color="#959595">{email}</Typography>
+          </Grid>
         </Grid>
 
-        <Grid item xs={7}>
-          <Typography component="span">
-            Preferred Phone Number:
-            <Typography color="#959595">{preferredPhone}</Typography>
-          </Typography>
+        <Grid container m="1vw">
+          <Grid item xs={5}>
+            <Typography>Address:</Typography>
+            <Typography color="#959595">
+              {address}{' '}
+              {apartmentNumber !== '' && apartmentNumber !== null && (
+                <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+              )}
+            </Typography>
+            <Typography color="#959595">
+              {city == null && state == null && zipCode == null
+                ? ''
+                : `${city}, ${state} ${zipCode}`}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={7}>
+            <Typography component="span">
+              Preferred Phone Number:
+              <Typography color="#959595">{preferredPhone}</Typography>
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
@@ -236,7 +233,7 @@ export function GoalsBox(props) {
 
   return (
     <Box>
-      <Grid container>
+      <Grid container width={{ xs: '85vw', md: '45vw' }}>
         <Grid item container xs={12}>
           <Grid item xs={11}>
             <Typography fontSize="30px">
@@ -336,7 +333,7 @@ export function CareerBox(props) {
 
   return (
     <Box>
-      <Grid container>
+      <Grid container width={{ xs: '85vw', md: '45vw' }}>
         <Grid item container xs={12}>
           <Grid item xs={11}>
             <Typography fontSize="30px">
