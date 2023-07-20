@@ -204,7 +204,14 @@ export default function EditStudentInfoModal(props) {
       actionButtonColor="submit"
     >
       <Grid container spacing={1} padding={3}>
-        <Grid container item xs={12} justifyContent="center" spacing={2}>
+        <Grid
+          container
+          item
+          xs={12}
+          justifyContent="center"
+          spacing={2}
+          height={100}
+        >
           <Grid item xs={6}>
             <TextField
               label="First Name"
@@ -228,7 +235,7 @@ export default function EditStudentInfoModal(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={85}>
           <TextField
             fullWidth
             label="Preferred Phone Number"
@@ -240,7 +247,7 @@ export default function EditStudentInfoModal(props) {
             required
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={85}>
           <TextField
             label="Email"
             onChange={(event) => setStudentEmail(event.target.value)}
@@ -253,7 +260,7 @@ export default function EditStudentInfoModal(props) {
           />
         </Grid>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
-          <Grid item xs={8}>
+          <Grid item xs={8} height={95}>
             <TextField
               label="Address"
               onChange={(event) => setStudentAddress(event.target.value)}
@@ -278,7 +285,7 @@ export default function EditStudentInfoModal(props) {
         </Grid>
 
         <Grid container item xs={12} justifyContent="center" spacing={2}>
-          <Grid item xs={4}>
+          <Grid item xs={4} height={80}>
             <TextField
               label="City"
               onChange={(event) => setStudentCity(event.target.value)}
