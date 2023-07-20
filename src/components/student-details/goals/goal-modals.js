@@ -144,7 +144,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
-                disableFuture="true"
+                disableFuture
               />
             </LocalizationProvider>
           </Grid>
@@ -158,7 +158,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
-                disablePast="true"
+                disablePast
                 // minDate={dateGoalSet}
               />
             </LocalizationProvider>
