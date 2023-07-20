@@ -18,6 +18,7 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { getActiveCoachesHandler } from '../coaches/coachHandlers';
+import { ChooseInterviewModal } from './chooseInterviewModal';
 
 const APPLICANTS = [
   {
@@ -67,6 +68,7 @@ const APPLICANTS = [
             onStudentReject={refreshTable}
             student={row}
           />
+          <ChooseInterviewModal studentId={id} />
         </React.Fragment>
       );
     },
