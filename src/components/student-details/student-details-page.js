@@ -132,7 +132,7 @@ export default function StudentDetails(props) {
             borderRadius="10px"
           >
             {' '}
-            <Box sx={boxStyle} padding="4vh">
+            <Box sx={boxStyle} padding="5vh">
               {tabValue === 0 && (
                 <Grid>
                   <StudentInfoBox
@@ -170,10 +170,10 @@ export default function StudentDetails(props) {
         <Grid item container md={6} xs={12} direction="column">
           <Grid item container position="relative">
             <Grid item container direction="row">
-              <Grid item xs={12} md={6} pl="2vw">
+              <Grid item md={6} pl="2vw">
                 <Typography fontSize={35}>Communication Log</Typography>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item md={6}>
                 <Toolbar>
                   <Grid item alignItems="flex-front">
                     <SearchBar requestSearch={requestSearch} />
