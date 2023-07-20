@@ -12,6 +12,7 @@ import { pink } from '@mui/material/colors';
 import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
 import { Layout } from '../layout/layout';
 import { useAuthentication } from '../../contexts/authentication-context/authentication-context';
+import { ForgotPasswordModal } from './forgot-password-modal';
 
 export function Login() {
   const navigate = useNavigate();
@@ -85,9 +86,9 @@ export function Login() {
             value={password}
             variant="outlined"
           />
+          <ForgotPasswordModal />
           <Button
             disabled={submitDisabled}
-            fullWidth
             onClick={onSubmit}
             size="large"
             sx={{ mt: 2 }}
