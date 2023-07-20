@@ -122,7 +122,7 @@ export default function EditStudentInfoModal(props) {
         presence: { allowEmpty: false, message: 'Must not be blank' },
       },
       studentZipCode: {
-        presence: { allowEmpty: false, message: 'Must not be blank' },
+        presence: { allowEmpty: false, message: ' ' },
         format: {
           pattern: '^([0-9]{5}){1}',
           message: 'Must be Valid Zip Code',
@@ -285,7 +285,7 @@ export default function EditStudentInfoModal(props) {
         </Grid>
 
         <Grid container item xs={12} justifyContent="center" spacing={2}>
-          <Grid item xs={4} height={80}>
+          <Grid item xs={4} height={120}>
             <TextField
               label="City"
               onChange={(event) => setStudentCity(event.target.value)}
