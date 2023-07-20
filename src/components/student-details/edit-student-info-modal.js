@@ -203,7 +203,7 @@ export default function EditStudentInfoModal(props) {
       openModal={<EditIcon />}
       actionButtonColor="submit"
     >
-      <Grid container spacing={1} padding={4}>
+      <Grid container spacing={1} padding={3}>
         <Grid container item xs={12} justifyContent="center" spacing={2}>
           <Grid item xs={6}>
             <TextField
