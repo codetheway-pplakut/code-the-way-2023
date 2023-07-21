@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { validate } from 'validate.js';
-import { flattenDeep } from 'lodash';
+import { flattenDeep, set } from 'lodash';
 
 import GenericModal from '../shared/generic-modal';
 import { requestPasswordReset } from '../../services/users/users';
+import { LayoutError } from '../layout/layout-error/layout-error';
 
-export function ForgotPasswordModal() {
+export function ForgotPasswordModal(props) {
+  const { onError } = props;
   const [email, setEmail] = React.useState('');
   const [emailEdit, setEmailEdit] = React.useState(false);
   const [token, setToken] = React.useState('');
   const [open, setOpen] = React.useState(false);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = React.useState('');
 
   const validator = validate(
     { email },
@@ -50,8 +52,10 @@ export function ForgotPasswordModal() {
   };
   const submitAction = async () => {
     const data = { email };
+    setToken('');
+
     try {
-      setError(false);
+      setError('');
       const response = await requestPasswordReset(data);
       const unslicedToken = response.data['Return URL'];
       setToken(unslicedToken.slice('51'));
@@ -62,7 +66,14 @@ export function ForgotPasswordModal() {
       setEmailEdit(false);
     } catch (e) {
       console.log(e);
-      setError(true);
+      if (e.response.status === 400) {
+        setError(
+          'The provided email may be misspelled. Please check and try again.'
+        );
+      } else {
+        setError('An unknown error occurred. Please try again later.');
+      }
+
       setEmail('');
       setEmailEdit(false);
     }
@@ -70,6 +81,7 @@ export function ForgotPasswordModal() {
   const messages = flattenDeep(Object.values(validator || {}));
   const actionButtonDisabled = Boolean(messages.length);
 
+  if (error) onError(error);
   return (
     <React.Fragment>
       <GenericModal
@@ -97,13 +109,6 @@ export function ForgotPasswordModal() {
           <Typography>{token}</Typography>
         </Grid>
       </Grid>
-      {error && (
-        <Grid>
-          <Grid item xs={1}>
-            <Typography> Error Occured, Please Try Again</Typography>
-          </Grid>
-        </Grid>
-      )}
     </React.Fragment>
   );
 }
