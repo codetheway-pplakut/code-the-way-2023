@@ -68,6 +68,8 @@ export default function StudentDetails(props) {
       minHeight: '70vh',
       borderRadius: '10px',
       boxShadow: '0 px 5px rgba(0, 0, 0, 0.2)',
+      maxHeight: '70vh',
+      overflowY: 'auto',
     }),
     []
   );
@@ -94,8 +96,21 @@ export default function StudentDetails(props) {
     <React.Fragment>
       <LayoutBackButton />
 
-      <Grid container direction="row" sx={{ mt: '25px', px: '1vw', pl: '2vw' }}>
-        <Grid item container xs={6} direction="column" alignItems="center">
+      <Grid
+        container
+        direction="row"
+        sx={{ mt: '25px', px: '1vw' }}
+        pl={2}
+        columnSpacing={7}
+      >
+        <Grid
+          item
+          container
+          md={6}
+          xs={12}
+          direction="column"
+          alignItems="center"
+        >
           <Grid item position="relative">
             <Tabs
               value={tabValue}
@@ -123,9 +138,9 @@ export default function StudentDetails(props) {
             borderRadius="10px"
           >
             {' '}
-            <Box sx={boxStyle} padding="4vh">
+            <Box sx={boxStyle} padding="5vh">
               {tabValue === 0 && (
-                <Grid width="42vw">
+                <Grid>
                   <StudentInfoBox
                     student={student}
                     onReload={() => onReload()}
@@ -139,43 +154,45 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 1 && (
-                <Grid width="42vw">
+                <Grid>
                   <GoalsBox student={student} onReload={() => onReload()} />
                 </Grid>
               )}
 
               {tabValue === 2 && (
-                <Grid width="42vw">
+                <Grid>
                   <CareerBox student={student} onReload={() => onReload()} />
                 </Grid>
               )}
 
               {tabValue === 3 && (
-                <Grid width="42vw">
+                <Grid width={{ xs: '85vw', md: '45vw' }}>
                   <Box> Placeholder </Box>
                 </Grid>
               )}
             </Box>
           </Grid>
         </Grid>
-        <Grid item container xs={6} direction="column">
+        <Grid item container md={6} xs={12} direction="column">
           <Grid item container position="relative">
             <Grid item container direction="row">
-              <Grid item xs={6} pl="2vw">
-                <Typography fontSize={35}>Communication Log</Typography>
+              <Grid item md={6} pl="2vw">
+                <Typography fontSize={35}>Communications</Typography>
               </Grid>
-              <Grid item xs={6}>
+              <Grid item md={6}>
                 <Toolbar>
-                  <Grid item alignItems="flex-front" xs={8}>
-                    <SearchBar requestSearch={requestSearch} />
-                  </Grid>
-                  <Grid item alignItems="flex-front">
-                    <Box sx={{ mb: 2.5 }}>
-                      <AddCommunicationsModal
-                        student={student}
-                        onSaveSuccess={() => requestCommunication(studentID)}
-                      />
-                    </Box>
+                  <Grid container>
+                    <Grid item alignItems="flex-front" xs={8}>
+                      <SearchBar requestSearch={requestSearch} />
+                    </Grid>
+                    <Grid item alignItems="flex-front" xs={4}>
+                      <Box sx={{ mb: 2.5 }}>
+                        <AddCommunicationsModal
+                          student={student}
+                          onSaveSuccess={() => requestCommunication(studentID)}
+                        />
+                      </Box>
+                    </Grid>
                   </Grid>
                 </Toolbar>
               </Grid>
@@ -184,11 +201,12 @@ export default function StudentDetails(props) {
           <Grid item position="relative">
             <Box
               sx={{
-                maxHeight: '70vh',
+                maxHeight: '68vh',
                 overflowY: 'auto',
                 pl: '2vw',
-                width: '45vw',
               }}
+              xs={12}
+              md={6}
             >
               {visibleRows && visibleRows.length > 0 ? (
                 visibleRows.map((row) => (
