@@ -11,40 +11,39 @@ import { GenericModal } from '../shared/generic-modal';
 export function ChooseCoachModal(props) {
   const { studentId, refreshTable, coaches, student } = props;
 
-  const [value, setValue] = useState();
+  const [coachId, setCoachId] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
 
   const reassignCoachHandler = async () => {
-    if (newCoachId !== '' && newCoachId !== null) {
-      await assignStudentHandler(newCoachId, studentId);
-    }
-    if (newCoachId === 'unassign' && student.coachId !== '') {
+    if (newCoachId === 'No Coach' && student.coachId !== '') {
       await unassignStudentHandler(student.coachId, studentId);
+    } else if (newCoachId !== '' && newCoachId !== null) {
+      await assignStudentHandler(newCoachId, studentId);
     }
     refreshTable();
   };
 
   const handleCoachChange = (event) => {
-    setValue(event.target.value);
+    setCoachId(event.target.value);
   };
 
   const recordValue = () => {
-    setNewCoachId(value);
+    setNewCoachId(coachId);
   };
 
   const content =
-    newCoachId !== '' && newCoachId !== null ? (
+    student.coachId !== null ? (
       <TextField
         id="coach-select"
         select
-        value={value}
+        value={coachId}
         onFocus={recordValue}
         onChange={handleCoachChange}
         disabled={coaches.length === 0}
         style={{ width: '200px' }}
       >
-        <MenuItem key="unassign" value="">
-          Unassign Coach
+        <MenuItem key="No Coach" value="No Coach">
+          No Coach
         </MenuItem>
         {coaches && coaches.length > 0 ? (
           coaches.map((val) => (
@@ -53,14 +52,14 @@ export function ChooseCoachModal(props) {
             </MenuItem>
           ))
         ) : (
-          <MenuItem disabled>No coaches available</MenuItem>
+          <MenuItem disabled>No Coaches Available</MenuItem>
         )}
       </TextField>
     ) : (
       <TextField
         id="coach-select"
         select
-        value={value}
+        value={coachId}
         onFocus={recordValue}
         onChange={handleCoachChange}
         disabled={coaches.length === 0}
@@ -73,7 +72,7 @@ export function ChooseCoachModal(props) {
             </MenuItem>
           ))
         ) : (
-          <MenuItem disabled>No coaches available</MenuItem>
+          <MenuItem disabled>No Coaches Available</MenuItem>
         )}
       </TextField>
     );
@@ -88,7 +87,7 @@ export function ChooseCoachModal(props) {
       actionButtonColor="submit"
       onActionButtonClick={() => reassignCoachHandler()}
       onModalOpen={() => {
-        setValue(student.coachId ? student.coachId : '');
+        setCoachId(student.coachId);
       }}
     />
   );
