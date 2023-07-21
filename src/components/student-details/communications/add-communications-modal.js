@@ -129,6 +129,7 @@ export default function AddCommunicationsModal(props) {
             <MenuItem value="Email">Email</MenuItem>
             <MenuItem value="Phone call">Phone Call</MenuItem>
             <MenuItem value="Text message">Text Message</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
           </TextField>
         </Grid>
 

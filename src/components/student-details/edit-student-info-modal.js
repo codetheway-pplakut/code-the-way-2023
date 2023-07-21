@@ -135,7 +135,7 @@ export default function EditStudentInfoModal(props) {
   const messages = flattenDeep(Object.values(validator || {}));
 
   const actionButtonDisabled = Boolean(messages.length);
-  const minDate = dayjs().subtract(30, 'year');
+  const minDate = dayjs().subtract(25, 'year');
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
