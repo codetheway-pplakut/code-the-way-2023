@@ -4,6 +4,7 @@ import {
   Button,
   TextField,
   Avatar,
+  Grid,
 } from '@mui/material';
 import React, { useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
@@ -12,6 +13,9 @@ import { pink } from '@mui/material/colors';
 import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
 import { Layout } from '../layout/layout';
 import { useAuthentication } from '../../contexts/authentication-context/authentication-context';
+import { ForgotPasswordModal } from './forgot-password-modal';
+import { LayoutError } from '../layout/layout-error/layout-error';
+import { LayoutBackButton } from '../layout/layout-back-button/layout-back-button';
 
 export function Login() {
   const navigate = useNavigate();
@@ -22,14 +26,15 @@ export function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [error, setError] = useState('');
 
   const submitDisabled = !username || !password;
   const showErrorMessage = Boolean(errorMessage);
 
   const onSuccessCallback = () => navigate('/students');
-  const onFailureCallback = (error) => {
+  const onFailureCallback = (e) => {
     const message =
-      error?.response?.data?.message || error?.message || 'An error occurred.';
+      e?.response?.data?.message || e?.message || 'An error occurred.';
     setErrorMessage(message);
   };
 
@@ -41,7 +46,15 @@ export function Login() {
       username,
     });
   };
-
+  const onClick = () => setError('');
+  if (error)
+    return (
+      <LayoutError
+        title="Error loading."
+        label={error}
+        onRetryClick={onClick}
+      />
+    );
   return (
     <React.Fragment>
       <CircularProgressOverlay active={isLoading} />
@@ -85,9 +98,9 @@ export function Login() {
             value={password}
             variant="outlined"
           />
+          <ForgotPasswordModal onError={setError} />
           <Button
             disabled={submitDisabled}
-            fullWidth
             onClick={onSubmit}
             size="large"
             sx={{ mt: 2 }}
