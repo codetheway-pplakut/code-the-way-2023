@@ -3,6 +3,7 @@ import { Box } from '@mui/system';
 import { validate } from 'validate.js';
 import { Button, Grid, TextField } from '@mui/material';
 import { flattenDeep } from 'lodash';
+import { useNavigate } from 'react-router-dom';
 
 import { Layout } from '../layout/layout';
 import {
@@ -30,6 +31,8 @@ export function ResetPassword() {
   validate.validators.number = number;
   validate.validators.uppercaseLetter = uppercaseLetter;
   validate.validators.firstIsCapital = firstIsCapital;
+
+  const navigate = useNavigate();
 
   const validator = validate(
     { password, confirmPassword, email, token },
@@ -88,6 +91,8 @@ export function ResetPassword() {
     setEmailEdit(false);
     setPasswordEdit(false);
     setConfirmPasswordEdit(false);
+
+    navigate('/login');
   };
   return (
     <Layout title="Reset Password">
@@ -107,25 +112,27 @@ export function ResetPassword() {
           </Grid>
           <Grid item>
             <TextField
+              hidden
               sx={{ margin: 2, width: '85%' }}
               onChange={(event) => setPassword(event.target.value)}
               helperText={displayErrorMessages('password')}
               error={checkError('password') && passwordEdit}
               label="Password"
               value={password}
-              type="text"
+              type="password"
               onBlur={() => setPasswordEdit(true)}
             />
           </Grid>
           <Grid item>
             <TextField
+              hidden
               sx={{ margin: 2, width: '85%' }}
               onChange={(event) => setConfirmPassword(event.target.value)}
               helperText={displayErrorMessages('confirmPassword')}
               error={checkError('confirmPassword') && confirmPasswordEdit}
               label="Confirm Password"
               value={confirmPassword}
-              type="text"
+              type="password"
               onBlur={() => setConfirmPasswordEdit(true)}
             />
           </Grid>
