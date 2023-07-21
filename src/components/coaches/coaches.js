@@ -79,6 +79,7 @@ export function Coaches() {
       align: 'left',
       active: false,
       hideOrder: true,
+      render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
     },
     {
       id: 'coachPhoneNumber',
