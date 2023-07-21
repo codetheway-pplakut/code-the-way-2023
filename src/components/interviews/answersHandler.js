@@ -5,7 +5,7 @@ import {
   editAnswer,
   getAnswer,
   getAnswerToQuestion,
-} from '../../../services/interviews/answers';
+} from '../../services/interviews/answers';
 
 export function getAnswerHandler(answerId) {
   return getAnswer(answerId);

@@ -50,6 +50,7 @@ export function CreateStudentAnswersHandler(
   answers,
   questions,
   studentId,
+  interviewName,
   interviewId
 ) {
   const data = [{}];
@@ -58,8 +59,10 @@ export function CreateStudentAnswersHandler(
       answerString: answers[i],
       id: uuid(),
       questionId: questions[i].id,
+      questionString: questions[i].questionString,
       studentId,
       interviewId,
+      interviewName,
       isArchived: false,
     };
   }

@@ -1,16 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import GenericModal from '../shared/generic-modal';
 import { CreateStudentAnswersHandler } from './interviewsHandler';
 
 export function SubmitInterviewModal(props) {
-  const { questions, answers, interviewId, studentId } = props;
+  const { questions, answers, interviewId, interviewName, studentId } = props;
+  const [sending, setSending] = useState(false);
+  const navigate = useNavigate();
+
   const submitInterview = async () => {
+    setSending(true);
     await CreateStudentAnswersHandler(
       answers,
       questions,
       studentId,
+      interviewName,
       interviewId
     );
+    setSending(false);
+    navigate('/students');
   };
 
   return (

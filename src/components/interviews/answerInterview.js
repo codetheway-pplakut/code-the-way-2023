@@ -92,6 +92,7 @@ export function AnswerInterview() {
                 questions={rows}
                 answers={answers}
                 interviewId={interviewId}
+                interviewName={interviewName}
                 studentId={studentId}
               />
             </Box>

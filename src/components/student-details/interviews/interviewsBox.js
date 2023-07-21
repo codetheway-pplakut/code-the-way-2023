@@ -52,37 +52,25 @@ export function InterviewsBox(props) {
   }
 
   return (
-    <Box>
-      <Grid container>
-        <Grid item container xs={12}>
-          <Grid item xs={11}>
-            <Typography fontSize="30px">
-              {student.studentFirstName} {student.studentLastName}&apos;s
-              Careers
-            </Typography>
+    <Grid>
+      {interviews && interviews.length > 0 ? (
+        interviews.map((interview) => (
+          <Grid item xs={12} key={interview.interview.id}>
+            <Typography>{interview.interview.interviewName}</Typography>
+            <Grid item xs={12}>
+              {interview.answers.map((answer) => (
+                <Box key={answer.id}>
+                  <Typography>Question: {answer.questionString}</Typography>
+                  <Typography>Answer: {answer.answerString}</Typography>
+                </Box>
+              ))}
+            </Grid>
           </Grid>
-          <Grid item xs={1}>
-            <AddCareerModal
-              student={student}
-              onSaveSuccess={() => fetchCareer()}
-            />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Box
-        sx={{
-          maxHeight: '55vh',
-          overflowY: 'auto',
-          width: '43vw',
-        }}
-      >
-        <Grid container>
-          <Grid item xs={12}>
-            {careerContent}
-          </Grid>
-        </Grid>
-      </Box>
-    </Box>
+        ))
+      ) : (
+        <Typography>No communications found</Typography>
+      )}
+    </Grid>
   );
 }
 
