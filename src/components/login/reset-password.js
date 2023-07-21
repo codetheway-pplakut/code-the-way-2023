@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import { validate } from 'validate.js';
-import { Button, TextField } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { flattenDeep } from 'lodash';
 
 import { Layout } from '../layout/layout';
@@ -91,50 +91,65 @@ export function ResetPassword() {
   return (
     <Layout title="Reset Password">
       <Box sx={{ width: '100%' }}>
-        <TextField
-          sx={{ margin: 5, width: '85%' }}
-          onChange={(event) => setToken(event.target.value)}
-          helperText={displayErrorMessages('token')}
-          error={checkError('token') && tokenEdit}
-          label="Token"
-          value={token}
-          type="text"
-          onBlur={() => setTokenEdit(true)}
-        />
-        <TextField
-          sx={{ margin: 5, width: '85%' }}
-          onChange={(event) => setEmail(event.target.value)}
-          helperText={displayErrorMessages('email')}
-          error={checkError('email') && emailEdit}
-          label="Email"
-          value={email}
-          type="text"
-          onBlur={() => setEmailEdit(true)}
-        />
-        <TextField
-          sx={{ margin: 5, width: '85%' }}
-          onChange={(event) => setPassword(event.target.value)}
-          helperText={displayErrorMessages('password')}
-          error={checkError('password') && passwordEdit}
-          label="Password"
-          value={password}
-          type="text"
-          onBlur={() => setPasswordEdit(true)}
-        />
-        <TextField
-          sx={{ margin: 5, width: '85%' }}
-          onChange={(event) => setConfirmPassword(event.target.value)}
-          helperText={displayErrorMessages('confirmPassword')}
-          error={checkError('confirmPassword') && confirmPasswordEdit}
-          label="Confirm Password"
-          value={confirmPassword}
-          type="text"
-          onBlur={() => setConfirmPasswordEdit(true)}
-        />
-        <Button disabled={actionButtonDisabled} onClick={submitAction}>
-          {' '}
-          Reset{' '}
-        </Button>
+        <Grid container direction="column">
+          <Grid item>
+            <TextField
+              sx={{ margin: 2, width: '85%' }}
+              onChange={(event) => setToken(event.target.value)}
+              helperText={displayErrorMessages('token')}
+              error={checkError('token') && tokenEdit}
+              label="Token"
+              value={token}
+              type="text"
+              onBlur={() => setTokenEdit(true)}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              sx={{ margin: 2, width: '85%' }}
+              onChange={(event) => setEmail(event.target.value)}
+              helperText={displayErrorMessages('email')}
+              error={checkError('email') && emailEdit}
+              label="Email"
+              value={email}
+              type="text"
+              onBlur={() => setEmailEdit(true)}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              sx={{ margin: 2, width: '85%' }}
+              onChange={(event) => setPassword(event.target.value)}
+              helperText={displayErrorMessages('password')}
+              error={checkError('password') && passwordEdit}
+              label="Password"
+              value={password}
+              type="text"
+              onBlur={() => setPasswordEdit(true)}
+            />
+          </Grid>
+          <Grid item>
+            <TextField
+              sx={{ margin: 2, width: '85%' }}
+              onChange={(event) => setConfirmPassword(event.target.value)}
+              helperText={displayErrorMessages('confirmPassword')}
+              error={checkError('confirmPassword') && confirmPasswordEdit}
+              label="Confirm Password"
+              value={confirmPassword}
+              type="text"
+              onBlur={() => setConfirmPasswordEdit(true)}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              disabled={actionButtonDisabled}
+              onClick={submitAction}
+              sx={{ width: '85%' }}
+            >
+              Reset
+            </Button>
+          </Grid>
+        </Grid>
       </Box>
     </Layout>
   );
