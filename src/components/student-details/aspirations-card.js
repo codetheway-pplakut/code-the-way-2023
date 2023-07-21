@@ -14,7 +14,7 @@ export function AspirationsCard(props) {
         mb: 1,
         bgcolor: '#ffffff',
       }}
-      minWidth={{ xs: '85vw', md: '43.6vw' }}
+      width={{ xs: '85vw', md: '43.6vw' }}
     >
       <Grid container direction="column">
         {props.children}
