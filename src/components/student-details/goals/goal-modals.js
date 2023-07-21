@@ -177,6 +177,7 @@ export function EditGoalModal(props) {
             fullWidth
             multiline
             minRows={3}
+            maxRows={3}
           />
         </Grid>
 
@@ -373,6 +374,7 @@ export function AddGoalModal(props) {
             onChange={(event) => setExplanation(event.target.value)}
             value={explanation}
             minRows={3}
+            maxRows={3}
             helperText={displayErrorMessages('explanation')}
             error={checkError('explanation') && explanationEdit}
             required

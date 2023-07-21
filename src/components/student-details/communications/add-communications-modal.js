@@ -141,9 +141,10 @@ export default function AddCommunicationsModal(props) {
             error={checkError('description') && descriptionEdit}
             onBlur={() => setDescriptionEdit(true)}
             required
+            minRows={3}
+            maxRows={3}
             multiline
             fullWidth
-            minRows={2}
           />
         </Grid>
 
