@@ -135,7 +135,7 @@ export function Students() {
       align: 'left',
       render: (value, row, refreshTable) => (
         <React.Fragment>
-          {row.coachFirstName}
+          {row.coachFirstName === null ? 'No Coach' : row.coachFirstName}
           <ChooseCoachModal
             coaches={activeCoaches}
             studentId={value}
