@@ -60,8 +60,8 @@ export function ForgotPasswordModal() {
       console.log('http://localhost:8080/reset-password');
       setEmail('');
       setEmailEdit(false);
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      console.log(e);
       setError(true);
       setEmail('');
       setEmailEdit(false);
