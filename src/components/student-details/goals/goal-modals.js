@@ -118,7 +118,7 @@ export function EditGoalModal(props) {
       onActionButtonClick={requestSave}
       onModalOpen={handleClose}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<EditIcon />}
+      openModal={<EditIcon />}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12} mt={2} height={90}>
@@ -453,7 +453,7 @@ export function DeleteGoalModal(props) {
       actionButtonTitle="Delete"
       actionButtonColor="archive"
       onActionButtonClick={requestDelete}
-      openButtonIcon={<DeleteIcon />}
+      openModal={<DeleteIcon />}
     />
   );
 }
