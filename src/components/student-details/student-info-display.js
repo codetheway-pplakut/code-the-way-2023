@@ -195,7 +195,19 @@ export function GoalsBox(props) {
     );
   if (hasError) return <LayoutError />;
 
-  const goalData = allGoals.map((goalContent) => (
+  const goalsDate = allGoals.map((goal) => goal.goalReviewDate);
+  const sortedGoalsDate = goalsDate.sort();
+
+  const compareDates = (a, b) => {
+    const aIndex = sortedGoalsDate.indexOf(a.goalReviewDate);
+    const bIndex = sortedGoalsDate.indexOf(b.goalReviewDate);
+
+    return aIndex - bIndex;
+  };
+
+  const reorderedArray = allGoals.sort(compareDates);
+
+  const goalData = reorderedArray.map((goalContent) => (
     <Goal
       key={goalContent.id}
       goal={goalContent}
