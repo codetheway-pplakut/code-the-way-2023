@@ -77,7 +77,7 @@ export function StudentInfoBox(props) {
         <Grid item>
           {!isParent && (
             <Grid item>
-              <Typography fontSize="2.5vw">
+              <Typography fontSize="2vw">
                 {`${firstName} ${lastName}`}&#39;s Details{' '}
                 <EditStudentInfoModal
                   student={student}
@@ -167,6 +167,7 @@ export function GoalsBox(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const fetchGoals = () => {
+    console.log('fetchGoals triggered');
     setIsLoading(true);
     setHasError(false);
     setAllGoals([]);
@@ -178,6 +179,7 @@ export function GoalsBox(props) {
         setHasError(true);
       } else {
         setAllGoals(goals.data);
+        console.log('FINDME', goals.data);
       }
 
       setIsLoading(false);
@@ -195,19 +197,7 @@ export function GoalsBox(props) {
     );
   if (hasError) return <LayoutError />;
 
-  const goalsDate = allGoals.map((goal) => goal.goalReviewDate);
-  const sortedGoalsDate = goalsDate.sort();
-
-  const compareDates = (a, b) => {
-    const aIndex = sortedGoalsDate.indexOf(a.goalReviewDate);
-    const bIndex = sortedGoalsDate.indexOf(b.goalReviewDate);
-
-    return aIndex - bIndex;
-  };
-
-  const reorderedArray = allGoals.sort(compareDates);
-
-  const goalData = reorderedArray.map((goalContent) => (
+  const goalData = allGoals.map((goalContent) => (
     <Goal
       key={goalContent.id}
       goal={goalContent}
@@ -223,7 +213,7 @@ export function GoalsBox(props) {
         <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
             <Grid item xs={11}>
-              <Typography fontSize="30px">
+              <Typography fontSize="2vw">
                 {student.studentFirstName} {student.studentLastName}&apos;s
                 Goals
               </Typography>
@@ -246,7 +236,7 @@ export function GoalsBox(props) {
       <Grid container width={{ xs: '85vw', md: '45vw' }}>
         <Grid item container xs={12}>
           <Grid item xs={11}>
-            <Typography fontSize="30px">
+            <Typography fontSize="2vw">
               {student.studentFirstName} {student.studentLastName}&apos;s Goals
             </Typography>
           </Grid>
@@ -322,7 +312,7 @@ export function CareerBox(props) {
         <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
             <Grid item xs={11}>
-              <Typography fontSize="30px">
+              <Typography fontSize="2vw">
                 {student.studentFirstName} {student.studentLastName}&apos;s
                 Careers
               </Typography>
@@ -345,7 +335,7 @@ export function CareerBox(props) {
       <Grid container width={{ xs: '85vw', md: '45vw' }}>
         <Grid item container xs={12}>
           <Grid item xs={11}>
-            <Typography fontSize="30px">
+            <Typography fontSize="2vw">
               {student.studentFirstName} {student.studentLastName}&apos;s
               Careers
             </Typography>

@@ -111,14 +111,14 @@ export function EditGoalModal(props) {
   };
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
       onActionButtonClick={requestSave}
       onModalOpen={handleClose}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<EditIcon />}
+      openModal={<EditIcon />}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12} mt={2} height={90}>
@@ -177,6 +177,7 @@ export function EditGoalModal(props) {
             fullWidth
             multiline
             minRows={3}
+            maxRows={3}
           />
         </Grid>
 
@@ -310,7 +311,7 @@ export function AddGoalModal(props) {
 
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
@@ -373,6 +374,7 @@ export function AddGoalModal(props) {
             onChange={(event) => setExplanation(event.target.value)}
             value={explanation}
             minRows={3}
+            maxRows={3}
             helperText={displayErrorMessages('explanation')}
             error={checkError('explanation') && explanationEdit}
             required
@@ -451,7 +453,7 @@ export function DeleteGoalModal(props) {
       actionButtonTitle="Delete"
       actionButtonColor="archive"
       onActionButtonClick={requestDelete}
-      openButtonIcon={<DeleteIcon />}
+      openModal={<DeleteIcon />}
     />
   );
 }

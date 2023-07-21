@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
-import { assignStudentHandler, unassignStudentHandler } from './studentHandlers';
+import {
+  assignStudentHandler,
+  unassignStudentHandler,
+} from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
@@ -63,7 +66,7 @@ export function ChooseCoachModal(props) {
 
   return (
     <GenericModal
-      openButtonIcon={<EditIcon />}
+      openModal={<EditIcon />}
       modalHeadingTitle={`Assign ${student.firstName}'s Coach`}
       modalMessage={content}
       actionButtonTitle="Save"
