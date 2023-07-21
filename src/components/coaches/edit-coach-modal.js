@@ -36,7 +36,7 @@ export function EditCoachModal(props) {
       phone: {
         presence: { allowEmpty: false, message: 'Must not be Blank' },
         format: {
-          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
           message: 'Format: ###-###-####',
         },
       },
@@ -153,16 +153,16 @@ export function EditCoachModal(props) {
       </Grid>
       <Grid item xs={12}>
         <TextField
-          fullWidth
           id="outlined"
+          fullWidth
+          onChange={(event) => setPhone(event.target.value)}
           label="Phone Number"
+          value={phone}
           required
           error={checkError('phone') && phoneEdit}
           helperText={displayErrorMessages('phone')}
-          defaultValue={phone}
-          onChange={(event) => {
-            setPhone(event.target.value);
-          }}
+          type="text"
+          sx={{ my: 1 }}
           onBlur={() => setPhoneEdit(true)}
         />
       </Grid>

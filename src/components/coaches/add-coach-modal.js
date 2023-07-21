@@ -118,7 +118,7 @@ export function AddCoachModal(props) {
       phone: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
         format: {
-          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
           message: 'Format: ###-###-####',
         },
       },
@@ -149,7 +149,6 @@ export function AddCoachModal(props) {
     setPhone('');
     setConfirmPassword('');
     setPassword('');
-    console.log(messages);
     setFirstNameEdit(false);
     setLastNameEdit(false);
     setEmailEdit(false);
