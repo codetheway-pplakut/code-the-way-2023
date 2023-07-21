@@ -60,6 +60,7 @@ export function ChooseInterviewModal(props) {
       onActionButtonClick={() =>
         navigate('/AnswerInterview', {
           state: {
+            studentId,
             interviewId: value,
             interviewName: interviews.find(
               (interview) => interview.id === value

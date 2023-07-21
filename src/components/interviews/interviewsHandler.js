@@ -1,3 +1,4 @@
+import uuid from 'react-uuid';
 import {
   CreateStudentAnswers,
   GetInterviewAndQuestions,
@@ -46,12 +47,22 @@ export function getStudentInterviewsHandler(studentId) {
 }
 
 export function CreateStudentAnswersHandler(
-  answerString,
+  answers,
+  questions,
   studentId,
-  questionId,
   interviewId
 ) {
-  const data = { answerString, studentId, questionId, interviewId };
+  const data = [{}];
+  for (let i = 0; i < answers.length; i += 1) {
+    data[i] = {
+      answerString: answers[i],
+      id: uuid(),
+      questionId: questions[i].id,
+      studentId,
+      interviewId,
+      isArchived: false,
+    };
+  }
   return CreateStudentAnswers(data);
 }
 

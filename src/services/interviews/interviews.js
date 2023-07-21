@@ -30,7 +30,7 @@ export const getAllStudentInterviewResponses = (studentId) =>
 
 export const CreateStudentAnswers = (answer) =>
   callApi({
-    url: '/Interviews/CreateStudentAnswers',
+    url: '/Answers/CreateAnswer',
     data: answer,
     method: 'POST',
   });

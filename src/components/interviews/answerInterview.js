@@ -14,6 +14,7 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { EditQuestionModal } from './editQuestionModal';
 import { QandABlock } from './questionAnswerBlock';
+import { SubmitInterviewModal } from './submitInterviewModal';
 
 const COLUMNS = [
   {
@@ -45,7 +46,8 @@ export function AnswerInterview() {
   const [rows, setRows] = useState([]);
   const [answers, setAnswers] = useState([]);
   const location = useLocation();
-  const { interviewId, interviewName } = location.state;
+  const { studentId, interviewId, interviewName } = location.state;
+  console.log(studentId);
   const request = async () => {
     setIsLoading(true);
     setHasError(false);
@@ -82,9 +84,16 @@ export function AnswerInterview() {
                   key={row.id}
                   questionNum={index}
                   questionString={row.questionString}
-                  answer={answers[index]}
+                  answers={answers}
+                  setAnswers={setAnswers}
                 />
               ))}
+              <SubmitInterviewModal
+                questions={rows}
+                answers={answers}
+                interviewId={interviewId}
+                studentId={studentId}
+              />
             </Box>
           </Layout>
         </EntitlementRestricted>
