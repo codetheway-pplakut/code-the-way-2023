@@ -4,6 +4,7 @@ import {
   Button,
   TextField,
   Avatar,
+  Grid,
 } from '@mui/material';
 import React, { useState } from 'react';
 import LockIcon from '@mui/icons-material/Lock';
@@ -45,12 +46,14 @@ export function Login() {
       username,
     });
   };
+  const onClick = () => setError('');
   if (error)
     return (
-      <React.Fragment>
-        <LayoutError title="Error loading." label={error} />{' '}
-        <Button onClick={navigate('/login')}> Back </Button>
-      </React.Fragment>
+      <LayoutError
+        title="Error loading."
+        label={error}
+        onRetryClick={onClick}
+      />
     );
   return (
     <React.Fragment>
