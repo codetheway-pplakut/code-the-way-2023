@@ -77,7 +77,7 @@ export function StudentInfoBox(props) {
         <Grid item>
           {!isParent && (
             <Grid item>
-            <Typography fontSize="2vw">
+              <Typography fontSize="2vw">
                 {`${firstName} ${lastName}`}&#39;s Details{' '}
                 <EditStudentInfoModal
                   student={student}
