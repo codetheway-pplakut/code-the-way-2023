@@ -28,7 +28,6 @@ export function Navigation(props) {
       </Toolbar>
       <Divider />
       <List sx={{ p: 0 }}>
-        <NavigationItem label="Welcome" onClick={onToggle} to="/" />
         <NavigationItem label="Admins" onClick={onToggle} to="/admins" />
         <NavigationItem label="Coaches" onClick={onToggle} to="/coaches" />
         <NavigationItem label="Students" onClick={onToggle} to="/students" />
