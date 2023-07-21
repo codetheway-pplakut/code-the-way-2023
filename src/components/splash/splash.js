@@ -20,15 +20,18 @@ import { LayoutError } from '../layout/layout-error/layout-error';
 
 export function Splash() {
   const [login, setLogin] = useState(false);
-  const navigate = useNavigate();
-
-  const authentication = useAuthentication();
-  const { signIn, isLoading } = authentication;
-
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [error, setError] = useState('');
+
+  const handleLogin = () => {
+    setLogin(true);
+  };
+  const navigate = useNavigate();
+
+  const authentication = useAuthentication();
+  const { signIn, isLoading } = authentication;
 
   const submitDisabled = !username || !password;
   const showErrorMessage = Boolean(errorMessage);
@@ -39,7 +42,6 @@ export function Splash() {
       e?.response?.data?.message || e?.message || 'An error occurred.';
     setErrorMessage(message);
   };
-
   const onSubmit = () => {
     signIn({
       onFailureCallback,
@@ -50,37 +52,7 @@ export function Splash() {
   };
   const onClick = () => setError('');
 
-  if (!login)
-    return (
-      <Layout scrollable={false}>
-        <Container
-          maxWidth="md"
-          sx={{
-            alignItems: 'center',
-            display: 'flex',
-            flex: 1,
-            flexDirection: 'column',
-            justifyContent: 'center',
-            textAlign: 'center',
-          }}
-        >
-          <img src={logo} alt="lead2change logo" />
-          <Typography
-            variant="h3"
-            sx={{ mb: 2, marginTop: '10px' }}
-            color="text.secondary"
-          >
-            Student Management System
-          </Typography>
-          <Box sx={{ mt: 2 }}>
-            <Button variant="contained" onClick={setLogin(true)}>
-              Login
-            </Button>
-          </Box>
-        </Container>
-      </Layout>
-    );
-  if (login)
+  if (login) {
     return (
       <React.Fragment>
         <CircularProgressOverlay active={isLoading} />
@@ -138,7 +110,43 @@ export function Splash() {
         </Layout>
       </React.Fragment>
     );
+  }
+  if (error)
+    return (
+      <LayoutError
+        title="Error loading."
+        label={error}
+        onRetryClick={onClick}
+      />
+    );
+
   return (
-    <LayoutError title="Error loading." label={error} onRetryClick={onClick} />
+    <Layout scrollable={false}>
+      <Container
+        maxWidth="md"
+        sx={{
+          alignItems: 'center',
+          display: 'flex',
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          textAlign: 'center',
+        }}
+      >
+        <img src={logo} alt="lead2change logo" />
+        <Typography
+          variant="h3"
+          sx={{ mb: 2, marginTop: '10px' }}
+          color="text.secondary"
+        >
+          Student Management System
+        </Typography>
+        <Box sx={{ mt: 2 }}>
+          <Button variant="contained" onClick={handleLogin}>
+            Login
+          </Button>
+        </Box>
+      </Container>
+    </Layout>
   );
 }
