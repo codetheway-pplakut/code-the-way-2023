@@ -111,7 +111,7 @@ export function EditGoalModal(props) {
   };
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
@@ -310,7 +310,7 @@ export function AddGoalModal(props) {
 
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"

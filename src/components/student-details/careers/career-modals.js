@@ -96,7 +96,7 @@ export function AddCareerModal(props) {
   };
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Career"
