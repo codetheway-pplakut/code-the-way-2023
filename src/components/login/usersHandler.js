@@ -3,11 +3,16 @@ import {
   resetPassword,
 } from '../../services/users/users';
 
-export function requestPasswordResetHandler(email) {
+export async function requestPasswordResetHandler(email) {
   const data = { email };
-  return requestPasswordReset(data);
+  await requestPasswordReset(data);
 }
-export function resetPasswordHandler(email, password, confirmPassword, token) {
+export async function resetPasswordHandler(
+  email,
+  password,
+  confirmPassword,
+  token
+) {
   const data = { email, password, confirmPassword, token };
-  return resetPassword(data);
+  await resetPassword(data);
 }

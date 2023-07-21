@@ -35,6 +35,10 @@ export function ForgotPasswordModal(props) {
     { fullMessages: false }
   );
 
+  useEffect(() => {
+    setOpen(false);
+  }, []);
+
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
     if (errors && errors.length > 0) {
@@ -64,6 +68,7 @@ export function ForgotPasswordModal(props) {
       console.log('http://localhost:8080/reset-password');
       setEmail('');
       setEmailEdit(false);
+      setOpen(true);
     } catch (e) {
       console.log(e);
       if (e.response.status === 400) {
@@ -104,11 +109,13 @@ export function ForgotPasswordModal(props) {
           onBlur={() => setEmailEdit(true)}
         />
       </GenericModal>
-      <Grid>
-        <Grid item xs={1}>
-          <Typography>{token}</Typography>
+      {open && (
+        <Grid>
+          <Grid item xs={1}>
+            <Typography>Success, Check Your Email !</Typography>
+          </Grid>
         </Grid>
-      </Grid>
+      )}
     </React.Fragment>
   );
 }

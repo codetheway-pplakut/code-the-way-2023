@@ -21,7 +21,8 @@ export function ResetPassword() {
   const [passwordEdit, setPasswordEdit] = React.useState(false);
   const [confirmPassword, setConfirmPassword] = React.useState('');
   const [confirmPasswordEdit, setConfirmPasswordEdit] = React.useState(false);
-  const [token, setToken] = React.useState('');
+  const url = window.location.href;
+  const [token, setToken] = React.useState(url.split('token=')[1]);
   const [tokenEdit, setTokenEdit] = React.useState(false);
 
   validate.validators.lowercaseLetter = lowercaseLetter;
@@ -92,18 +93,6 @@ export function ResetPassword() {
     <Layout title="Reset Password">
       <Box sx={{ width: '100%' }}>
         <Grid container direction="column">
-          <Grid item>
-            <TextField
-              sx={{ margin: 2, width: '85%' }}
-              onChange={(event) => setToken(event.target.value)}
-              helperText={displayErrorMessages('token')}
-              error={checkError('token') && tokenEdit}
-              label="Token"
-              value={token}
-              type="text"
-              onBlur={() => setTokenEdit(true)}
-            />
-          </Grid>
           <Grid item>
             <TextField
               sx={{ margin: 2, width: '85%' }}
