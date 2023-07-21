@@ -37,6 +37,21 @@ export default function Goal(props) {
     }
   }, [goal]);
 
+  // checks if goal explanation is long enough to need a dropdown
+  const isExplanationLong = () => {
+    const lineHeight = 20;
+    const maxLines = 2;
+    const explanationElement = document.getElementById('explanation');
+    if (explanationElement) {
+      return explanationElement.clientHeight > lineHeight * maxLines;
+    }
+    return false;
+  };
+
+  useEffect(() => {
+    setShowMore(isExplanationLong());
+  }, [explanation]);
+
   const handleChange = () => {
     setShowMore(!showMore);
   };
@@ -65,6 +80,7 @@ export default function Goal(props) {
           </Grid>
         </AspirationsCardHeader>
         <Typography
+          id="explanation"
           width="95%"
           sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
           paragraph
@@ -73,6 +89,16 @@ export default function Goal(props) {
         >
           {explanation}
         </Typography>
+        {isExplanationLong() && (
+          <Button
+            onClick={handleChange}
+            startIcon={
+              showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
+            }
+          >
+            {showMore ? 'Show more' : 'Show less'}
+          </Button>
+        )}
         <Button
           onClick={handleChange}
           startIcon={
