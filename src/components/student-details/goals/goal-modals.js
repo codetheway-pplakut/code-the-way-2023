@@ -269,7 +269,7 @@ export function AddGoalModal(props) {
     return null;
   };
 
-  const minDate = dayjs().subtract(1, 'month');
+  const minDate = dayjs().subtract(6, 'month');
 
   const checkError = (field) => {
     const errors = validator && validator[field];
