@@ -84,10 +84,11 @@ export function AddCoachModal(props) {
     return finalValue;
   };
 
+  validate.validators.uppercaseLetter = uppercaseLetter;
   validate.validators.lowercaseLetter = lowercaseLetter;
   validate.validators.specialCharacter = specialCharacter;
   validate.validators.number = number;
-  validate.validators.uppercaseLetter = uppercaseLetter;
+
   validate.validators.firstIsCapital = firstIsCapital;
 
   const validator = validate(
@@ -117,16 +118,17 @@ export function AddCoachModal(props) {
       phone: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
         format: {
-          pattern: '^([0-9]{3}){1}[-. ]?([0-9]{3}){1}[-. ]?([0-9]{4}){1}',
+          pattern: '^([0-9]{3})[-]([0-9]{3})[-]([0-9]{4})',
           message: 'Format: ###-###-####',
         },
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be blank' },
-        length: { minimum: 12, message: 'must be at least 12 characters' },
+        presence: { allowEmpty: false, message: ' ' },
+        length: { minimum: 12, message: 'Must be at least 12 characters, ' },
+        uppercaseLetter: {},
         lowercaseLetter: {},
         specialCharacter: {},
-        uppercaseLetter: {},
+
         number: {},
       },
 
@@ -147,7 +149,6 @@ export function AddCoachModal(props) {
     setPhone('');
     setConfirmPassword('');
     setPassword('');
-    console.log(messages);
     setFirstNameEdit(false);
     setLastNameEdit(false);
     setEmailEdit(false);
@@ -199,7 +200,7 @@ export function AddCoachModal(props) {
     >
       <Grid container justifyContent="center" padding={4}>
         <Grid item container direction="row" xs={12} spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={6} height={90}>
             <TextField
               fullWidth
               onChange={(event) => setFirstName(event.target.value)}
@@ -226,7 +227,7 @@ export function AddCoachModal(props) {
             />
           </Grid>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             fullWidth
             onChange={(event) => setEmail(event.target.value)}
@@ -240,7 +241,7 @@ export function AddCoachModal(props) {
             onBlur={() => setEmailEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={90}>
           <TextField
             fullWidth
             onChange={(event) => setPhone(event.target.value)}
@@ -254,7 +255,7 @@ export function AddCoachModal(props) {
             onBlur={() => setPhoneEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={100}>
           <TextField
             fullWidth
             onChange={(event) => setPassword(event.target.value)}
@@ -268,7 +269,7 @@ export function AddCoachModal(props) {
             onBlur={() => setPasswordEdit(true)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={50}>
           <TextField
             fullWidth
             onChange={(event) => setConfirmPassword(event.target.value)}

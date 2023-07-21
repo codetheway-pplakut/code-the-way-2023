@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import { useState } from 'react';
 import { Box, Grid, Toolbar } from '@mui/material';
 import EnhancedTableHead from './enhancedTableHead';
-import { SearchBar } from './search';
+import { SearchBar } from './searchTable';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -138,7 +138,7 @@ DynamicTable.propTypes = {
   APIrows: PropTypes.arrayOf(PropTypes.object),
   children: PropTypes.node,
   filterBy: PropTypes.arrayOf(PropTypes.string).isRequired,
-  customTableMaxHeight: PropTypes.number,
+  customTableMaxHeight: PropTypes.string,
   refreshTable: PropTypes.func,
 };
 

@@ -6,9 +6,9 @@ import { deactivateCoachHandler, activateCoachHandler } from './coachHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function DeactivateCoachModal(props) {
-  const { coachId, coach, onCoachDeactivate } = props;
+  const { coach, onCoachDeactivate } = props;
   const deactivateCoachAction = async () => {
-    await deactivateCoachHandler(coachId, coach.coachEmail, coach.coachEmail);
+    await deactivateCoachHandler(coach.id, coach.coachEmail, coach.coachEmail);
     if (onCoachDeactivate) onCoachDeactivate();
   };
 
@@ -29,13 +29,11 @@ export function DeactivateCoachModal(props) {
   );
 }
 DeactivateCoachModal.propTypes = {
-  coachId: PropTypes.string,
   coach: PropTypes.object,
   onCoachDeactivate: PropTypes.func.isRequired,
 };
 
 DeactivateCoachModal.defaultProps = {
-  coachId: '',
   coach: [],
 };
 

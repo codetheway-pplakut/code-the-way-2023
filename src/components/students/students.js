@@ -129,16 +129,16 @@ export function Students() {
       hideOrder: true,
     },
     {
-      id: 'id',
+      id: 'coachFirstName',
       disablePadding: false,
       label: 'Coach',
       align: 'left',
       render: (value, row, refreshTable) => (
         <React.Fragment>
-          {row.coachFirstName}
+          {value}
           <ChooseCoachModal
             coaches={activeCoaches}
-            studentId={value}
+            studentId={row.id}
             refreshTable={refreshTable}
             student={row}
           />
@@ -180,7 +180,7 @@ export function Students() {
                   columns={COLUMNS}
                   filterBy={['firstName', 'lastName', 'email']}
                   requestFunc={requestActiveStudentsFunc}
-                  customTableMaxHeight={510}
+                  customTableMaxHeight="510"
                   defaultFilterBy="lastName"
                 >
                   <AddStudentModal />
@@ -191,7 +191,7 @@ export function Students() {
                   columns={APPLICANTS}
                   filterBy={['firstName', 'lastName', 'email']}
                   requestFunc={getAppliedStudents}
-                  customTableMaxHeight={510}
+                  customTableMaxHeight="510"
                   defaultFilterBy="lastName"
                 >
                   <AddStudentModal onSubmit={refreshPage} />

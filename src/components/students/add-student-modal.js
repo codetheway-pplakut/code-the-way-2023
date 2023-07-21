@@ -103,7 +103,7 @@ export function AddStudentModal(props) {
       alignItems="center"
     >
       <Grid item container direction="row" xs={12} spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={6} height={130}>
           <TextField
             label="First Name"
             margin="normal"
@@ -133,7 +133,7 @@ export function AddStudentModal(props) {
         </Grid>
       </Grid>
       <Grid item container direction="row" xs={12}>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={95}>
           <TextField
             label="Email"
             onChange={(event) => {
@@ -162,7 +162,7 @@ export function AddStudentModal(props) {
             />
           </LocalizationProvider>
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={6} height={100}>
           <TextField
             label="Phone"
             margin="normal"
@@ -180,7 +180,7 @@ export function AddStudentModal(props) {
   );
   return (
     <GenericModal
-      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
+      openButtonIcon={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add Student"
       modalMessage={content}
       actionButtonColor="submit"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
-import { assignStudentHandler } from './studentHandlers';
+import { assignStudentHandler, unassignStudentHandler } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
@@ -15,10 +15,15 @@ export function ChooseCoachModal(props) {
   );
 
   const reassignCoachHandler = async () => {
-    if (newCoachId !== '') {
-      if (newCoachId !== 'Unassigned') {
-        await assignStudentHandler(newCoachId, studentId);
-      }
+    if (
+      newCoachId !== '' &&
+      newCoachId !== 'Unassigned' &&
+      newCoachId !== 'unassign'
+    ) {
+      await assignStudentHandler(newCoachId, studentId);
+    }
+    if (newCoachId === 'unassign' && student.coachId !== '') {
+      await unassignStudentHandler(student.coachId, studentId);
     }
     refreshTable();
   };
@@ -35,13 +40,15 @@ export function ChooseCoachModal(props) {
     <TextField
       id="coach-select"
       select
-      label={labelText}
       value={value}
       onFocus={recordValue}
       onChange={handleCoachChange}
       disabled={coaches.length === 0}
       style={{ width: '200px' }}
     >
+      <MenuItem key="unassign" value="unassign">
+        Unassign Coach
+      </MenuItem>
       {coaches && coaches.length > 0 ? (
         coaches.map((val) => (
           <MenuItem key={val.id} value={val.id}>
