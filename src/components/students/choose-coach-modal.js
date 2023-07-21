@@ -2,68 +2,84 @@ import React, { useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
-import { assignStudentHandler, unassignStudentHandler } from './studentHandlers';
+import {
+  assignStudentHandler,
+  unassignStudentHandler,
+} from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
   const { studentId, refreshTable, coaches, student } = props;
 
-  const [value, setValue] = useState('');
+  const [coachId, setCoachId] = useState('');
   const [newCoachId, setNewCoachId] = useState('');
-  const [labelText, setLabelText] = useState(
-    student.coachId ? student.coachFirstName : 'Unassigned'
-  );
 
   const reassignCoachHandler = async () => {
-    if (
-      newCoachId !== '' &&
-      newCoachId !== 'Unassigned' &&
-      newCoachId !== 'unassign'
-    ) {
-      await assignStudentHandler(newCoachId, studentId);
-    }
-    if (newCoachId === 'unassign' && student.coachId !== '') {
+    if (newCoachId === 'No Coach' && student.coachId !== '') {
       await unassignStudentHandler(student.coachId, studentId);
+    } else if (newCoachId !== '' && newCoachId !== null) {
+      await assignStudentHandler(newCoachId, studentId);
     }
     refreshTable();
   };
 
   const handleCoachChange = (event) => {
-    setValue(event.target.value);
+    setCoachId(event.target.value);
   };
 
   const recordValue = () => {
-    setNewCoachId(value);
+    setNewCoachId(coachId);
   };
 
-  const content = (
-    <TextField
-      id="coach-select"
-      select
-      value={value}
-      onFocus={recordValue}
-      onChange={handleCoachChange}
-      disabled={coaches.length === 0}
-      style={{ width: '200px' }}
-    >
-      <MenuItem key="unassign" value="unassign">
-        Unassign Coach
-      </MenuItem>
-      {coaches && coaches.length > 0 ? (
-        coaches.map((val) => (
-          <MenuItem key={val.id} value={val.id}>
-            {val.coachFirstName} {val.coachLastName}
-          </MenuItem>
-        ))
-      ) : (
-        <MenuItem disabled>No coaches available</MenuItem>
-      )}
-    </TextField>
-  );
+  const content =
+    student.coachId !== null ? (
+      <TextField
+        id="coach-select"
+        select
+        value={coachId}
+        onFocus={recordValue}
+        onChange={handleCoachChange}
+        disabled={coaches.length === 0}
+        style={{ width: '200px' }}
+      >
+        <MenuItem key="No Coach" value="No Coach">
+          No Coach
+        </MenuItem>
+        {coaches && coaches.length > 0 ? (
+          coaches.map((val) => (
+            <MenuItem key={val.id} value={val.id}>
+              {val.coachFirstName} {val.coachLastName}
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem disabled>No Coaches Available</MenuItem>
+        )}
+      </TextField>
+    ) : (
+      <TextField
+        id="coach-select"
+        select
+        value={coachId}
+        onFocus={recordValue}
+        onChange={handleCoachChange}
+        disabled={coaches.length === 0}
+        style={{ width: '200px' }}
+      >
+        {coaches && coaches.length > 0 ? (
+          coaches.map((val) => (
+            <MenuItem key={val.id} value={val.id}>
+              {val.coachFirstName} {val.coachLastName}
+            </MenuItem>
+          ))
+        ) : (
+          <MenuItem disabled>No Coaches Available</MenuItem>
+        )}
+      </TextField>
+    );
 
   return (
     <GenericModal
-      openButtonIcon={<EditIcon />}
+      openModal={<EditIcon />}
       modalHeadingTitle={`Assign ${student.firstName}'s Coach`}
       modalMessage={content}
       actionButtonTitle="Save"
@@ -71,8 +87,7 @@ export function ChooseCoachModal(props) {
       actionButtonColor="submit"
       onActionButtonClick={() => reassignCoachHandler()}
       onModalOpen={() => {
-        setLabelText(student.coachId ? student.coachFirstName : 'Unassigned');
-        setValue(student.coachId ? student.coachId : '');
+        setCoachId(student.coachId);
       }}
     />
   );

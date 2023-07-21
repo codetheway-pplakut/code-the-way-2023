@@ -14,6 +14,9 @@ export default function CommunicationBox(props) {
   const { coachName, topic, description, created } = props;
   const [showMore, setShowMore] = useState(true);
 
+  // determines if communication description is too long and needs show more
+  const shouldShowMore = description.length > 100;
+
   const handleChange = () => {
     setShowMore(!showMore);
   };
@@ -50,14 +53,22 @@ export default function CommunicationBox(props) {
             minHeight: '10vh',
           }}
         >
-          <Typography noWrap={showMore}>{description}</Typography>
-          <Button
-            fullWidth
-            onClick={handleChange}
-            startIcon={
-              showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
-            }
-          />
+          {shouldShowMore ? (
+            <React.Fragment>
+              <Typography noWrap={showMore} paragraph>
+                {showMore ? description.slice(0, 100) : description}
+              </Typography>
+              <Button
+                fullWidth
+                onClick={handleChange}
+                startIcon={
+                  showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
+                }
+              />
+            </React.Fragment>
+          ) : (
+            <Typography noWrap>{description}</Typography>
+          )}
         </Grid>
       </AspirationsCard>
     </Box>

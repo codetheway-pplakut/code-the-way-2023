@@ -11,3 +11,21 @@ export const authenticate = ({ username, password }) => {
     authenticated: false,
   });
 };
+
+// This is for initiating the password reset process.
+export const requestPasswordReset = (data) => {
+  return callApi({
+    url: '/users/request-password-reset',
+    method: 'post',
+    data,
+  });
+};
+
+// This is for changing the password.
+export const resetPassword = (data) => {
+  return callApi({
+    url: '/users/reset-password',
+    method: 'post',
+    data,
+  });
+};

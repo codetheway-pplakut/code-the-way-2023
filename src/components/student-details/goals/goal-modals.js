@@ -111,14 +111,14 @@ export function EditGoalModal(props) {
   };
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Edit Goal"
       onActionButtonClick={requestSave}
       onModalOpen={handleClose}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<EditIcon />}
+      openModal={<EditIcon />}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
         <Grid item xs={12} mt={2} height={90}>
@@ -144,7 +144,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
-                disableFuture="true"
+                disableFuture
               />
             </LocalizationProvider>
           </Grid>
@@ -158,7 +158,7 @@ export function EditGoalModal(props) {
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
                 }}
-                disablePast="true"
+                disablePast
                 // minDate={dateGoalSet}
               />
             </LocalizationProvider>
@@ -177,6 +177,7 @@ export function EditGoalModal(props) {
             fullWidth
             multiline
             minRows={3}
+            maxRows={3}
           />
         </Grid>
 
@@ -310,13 +311,13 @@ export function AddGoalModal(props) {
 
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Goal"
       onActionButtonClick={requestSubmit}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<AddIcon />}
+      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       onModalOpen={reset}
     >
       <Grid container alignItems="center" px={4} py={2} spacing={1}>
@@ -373,6 +374,7 @@ export function AddGoalModal(props) {
             onChange={(event) => setExplanation(event.target.value)}
             value={explanation}
             minRows={3}
+            maxRows={3}
             helperText={displayErrorMessages('explanation')}
             error={checkError('explanation') && explanationEdit}
             required
@@ -451,7 +453,7 @@ export function DeleteGoalModal(props) {
       actionButtonTitle="Delete"
       actionButtonColor="archive"
       onActionButtonClick={requestDelete}
-      openButtonIcon={<DeleteIcon />}
+      openModal={<DeleteIcon />}
     />
   );
 }

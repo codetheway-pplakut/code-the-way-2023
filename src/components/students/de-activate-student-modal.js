@@ -5,13 +5,15 @@ import { Typography } from '@mui/material';
 import {
   setStudentInactiveHandler,
   setStudentActiveHandler,
+  unassignStudentHandler,
 } from './studentHandlers';
 import { GenericModal } from '../shared/generic-modal';
 
 export function DeactivateStudentModal(props) {
-  const { studentId, student, onStudentDeactivate } = props;
+  const { coachId, studentId, student, onStudentDeactivate } = props;
   const deactivateStudentAction = async () => {
     await setStudentInactiveHandler(studentId);
+    await unassignStudentHandler(coachId, studentId);
     if (onStudentDeactivate) onStudentDeactivate();
   };
 

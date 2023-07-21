@@ -60,7 +60,7 @@ DynamicTableWithRequest.propTypes = {
   requestFunc: PropTypes.func,
   filterBy: PropTypes.arrayOf(PropTypes.string),
   children: PropTypes.node,
-  customTableMaxHeight: PropTypes.number,
+  customTableMaxHeight: PropTypes.string,
   requestData: PropTypes.string,
   defaultFilterBy: PropTypes.string,
 };
