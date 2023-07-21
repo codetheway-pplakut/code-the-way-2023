@@ -58,9 +58,13 @@ export function ForgotPasswordModal() {
       localStorage.setItem('token', token);
       console.log(token);
       console.log('http://localhost:8080/reset-password');
+      setEmail('');
+      setEmailEdit(false);
     } catch (error) {
       console.log(error);
       setError(true);
+      setEmail('');
+      setEmailEdit(false);
     }
   };
   const messages = flattenDeep(Object.values(validator || {}));

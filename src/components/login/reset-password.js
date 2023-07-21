@@ -78,6 +78,15 @@ export function ResetPassword() {
   const submitAction = async () => {
     const data = { token, email, password, confirmPassword };
     await resetPassword(data);
+    setToken('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+
+    setTokenEdit(false);
+    setEmailEdit(false);
+    setPasswordEdit(false);
+    setConfirmPasswordEdit(false);
   };
   return (
     <Layout title="Reset Password">
