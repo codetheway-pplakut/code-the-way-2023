@@ -149,7 +149,6 @@ export function AddCoachModal(props) {
     setPhone('');
     setConfirmPassword('');
     setPassword('');
-    console.log(messages);
     setFirstNameEdit(false);
     setLastNameEdit(false);
     setEmailEdit(false);

@@ -348,7 +348,7 @@ export function CareerBox(props) {
       </Grid>
       <Box
         sx={{
-          maxHeight: '54vh',
+          maxHeight: '53vh',
           overflowY: 'auto',
         }}
       >

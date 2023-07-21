@@ -57,7 +57,7 @@ export function RejectStudentModal(props) {
   };
   return (
     <GenericModal
-      openModal="Reject"
+      openModal={<Typography>Reject</Typography>}
       modalHeadingTitle="Reject Student"
       modalMessage={`Are you sure you want to reject student ${student.firstName} ${student.lastName}?`}
       actionButtonColor="archive"
