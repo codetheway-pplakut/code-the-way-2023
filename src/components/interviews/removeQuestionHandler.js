@@ -3,31 +3,20 @@ import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import GenericModal from '../shared/generic-modal';
 import { editInterviewHandler } from './interviewsHandler';
+import { removeQuestionFromInterviewHandler } from './questionsHandler';
 
 export function RemoveQuestionModal(props) {
   const { interview, questionId, onRemoval } = props;
-  console.log(interview);
   const deactivateStudentAction = async () => {
-    let updatedInterview = interview;
-    for (let i = 0; i < interview.questions.length; i += 1) {
-      if (interview.questions[i].questionId === questionId) {
-        updatedInterview = {
-          interviewId: interview.id,
-          questions: [interview.questions.splice(0, 1)],
-          interviewName: interview.interviewName,
-        };
-        break;
-      }
-    }
-    await editInterviewHandler(updatedInterview);
+    await removeQuestionFromInterviewHandler(interview.id, questionId);
     if (onRemoval) onRemoval();
   };
 
   return (
     <GenericModal
       openModal={<DeleteIcon />}
-      modalHeadingTitle="Deactivate Student"
-      modalMessage="Are you sure you want to remove this Question?: "
+      modalHeadingTitle="Remove Question"
+      modalMessage="Are you sure you want to remove this Question?"
       actionButtonColor="archive"
       cancelButtonColor="cancel"
       actionButtonTitle="Deactivate"

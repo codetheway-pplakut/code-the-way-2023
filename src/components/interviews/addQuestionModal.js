@@ -7,15 +7,16 @@ import { flattenDeep } from 'lodash';
 import uuid from 'react-uuid';
 import GenericModal from '../shared/generic-modal';
 import { editInterviewHandler } from './interviewsHandler';
+import {
+  addQuestionHandler,
+  addQuestionToInterviewHandler,
+} from './questionsHandler';
 
 // import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 
 export default function AddQuestionModal(props) {
-  const { interviewName, interviewId } = props;
+  const { interviewName, interviewId, onSubmit } = props;
   const { questions } = props;
-  console.log(questions);
-  console.log(interviewName);
-  console.log(interviewId);
   const [question, setQuestion] = useState('');
 
   const validator = validate(
@@ -36,26 +37,19 @@ export default function AddQuestionModal(props) {
   };
 
   const requestSave = async () => {
-    console.log('blah');
     try {
-      const id = uuid();
-      const questionObject = {
-        questionString: question,
-        id,
-        questionInInterviews: [
-          {
-            interviewId,
-            questionId: id,
-            questionOrder:
-              questions[questions.length - 1].questionInInterviews[0]
-                .questionOrder + 1,
-          },
-        ],
-      };
-      console.log(questions);
-      const newQuestions = [...questions, questionObject];
-      console.log(newQuestions);
-      await editInterviewHandler(questions, interviewName, id);
+      const response = await addQuestionHandler(question);
+      const { data } = response;
+      if (questions.length > 0) {
+        await addQuestionToInterviewHandler(
+          interviewId,
+          questions[questions.length - 1].order + 1,
+          data
+        );
+      } else {
+        await addQuestionToInterviewHandler(interviewId, 1, data);
+      }
+      await onSubmit();
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +73,7 @@ export default function AddQuestionModal(props) {
     <GenericModal
       actionButtonTitle="Submit"
       cancelButtonTitle="Cancel"
-      modalHeadingTitle="Add Communication"
+      modalHeadingTitle="Add Question"
       onActionButtonClick={requestSave}
       actionButtonDisabled={actionButtonDisabled}
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}

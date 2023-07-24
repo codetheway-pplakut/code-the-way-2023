@@ -11,9 +11,7 @@ export function EditQuestionModal(props) {
   const { question, onSubmit } = props;
 
   const [questionString, setQuestionString] = useState(question.questionString);
-  const [questionOrder, setQuestionOrder] = useState(
-    question.questionInInterviews[0].questionOrder
-  );
+  const [questionOrder, setQuestionOrder] = useState(question.order);
 
   const displayErrorMessages = () => {
     const errors = false;
@@ -26,7 +24,7 @@ export function EditQuestionModal(props) {
     try {
       const updatedQuestion = question;
       question.questionString = questionString;
-      question.questionInInterviews[0].questionOrder = questionOrder;
+      question.order = questionOrder;
       await editQuestionHandler(updatedQuestion);
       onSubmit();
     } catch (error) {

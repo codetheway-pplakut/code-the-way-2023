@@ -15,7 +15,7 @@ export function DeleteInterviewModal(props) {
   return (
     <GenericModal
       openModal={<DeleteIcon />}
-      modalHeadingTitle="Deactivate Coach"
+      modalHeadingTitle="Delete Interview"
       modalMessage={`Are you sure you want to delete ${interviewName}?`}
       actionButtonTitle="Delete"
       cancelButtonTitle="Cancel"

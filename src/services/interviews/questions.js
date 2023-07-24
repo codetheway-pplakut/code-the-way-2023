@@ -11,3 +11,16 @@ export const editQuestion = (question) =>
 
 export const deleteQuestion = (questionId) =>
   callApi({ url: '/Questions', params: questionId, method: 'DELETE' });
+
+export const addQuestionToInterview = (data) =>
+  callApi({ url: '/Questions/AddQuestionToInterview', data, method: 'POST' });
+
+export const updateQuestionInInterview = (data) =>
+  callApi({ url: '/Questions/UpdateQuestionInInterview', data, method: 'PUT' });
+
+export const removeQuestionFromInterview = (data) =>
+  callApi({
+    url: '/Questions/RemoveQuestionFromInterview',
+    data,
+    method: 'DELETE',
+  });

@@ -12,6 +12,7 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import { EditQuestionModal } from './editQuestionModal';
 import AddQuestionModal from './addQuestionModal';
 import { RemoveQuestionModal } from './removeQuestionHandler';
+import { DeleteInterviewModal } from './deleteInterviewModal';
 
 export function QuestionsTable() {
   const [isLoading, setIsLoading] = useState(false);
@@ -52,12 +53,11 @@ export function QuestionsTable() {
       align: 'left',
     },
     {
-      id: 'questionInInterviews[0]',
+      id: 'order',
       disablePadding: false,
       label: 'Order',
       align: 'left',
-      render: (value, row, refreshTable) =>
-        row.questionInInterviews[0].questionOrder,
+      render: (value, row, refreshTable) => row.order,
     },
     {
       id: 'id',
@@ -102,13 +102,14 @@ export function QuestionsTable() {
                 APIcolumns={COLUMNS}
                 APIrows={rows}
                 refreshTable={request}
-                filterBy={['questionInInterviews[0].questionOrder']}
-                defaultFilterBy="questionInInterviews[0].questionOrder"
+                filterBy={['order']}
+                defaultFilterBy="order"
               >
                 <AddQuestionModal
                   questions={rows}
                   interviewId={interviewId}
                   interviewName={interviewName}
+                  onSubmit={request}
                 />
               </DynamicTable>
             </Box>
