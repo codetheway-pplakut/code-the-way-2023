@@ -4,7 +4,7 @@ import { validate } from 'validate.js';
 import AddIcon from '@mui/icons-material/Add';
 import { Grid, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 import {
   lowercaseLetter,
   uppercaseLetter,

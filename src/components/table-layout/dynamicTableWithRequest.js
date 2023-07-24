@@ -24,6 +24,7 @@ export function DynamicTableWithRequest(props) {
 
     try {
       const response = await requestFunc(requestData);
+      console.log(response);
       const { data } = response;
       setRows(data);
     } catch (error) {

@@ -6,7 +6,7 @@ import {
   assignStudentHandler,
   unassignStudentHandler,
 } from './studentHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
   const { studentId, refreshTable, coaches, student } = props;

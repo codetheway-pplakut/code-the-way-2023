@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { flattenDeep } from 'lodash';
 import { validate } from 'validate.js';
-import { GenericModal } from '../../shared/generic-modal';
+import GenericModal from '../../shared/generic-modal';
 import {
   addCareerHandler,
   deleteCareerHandler,
