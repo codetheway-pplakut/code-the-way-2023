@@ -9,14 +9,15 @@ export const getInterview = (interviewId) =>
 export const GetInterviewAndQuestions = (interviewId) =>
   callApi({ url: `/Interviews/GetInterviewAndQuestions/${interviewId}` });
 
-export const addInterview = (interview) =>
+export const addInterview = async (interview) =>
   callApi({ url: '/Interviews', data: interview, method: 'POST' });
 
-export const editInterview = (interview) =>
+export const editInterview = async (interview) =>
   callApi({ url: '/Interviews', data: interview, method: 'PUT' });
 
-export const deleteInterview = (interviewId) =>
-  callApi({ url: '/Interviews', params: interviewId, method: 'DELETE' });
+export const deleteInterview = async (id) => {
+  callApi({ url: '/Interviews', params: id, method: 'DELETE' });
+};
 
 export const getStudentInterviewResponses = (studentId, interviewId) =>
   callApi({
@@ -28,15 +29,15 @@ export const getAllStudentInterviewResponses = (studentId) =>
     url: `/Interviews/GetStudentInterviews/${studentId}`,
   });
 
-export const CreateStudentAnswers = (answer) =>
+export const CreateStudentAnswers = async (answer) =>
   callApi({
     url: '/Answers/CreateAnswers',
     data: answer,
     method: 'POST',
   });
 
-export const editAnswer = (answer) =>
+export const editAnswer = async (answer) =>
   callApi({ url: '/Answers', data: answer, method: 'PUT' });
 
-export const deleteAnswer = (answerId) =>
+export const deleteAnswer = async (answerId) =>
   callApi({ url: '/Answers', params: answerId, method: 'DELETE' });

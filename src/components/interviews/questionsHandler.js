@@ -9,8 +9,9 @@ export function getQuestionHandler(questionId) {
   return getQuestion(questionId);
 }
 
-export function addQuestionHandler(question) {
-  return addQuestion(question);
+export function addQuestionHandler(questionString) {
+  const data = { questionString };
+  return addQuestion(data);
 }
 
 export function editQuestionHandler(question) {

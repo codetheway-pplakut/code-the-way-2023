@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 import { getInterviewsHandler } from '../interviews/interviewsHandler';
 
 export function ChooseInterviewModal(props) {
@@ -11,7 +11,6 @@ export function ChooseInterviewModal(props) {
   const [value, setValue] = useState('');
 
   const navigate = useNavigate();
-  const onSubmit = async () => {};
 
   const handleInterviewChange = (event) => {
     setValue(event.target.value);
@@ -35,7 +34,7 @@ export function ChooseInterviewModal(props) {
       value={value}
       onChange={handleInterviewChange}
       disabled={interviews.length === 0}
-      width="100%"
+      fullWidth
     >
       {interviews && interviews.length > 0 ? (
         interviews.map((val) => (

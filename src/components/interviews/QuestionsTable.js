@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
-import { Grid } from '@mui/material';
-import { useLocation } from 'react-router-dom';
-import {
-  getInterviewAndQuestionsHandler,
-  getInterviewHandler,
-} from './interviewsHandler';
+import { Button, Grid } from '@mui/material';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { getInterviewAndQuestionsHandler } from './interviewsHandler';
 import { DynamicTable } from '../table-layout/dynamicTable';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { EditQuestionModal } from './editQuestionModal';
+import AddQuestionModal from './addQuestionModal';
 
 const COLUMNS = [
   {
@@ -33,7 +32,9 @@ const COLUMNS = [
     disablePadding: false,
     label: 'Options',
     align: 'left',
-    render: (value, row, refreshTable) => <EditQuestionModal question={row} />,
+    render: (value, row, refreshTable) => (
+      <EditQuestionModal question={row} onSubmit={refreshTable} />
+    ),
   },
 ];
 
@@ -44,6 +45,7 @@ export function QuestionsTable() {
 
   const location = useLocation();
   const { interviewId, interviewName } = location.state;
+  const navigate = useNavigate();
 
   const request = async () => {
     setIsLoading(true);
@@ -65,6 +67,8 @@ export function QuestionsTable() {
     request();
   }, []);
 
+  const onClick = () => navigate('/Interviews');
+
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
@@ -72,6 +76,15 @@ export function QuestionsTable() {
     <Grid container justifyContent="center">
       <Grid item xs={10}>
         <EntitlementRestricted>
+          <Button
+            onClick={onClick}
+            size="small"
+            startIcon={<ArrowBackIcon />}
+            variant="outlined"
+            sx={{ m: 5, my: 0, mt: 5 }}
+          >
+            Back to Interviews
+          </Button>
           <Layout title={interviewName}>
             <Box sx={{ width: '100%' }}>
               <DynamicTable
@@ -80,7 +93,13 @@ export function QuestionsTable() {
                 refreshTable={request}
                 filterBy={['questionInInterviews[0].questionOrder']}
                 defaultFilterBy="questionInInterviews[0].questionOrder"
-              />
+              >
+                <AddQuestionModal
+                  questions={rows}
+                  interviewId={interviewId}
+                  interviewName={interviewName}
+                />
+              </DynamicTable>
             </Box>
           </Layout>
         </EntitlementRestricted>

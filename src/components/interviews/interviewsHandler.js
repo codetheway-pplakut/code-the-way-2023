@@ -31,11 +31,13 @@ export function addInterviewHandler(interviewName) {
 
 export function editInterviewHandler(questions, interviewName, interviewId) {
   const data = { questions, interviewName, id: interviewId };
+  console.log(data);
   return editInterview(data);
 }
 
-export function deleteInterviewHandler(interviewId) {
-  return deleteInterview(interviewId);
+export function deleteInterviewHandler(id) {
+  const data = { id };
+  return deleteInterview(data);
 }
 
 export function getStudentInterviewResponsesHandler(studentId, interviewId) {

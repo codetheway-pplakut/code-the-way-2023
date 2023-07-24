@@ -4,11 +4,11 @@ import { Grid, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { flattenDeep } from 'lodash';
 import { validate } from 'validate.js';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 import { editQuestionHandler } from './questionsHandler';
 
 export function EditQuestionModal(props) {
-  const { question } = props;
+  const { question, onSubmit } = props;
 
   const [questionString, setQuestionString] = useState(question.questionString);
   const [questionOrder, setQuestionOrder] = useState(
@@ -28,6 +28,7 @@ export function EditQuestionModal(props) {
       question.questionString = questionString;
       question.questionInInterviews[0].questionOrder = questionOrder;
       await editQuestionHandler(updatedQuestion);
+      onSubmit();
     } catch (error) {
       console.log(error);
     }

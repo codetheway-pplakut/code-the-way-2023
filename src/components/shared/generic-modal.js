@@ -21,7 +21,7 @@ import {
   buttonTheme,
 } from './modal-styling';
 
-export function GenericModal(props) {
+export default function GenericModal(props) {
   const {
     openModal,
     openButtonIcon,
@@ -131,5 +131,3 @@ GenericModal.propTypes = {
   onModalOpen: PropTypes.func,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
 };
-
-export default GenericModal;

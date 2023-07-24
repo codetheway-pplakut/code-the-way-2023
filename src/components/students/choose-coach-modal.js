@@ -3,7 +3,7 @@ import { MenuItem, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import PropTypes from 'prop-types';
 import { assignStudentHandler } from './studentHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function ChooseCoachModal(props) {
   const { studentId, refreshTable, coaches, student } = props;
