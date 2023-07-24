@@ -11,7 +11,7 @@ import { StudentInfo } from '../components/student-details/student-info';
 import { Admins } from '../components/admin/admin';
 import { QuestionsTable } from '../components/interviews/QuestionsTable';
 import { Interviews } from '../components/interviews/InterviewsIndex/interviews';
-import { AnswerInterview } from '../components/interviews/answerInterview';
+import AnswerInterview from '../components/interviews/answerInterview';
 import { ResetPassword } from '../components/login/reset-password';
 
 export const ROUTER = createBrowserRouter([
