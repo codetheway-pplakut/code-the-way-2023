@@ -90,7 +90,7 @@ export function ForgotPasswordModal(props) {
   return (
     <React.Fragment>
       <GenericModal
-        openModal={<Button variant="contained">Forgot Password</Button>}
+        openModal={<Button variant="text">Forgot Password?</Button>}
         modalHeadingTitle="Forgot Password"
         actionButtonTitle="Send Email"
         cancelButtonTitle="Cancel"

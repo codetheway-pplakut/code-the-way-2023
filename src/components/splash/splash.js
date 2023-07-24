@@ -52,65 +52,6 @@ export function Splash() {
   };
   const onClick = () => setError('');
 
-  if (login) {
-    return (
-      <React.Fragment>
-        <CircularProgressOverlay active={isLoading} />
-        <Layout scrollable={false} showBackButton={false}>
-          <Container
-            maxWidth="xs"
-            sx={{
-              alignItems: 'center',
-              display: 'flex',
-              flex: 1,
-              flexDirection: 'column',
-              justifyContent: 'center',
-            }}
-          >
-            <Avatar sx={{ mx: 'auto', mb: 2 }}>
-              <LockIcon />
-            </Avatar>
-            <Typography variant="h4" sx={{ mb: 2 }}>
-              Login
-            </Typography>
-            {showErrorMessage && (
-              <Typography sx={{ color: pink[500] }}>{errorMessage}</Typography>
-            )}
-            <TextField
-              fullWidth
-              label="Email"
-              onChange={(event) => setUsername(event.target.value)}
-              required
-              sx={{ my: 1 }}
-              type="email"
-              value={username}
-              variant="outlined"
-            />
-            <TextField
-              fullWidth
-              label="Password"
-              onChange={(event) => setPassword(event.target.value)}
-              required
-              sx={{ my: 1 }}
-              type="password"
-              value={password}
-              variant="outlined"
-            />
-            <ForgotPasswordModal onError={setError} />
-            <Button
-              disabled={submitDisabled}
-              onClick={onSubmit}
-              size="large"
-              sx={{ mt: 2 }}
-              variant="contained"
-            >
-              Login
-            </Button>
-          </Container>
-        </Layout>
-      </React.Fragment>
-    );
-  }
   if (error)
     return (
       <LayoutError
@@ -119,33 +60,54 @@ export function Splash() {
         onRetryClick={onClick}
       />
     );
-
   return (
-    <Layout scrollable={false}>
+    <Layout scrollable={false} showBackButton={false}>
       <Container
-        maxWidth="md"
+        maxWidth="xs"
         sx={{
           alignItems: 'center',
           display: 'flex',
           flex: 1,
           flexDirection: 'column',
           justifyContent: 'center',
-          textAlign: 'center',
         }}
       >
         <img src={logo} alt="lead2change logo" />
-        <Typography
-          variant="h3"
-          sx={{ mb: 2, marginTop: '10px' }}
-          color="text.secondary"
+        {showErrorMessage && (
+          <Typography sx={{ mt: '5vh', color: pink[500] }}>
+            {errorMessage}
+          </Typography>
+        )}
+        <TextField
+          fullWidth
+          label="Email"
+          onChange={(event) => setUsername(event.target.value)}
+          required
+          sx={{ mb: 1, mt: '5vh' }}
+          type="email"
+          value={username}
+          variant="outlined"
+        />
+        <TextField
+          fullWidth
+          label="Password"
+          onChange={(event) => setPassword(event.target.value)}
+          required
+          sx={{ my: 1 }}
+          type="password"
+          value={password}
+          variant="outlined"
+        />
+        <Button
+          disabled={submitDisabled}
+          onClick={onSubmit}
+          size="large"
+          sx={{ mt: 2 }}
+          variant="contained"
         >
-          Student Management System
-        </Typography>
-        <Box sx={{ mt: 2 }}>
-          <Button variant="contained" onClick={handleLogin}>
-            Login
-          </Button>
-        </Box>
+          Login
+        </Button>
+        <ForgotPasswordModal onError={setError} />
       </Container>
     </Layout>
   );
