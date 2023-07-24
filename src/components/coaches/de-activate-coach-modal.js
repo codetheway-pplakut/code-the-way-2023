@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Typography } from '@mui/material';
 import { deactivateCoachHandler, activateCoachHandler } from './coachHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function DeactivateCoachModal(props) {
   const { coach, onCoachDeactivate } = props;

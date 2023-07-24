@@ -12,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { flattenDeep, set } from 'lodash';
 
 import { Today } from '@mui/icons-material';
-import { GenericModal } from '../../shared/generic-modal';
+import GenericModal from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
   editGoalHandler,

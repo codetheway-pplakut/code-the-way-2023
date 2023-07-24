@@ -16,6 +16,7 @@ import { getStudentCommunicationsHandler } from './communications/communications
 import { SearchBar } from '../table-layout/search';
 import AddCommunicationsModal from './communications/add-communications-modal';
 import CommunicationBox from './communications/communication-box';
+import { InterviewsBox } from './interviews/interviewsBox';
 
 /**
  * StudentDetails (student-details-page.js) is the framework for what the student details page will look like.
@@ -166,8 +167,8 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 3 && (
-                <Grid width={{ xs: '85vw', md: '45vw' }}>
-                  <Box> Placeholder </Box>
+                <Grid width="42vw">
+                  <InterviewsBox student={student} />
                 </Grid>
               )}
             </Box>

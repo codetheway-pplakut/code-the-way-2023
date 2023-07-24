@@ -9,7 +9,7 @@ import { validate } from 'validate.js';
 import { flattenDeep } from 'lodash';
 import { HdrAutoOutlined } from '@mui/icons-material';
 
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../shared/text-field-with-error-message';
 import { editStudent } from '../../services/students/students';
 

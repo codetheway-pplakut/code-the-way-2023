@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deactivateAdminHandler, activateAdminHandler } from './adminHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function DeactivateAdminModal(props) {
   const { adminId, adminEmail, onAdminDeactivate } = props;

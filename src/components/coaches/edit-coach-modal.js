@@ -4,7 +4,7 @@ import { Grid, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { flattenDeep } from 'lodash';
 import { validate } from 'validate.js';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 import { editCoachHandler } from './coachHandlers';
 
 export function EditCoachModal(props) {

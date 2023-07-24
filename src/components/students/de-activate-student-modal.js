@@ -7,7 +7,7 @@ import {
   setStudentActiveHandler,
   unassignStudentHandler,
 } from './studentHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function DeactivateStudentModal(props) {
   const { coachId, studentId, student, onStudentDeactivate } = props;

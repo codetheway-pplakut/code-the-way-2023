@@ -13,7 +13,7 @@ import { flattenDeep, set } from 'lodash';
 import { Today } from '@mui/icons-material';
 import { getActiveCoachesHandler } from '../../coaches/coachHandlers';
 import { addCommunicationHandler } from './communicationsHandler';
-import { GenericModal } from '../../shared/generic-modal';
+import GenericModal from '../../shared/generic-modal';
 
 // import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 

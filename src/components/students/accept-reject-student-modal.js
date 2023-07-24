@@ -5,7 +5,7 @@ import {
   setStudentActiveHandler,
   setStudentRejectedHandler,
 } from './studentHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function ActivateStudentModal(props) {
   const { studentId, student, onStudentActivate } = props;

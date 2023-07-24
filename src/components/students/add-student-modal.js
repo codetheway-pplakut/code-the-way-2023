@@ -10,7 +10,7 @@ import { validate } from 'validate.js';
 import { firstIsCapital } from '../shared/validation-regexes';
 
 import { addStudentHandler } from './studentHandlers';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 
 export function AddStudentModal(props) {
   const { onSubmit } = props;
