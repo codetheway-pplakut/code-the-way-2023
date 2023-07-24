@@ -12,7 +12,6 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import { EditQuestionModal } from './editQuestionModal';
 import AddQuestionModal from './addQuestionModal';
 import { RemoveQuestionModal } from './removeQuestionHandler';
-import { DeleteInterviewModal } from './deleteInterviewModal';
 
 export function QuestionsTable() {
   const [isLoading, setIsLoading] = useState(false);
