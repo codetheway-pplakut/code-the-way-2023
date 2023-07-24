@@ -20,61 +20,6 @@ import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest
 import { getActiveCoachesHandler } from '../coaches/coachHandlers';
 import { ChooseInterviewModal } from './chooseInterviewModal';
 
-const APPLICANTS = [
-  {
-    id: 'firstName',
-    disablePadding: false,
-    label: 'First Name',
-    align: 'left',
-  },
-  {
-    id: 'lastName',
-    disablePadding: false,
-    label: 'Last Name',
-    align: 'left',
-  },
-  {
-    id: 'email',
-    disablePadding: false,
-    label: 'Email',
-    align: 'left',
-    hideOrder: true,
-    render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
-  },
-  {
-    id: 'studentCellPhone',
-    disablePadding: false,
-    label: 'Student Cell',
-    align: 'left',
-    hideOrder: true,
-  },
-
-  {
-    id: 'applicants',
-    disablePadding: false,
-    align: 'left',
-    hideOrder: true,
-    render: (value, row, refreshTable) => {
-      const { id } = row;
-      return (
-        <React.Fragment>
-          <ActivateStudentModal
-            studentId={id}
-            onStudentActivate={refreshTable}
-            student={row}
-          />
-          <RejectStudentModal
-            studentId={id}
-            onStudentReject={refreshTable}
-            student={row}
-          />
-          <ChooseInterviewModal studentId={id} />
-        </React.Fragment>
-      );
-    },
-  },
-];
-
 export function Students() {
   const [tabValue, setTabValue] = React.useState(0);
   const [activeCoaches, setActiveCoaches] = React.useState([]);
@@ -160,6 +105,66 @@ export function Students() {
           onStudentDeactivate={refreshTable}
         />
       ),
+    },
+  ];
+
+  const APPLICANTS = [
+    {
+      id: 'firstName',
+      disablePadding: false,
+      label: 'First Name',
+      align: 'left',
+      render: (value, row, refreshTable) => (
+        <NavLink to="/student-info" state={{ studentId: row.id }}>
+          {value}
+        </NavLink>
+      ),
+    },
+    {
+      id: 'lastName',
+      disablePadding: false,
+      label: 'Last Name',
+      align: 'left',
+    },
+    {
+      id: 'email',
+      disablePadding: false,
+      label: 'Email',
+      align: 'left',
+      hideOrder: true,
+      render: (value) => <Link href={`mailto:${value}`}>{value}</Link>,
+    },
+    {
+      id: 'studentCellPhone',
+      disablePadding: false,
+      label: 'Student Cell',
+      align: 'left',
+      hideOrder: true,
+    },
+
+    {
+      id: 'applicants',
+      disablePadding: false,
+      align: 'left',
+      hideOrder: true,
+      render: (value, row, refreshTable) => {
+        const { id } = row;
+        return (
+          <React.Fragment>
+            <ActivateStudentModal
+              studentId={id}
+              onStudentActivate={refreshTable}
+              student={row}
+            />
+            <RejectStudentModal
+              studentId={id}
+              onStudentReject={refreshTable}
+              student={row}
+            />
+            <ChooseInterviewModal studentId={id} />
+          </React.Fragment>
+        );
+      },
     },
   ];
 
