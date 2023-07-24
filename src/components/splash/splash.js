@@ -1,37 +1,23 @@
 import React, { useState } from 'react';
 import '../../styles/index.scss';
-import {
-  Typography,
-  Container,
-  Box,
-  Button,
-  TextField,
-  Avatar,
-} from '@mui/material';
-import LockIcon from '@mui/icons-material/Lock';
+import { Typography, Container, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
 import logo from '../../assets/images/logo.png';
-import { CircularProgressOverlay } from '../circular-progress-overlay/circular-progress-overlay';
 import { useAuthentication } from '../../contexts/authentication-context/authentication-context';
 import { ForgotPasswordModal } from '../login/forgot-password-modal';
 import { LayoutError } from '../layout/layout-error/layout-error';
 
 export function Splash() {
-  const [login, setLogin] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [error, setError] = useState('');
-
-  const handleLogin = () => {
-    setLogin(true);
-  };
   const navigate = useNavigate();
 
   const authentication = useAuthentication();
-  const { signIn, isLoading } = authentication;
+  const { signIn } = authentication;
 
   const submitDisabled = !username || !password;
   const showErrorMessage = Boolean(errorMessage);

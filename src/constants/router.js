@@ -2,7 +2,6 @@ import React from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { App } from '../components/app/app';
 import { Error } from '../components/error/error';
-import { Login } from '../components/login/login';
 import { isProduction } from '../utils/is-production/is-production';
 import { Splash } from '../components/splash/splash';
 import { Students } from '../components/students/students';
