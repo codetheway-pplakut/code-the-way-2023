@@ -11,37 +11,13 @@ import { Layout } from '../layout/layout';
 import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
 import { EditQuestionModal } from './editQuestionModal';
 import AddQuestionModal from './addQuestionModal';
-
-const COLUMNS = [
-  {
-    id: 'questionString',
-    disablePadding: false,
-    label: 'Question',
-    align: 'left',
-  },
-  {
-    id: 'questionInInterviews[0]',
-    disablePadding: false,
-    label: 'Order',
-    align: 'left',
-    render: (value, row, refreshTable) =>
-      row.questionInInterviews[0].questionOrder,
-  },
-  {
-    id: 'id',
-    disablePadding: false,
-    label: 'Options',
-    align: 'left',
-    render: (value, row, refreshTable) => (
-      <EditQuestionModal question={row} onSubmit={refreshTable} />
-    ),
-  },
-];
+import { RemoveQuestionModal } from './removeQuestionHandler';
 
 export function QuestionsTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [rows, setRows] = useState([]);
+  const [interview, setInterview] = useState({});
 
   const location = useLocation();
   const { interviewId, interviewName } = location.state;
@@ -54,6 +30,7 @@ export function QuestionsTable() {
     try {
       const response = await getInterviewAndQuestionsHandler(interviewId);
       const { data } = response;
+      setInterview(data);
       setRows(data.questions);
     } catch (error) {
       setRows([]);
@@ -66,6 +43,40 @@ export function QuestionsTable() {
   useEffect(() => {
     request();
   }, []);
+
+  const COLUMNS = [
+    {
+      id: 'questionString',
+      disablePadding: false,
+      label: 'Question',
+      align: 'left',
+    },
+    {
+      id: 'questionInInterviews[0]',
+      disablePadding: false,
+      label: 'Order',
+      align: 'left',
+      render: (value, row, refreshTable) =>
+        row.questionInInterviews[0].questionOrder,
+    },
+    {
+      id: 'id',
+      disablePadding: false,
+      label: 'Options',
+      align: 'left',
+      render: (value, row, refreshTable) => (
+        <React.Fragment>
+          {' '}
+          <EditQuestionModal question={row} onSubmit={refreshTable} />
+          <RemoveQuestionModal
+            interview={interview}
+            questionId={row.id}
+            onRemoval={refreshTable}
+          />
+        </React.Fragment>
+      ),
+    },
+  ];
 
   const onClick = () => navigate('/Interviews');
 

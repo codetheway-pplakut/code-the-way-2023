@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { GenericModal } from '../shared/generic-modal';
+import GenericModal from '../shared/generic-modal';
 import { editInterviewHandler } from './interviewsHandler';
 
 export function RemoveQuestionModal(props) {
