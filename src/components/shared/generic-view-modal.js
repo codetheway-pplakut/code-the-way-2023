@@ -33,9 +33,7 @@ export function GenericViewModal(props) {
 
   return (
     <React.Fragment>
-      <Button onClick={handleOpen} startIcon={openButtonIcon}>
-        {openModal}
-      </Button>
+      <Button onClick={handleOpen}>{openModal}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box
           sx={{
@@ -66,15 +64,13 @@ export function GenericViewModal(props) {
 
 GenericViewModal.defaultProps = {
   openModal: null,
-  openButtonIcon: null,
   viewModalWidth: 475,
   onIconButtonClick: null,
   children: null,
 };
 
 GenericViewModal.propTypes = {
-  openModal: PropTypes.string,
-  openButtonIcon: PropTypes.element,
+  openModal: PropTypes.element,
   modalHeadingTitle: PropTypes.string.isRequired,
   viewModalWidth: PropTypes.number,
   onIconButtonClick: PropTypes.func,

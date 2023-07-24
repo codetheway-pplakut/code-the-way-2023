@@ -37,6 +37,9 @@ export default function Goal(props) {
     }
   }, [goal]);
 
+  // activates the show more button
+  const shouldShowMore = explanation.length > 100;
+
   const handleChange = () => {
     setShowMore(!showMore);
   };
@@ -64,21 +67,34 @@ export default function Goal(props) {
             <DeleteGoalModal goal={goal} onSaveSuccess={onSaveSuccess} />
           </Grid>
         </AspirationsCardHeader>
-        <Typography
-          width="95%"
-          sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
-          paragraph
-          gutterBottom
-          noWrap={showMore}
-        >
-          {explanation}
-        </Typography>
-        <Button
-          onClick={handleChange}
-          startIcon={
-            showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
-          }
-        />
+        {shouldShowMore ? (
+          <React.Fragment>
+            <Typography
+              width="95%"
+              sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
+              paragraph
+              gutterBottom
+              noWrap={showMore}
+            >
+              {showMore ? explanation.slice(0, 100) : explanation}
+            </Typography>
+            <Button
+              onClick={handleChange}
+              startIcon={
+                showMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />
+              }
+            />
+          </React.Fragment>
+        ) : (
+          <Typography
+            width="95%"
+            sx={{ px: '2vw', color: '#595959', marginTop: 1 }}
+            paragraph
+            gutterBottom
+          >
+            {explanation}
+          </Typography>
+        )}
         <AspirationsCardFooter>
           <Grid item xs={8}>
             <Typography>SEL: {SEL}</Typography>
@@ -96,6 +112,7 @@ Goal.propTypes = {
   goal: propTypes.object,
   onSaveSuccess: propTypes.func,
 };
+
 Goal.defaultProps = {
   goal: undefined,
   onSaveSuccess: undefined,

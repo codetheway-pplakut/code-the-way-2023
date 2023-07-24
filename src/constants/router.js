@@ -12,6 +12,7 @@ import { Admins } from '../components/admin/admin';
 import { QuestionsTable } from '../components/interviews/QuestionsTable';
 import { Interviews } from '../components/interviews/InterviewsIndex/interviews';
 import { AnswerInterview } from '../components/interviews/answerInterview';
+import { ResetPassword } from '../components/login/reset-password';
 
 export const ROUTER = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ export const ROUTER = createBrowserRouter([
       { path: 'interviews', element: <Interviews /> },
       { path: 'interview', element: <QuestionsTable /> },
       { path: 'AnswerInterview', element: <AnswerInterview /> },
+      { path: 'reset-password', element: <ResetPassword /> },
       { path: '*', element: <Error /> },
     ],
   },

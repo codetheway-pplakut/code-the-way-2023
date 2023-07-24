@@ -98,15 +98,16 @@ export function AddAdminModal(props) {
         email: true,
       },
       password: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
-        lowercaseLetter: {},
-        specialCharacter: {},
-        uppercaseLetter: {},
-        number: {},
+        presence: { allowEmpty: false, message: ' ' },
         length: {
           minimum: 12,
-          message: 'Must be at least 12 characters.',
+          message: 'Must be at least 12 characters,',
         },
+        uppercaseLetter: {},
+        lowercaseLetter: {},
+        specialCharacter: {},
+
+        number: {},
       },
       confirmPassword: {
         presence: { allowEmpty: false, message: 'Must not be blank.' },
@@ -153,7 +154,6 @@ export function AddAdminModal(props) {
     <GenericModal
       openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
       modalHeadingTitle="Add an Admin"
-      modalMessage="Fill out the fields below to add an admin."
       actionButtonTitle="Create"
       cancelButtonTitle="Cancel"
       actionButtonDisabled={actionButtonDisabled}
@@ -162,31 +162,35 @@ export function AddAdminModal(props) {
       onModalOpen={reset}
     >
       <Grid container justifyContent="center">
-        <Grid item xs={9}>
-          <TextField
-            fullWidth
-            onChange={(event) => setEmail(event.target.value)}
-            label="Email"
-            value={email}
-            error={checkError('email') && emailEdit}
-            helperText={displayErrorMessages('email')}
-            required
-            type="email"
-            sx={{ my: 1 }}
-            onBlur={() => setEmailEdit(true)}
-          />
-          <TextField
-            fullWidth
-            onChange={(event) => setPassword(event.target.value)}
-            label="Password"
-            value={password}
-            error={checkError('password') && passwordEdit}
-            helperText={displayErrorMessages('password')}
-            required
-            type="password"
-            sx={{ my: 1 }}
-            onBlur={() => setPasswordEdit(true)}
-          />
+        <Grid item xs={12} px={4} py={2}>
+          <Grid item height={90}>
+            <TextField
+              fullWidth
+              onChange={(event) => setEmail(event.target.value)}
+              label="Email"
+              value={email}
+              error={checkError('email') && emailEdit}
+              helperText={displayErrorMessages('email')}
+              required
+              type="email"
+              sx={{ my: 1 }}
+              onBlur={() => setEmailEdit(true)}
+            />
+          </Grid>
+          <Grid item height={100}>
+            <TextField
+              fullWidth
+              onChange={(event) => setPassword(event.target.value)}
+              label="Password"
+              value={password}
+              error={checkError('password') && passwordEdit}
+              helperText={displayErrorMessages('password')}
+              required
+              type="password"
+              sx={{ my: 1 }}
+              onBlur={() => setPasswordEdit(true)}
+            />
+          </Grid>
           <TextField
             fullWidth
             onChange={(event) => setConfirmPassword(event.target.value)}

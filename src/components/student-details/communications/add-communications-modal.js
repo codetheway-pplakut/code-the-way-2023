@@ -125,12 +125,11 @@ export default function AddCommunicationsModal(props) {
             onBlur={() => setTopicEdit(true)}
             fullWidth
           >
-            <MenuItem value="One-on-One Coaching Session">
-              One-on-One Coaching Session
-            </MenuItem>
+            <MenuItem value="One-on-One Coaching">One-on-One Coaching</MenuItem>
             <MenuItem value="Email">Email</MenuItem>
             <MenuItem value="Phone call">Phone Call</MenuItem>
             <MenuItem value="Text message">Text Message</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
           </TextField>
         </Grid>
 
@@ -143,9 +142,10 @@ export default function AddCommunicationsModal(props) {
             error={checkError('description') && descriptionEdit}
             onBlur={() => setDescriptionEdit(true)}
             required
+            minRows={3}
+            maxRows={3}
             multiline
             fullWidth
-            minRows={2}
           />
         </Grid>
 

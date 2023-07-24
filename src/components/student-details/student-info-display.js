@@ -72,82 +72,84 @@ export function StudentInfoBox(props) {
   };
 
   return (
-    <Grid container direction="column" spacing="2vh">
-      <Grid item>
-        {!isParent && (
-          <Grid item>
-            <Typography fontSize="2.5vw">
-              {`${firstName} ${lastName}`}&#39;s Details{' '}
-              <EditStudentInfoModal
-                student={student}
-                onSaveSuccess={() => onReload()}
-              />
-            </Typography>
-            <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-          </Grid>
-        )}
-      </Grid>
-      <Grid item>
-        {isParent && (
-          <Grid item>
-            <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
-            <Typography component="span" fontSize="2vw">
-              Parent Information{' '}
-              <EditParentModal
-                student={student}
-                onSaveSuccess={() => onReload()}
-              />
-            </Typography>
-          </Grid>
-        )}
-      </Grid>
-
-      <Grid container m="1vw">
-        <Grid item xs={5}>
-          {!isParent ? (
-            <Typography component="span">
-              Date of Birth:{' '}
-              <Typography color="#959595">
-                {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+    <Grid>
+      <Grid container direction="column" width={{ xs: '85vw', md: '45vw' }}>
+        <Grid item>
+          {!isParent && (
+            <Grid item>
+              <Typography fontSize="2vw">
+                {`${firstName} ${lastName}`}&#39;s Details{' '}
+                <EditStudentInfoModal
+                  student={student}
+                  onSaveSuccess={() => onReload()}
+                />
               </Typography>
-              <Typography color="#959595">
-                Age: {calculateAge(studentDateOfBirth)}
-              </Typography>
-            </Typography>
-          ) : (
-            <Typography component="span" fontSize="16px">
-              Parent Name:
-              <Typography color="#959595">{`${firstName} ${lastName}`}</Typography>
-            </Typography>
+              <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+            </Grid>
           )}
         </Grid>
-        <Grid item xs={7}>
-          <Typography component="span">Email:</Typography>
-          <Typography color="#959595">{email}</Typography>
+        <Grid item>
+          {isParent && (
+            <Grid item>
+              <Divider variant="middle" sx={{ borderBottomWidth: '2px' }} />
+              <Typography component="span" fontSize="2vw">
+                Parent Information{' '}
+                <EditParentModal
+                  student={student}
+                  onSaveSuccess={() => onReload()}
+                />
+              </Typography>
+            </Grid>
+          )}
         </Grid>
-      </Grid>
 
-      <Grid container m="1vw">
-        <Grid item xs={5}>
-          <Typography>Address:</Typography>
-          <Typography color="#959595">
-            {address}{' '}
-            {apartmentNumber !== '' && apartmentNumber !== null && (
-              <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+        <Grid container m="1vw">
+          <Grid item xs={5}>
+            {!isParent ? (
+              <Typography component="span">
+                Date of Birth:{' '}
+                <Typography color="#959595">
+                  {dayjs(studentDateOfBirth).format('MMM DD, YYYY')}
+                </Typography>
+                <Typography color="#959595">
+                  Age: {calculateAge(studentDateOfBirth)}
+                </Typography>
+              </Typography>
+            ) : (
+              <Typography component="span" fontSize="16px">
+                Parent Name:
+                <Typography color="#959595">{`${firstName} ${lastName}`}</Typography>
+              </Typography>
             )}
-          </Typography>
-          <Typography color="#959595">
-            {city == null && state == null && zipCode == null
-              ? ''
-              : `${city}, ${state} ${zipCode}`}
-          </Typography>
+          </Grid>
+          <Grid item xs={7}>
+            <Typography component="span">Email:</Typography>
+            <Typography color="#959595">{email}</Typography>
+          </Grid>
         </Grid>
 
-        <Grid item xs={7}>
-          <Typography component="span">
-            Preferred Phone Number:
-            <Typography color="#959595">{preferredPhone}</Typography>
-          </Typography>
+        <Grid container m="1vw">
+          <Grid item xs={5}>
+            <Typography>Address:</Typography>
+            <Typography color="#959595">
+              {address}{' '}
+              {apartmentNumber !== '' && apartmentNumber !== null && (
+                <React.Fragment>Apt. {apartmentNumber}</React.Fragment>
+              )}
+            </Typography>
+            <Typography color="#959595">
+              {city == null && state == null && zipCode == null
+                ? ''
+                : `${city}, ${state} ${zipCode}`}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={7}>
+            <Typography component="span">
+              Preferred Phone Number:
+              <Typography color="#959595">{preferredPhone}</Typography>
+            </Typography>
+          </Grid>
         </Grid>
       </Grid>
     </Grid>
@@ -177,7 +179,6 @@ export function GoalsBox(props) {
         setHasError(true);
       } else {
         setAllGoals(goals.data);
-        console.log('FINDME', goals.data);
       }
 
       setIsLoading(false);
@@ -187,10 +188,27 @@ export function GoalsBox(props) {
   useEffect(() => {
     fetchGoals();
   }, [student.id]);
-  if (isLoading) return <LayoutPreloader />;
+  if (isLoading)
+    return (
+      <Grid width={{ xs: '85vw', md: '45vw' }}>
+        <LayoutPreloader />
+      </Grid>
+    );
   if (hasError) return <LayoutError />;
 
-  const goalData = allGoals.map((goalContent) => (
+  const goalsDate = allGoals.map((goal) => goal.goalReviewDate);
+  const sortedGoalsDate = goalsDate.sort();
+
+  const compareDates = (a, b) => {
+    const aIndex = sortedGoalsDate.indexOf(a.goalReviewDate);
+    const bIndex = sortedGoalsDate.indexOf(b.goalReviewDate);
+
+    return aIndex - bIndex;
+  };
+
+  const reorderedArray = allGoals.sort(compareDates);
+
+  const goalData = reorderedArray.map((goalContent) => (
     <Goal
       key={goalContent.id}
       goal={goalContent}
@@ -203,10 +221,10 @@ export function GoalsBox(props) {
   if (allGoals.length === 0) {
     return (
       <Grid>
-        <Grid container>
+        <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
             <Grid item xs={11}>
-              <Typography fontSize="30px">
+              <Typography fontSize="2vw">
                 {student.studentFirstName} {student.studentLastName}&apos;s
                 Goals
               </Typography>
@@ -226,10 +244,10 @@ export function GoalsBox(props) {
 
   return (
     <Box>
-      <Grid container>
+      <Grid container width={{ xs: '85vw', md: '45vw' }}>
         <Grid item container xs={12}>
           <Grid item xs={11}>
-            <Typography fontSize="30px">
+            <Typography fontSize="2vw">
               {student.studentFirstName} {student.studentLastName}&apos;s Goals
             </Typography>
           </Grid>
@@ -243,9 +261,8 @@ export function GoalsBox(props) {
       </Grid>
       <Box
         sx={{
-          maxHeight: '55vh',
+          maxHeight: '54vh',
           overflowY: 'auto',
-          width: '43vw',
         }}
       >
         {goalData}
@@ -266,7 +283,6 @@ export function CareerBox(props) {
   const [hasError, setHasError] = useState(false);
 
   const fetchCareer = async () => {
-    console.log('fetchCareer triggered');
     setIsLoading(true);
     setHasError(false);
     try {
@@ -285,7 +301,12 @@ export function CareerBox(props) {
     fetchCareer();
   }, [student.id]);
 
-  if (isLoading) return <LayoutPreloader />;
+  if (isLoading)
+    return (
+      <Grid width={{ xs: '85vw', md: '45vw' }}>
+        <LayoutPreloader />
+      </Grid>
+    );
   if (hasError) return <LayoutError />;
 
   const careerContent = allCareers.map((career) => (
@@ -299,10 +320,10 @@ export function CareerBox(props) {
   if (allCareers.length === 0) {
     return (
       <Grid>
-        <Grid container>
+        <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
             <Grid item xs={11}>
-              <Typography fontSize="30px">
+              <Typography fontSize="2vw">
                 {student.studentFirstName} {student.studentLastName}&apos;s
                 Careers
               </Typography>
@@ -322,10 +343,10 @@ export function CareerBox(props) {
 
   return (
     <Box>
-      <Grid container>
+      <Grid container width={{ xs: '85vw', md: '45vw' }}>
         <Grid item container xs={12}>
           <Grid item xs={11}>
-            <Typography fontSize="30px">
+            <Typography fontSize="2vw">
               {student.studentFirstName} {student.studentLastName}&apos;s
               Careers
             </Typography>
@@ -340,9 +361,8 @@ export function CareerBox(props) {
       </Grid>
       <Box
         sx={{
-          maxHeight: '55vh',
+          maxHeight: '53vh',
           overflowY: 'auto',
-          width: '43vw',
         }}
       >
         <Grid container>

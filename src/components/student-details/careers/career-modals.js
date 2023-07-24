@@ -18,7 +18,7 @@ export function AddCareerModal(props) {
   const { student, onSaveSuccess } = props;
 
   const [collegeBound, setCollegeBound] = React.useState(false);
-  const [careerCluster, setCareerCluster] = React.useState(0);
+  const [careerCluster, setCareerCluster] = React.useState('');
   const [specificCareer, setSpecificCareer] = React.useState('');
   const [technicalCollegeBound, setTechnicalCollegeBound] =
     React.useState(false);
@@ -60,7 +60,7 @@ export function AddCareerModal(props) {
 
   const reset = () => {
     setCollegeBound(false);
-    setCareerCluster(0);
+    setCareerCluster('');
     setSpecificCareer('');
     setTechnicalCollegeBound(false);
     setSpecificCareerEdit(false);
@@ -86,7 +86,7 @@ export function AddCareerModal(props) {
   const actionButtonDisabled = Boolean(messages.length);
   const closeAction = () => {
     setCollegeBound(false);
-    setCareerCluster(0);
+    setCareerCluster('');
     setSpecificCareer('');
     setTechnicalCollegeBound(false);
 
@@ -95,14 +95,14 @@ export function AddCareerModal(props) {
   };
   return (
     <GenericModal
-      actionButtonTitle="Confirm"
+      actionButtonTitle="Submit"
       actionButtonColor="submit"
       cancelButtonTitle="Cancel"
       modalHeadingTitle="Add Career"
       onActionButtonClick={requestSubmit}
       onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<AddIcon />}
+      openModal={<AddIcon sx={{ width: '40px', height: '40px' }} />}
     >
       <Grid container alignItems="center" spacing={1} px={4} py={2}>
         <Grid item xs={12} height={100} mt={2}>

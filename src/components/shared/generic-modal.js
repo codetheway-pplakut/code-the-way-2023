@@ -24,7 +24,6 @@ import {
 export default function GenericModal(props) {
   const {
     openModal,
-    openButtonIcon,
     modalHeadingTitle,
     modalMessage,
     actionButtonTitle,
@@ -52,9 +51,7 @@ export default function GenericModal(props) {
 
   return (
     <React.Fragment>
-      <Button onClick={actionAndOpen} startIcon={openButtonIcon}>
-        {openModal}
-      </Button>
+      <Button onClick={actionAndOpen}>{openModal}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={backgroundStyle}>
           <Grid item sx={headingStyle}>
@@ -110,7 +107,6 @@ export default function GenericModal(props) {
 
 GenericModal.defaultProps = {
   openModal: null,
-  openButtonIcon: null,
   modalMessage: null,
   actionButtonColor: 'default',
   actionButtonDisabled: null,
@@ -120,7 +116,6 @@ GenericModal.defaultProps = {
 
 GenericModal.propTypes = {
   openModal: PropTypes.element,
-  openButtonIcon: PropTypes.element,
   modalHeadingTitle: PropTypes.string.isRequired,
   modalMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   actionButtonTitle: PropTypes.string.isRequired,
