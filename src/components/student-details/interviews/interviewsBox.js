@@ -63,17 +63,19 @@ export function InterviewsBox(props) {
       </Typography>
       {interviews && interviews.length > 0 ? (
         interviews.map((interview) => (
-          <Grid key={interview.interview.id}>
+          <Grid key={interview.interview.id} paddingBottom={2}>
             <AspirationsCard>
               <AspirationsCardHeader>
-                <Typography fontSize="1.5vw" fontWeight="medium">
-                  {interview.interview.interviewName}
-                </Typography>
+                <Grid item xs={12} align="center">
+                  <Typography fontSize="1.5vw" fontWeight="medium" padding={1}>
+                    {interview.interview.interviewName}
+                  </Typography>
+                </Grid>
               </AspirationsCardHeader>
 
               <Grid>
                 {interview.answers.map((answer) => (
-                  <Box key={answer.id} paddingTop={2}>
+                  <Box key={answer.id} paddingTop={2} px={2}>
                     <Grid container direction="row">
                       <Grid item xs={2}>
                         <Typography fontSize={18} fontWeight="medium">
