@@ -167,7 +167,7 @@ export default function StudentDetails(props) {
               )}
 
               {tabValue === 3 && (
-                <Grid width="42vw">
+                <Grid>
                   <InterviewsBox student={student} />
                 </Grid>
               )}
