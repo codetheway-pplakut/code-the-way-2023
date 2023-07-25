@@ -31,7 +31,7 @@ export function Interviews() {
     {
       id: 'options',
       disablePadding: false,
-      label: 'Options',
+      label: 'Edit',
       align: 'left',
       render: (value, row, refreshTable) => {
         const { id, interviewName } = row;

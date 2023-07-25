@@ -51,24 +51,6 @@ export default function AnswerInterview() {
   if (isLoading) return <LayoutPreloader />;
   if (hasError) return <LayoutError />;
 
-  function CustomSubmitInterviewModal() {
-    return (
-      <Box
-        sx={{
-          borderRadius: 1,
-          bgcolor: '#6DBB7A',
-          p: 2,
-          textAlign: 'center',
-          boxShadow: 2,
-        }}
-      >
-        <Typography sx={{ color: '#ffffff', fontWeight: 'medium' }}>
-          Submit Interview
-        </Typography>
-      </Box>
-    );
-  }
-
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item justifyContent="center">

@@ -63,9 +63,9 @@ export function QuestionsTable() {
       disablePadding: false,
       label: 'Options',
       align: 'left',
+
       render: (value, row, refreshTable) => (
         <React.Fragment>
-          {' '}
           <EditQuestionModal
             interviewId={interviewId}
             question={row}
@@ -75,6 +75,7 @@ export function QuestionsTable() {
             interview={interview}
             questionId={row.id}
             onRemoval={refreshTable}
+            questionName={row.questionString}
           />
         </React.Fragment>
       ),
