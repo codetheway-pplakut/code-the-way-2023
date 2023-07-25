@@ -57,7 +57,7 @@ export function InterviewsBox(props) {
   }
 
   return (
-    <Grid container width={{ xs: '85vw', md: '45vw' }}>
+    <Grid container>
       <Typography fontSize="2vw" paddingBottom="1vh">
         {student.studentFirstName} {student.studentLastName}&apos;s Interviews
       </Typography>
