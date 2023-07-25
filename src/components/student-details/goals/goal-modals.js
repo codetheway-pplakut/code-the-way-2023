@@ -11,8 +11,8 @@ import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { flattenDeep, set } from 'lodash';
 
-import { Today } from '@mui/icons-material';
-import GenericModal from '../../shared/generic-modal';
+import { ErrorOutline, Today } from '@mui/icons-material';
+import { GenericModal } from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
   editGoalHandler,
@@ -108,6 +108,8 @@ export function EditGoalModal(props) {
     setGoalSetEdit(false);
     setExplanationEdit(false);
     setSelEdit(false);
+    setGoalReviewDateError(false);
+    setGoalSetDateError(false);
   };
   return (
     <GenericModal
@@ -142,7 +144,12 @@ export function EditGoalModal(props) {
                 value={dayjs(dateGoalSet)}
                 onChange={(newValue) => setDateGoalSet(newValue)}
                 onError={(error) => {
-                  setGoalSetDateError(error !== null);
+                  setGoalSetDateError(error);
+                }}
+                slotProps={{
+                  textField: {
+                    helperText: goalSetDateError ? 'Invalid Date' : '',
+                  },
                 }}
                 disableFuture
               />
@@ -157,6 +164,11 @@ export function EditGoalModal(props) {
                 onChange={(newValue) => setGoalReviewDate(newValue)}
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
+                }}
+                slotProps={{
+                  textField: {
+                    helperText: goalReviewDateError ? 'Invalid Date' : '',
+                  },
                 }}
                 disablePast
                 // minDate={dateGoalSet}
@@ -307,6 +319,8 @@ export function AddGoalModal(props) {
     setGoalSetEdit(false);
     setExplanationEdit(false);
     setSelEdit(false);
+    setGoalReviewDateError(false);
+    setGoalSetDateError(false);
   };
 
   return (
@@ -347,6 +361,11 @@ export function AddGoalModal(props) {
                 onError={(error) => {
                   setGoalSetDateError(error !== null);
                 }}
+                slotProps={{
+                  textField: {
+                    helperText: goalSetDateError ? 'Invalid Date' : '',
+                  },
+                }}
               />
             </LocalizationProvider>
           </Grid>
@@ -362,6 +381,11 @@ export function AddGoalModal(props) {
                 disablePast
                 onError={(error) => {
                   setGoalReviewDateError(error !== null);
+                }}
+                slotProps={{
+                  textField: {
+                    helperText: goalReviewDateError ? 'Invalid Date' : '',
+                  },
                 }}
               />
             </LocalizationProvider>

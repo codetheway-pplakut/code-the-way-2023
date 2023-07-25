@@ -71,6 +71,7 @@ export function AddStudentModal(props) {
     setFirstNameEdit(false);
     setLastNameEdit(false);
     setCellPhoneEdit(false);
+    setDateofBirthError(false);
   };
 
   const addStudentAction = async () => {
@@ -158,6 +159,11 @@ export function AddStudentModal(props) {
               minDate={minDate}
               onError={(error) => {
                 setDateofBirthError(error !== null);
+              }}
+              slotProps={{
+                textField: {
+                  helperText: dateOfBirthError ? 'Invalid Date' : '',
+                },
               }}
             />
           </LocalizationProvider>

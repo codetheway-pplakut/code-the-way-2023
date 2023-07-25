@@ -383,6 +383,14 @@ export default function EditStudentInfoModal(props) {
                 onChange={(newValue) =>
                   setStudentDateOfBirth(newValue.startOf('day'))
                 }
+                onError={(error) => {
+                  setStudentDateOfBirthEdit(error !== null);
+                }}
+                slotProps={{
+                  textField: {
+                    helperText: studentDateOfBirthEdit ? 'Invalid Date' : '',
+                  },
+                }}
               />
             </LocalizationProvider>
           </Grid>
