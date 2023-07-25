@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Box } from '@mui/system';
-import { Grid, Typography } from '@mui/material';
+import { Divider, Grid, Typography } from '@mui/material';
 import { LayoutPreloader } from '../../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../../layout/layout-error/layout-error';
+
 import {
   getStudentInterviewResponsesHandler,
   getStudentInterviewsHandler,
 } from '../../interviews/interviewsHandler';
+import {
+  AspirationsCard,
+  AspirationsCardFooter,
+  AspirationsCardHeader,
+} from '../aspirations-card';
 
 export function InterviewsBox(props) {
   const { student } = props;
@@ -37,8 +43,8 @@ export function InterviewsBox(props) {
       <Grid>
         <Grid container>
           <Grid item container xs={12}>
-            <Grid item xs={11}>
-              <Typography fontSize="30px">
+            <Grid item xs={12}>
+              <Typography fontSize="2vw">
                 {student.studentFirstName} {student.studentLastName}&apos;s
                 Interviews
               </Typography>
@@ -46,25 +52,62 @@ export function InterviewsBox(props) {
             <Grid item xs={1} TODO />
           </Grid>
         </Grid>
-        <Typography>Interviews</Typography>
       </Grid>
     );
   }
 
   return (
     <Grid>
+      <Typography fontSize="2vw" paddingBottom="1vh">
+        {student.studentFirstName} {student.studentLastName}&apos;s Interviews
+      </Typography>
       {interviews && interviews.length > 0 ? (
         interviews.map((interview) => (
-          <Grid item xs={12} key={interview.interview.id}>
-            <Typography>{interview.interview.interviewName}</Typography>
-            <Grid item xs={12}>
-              {interview.answers.map((answer) => (
-                <Box key={answer.id}>
-                  <Typography>Question: {answer.questionString}</Typography>
-                  <Typography>Answer: {answer.answerString}</Typography>
-                </Box>
-              ))}
-            </Grid>
+          <Grid key={interview.interview.id}>
+            <AspirationsCard>
+              <AspirationsCardHeader>
+                <Typography fontSize="1.5vw" fontWeight="medium">
+                  {interview.interview.interviewName}
+                </Typography>
+              </AspirationsCardHeader>
+
+              <Grid item xs={12} px={3}>
+                {interview.answers.map((answer) => (
+                  <Box key={answer.id} paddingTop={2}>
+                    <Grid container direction="row">
+                      <Grid item xs={2}>
+                        <Typography fontSize={18} fontWeight="medium">
+                          Question:
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={10} fontWeight="medium">
+                        {answer.questionString}
+                      </Grid>
+                    </Grid>
+                    <Grid container direction="row">
+                      <Grid item xs={2}>
+                        <Typography fontSize={18} fontWeight="medium">
+                          Answer:
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={10}>
+                        {answer.answerString === '' ? (
+                          <Typography color="#828282">
+                            No answer given
+                          </Typography>
+                        ) : (
+                          <Typography color="#828282">
+                            {answer.answerString}
+                          </Typography>
+                        )}
+                      </Grid>
+                    </Grid>
+
+                    <Divider />
+                  </Box>
+                ))}
+              </Grid>
+            </AspirationsCard>
           </Grid>
         ))
       ) : (
