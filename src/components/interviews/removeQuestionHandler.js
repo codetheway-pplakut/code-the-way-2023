@@ -20,7 +20,7 @@ export function RemoveQuestionModal(props) {
       modalMessage={
         <Typography fontSize={20}>
           Are you sure you want to remove this question?
-          <Typography paddingTop={2} color="#505050">
+          <Typography paddingTop={3} color="#505050">
             Question: {questionName}
           </Typography>
         </Typography>
