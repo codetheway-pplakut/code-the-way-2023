@@ -57,7 +57,7 @@ export function InterviewsBox(props) {
   }
 
   return (
-    <Grid>
+    <Grid container width={{ xs: '85vw', md: '45vw' }}>
       <Typography fontSize="2vw" paddingBottom="1vh">
         {student.studentFirstName} {student.studentLastName}&apos;s Interviews
       </Typography>
@@ -71,7 +71,7 @@ export function InterviewsBox(props) {
                 </Typography>
               </AspirationsCardHeader>
 
-              <Grid item xs={12} px={3}>
+              <Grid>
                 {interview.answers.map((answer) => (
                   <Box key={answer.id} paddingTop={2}>
                     <Grid container direction="row">
@@ -80,7 +80,7 @@ export function InterviewsBox(props) {
                           Question:
                         </Typography>
                       </Grid>
-                      <Grid item xs={10} fontWeight="medium">
+                      <Grid item xs={10}>
                         {answer.questionString}
                       </Grid>
                     </Grid>
@@ -111,7 +111,7 @@ export function InterviewsBox(props) {
           </Grid>
         ))
       ) : (
-        <Typography>No communications found</Typography>
+        <Typography>No communications found</Typography> // TODO: get rid of this
       )}
     </Grid>
   );
