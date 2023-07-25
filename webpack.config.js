@@ -15,8 +15,8 @@ const { buildCopyFilesConfig } = require('./webpack/build-copy-files-config');
 const BASE_DIR = '';
 const OUTPUT_DIR = 'docs';
 const OUTPUT_PUBLIC_PATH = './';
-const TITLE = 'UI Project Starter | Code The Way';
-const SITE_NAME = 'UI Project Starter';
+const TITLE = 'Student Management System | Lead2Change';
+const SITE_NAME = 'Lead2Change Student Management System';
 const URL = 'https://github.com/joeyschroeder/code-the-way-2023';
 const DESCRIPTION = 'A project to help jump-start Code The Way UI development.';
 
