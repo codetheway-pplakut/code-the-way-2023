@@ -41,17 +41,17 @@ export function InterviewsBox(props) {
   if (interviews.length === 0) {
     return (
       <Grid>
-        <Grid container>
+        <Grid container width={{ xs: '85vw', md: '45vw' }}>
           <Grid item container xs={12}>
-            <Grid item xs={12}>
+            <Grid item xs={11}>
               <Typography fontSize="2vw">
                 {student.studentFirstName} {student.studentLastName}&apos;s
                 Interviews
               </Typography>
             </Grid>
-            <Grid item xs={1} TODO />
           </Grid>
         </Grid>
+        <Typography>No interviews found</Typography>
       </Grid>
     );
   }
@@ -84,7 +84,7 @@ export function InterviewsBox(props) {
                         {answer.questionString}
                       </Grid>
                     </Grid>
-                    <Grid container direction="row">
+                    <Grid container direction="row" paddingBottom={2}>
                       <Grid item xs={2}>
                         <Typography fontSize={18} fontWeight="medium">
                           Answer:
