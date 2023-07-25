@@ -33,6 +33,7 @@ export function Interviews() {
       disablePadding: false,
       label: 'Edit',
       align: 'left',
+      hideOrder: true,
       render: (value, row, refreshTable) => {
         const { id, interviewName } = row;
         return (
