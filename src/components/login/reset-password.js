@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box } from '@mui/system';
 import { validate } from 'validate.js';
-import { Button, Grid, TextField } from '@mui/material';
+import { Button, Grid, TextField, Typography } from '@mui/material';
 import { flattenDeep } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
+import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
 import {
   uppercaseLetter,
@@ -25,6 +26,8 @@ export function ResetPassword() {
   const url = window.location.href;
   const [token, setToken] = React.useState(url.split('token=')[1]);
   const [tokenEdit, setTokenEdit] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
+  const showErrorMessage = Boolean(errorMessage);
 
   validate.validators.lowercaseLetter = lowercaseLetter;
   validate.validators.specialCharacter = specialCharacter;
@@ -81,7 +84,20 @@ export function ResetPassword() {
 
   const submitAction = async () => {
     const data = { token, email, password, confirmPassword };
-    await resetPassword(data);
+    try {
+      setErrorMessage('');
+      await resetPassword(data);
+      navigate('/');
+    } catch (e) {
+      console.log(e);
+      if (e.response.status === 400) {
+        setErrorMessage(
+          'The provided email may be misspelled. Please check and try again.'
+        );
+      } else {
+        setErrorMessage('An unknown error occurred. Please try again later.');
+      }
+    }
     setToken('');
     setEmail('');
     setPassword('');
@@ -91,13 +107,16 @@ export function ResetPassword() {
     setEmailEdit(false);
     setPasswordEdit(false);
     setConfirmPasswordEdit(false);
-
-    navigate('/login');
   };
   return (
     <Layout title="Reset Password">
       <Box sx={{ width: '100%' }}>
         <Grid container direction="column">
+          {showErrorMessage && (
+            <Typography sx={{ mt: '5vh', color: pink[500] }}>
+              {errorMessage}
+            </Typography>
+          )}
           <Grid item>
             <TextField
               sx={{ margin: 2, width: '85%' }}

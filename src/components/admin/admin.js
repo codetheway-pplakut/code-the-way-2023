@@ -43,9 +43,10 @@ export function Admins() {
       active: false,
     },
   ];
-  function refreshPage() {
+  const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
@@ -57,7 +58,7 @@ export function Admins() {
                 requestFunc={getActiveAdminsHandler}
                 filterBy={['email']}
               >
-                <AddAdminModal onSubmit={() => refreshPage} />
+                <AddAdminModal onSubmit={refreshPage} />
               </DynamicTableWithRequest>
             </Box>
           </Layout>
