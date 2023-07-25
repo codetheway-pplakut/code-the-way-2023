@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { MenuItem, TextField } from '@mui/material';
 import PropTypes from 'prop-types';
+import { validate } from 'validate.js';
 import { useNavigate } from 'react-router-dom';
+import { flattenDeep } from 'lodash';
 import GenericModal from '../shared/generic-modal';
 import { getInterviewsHandler } from '../interviews/interviewsHandler';
 
@@ -26,6 +28,24 @@ export function ChooseInterviewModal(props) {
     requestActiveCoaches();
   }, []);
 
+  const validator = validate(
+    { value },
+    {
+      value: {
+        presence: { allowEmpty: false, message: 'Must not be blank' },
+      },
+    },
+    { fullMessages: false }
+  );
+  const messages = flattenDeep(Object.values(validator || {}));
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(' '); // Concatenate error messages with a space
+    }
+    return null;
+  };
+  const actionButtonDisabled = Boolean(messages.length);
   const content = (
     <TextField
       id="coach-select"
@@ -35,6 +55,10 @@ export function ChooseInterviewModal(props) {
       onChange={handleInterviewChange}
       disabled={interviews.length === 0}
       fullWidth
+      helperText={displayErrorMessages('name')}
+      required
+      type="text"
+      sx={{ my: 1 }}
     >
       {interviews && interviews.length > 0 ? (
         interviews.map((val) => (
@@ -55,6 +79,7 @@ export function ChooseInterviewModal(props) {
       modalMessage={content}
       actionButtonTitle="Start Interview"
       cancelButtonTitle="Cancel"
+      actionButtonDisabled={actionButtonDisabled}
       actionButtonColor="submit"
       onActionButtonClick={() =>
         navigate('/AnswerInterview', {

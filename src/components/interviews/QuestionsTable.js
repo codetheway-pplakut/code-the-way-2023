@@ -50,6 +50,7 @@ export function QuestionsTable() {
       disablePadding: false,
       label: 'Question',
       align: 'left',
+      hideOrder: true,
     },
     {
       id: 'order',
@@ -63,6 +64,7 @@ export function QuestionsTable() {
       disablePadding: false,
       label: 'Options',
       align: 'left',
+      hideOrder: true,
 
       render: (value, row, refreshTable) => (
         <React.Fragment>
