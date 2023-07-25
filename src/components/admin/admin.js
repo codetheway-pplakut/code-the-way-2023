@@ -43,9 +43,10 @@ export function Admins() {
       active: false,
     },
   ];
-  function refreshPage() {
+  const refreshPage = () => {
     window.location.reload(false);
-  }
+  };
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
