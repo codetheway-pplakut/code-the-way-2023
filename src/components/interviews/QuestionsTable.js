@@ -105,7 +105,7 @@ export function QuestionsTable() {
                 APIcolumns={COLUMNS}
                 APIrows={rows}
                 refreshTable={request}
-                filterBy={['order']}
+                filterBy={['questionString']}
                 defaultFilterBy="order"
               >
                 <AddQuestionModal
