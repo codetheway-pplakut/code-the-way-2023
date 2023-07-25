@@ -9,6 +9,7 @@ import { CustomSubmitButton } from './custom-submit-button';
 export function SubmitInterviewModal(props) {
   const { questions, answers, interviewId, interviewName, studentId } = props;
   const [sending, setSending] = useState(false);
+  const navigate = useNavigate();
 
   const submitInterview = async () => {
     setSending(true);
