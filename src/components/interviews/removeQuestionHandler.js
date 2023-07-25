@@ -19,7 +19,7 @@ export function RemoveQuestionModal(props) {
       modalMessage="Are you sure you want to remove this Question?"
       actionButtonColor="archive"
       cancelButtonColor="cancel"
-      actionButtonTitle="Deactivate"
+      actionButtonTitle="Remove"
       cancelButtonTitle="Cancel"
       onActionButtonClick={deactivateStudentAction}
     />
