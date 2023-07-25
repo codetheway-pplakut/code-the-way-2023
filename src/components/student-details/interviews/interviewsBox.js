@@ -67,7 +67,12 @@ export function InterviewsBox(props) {
             <AspirationsCard>
               <AspirationsCardHeader>
                 <Grid item xs={12} align="center">
-                  <Typography fontSize="1.5vw" fontWeight="medium" padding={1}>
+                  <Typography
+                    fontSize="1.5vw"
+                    fontWeight="medium"
+                    padding={1}
+                    color="#505050"
+                  >
                     {interview.interview.interviewName}
                   </Typography>
                 </Grid>
