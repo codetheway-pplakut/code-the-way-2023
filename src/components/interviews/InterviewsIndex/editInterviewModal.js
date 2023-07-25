@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { flattenDeep } from 'lodash';
+import { validate } from 'validate.js';
 import GenericModal from '../../shared/generic-modal';
 import { editQuestionHandler } from '../questionsHandler';
 import { editInterviewHandler } from '../interviewsHandler';
@@ -9,15 +11,8 @@ import { editInterviewHandler } from '../interviewsHandler';
 export function EditInterviewModal(props) {
   const { interviewName, interviewId, onSubmit } = props;
 
-  const [interviewNewName, setInterviewName] = useState(interviewName);
+  const [interviewNewName, setInterviewNewName] = useState(interviewName);
 
-  const displayErrorMessages = () => {
-    const errors = false;
-    if (errors && errors.length > 0) {
-      return errors.join(', '); // Concatenate error messages with a comma and space
-    }
-    return null;
-  };
   const submitAction = async () => {
     try {
       await editInterviewHandler(interviewNewName, interviewId);
@@ -26,21 +21,42 @@ export function EditInterviewModal(props) {
       console.log(error);
     }
   };
+  const validator = validate(
+    { interviewNewName },
+    {
+      interviewNewName: {
+        presence: { allowEmpty: false, message: 'Must not be blank' },
+      },
+    },
+    { fullMessages: false }
+  );
+
+  const messages = flattenDeep(Object.values(validator || {}));
+
+  const displayErrorMessages = (field) => {
+    const errors = validator && validator[field];
+    if (errors && errors.length > 0) {
+      return errors.join(' ');
+    }
+    return null;
+  };
+
+  const actionButtonDisabled = Boolean(messages.length);
 
   const content = (
     <Grid container spacing={2} justifyContent="center">
       <Grid item container direction="row" spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={12} height={100}>
           <TextField
             fullWidth
             id="outlined"
             label="Interview Name"
             defaultValue={interviewNewName}
-            helperText={displayErrorMessages('firstName')}
+            helperText={displayErrorMessages('interviewNewName')}
             required
             sx={{ my: 1 }}
             onChange={(event) => {
-              setInterviewName(event.target.value);
+              setInterviewNewName(event.target.value);
             }}
           />
         </Grid>
@@ -54,6 +70,7 @@ export function EditInterviewModal(props) {
       modalHeadingTitle="Edit Interview Name"
       modalMessage={content}
       actionButtonTitle="Save"
+      actionButtonDisabled={actionButtonDisabled}
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
