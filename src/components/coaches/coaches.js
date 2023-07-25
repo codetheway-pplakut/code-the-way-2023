@@ -17,7 +17,7 @@ export function Coaches() {
   const authentication = useAuthentication();
   const { username } = authentication;
 
-  const STUDENTCOLUMNS = [
+  const COACHCOLUMNS = [
     {
       id: 'firstName',
       disablePadding: false,
@@ -103,7 +103,7 @@ export function Coaches() {
             viewModalWidth={900}
           >
             <DynamicTableWithRequest
-              columns={STUDENTCOLUMNS}
+              columns={COACHCOLUMNS}
               requestFunc={getStudentsByCoachId}
               filterBy={['firstName', 'lastName', 'email']}
               customTableMaxHeight={studentTableMaxHeight}
