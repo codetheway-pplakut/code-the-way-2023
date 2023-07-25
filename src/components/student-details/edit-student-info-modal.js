@@ -125,7 +125,7 @@ export default function EditStudentInfoModal(props) {
         presence: { allowEmpty: false, message: ' ' },
         format: {
           pattern: '^([0-9]{5}){1}',
-          message: 'Must be Valid Zip Code',
+          message: 'Must be a valid Zip Code',
         },
       },
     },
@@ -469,7 +469,7 @@ export function EditParentModal(props) {
         presence: { allowEmpty: false, message: ' ' },
         format: {
           pattern: '^([0-9]{5}){1}',
-          message: 'Must be Valid Zip Code',
+          message: 'Must be a valid Zip Code',
         },
       },
     },

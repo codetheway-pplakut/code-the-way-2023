@@ -209,7 +209,7 @@ export function DeleteCareerModal(props) {
       actionButtonTitle="Delete"
       actionButtonColor="archive"
       onActionButtonClick={requestDelete}
-      openButtonIcon={<DeleteIcon />}
+      openModal={<DeleteIcon />}
     />
   );
 }
@@ -310,7 +310,7 @@ export function EditCareerModal(props) {
       onActionButtonClick={requestSubmit}
       onModalOpen={closeAction}
       actionButtonDisabled={actionButtonDisabled}
-      openButtonIcon={<EditIcon />}
+      openModal={<EditIcon />}
     >
       <Grid container alignItems="center" spacing={2} px={4} py={2}>
         <Grid item xs={12} height={100} mt={2}>
