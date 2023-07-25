@@ -29,8 +29,8 @@ export function addInterviewHandler(interviewName) {
   return addInterview(data);
 }
 
-export function editInterviewHandler(questions, interviewName, interviewId) {
-  const data = { questions, interviewName, id: interviewId };
+export function editInterviewHandler(interviewName, interviewId) {
+  const data = { interviewName, id: interviewId };
   console.log(data);
   return editInterview(data);
 }

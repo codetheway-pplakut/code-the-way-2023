@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import GenericModal from '../shared/generic-modal';
-import { editQuestionHandler } from './questionsHandler';
+import GenericModal from '../../shared/generic-modal';
+import { editQuestionHandler } from '../questionsHandler';
+import { editInterviewHandler } from '../interviewsHandler';
 
-export function EditQuestionModal(props) {
-  const { question, onSubmit } = props;
+export function EditInterviewModal(props) {
+  const { interviewName, interviewId, onSubmit } = props;
 
-  const [questionString, setQuestionString] = useState(question.questionString);
-  const [questionOrder, setQuestionOrder] = useState(question.order);
+  const [interviewNewName, setInterviewName] = useState(interviewName);
 
   const displayErrorMessages = () => {
     const errors = false;
@@ -20,10 +20,7 @@ export function EditQuestionModal(props) {
   };
   const submitAction = async () => {
     try {
-      const updatedQuestion = question;
-      question.questionString = questionString;
-      question.order = questionOrder;
-      await editQuestionHandler(updatedQuestion);
+      await editInterviewHandler(interviewNewName, interviewId);
       onSubmit();
     } catch (error) {
       console.log(error);
@@ -37,27 +34,13 @@ export function EditQuestionModal(props) {
           <TextField
             fullWidth
             id="outlined"
-            minRows={4}
-            multiline
-            label="Question"
-            defaultValue={questionString}
+            label="Interview Name"
+            defaultValue={interviewNewName}
             helperText={displayErrorMessages('firstName')}
             required
             sx={{ my: 1 }}
             onChange={(event) => {
-              setQuestionString(event.target.value);
-            }}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            id="outlined"
-            label="Question Number"
-            required
-            defaultValue={questionOrder}
-            onChange={(event) => {
-              setQuestionOrder(event.target.value);
+              setInterviewName(event.target.value);
             }}
           />
         </Grid>
@@ -68,7 +51,7 @@ export function EditQuestionModal(props) {
   return (
     <GenericModal
       openModal={<EditIcon />}
-      modalHeadingTitle="Edit Question"
+      modalHeadingTitle="Edit Interview Name"
       modalMessage={content}
       actionButtonTitle="Save"
       cancelButtonTitle="Cancel"
@@ -77,6 +60,7 @@ export function EditQuestionModal(props) {
     />
   );
 }
-PropTypes.EditQuestionModal = {
-  question: PropTypes.object.isRequired,
+PropTypes.EditInterviewModal = {
+  interviewName: PropTypes.string.isRequired,
+  interviewId: PropTypes.string.isRequired,
 };
