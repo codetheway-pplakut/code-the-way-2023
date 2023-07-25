@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/system';
-import { Button, Grid } from '@mui/material';
+
+import { Button, Grid, Box, Typography } from '@mui/material';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { getInterviewAndQuestionsHandler } from './interviewsHandler';
@@ -11,6 +11,10 @@ import { EntitlementRestricted } from '../entitlement-restricted/entitlement-res
 import { EditQuestionModal } from './editQuestionModal';
 import { QandABlock } from './questionAnswerBlock';
 import { SubmitInterviewModal } from './submitInterviewModal';
+import {
+  AspirationsCardHeader,
+  AspirationsCardFooter,
+} from '../student-details/aspirations-card';
 
 export default function AnswerInterview() {
   const [isLoading, setIsLoading] = useState(false);
@@ -60,8 +64,28 @@ export default function AnswerInterview() {
           >
             Back to Students
           </Button>
-          <Layout title={interviewName}>
-            <Box sx={{ width: '100%' }}>
+          <Box
+            sx={{
+              borderRadius: '10px',
+              boxShadow: 5,
+              mb: 1,
+              bgcolor: '#ffffff',
+              marginTop: 3,
+            }}
+          >
+            <AspirationsCardHeader>
+              <Grid
+                xs={12}
+                padding={2}
+                fontSize={30}
+                fontWeight="medium"
+                color="#505050"
+                align="center"
+              >
+                {interviewName}
+              </Grid>
+            </AspirationsCardHeader>
+            <Box px={6} pb={4}>
               {rows.map((row, index) => (
                 <QandABlock
                   key={row.id}
@@ -71,15 +95,19 @@ export default function AnswerInterview() {
                   setAnswers={setAnswers}
                 />
               ))}
-              <SubmitInterviewModal
-                questions={rows}
-                answers={answers}
-                interviewId={interviewId}
-                interviewName={interviewName}
-                studentId={studentId}
-              />
             </Box>
-          </Layout>
+            <AspirationsCardFooter>
+              <Grid xs={12} align="center" padding={2}>
+                <SubmitInterviewModal
+                  questions={rows}
+                  answers={answers}
+                  interviewId={interviewId}
+                  interviewName={interviewName}
+                  studentId={studentId}
+                />
+              </Grid>
+            </AspirationsCardFooter>
+          </Box>
         </EntitlementRestricted>
       </Grid>
     </Grid>
