@@ -40,6 +40,9 @@ export function EditInterviewModal(props) {
     }
     return null;
   };
+  const reset = () => {
+    setInterviewNewName(interviewName);
+  };
 
   const actionButtonDisabled = Boolean(messages.length);
 
@@ -74,6 +77,7 @@ export function EditInterviewModal(props) {
       cancelButtonTitle="Cancel"
       actionButtonColor="submit"
       onActionButtonClick={submitAction}
+      onModalOpen={reset}
     />
   );
 }
