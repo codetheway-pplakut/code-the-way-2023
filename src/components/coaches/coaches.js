@@ -107,6 +107,7 @@ export function Coaches() {
                 columns={COACHCOLUMNS}
                 requestFunc={getStudentsByCoachId}
                 filterBy={['firstName', 'lastName', 'email']}
+                defaultFilterBy="lastName"
                 customTableMaxHeight={studentTableMaxHeight}
                 requestData={value}
               />
