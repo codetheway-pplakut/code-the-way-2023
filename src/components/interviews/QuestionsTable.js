@@ -66,7 +66,11 @@ export function QuestionsTable() {
       render: (value, row, refreshTable) => (
         <React.Fragment>
           {' '}
-          <EditQuestionModal question={row} onSubmit={refreshTable} />
+          <EditQuestionModal
+            interviewId={interviewId}
+            question={row}
+            onSubmit={refreshTable}
+          />
           <RemoveQuestionModal
             interview={interview}
             questionId={row.id}

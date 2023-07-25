@@ -17,8 +17,9 @@ export function addQuestionHandler(questionString) {
   return addQuestion(data);
 }
 
-export function editQuestionHandler(question) {
-  return editQuestion(question);
+export function editQuestionHandler(questionString, id) {
+  const data = { questionString, id };
+  return editQuestion(data);
 }
 
 export function deleteQuestionHandler(questionId) {
