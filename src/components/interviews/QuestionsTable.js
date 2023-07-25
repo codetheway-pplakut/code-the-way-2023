@@ -52,26 +52,30 @@ export function QuestionsTable() {
       align: 'left',
     },
     {
-      id: 'questionInInterviews[0]',
+      id: 'order',
       disablePadding: false,
       label: 'Order',
       align: 'left',
-      render: (value, row, refreshTable) =>
-        row.questionInInterviews[0].questionOrder,
+      render: (value, row, refreshTable) => row.order,
     },
     {
       id: 'id',
       disablePadding: false,
       label: 'Options',
       align: 'left',
+
       render: (value, row, refreshTable) => (
         <React.Fragment>
-          {' '}
-          <EditQuestionModal question={row} onSubmit={refreshTable} />
+          <EditQuestionModal
+            interviewId={interviewId}
+            question={row}
+            onSubmit={refreshTable}
+          />
           <RemoveQuestionModal
             interview={interview}
             questionId={row.id}
             onRemoval={refreshTable}
+            questionName={row.questionString}
           />
         </React.Fragment>
       ),
@@ -102,13 +106,14 @@ export function QuestionsTable() {
                 APIcolumns={COLUMNS}
                 APIrows={rows}
                 refreshTable={request}
-                filterBy={['questionInInterviews[0].questionOrder']}
-                defaultFilterBy="questionInInterviews[0].questionOrder"
+                filterBy={['questionString']}
+                defaultFilterBy="order"
               >
                 <AddQuestionModal
                   questions={rows}
                   interviewId={interviewId}
                   interviewName={interviewName}
+                  onSubmit={request}
                 />
               </DynamicTable>
             </Box>

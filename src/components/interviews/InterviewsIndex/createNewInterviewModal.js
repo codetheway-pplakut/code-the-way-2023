@@ -26,7 +26,7 @@ export function CreateInterviewModal(props) {
     { name },
     {
       name: {
-        presence: { allowEmpty: false, message: 'Must not be Blank' },
+        presence: { allowEmpty: false, message: 'Must not be blank' },
       },
     },
     { fullMessages: false }
@@ -65,7 +65,7 @@ export function CreateInterviewModal(props) {
       onModalOpen={reset}
     >
       <Grid container justifyContent="center">
-        <Grid item xs={9}>
+        <Grid item xs={9} height={100}>
           <TextField
             fullWidth
             onChange={(event) => setName(event.target.value)}

@@ -7,7 +7,7 @@ import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
 import { getInterviewsHandler } from '../interviewsHandler';
 import { CreateInterviewModal } from './createNewInterviewModal';
-import { DeleteInterviewModal } from './deleteInterviewModal';
+import { EditInterviewModal } from './editInterviewModal';
 
 export function Interviews() {
   const refreshPage = () => {
@@ -31,15 +31,18 @@ export function Interviews() {
     {
       id: 'options',
       disablePadding: false,
+      label: 'Edit',
       align: 'left',
       render: (value, row, refreshTable) => {
         const { id, interviewName } = row;
         return (
-          <DeleteInterviewModal
-            interviewId={id}
-            interviewName={interviewName}
-            onSubmit={refreshTable}
-          />
+          <Box>
+            <EditInterviewModal
+              onSubmit={refreshTable}
+              interviewId={id}
+              interviewName={interviewName}
+            />
+          </Box>
         );
       },
     },

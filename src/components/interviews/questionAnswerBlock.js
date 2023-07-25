@@ -18,6 +18,9 @@ export function QandABlock(props) {
       </h3>
       <TextField
         fullWidth
+        multiline
+        minRows={1}
+        maxRows={5}
         value={answer}
         label="Answer"
         onChange={updateFieldChanged()}

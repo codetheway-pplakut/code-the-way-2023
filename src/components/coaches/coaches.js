@@ -17,7 +17,7 @@ export function Coaches() {
   const authentication = useAuthentication();
   const { username } = authentication;
 
-  const STUDENTCOLUMNS = [
+  const COACHCOLUMNS = [
     {
       id: 'firstName',
       disablePadding: false,
@@ -100,15 +100,17 @@ export function Coaches() {
           <GenericViewModal
             openModal={<InfoOutlinedIcon />}
             modalHeadingTitle={`View ${row.coachFirstName}'s Students`}
-            viewModalWidth={900}
+            viewModalWidth={800}
           >
-            <DynamicTableWithRequest
-              columns={STUDENTCOLUMNS}
-              requestFunc={getStudentsByCoachId}
-              filterBy={['firstName', 'lastName', 'email']}
-              customTableMaxHeight={studentTableMaxHeight}
-              requestData={value}
-            />
+            <Grid padding={3}>
+              <DynamicTableWithRequest
+                columns={COACHCOLUMNS}
+                requestFunc={getStudentsByCoachId}
+                filterBy={['firstName', 'lastName', 'email']}
+                customTableMaxHeight={studentTableMaxHeight}
+                requestData={value}
+              />
+            </Grid>
           </GenericViewModal>
         );
       },

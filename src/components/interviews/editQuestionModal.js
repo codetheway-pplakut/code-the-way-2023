@@ -2,18 +2,17 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Grid, TextField } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { flattenDeep } from 'lodash';
-import { validate } from 'validate.js';
 import GenericModal from '../shared/generic-modal';
-import { editQuestionHandler } from './questionsHandler';
+import {
+  editQuestionHandler,
+  updateQuestionInInterviewHandler,
+} from './questionsHandler';
 
 export function EditQuestionModal(props) {
-  const { question, onSubmit } = props;
+  const { interviewId, question, onSubmit } = props;
 
   const [questionString, setQuestionString] = useState(question.questionString);
-  const [questionOrder, setQuestionOrder] = useState(
-    question.questionInInterviews[0].questionOrder
-  );
+  const [questionOrder, setQuestionOrder] = useState(question.order);
 
   const displayErrorMessages = () => {
     const errors = false;
@@ -24,10 +23,12 @@ export function EditQuestionModal(props) {
   };
   const submitAction = async () => {
     try {
-      const updatedQuestion = question;
-      question.questionString = questionString;
-      question.questionInInterviews[0].questionOrder = questionOrder;
-      await editQuestionHandler(updatedQuestion);
+      await editQuestionHandler(questionString, question.id);
+      await updateQuestionInInterviewHandler(
+        interviewId,
+        questionOrder,
+        question.id
+      );
       onSubmit();
     } catch (error) {
       console.log(error);

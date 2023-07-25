@@ -1,8 +1,10 @@
 import React from 'react';
+
 import PropTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
-import GenericModal from '../../shared/generic-modal';
-import { deleteInterviewHandler } from '../interviewsHandler';
+import { Typography } from '@mui/material';
+import GenericModal from '../shared/generic-modal';
+import { deleteInterviewHandler } from './interviewsHandler';
 
 export function DeleteInterviewModal(props) {
   const { interviewId, interviewName, onSubmit } = props;
@@ -15,8 +17,15 @@ export function DeleteInterviewModal(props) {
   return (
     <GenericModal
       openModal={<DeleteIcon />}
-      modalHeadingTitle="Deactivate Coach"
-      modalMessage={`Are you sure you want to delete ${interviewName}?`}
+      modalHeadingTitle="Delete Interview"
+      modalMessage={
+        <Typography fontSize={20}>
+          Are you sure you want to delete this interview?
+          <Typography paddingTop={2} color="#505050">
+            Interview name: {interviewName}
+          </Typography>
+        </Typography>
+      }
       actionButtonTitle="Delete"
       cancelButtonTitle="Cancel"
       actionButtonColor="archive"
