@@ -10,9 +10,8 @@ import AddIcon from '@mui/icons-material/Add';
 import propTypes from 'prop-types';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { flattenDeep, set } from 'lodash';
-
 import { ErrorOutline, Today } from '@mui/icons-material';
-import { GenericModal } from '../../shared/generic-modal';
+import GenericModal from '../../shared/generic-modal';
 import { TextFieldWithErrorMessage } from '../../shared/text-field-with-error-message';
 import {
   editGoalHandler,
