@@ -5,6 +5,7 @@ import { Button, Grid, TextField, Typography } from '@mui/material';
 import { flattenDeep } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
+import { pink } from '@mui/material/colors';
 import { Layout } from '../layout/layout';
 import {
   uppercaseLetter,
@@ -86,6 +87,7 @@ export function ResetPassword() {
     try {
       setErrorMessage('');
       await resetPassword(data);
+      navigate('/');
     } catch (e) {
       console.log(e);
       if (e.response.status === 400) {
@@ -105,8 +107,6 @@ export function ResetPassword() {
     setEmailEdit(false);
     setPasswordEdit(false);
     setConfirmPasswordEdit(false);
-
-    navigate('/login');
   };
   return (
     <Layout title="Reset Password">
