@@ -5,7 +5,6 @@ import { flattenDeep, set } from 'lodash';
 
 import GenericModal from '../shared/generic-modal';
 import { requestPasswordReset } from '../../services/users/users';
-import { LayoutError } from '../layout/layout-error/layout-error';
 
 export function ForgotPasswordModal(props) {
   const { onError } = props;
