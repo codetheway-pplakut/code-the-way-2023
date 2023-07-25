@@ -57,7 +57,7 @@ export function Admins() {
                 requestFunc={getActiveAdminsHandler}
                 filterBy={['email']}
               >
-                <AddAdminModal onSubmit={() => refreshPage} />
+                <AddAdminModal onSubmit={refreshPage} />
               </DynamicTableWithRequest>
             </Box>
           </Layout>

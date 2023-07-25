@@ -141,11 +141,20 @@ export function Students() {
       align: 'left',
       hideOrder: true,
     },
-
     {
       id: 'applicants',
       disablePadding: false,
       align: 'left',
+      hideOrder: true,
+      render: (value, row, refreshTable) => {
+        const { id } = row;
+        return <ChooseInterviewModal studentId={id} />;
+      },
+    },
+    {
+      id: 'applicants',
+      disablePadding: false,
+      align: 'right',
       hideOrder: true,
       render: (value, row, refreshTable) => {
         const { id } = row;
@@ -161,7 +170,6 @@ export function Students() {
               onStudentReject={refreshTable}
               student={row}
             />
-            <ChooseInterviewModal studentId={id} />
           </React.Fragment>
         );
       },
