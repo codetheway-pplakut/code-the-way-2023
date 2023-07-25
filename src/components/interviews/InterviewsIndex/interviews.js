@@ -8,7 +8,6 @@ import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequ
 import { getInterviewsHandler } from '../interviewsHandler';
 import { CreateInterviewModal } from './createNewInterviewModal';
 import { EditInterviewModal } from './editInterviewModal';
-import { DeleteInterviewModal } from '../deleteInterviewModal';
 
 export function Interviews() {
   const refreshPage = () => {
@@ -32,7 +31,7 @@ export function Interviews() {
     {
       id: 'options',
       disablePadding: false,
-      label: 'Options',
+      label: 'Edit',
       align: 'left',
       render: (value, row, refreshTable) => {
         const { id, interviewName } = row;
@@ -42,11 +41,6 @@ export function Interviews() {
               onSubmit={refreshTable}
               interviewId={id}
               interviewName={interviewName}
-            />
-            <DeleteInterviewModal
-              onSubmit={refreshTable}
-              interviewName={interviewName}
-              interviewId={row.id}
             />
           </Box>
         );
