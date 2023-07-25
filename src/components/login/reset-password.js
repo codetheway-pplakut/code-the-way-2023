@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box } from '@mui/system';
 import { validate } from 'validate.js';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import { flattenDeep } from 'lodash';
 import { useNavigate } from 'react-router-dom';
 
@@ -15,8 +15,7 @@ import {
 } from '../shared/validation-regexes';
 import { resetPassword } from '../../services/users/users';
 
-export function ResetPassword(props) {
-  const { onError } = props;
+export function ResetPassword() {
   const [email, setEmail] = React.useState('');
   const [emailEdit, setEmailEdit] = React.useState(false);
   const [password, setPassword] = React.useState('');
@@ -25,9 +24,7 @@ export function ResetPassword(props) {
   const [confirmPasswordEdit, setConfirmPasswordEdit] = React.useState(false);
   const url = window.location.href;
   const [token, setToken] = React.useState(url.split('token=')[1]);
-  const [open, setOpen] = React.useState(false);
   const [tokenEdit, setTokenEdit] = React.useState(false);
-  const [error, setError] = React.useState('');
 
   validate.validators.lowercaseLetter = lowercaseLetter;
   validate.validators.specialCharacter = specialCharacter;
@@ -62,9 +59,6 @@ export function ResetPassword(props) {
     },
     { fullMessages: false }
   );
-  useEffect(() => {
-    setOpen(false);
-  }, []);
 
   const displayErrorMessages = (field) => {
     const errors = validator && validator[field];
@@ -87,24 +81,6 @@ export function ResetPassword(props) {
 
   const submitAction = async () => {
     const data = { token, email, password, confirmPassword };
-    try {
-      setError('');
-      setEmail('');
-      setEmailEdit(false);
-      setOpen(true);
-    } catch (e) {
-      console.log(e);
-      if (e.response.status === 400) {
-        setError(
-          'The provided email may be misspelled. Please check and try again.'
-        );
-      } else {
-        setError('An unknown error occurred. Please try again later.');
-      }
-
-      setEmail('');
-      setEmailEdit(false);
-    }
     await resetPassword(data);
     setToken('');
     setEmail('');
@@ -118,7 +94,6 @@ export function ResetPassword(props) {
 
     navigate('/login');
   };
-  if (error) onError(error);
   return (
     <Layout title="Reset Password">
       <Box sx={{ width: '100%' }}>
