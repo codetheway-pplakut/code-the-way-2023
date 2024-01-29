@@ -7,7 +7,7 @@ import { getInterviewAndQuestionsHandler } from './interviewsHandler';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 import { Layout } from '../layout/layout';
-import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../entitlement-restricted/restricted-restricted';
 import { EditQuestionModal } from './editQuestionModal';
 import { QandABlock } from './questionAnswerBlock';
 import { SubmitInterviewModal } from './submitInterviewModal';
@@ -54,7 +54,7 @@ export default function AnswerInterview() {
   return (
     <Grid container justifyContent="center" alignItems="center">
       <Grid item justifyContent="center">
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Button
             onClick={onClick}
             size="small"
@@ -111,7 +111,7 @@ export default function AnswerInterview() {
               </AspirationsCardFooter>
             </Box>
           </Grid>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );

@@ -3,7 +3,7 @@ import { Box, Grid } from '@mui/material';
 
 import { NavLink } from 'react-router-dom';
 import { Layout } from '../../layout/layout';
-import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../../entitlement-restricted/restricted-restricted';
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
 import { getInterviewsHandler } from '../interviewsHandler';
 import { CreateInterviewModal } from './createNewInterviewModal';
@@ -52,7 +52,7 @@ export function Interviews() {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Layout title="Interviews">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
@@ -66,7 +66,7 @@ export function Interviews() {
               </DynamicTableWithRequest>
             </Box>
           </Layout>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );

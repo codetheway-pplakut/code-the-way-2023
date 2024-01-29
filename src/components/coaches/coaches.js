@@ -3,7 +3,7 @@ import { Box, Grid, Link, Typography } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { NavLink } from 'react-router-dom';
 import { Layout } from '../layout/layout';
-import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../entitlement-restricted/restricted-restricted';
 import { getActiveCoaches } from '../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { DeactivateCoachModal } from './de-activate-coach-modal';
@@ -144,6 +144,7 @@ export function Coaches() {
             <DeactivateCoachModal
               coachId={value}
               coach={row}
+              coachEmail={row.coachEmail}
               refreshTable={refreshTable}
             />
           );
@@ -161,7 +162,7 @@ export function Coaches() {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Layout title="Coaches">
             <Box sx={{ width: '100%' }}>
               <DynamicTableWithRequest
@@ -175,7 +176,7 @@ export function Coaches() {
               </DynamicTableWithRequest>
             </Box>
           </Layout>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );
