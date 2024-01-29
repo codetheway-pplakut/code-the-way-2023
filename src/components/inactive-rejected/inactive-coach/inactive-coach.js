@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Grid } from '@mui/material';
-import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../../entitlement-restricted/restricted-restricted';
 import { getInactiveCoaches } from '../../../services/coaches/coaches';
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
 import { ActivateCoachModal } from '../../coaches/de-activate-coach-modal';
@@ -58,7 +58,7 @@ export function InactiveCoach() {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={100}>
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Box sx={{ width: '100%' }}>
             <DynamicTableWithRequest
               columns={COLUMNS}
@@ -68,7 +68,7 @@ export function InactiveCoach() {
               customTableMaxHeight={510}
             />
           </Box>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );

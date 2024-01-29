@@ -5,7 +5,7 @@ import {
   getRejectedStudents,
 } from '../../../services/students/students';
 import { DynamicTableWithRequest } from '../../table-layout/dynamicTableWithRequest';
-import { EntitlementRestricted } from '../../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../../entitlement-restricted/restricted-restricted';
 import { ActivateStudentModal } from '../../students/de-activate-student-modal';
 
 const COLUMNS = [
@@ -47,7 +47,7 @@ export function InactiveRejectedStudent() {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={100}>
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Box sx={{ width: '100%' }}>
             <DynamicTableWithRequest
               columns={COLUMNS}
@@ -57,7 +57,7 @@ export function InactiveRejectedStudent() {
               customTableMaxHeight={510}
             />
           </Box>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );

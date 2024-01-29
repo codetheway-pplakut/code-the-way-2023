@@ -8,7 +8,7 @@ import { DynamicTable } from '../table-layout/dynamicTable';
 import { LayoutPreloader } from '../layout/layout-preloader/layout-preloader';
 import { LayoutError } from '../layout/layout-error/layout-error';
 import { Layout } from '../layout/layout';
-import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../entitlement-restricted/restricted-restricted';
 import { EditQuestionModal } from './editQuestionModal';
 import AddQuestionModal from './addQuestionModal';
 import { RemoveQuestionModal } from './removeQuestionHandler';
@@ -92,7 +92,7 @@ export function QuestionsTable() {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Button
             onClick={onClick}
             size="small"
@@ -120,7 +120,7 @@ export function QuestionsTable() {
               </DynamicTable>
             </Box>
           </Layout>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Grid, Tab, Tabs } from '@mui/material';
-import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../entitlement-restricted/restricted-restricted';
 import { Layout } from '../layout/layout';
 import { InactiveRejectedStudent } from './inactive-rejected-student/inactive-rejected-student';
 import { InactiveCoach } from './inactive-coach/inactive-coach';
@@ -14,7 +14,7 @@ export function InactiveRejected() {
   };
 
   return (
-    <EntitlementRestricted>
+    <RestrictedRestricted>
       <Grid container justifyContent="center">
         <Box sx={{ width: '83%' }} style={{ align: 'center' }}>
           <Layout title="Inactive/Rejected">
@@ -29,6 +29,6 @@ export function InactiveRejected() {
           </Layout>
         </Box>
       </Grid>
-    </EntitlementRestricted>
+    </RestrictedRestricted>
   );
 }

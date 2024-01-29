@@ -2,9 +2,9 @@ import { Navigate, useLocation } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useAuthentication } from '../../contexts/authentication-context/authentication-context';
-import { ENTITLEMENT_ROLES } from '../../constants/entitlement-roles';
+import { RESTRICTED_ROLES } from '../../constants/restricted-roles';
 
-export function EntitlementRestricted(props) {
+export function RestrictedRestricted(props) {
   const { children, requiredRoles } = props;
 
   const authentication = useAuthentication();
@@ -23,12 +23,12 @@ export function EntitlementRestricted(props) {
   return children;
 }
 
-EntitlementRestricted.propTypes = {
+RestrictedRestricted.propTypes = {
   children: PropTypes.node,
   requiredRoles: PropTypes.arrayOf(PropTypes.string),
 };
 
-EntitlementRestricted.defaultProps = {
+RestrictedRestricted.defaultProps = {
   children: null,
-  requiredRoles: [ENTITLEMENT_ROLES.ADMIN],
+  requiredRoles: [RESTRICTED_ROLES.ADMIN, RESTRICTED_ROLES.COACH],
 };

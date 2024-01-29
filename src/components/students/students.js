@@ -14,7 +14,7 @@ import { DeactivateStudentModal } from './de-activate-student-modal';
 import { AddStudentModal } from './add-student-modal';
 import { ChooseCoachModal } from './choose-coach-modal';
 import { Layout } from '../layout/layout';
-import { EntitlementRestricted } from '../entitlement-restricted/entitlement-restricted';
+import { RestrictedRestricted } from '../entitlement-restricted/restricted-restricted';
 import DynamicTabs from '../table-layout/dynamicTabs';
 import { DynamicTableWithRequest } from '../table-layout/dynamicTableWithRequest';
 import { getActiveCoachesHandler } from '../coaches/coachHandlers';
@@ -182,7 +182,7 @@ export function Students() {
   return (
     <Grid container justifyContent="center">
       <Grid item xs={10}>
-        <EntitlementRestricted>
+        <RestrictedRestricted>
           <Layout title="Students">
             <DynamicTabs
               tabNames={['Active', 'Applicant']}
@@ -214,7 +214,7 @@ export function Students() {
               )}
             </Box>
           </Layout>
-        </EntitlementRestricted>
+        </RestrictedRestricted>
       </Grid>
     </Grid>
   );
