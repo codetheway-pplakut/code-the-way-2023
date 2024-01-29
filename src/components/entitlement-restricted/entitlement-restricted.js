@@ -30,5 +30,5 @@ EntitlementRestricted.propTypes = {
 
 EntitlementRestricted.defaultProps = {
   children: null,
-  requiredRoles: [ENTITLEMENT_ROLES.ADMIN],
+  requiredRoles: [ENTITLEMENT_ROLES.ADMIN, ENTITLEMENT_ROLES.COACH],
 };

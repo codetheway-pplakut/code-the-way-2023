@@ -144,6 +144,7 @@ export function Coaches() {
             <DeactivateCoachModal
               coachId={value}
               coach={row}
+              coachEmail={row.coachEmail}
               refreshTable={refreshTable}
             />
           );
